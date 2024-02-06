@@ -20,3 +20,13 @@ The <b>ft_transcendance</b> is a collaborative project at 42 School, involving t
 
 Go to [42 Québec](https://42quebec.com/) to discover the course ! 👈
 </div>
+
+---
+
+<h3 align="center">Collaborators 👨🏼‍🚀</h3>
+
+<div align="center">
+
+This project is realized as a team effort with [demenciel](https://github.com/demenciel), [TwindZ](https://github.com/TwindZ) and [Prezcoder](https://github.com/Prezcoder) 🚀
+
+</div>
