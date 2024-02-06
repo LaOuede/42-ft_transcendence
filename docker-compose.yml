@@ -5,7 +5,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:15.3-alpine3.18
-    container_name: postgres_guignolee
+    container_name: postgres
     env_file:
       - .env
     restart: always
@@ -13,20 +13,20 @@ services:
       - ./postgres/config/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - guignolee
+      - transcendence
 
   backend:
     build:
       context: backend
       dockerfile: Dockerfile.Prod
-    container_name: backend_guignolee
+    container_name: backend_transcendence
     restart: always
     env_file:
       - .env
     volumes:
-      - guignolee_ssl_certs:/secrets
+      - transcendence_ssl_certs:/secrets
     networks:
-      - guignolee
+      - transcendence
     depends_on:
       postgres:
         condition: service_started
@@ -35,10 +35,10 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile.Prod
-    container_name: frontend_guignolee
+    container_name: frontend_transcendence
     restart: always
     networks:
-      - guignolee
+      - transcendence
     depends_on:
       backend:
         condition: service_started
@@ -46,24 +46,24 @@ services:
   nginx:
     image: nginx:1.21-alpine
     restart: unless-stopped
-    container_name: nginx_guignolee
+    container_name: nginx_transcendence
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - guignolee_ssl_certs:/etc/nginx/ssl
+      - transcendence_ssl_certs:/etc/nginx/ssl
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - guignolee
+      - transcendence
     depends_on:
       - frontend
 
 networks:
-  guignolee:
-    name: guignolee_network
+  transcendence:
+    name: transcendence_network
     driver: bridge
 
 volumes:
   postgres_data:
 
-  guignolee_ssl_certs:
+  transcendence_ssl_certs:
