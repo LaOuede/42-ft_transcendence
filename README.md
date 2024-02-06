@@ -33,9 +33,9 @@ This project is realized as a team effort with [demenciel](https://github.com/de
 
 ---
 
-<h2 align="center">Setup 🛠️</h2>
+<h2 align="left">Setup 🛠️</h2>
 
-<div align="center">
+<div align="left">
 
 To launch the project, simply run the `make up` command at the root of the project.
 
