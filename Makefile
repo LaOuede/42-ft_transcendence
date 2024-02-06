@@ -3,7 +3,7 @@ DOCKER_RUNNING := $(shell docker info > /dev/null 2>&1 && echo true || echo fals
 
 # ---------------------------------------------------------------------------- #
 # Check if docker is running (utility function)
-check_docker_status: check_env
+check_docker_status:
 	@if [ "$(DOCKER_RUNNING)" != "true" ]; then exit 1; fi
 
 check_env:
@@ -18,7 +18,9 @@ help: check_docker_status
 	@echo "Usage: make [target]"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-up: dev # Start the containers in development mode
+#up: dev # Start the containers in development mode
+up:
+	docker compose up -d
 
 dev: check_docker_status ## Start the containers in development mode
 	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
@@ -36,14 +38,10 @@ prod: check_docker_status ## Start the containers in production mode
 down: check_docker_status ## Stop the containers
 	docker compose down
 
-reup: check_docker_status down up ## Restart the containers
+reup: down up ## Restart the containers
 
 status: check_docker_status ## Check the status of the containers
 	@docker compose ps
-
-pretty: check_docker_status ## Execute `yarn run format` in the frontend container
-	-@docker compose exec frontend yarn run format
-	-@docker compose exec backend yarn run format
 
 # ---------------------------------------------------------------------------- #
 db: check_docker_status ## Open database shell
@@ -51,15 +49,6 @@ db: check_docker_status ## Open database shell
 
 psql: check_docker_status ## Open postgresql shell
 	docker compose exec postgres psql -U postgres -d postgres
-
-prisma: check_docker_status ## Open prisma studio
-	docker compose exec backend npx prisma studio --port 5555 --browser none
-
-seed: check_docker_status ## Run prisma migration
-	docker compose exec backend npx prisma db seed
-
-migrate: check_docker_status
-	docker compose exec backend npx prisma migrate dev
 
 # ---------------------------------------------------------------------------- #
 shell-%: check_docker_status ## Open a bash shell in the container
