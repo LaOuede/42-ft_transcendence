@@ -15,7 +15,7 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-      - guignolee_ssl_certs:/secrets
+      - transcendence_ssl_certs:/secrets
     ports:
       - "5555:5555" # Prisma Studio port
 
