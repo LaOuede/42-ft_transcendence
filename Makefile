@@ -32,8 +32,8 @@ dev: check_docker_status ## Start the containers in development mode
 	fi
 	
 
-prod: check_docker_status ## Start the containers in production mode
-	docker compose up -d --build --remove-orphans --force-recreate
+#prod: check_docker_status ## Start the containers in production mode
+#	docker compose up -d --build --remove-orphans --force-recreate
 
 down: check_docker_status ## Stop the containers
 	docker compose down
@@ -45,7 +45,7 @@ status: check_docker_status ## Check the status of the containers
 
 # ---------------------------------------------------------------------------- #
 db: check_docker_status ## Open database shell
-	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d postgres
+	docker compose -f docker-compose.yml up -d postgres
 
 psql: check_docker_status ## Open postgresql shell
 	docker compose exec postgres psql -U postgres -d postgres

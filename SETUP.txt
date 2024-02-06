@@ -1,0 +1,26 @@
+SETUP 
+Pour lancer le projet simplement lancé la commande `make up` à la racine du projet.
+Django: http://localhost:8000/
+
+
+PGADMIN:
+
+Pour avoir accès à une interface graphique pour la db, on se sert de pgAdmin.
+
+1. Après avoir lancé les dockers, une fois que tout est up and running, on peux accèder à pgAdmin avec le port 5050
+    http://localhost:5050
+
+2. Une fois sur la page, simplement entrée les credentials qui sont dans le .environment
+
+3. Une fois connecté, aller dans l'ongler Add Server
+
+4. Onglet Générale:
+        Name: transcendance_db (le nom de la db)
+
+5. Onglet connection:
+        hostname/adress: postgres (le nom du container)
+        username: les credentials de la db dans le .env
+        password: les credentials de la db dans le .env
+
+Soumettre
+
