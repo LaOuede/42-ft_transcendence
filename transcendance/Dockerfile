@@ -13,5 +13,12 @@ COPY requirements.txt /backend/
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+
 # Copy project
 COPY . /backend/
+
+# Copy entrypoint script into the image
+COPY ./tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+

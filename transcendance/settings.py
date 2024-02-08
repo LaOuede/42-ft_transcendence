@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'transcendance.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'transcendance_db',
+        'USER': 'ponguser',
+        'PASSWORD': 'pongpassword',
+        'HOST': 'postgres',
+        'PORT': '5432',
     }
 }
 
