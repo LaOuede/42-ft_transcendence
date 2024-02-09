@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Transcendence Pong{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>Welcome to Transcendence Pong</h1>
+    </header>
+    <nav class="nav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'play' %}">Play</a>
+        <a href="{% url 'tournaments' %}">Leaderboard</a>
+    </nav>
+    
+    <main class="main">
+        {% block content %}
+        <!-- Content will be overridden by each child template -->
+        {% endblock %}
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Transcendence Pong. All rights reserved.</p>
+    </footer>
+</body>
+</html>
