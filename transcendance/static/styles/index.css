@@ -12,7 +12,13 @@ body {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 1em 0;
+    padding: 1em 1em;
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .main {
     flex: 1;
@@ -34,4 +40,34 @@ body {
 .nav a:hover {
     background-color: #ddd;
     color: black;
+}
+
+.fa-brands {
+    padding-left: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li {
+    display: inline; /* or 'inline-block' if you want to give some margin, padding, etc. */
+    margin-right: 10px; /* Adjust spacing as needed */
+  }
+  
+  .github-link {
+    text-decoration: none;
+    color: #ddd; /* Or any color */
+  }
+  
+  .github-link:hover,
+  .github-link:hover .fa-brands {
+    color: #f37c6c; /* Color on hover */
+  }
+  
+
+#github-links {
+    text-decoration: none;
+    color: #ddd;
 }
