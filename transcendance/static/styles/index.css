@@ -1,0 +1,37 @@
+
+/* Add your CSS here */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.header, .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+.main {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+.nav {
+    background-color: #555;
+    overflow: hidden;
+}
+.nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+.nav a:hover {
+    background-color: #ddd;
+    color: black;
+}

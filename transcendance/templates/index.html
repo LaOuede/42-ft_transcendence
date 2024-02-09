@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transcendence Pong</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/index.css' %}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Welcome to Transcendence Pong</h1>
+    </header>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="/play">Play</a>
+      <a href="/tournaments">Leaderboard</a>
+    </nav>
+    <main class="main">
+      <h2>The Ultimate Pong Challenge</h2>
+      <p>
+        Experience the classic game of Pong like never before. Join the
+        Transcendence Pong community and rise to the top of the leaderboard!
+      </p>
+      <button
+        onclick="location.href='/play';"
+        style="padding: 10px 20px; font-size: 16px"
+      >
+        Start Playing
+      </button>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024 Transcendence Pong. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

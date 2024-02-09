@@ -54,6 +54,12 @@ psql: check_docker_status ## Open postgresql shell
 shell-%: check_docker_status ## Open a bash shell in the container
 	@docker compose exec $* sh
 
+# ---------------------------------------------------------------------------- #
+# make django commands
+# ---------------------------------------------------------------------------- #
+django:
+	@docker compose exec django python manage.py $*
+
 # ----------------------------------------------------------------------------
 logs: ## Shows logs lively in the container
 	@docker compose logs --follow --tail 100
