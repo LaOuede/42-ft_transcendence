@@ -13,7 +13,8 @@ services:
 
   backend:
     build: ./transcendance
-    entrypoint: transcendance/tools/entrypoint.sh
+    # entrypoint: transcendance/tools/entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/backend
     ports:
