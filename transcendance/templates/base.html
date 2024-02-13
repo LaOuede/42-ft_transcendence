@@ -92,7 +92,7 @@
       })
         .then((response) => response.text())
         .then((html) => {
-          document.querySelector(".main").innerHTML = html; // Ensure this selector matches your content area
+          document.querySelector(".main").innerHTML = html;
           history.pushState({ path: path }, "", "/" + path);
         });
     }
