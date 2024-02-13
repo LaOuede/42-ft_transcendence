@@ -1,0 +1,86 @@
+.signup-container {
+    max-width: 64rem;
+    margin: auto;
+    padding: 1.5rem;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.signup-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.signup-description {
+    color: #6b7280;
+}
+
+.signup-form .input-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.input-group input {
+    height: 2.5rem;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    font-size: 0.875rem;
+}
+
+.input-group input:focus {
+    outline: 2px solid #3b82f6;
+    border-color: transparent;
+}
+
+.signup-btn,
+.enable-2fa-btn {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    height: 2.5rem;
+    font-size: 0.875rem;
+    font-weight: medium;
+    text-align: center;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.signup-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+.signup-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.enable-2fa-btn {
+    background-color: #f9fafb;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.enable-2fa-btn:hover {
+    background-color: #e5e7eb;
+}
