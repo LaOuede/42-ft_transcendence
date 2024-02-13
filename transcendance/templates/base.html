@@ -23,12 +23,15 @@
       <h1>Welcome to Transcendence Pong</h1>
     </header>
     <nav class="nav">
-      <a href="{% url 'index' %}">Home</a>
-      <a href="{% url 'play' %}">Play</a>
-      <a href="{% url 'tournaments' %}">Leaderboard</a>
+      <a href="#" onclick="loadContent(''); return false;">Home</a>
+      <a href="#" onclick="loadContent('play/'); return false;">Play</a>
+      <a href="#" onclick="loadContent('tournaments/'); return false;"
+        >Tournaments</a
+      >
     </nav>
 
-    <main class="main">
+    <main class="main" id="content">
+
       {% block content %}
       <!-- Content will be overridden by each child template -->
       {% endblock %}
@@ -38,31 +41,66 @@
       <p>&copy; 2024 Transcendence Pong.</p>
       <ul class="footer-links">
         <li>
-          <a href="https://github.com/demenciel" target="_blank" class="github-link"
+          <a
+            href="https://github.com/demenciel"
+            target="_blank"
+            class="github-link"
             ><i class="fa-brands fa-github"></i> acouture</a
           >
         </li>
         <li>
-          <a href="https://github.com/TwindZ" target="_blank" class="github-link"
+          <a
+            href="https://github.com/TwindZ"
+            target="_blank"
+            class="github-link"
             ><i class="fa-brands fa-github"></i> emlamoth</a
           >
         </li>
         <li>
-          <a href="https://github.com/Prezcoder" target="_blank" class="github-link"
+          <a
+            href="https://github.com/Prezcoder"
+            target="_blank"
+            class="github-link"
             ><i class="fa-brands fa-github"></i> fbouchar</a
           >
         </li>
         <li>
-          <a href="https://github.com/LaOuede" target="_blank" class="github-link"
+          <a
+            href="https://github.com/LaOuede"
+            target="_blank"
+            class="github-link"
             ><i class="fa-brands fa-github"></i> gle-roux</a
           >
         </li>
         <li>
-          <a href="https://github.com/Mehourka" target="_blank" class="github-link"
+          <a
+            href="https://github.com/Mehourka"
+            target="_blank"
+            class="github-link"
             ><i class="fa-brands fa-github"></i> kmehour</a
           >
         </li>
       </ul>
     </footer>
   </body>
+  <script>
+    function loadContent(path) {
+      fetch("/" + path, {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      })
+        .then((response) => response.text())
+        .then((html) => {
+          document.querySelector(".main").innerHTML = html; // Ensure this selector matches your content area
+          history.pushState({ path: path }, "", "/" + path);
+        });
+    }
+
+    window.onpopstate = function (event) {
+      if (event.state) {
+        loadContent(event.state.path);
+      }
+    };
+  </script>
 </html>

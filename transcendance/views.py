@@ -1,11 +1,19 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+def is_ajax(request):
+    return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
 def index(request):
-    return render(request, 'index.html')
+    if is_ajax(request):
+        return render(request, 'index.html')
+    return render(request, 'base.html')
 
 def play(request):
-    return render(request, 'play.html')
+    if is_ajax(request):
+        return render(request, 'play.html')
+    return render(request, 'base.html')
 
 def tournaments(request):
-    return render(request, 'tournaments.html')
+    if is_ajax(request):
+        return render(request, 'tournaments.html')
+    return render(request, 'base.html')
