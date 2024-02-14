@@ -1,1 +1,38 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore the virtual environment
+venv/
+
+# Ignore local development settings
+*.sqlite3
+*.pyc
+*.log
+
+# Ignore environment variables file
 .env
+
+# Ignore static files collected for production
+staticfiles/
+
+# Ignore database backups
+*.bak
+
+# Ignore media files
+media/
+
+# Ignore secret key
+*.key
+
+# Ignore system files and directories
+.DS_Store
+Thumbs.db
+
+# Ignore nginx logs
+logs/
+
+# Ignore PostgreSQL database files
+*.pg_dump
+
+# Ignore any other generated files or directories
+__pycache__/

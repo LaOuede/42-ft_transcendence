@@ -15,3 +15,5 @@ RUN pip install --upgrade pip && \
 
 # Copy project
 COPY . /backend/
+
+#ENTRYPOINT ["tail", "-f", "/dev/null"]

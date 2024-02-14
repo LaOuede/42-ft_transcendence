@@ -20,7 +20,7 @@ help: check_docker_status
 
 #up: dev # Start the containers in development mode
 up:
-	docker compose up -d
+	docker-compose up -d
 
 dev: check_docker_status ## Start the containers in development mode
 	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d

@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Transcendence Pong{% endblock %}</title>
+    <title>{% block title %}Transcendence Pong{%                 %}</title>
     {% load static %}
-    <script src="{% static 'js/auth.js' %}" defer></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -32,6 +31,7 @@
     </nav>
 
     <main class="main" id="content">
+
       {% block content %}
       <!-- Content will be overridden by each child template -->
       {% endblock %}
@@ -84,24 +84,6 @@
     </footer>
   </body>
   <script>
-    window.onload = function () {
-      loadFullPage("signup/");
-    };
-
-    function loadFullPage(path) {
-      fetch("/" + path, {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      })
-        .then((response) => response.text())
-        .then((html) => {
-          document.body.innerHTML = html;
-          // After loading the signup, attach any needed event listeners to the signup form
-          attachSignupFormListener();
-        });
-    }
-
     function loadContent(path) {
       fetch("/" + path, {
         headers: {
