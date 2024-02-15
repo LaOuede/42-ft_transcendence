@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from user import views
+from base import views
 from user.views import ProfileCreate, ProfileDelete
 
 urlpatterns = [

@@ -1,28 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
 from user.models import Profile
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProfileSerializer
-
-def is_ajax(request):
-    return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-
-def index(request):
-    if is_ajax(request):
-        return render(request, './index.html')
-    return render(request, './base.html')
-
-def play(request):
-    if is_ajax(request):
-        return render(request, './play.html')
-    return render(request, './base.html')
-
-def tournaments(request):
-    if is_ajax(request):
-        return render(request, './tournaments.html')
-    return render(request, './base.html')
 
 class ProfileCreate(APIView):
     def post(self, request):
