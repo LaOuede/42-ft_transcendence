@@ -39,24 +39,32 @@ class ProfileTestCase(TestCase):
         self.assertEqual(user.email, "CheckTest@gmail.com")
         self.assertEqual(user.status, "UN")
 
+    def test_delete_user(self):
+        '''Test deleting a user profile'''
+        profile = Profile.objects.create(
+            username="DeleteTest",
+            email="delete@test.com",
+            status="OF"
+        )
+
+        response = self.client.delete(f'/users/{profile.id}/delete/')
+        
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Profile.objects.filter(username='DeleteTest').exists())
 
 class UserCreateAPIViewTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
 
     def test_create_user(self):
-        # Data for creating a user
         user_data = {
             'username': 'testuser',
             'password': 'testpassword',
             'email': 'test@example.com'
         }
 
-        # Make a POST request to create a user
-        response = self.client.post('/create/', user_data, format='json')
-
-        # Check if the response status code is 201 (created)
+        response = self.client.post('/users/create/', user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-        # Check if the user is created in the database
         self.assertTrue(Profile.objects.filter(username='testuser').exists())
+
+

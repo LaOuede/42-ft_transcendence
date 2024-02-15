@@ -17,12 +17,13 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from user import views
-from user.views import ProfileCreateView
+from user.views import ProfileCreate, ProfileDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('play/', views.play, name='play'),
     path('tournaments/', views.tournaments, name='tournaments'),
-    path('create/', ProfileCreateView.as_view(), name='profile-create'),
+    path('users/create/', ProfileCreate.as_view(), name='profile-create'),
+    path('users/<int:profile_id>/delete/', ProfileDelete.as_view(), name='profile-delete'),
 ]
