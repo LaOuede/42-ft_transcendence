@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib import admin
 from user import views
 from base import views
-from user.views import ProfileCreate, ProfileDelete
+from user.views import ProfileCreate, ProfileDelete, ProfileGetOne, ProfileGetAll, ProfileUpdate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,8 @@ urlpatterns = [
     path('play/', views.play, name='play'),
     path('tournaments/', views.tournaments, name='tournaments'),
     path('users/create/', ProfileCreate.as_view(), name='profile-create'),
+    path('users/<int:profile_id>/', ProfileGetOne.as_view(), name='profile-detail'),
+    path('users/', ProfileGetAll.as_view(), name='profile-all'),
     path('users/<int:profile_id>/delete/', ProfileDelete.as_view(), name='profile-delete'),
+    path('users/<int:profile_id>/update/', ProfileUpdate.as_view(), name='profile-update')
 ]
