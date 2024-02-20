@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Wait for PostgreSQL container to be ready
+until timeout 30 bash -c "echo > /dev/tcp/postgres/5432" 2>/dev/null
+do
+  echo "Waiting for PostgreSQL container to be ready..."
+  # Sleep for 5 seconds before retrying
+  sleep 5
+done
+
+echo "PostgreSQL container is ready. Continuing with startup tasks..."
+
 echo "Applying database migrations..."
 python transcendence/manage.py migrate
 
@@ -27,7 +37,3 @@ echo "Superuser created with username: $SUPERUSER_USERNAME, email: $SUPERUSER_EM
 
 echo "Starting Django server..."
 python transcendence/manage.py runserver 0.0.0.0:8000
-
-
-
-

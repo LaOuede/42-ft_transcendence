@@ -16,4 +16,5 @@ RUN pip install --upgrade pip && \
 # Copy project
 COPY . /backend/
 
+# Pour garder le container en vie quand on veut trouver un bug
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
