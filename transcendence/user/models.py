@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
-class Profile(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
 
     ONLINE = 'ON'
     IN_GAME = 'IG'
@@ -30,14 +30,14 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     # en ce moment les users ont tous les accès. à revoir - Relier à PermissionsMixin
     groups = models.ManyToManyField(
         'auth.Group',
-        related_name='user_profiles',
+        related_name='user_groups',
         blank=True,
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
         verbose_name='groups',
     )
     user_permissions = models.ManyToManyField(
         'auth.Permission',
-        related_name='user_profiles',
+        related_name='user_permissions',
         blank=True,
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',

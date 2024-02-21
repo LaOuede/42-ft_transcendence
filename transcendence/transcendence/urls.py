@@ -18,16 +18,22 @@ from django.urls import path
 from django.contrib import admin
 from user import views
 from base import views
-from user.views import ProfileCreate, ProfileDelete, ProfileGetOne, ProfileGetAll, ProfileUpdate
+from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate
+from games.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('play/', views.play, name='play'),
     path('tournaments/', views.tournaments, name='tournaments'),
-    path('users/create/', ProfileCreate.as_view(), name='profile-create'),
-    path('users/<int:profile_id>/', ProfileGetOne.as_view(), name='profile-detail'),
-    path('users/', ProfileGetAll.as_view(), name='profile-all'),
-    path('users/<int:profile_id>/delete/', ProfileDelete.as_view(), name='profile-delete'),
-    path('users/<int:profile_id>/update/', ProfileUpdate.as_view(), name='profile-update')
+    path('users/create/', UserCreate.as_view(), name='user-create'),
+    path('users/<int:user_id>/', UserGetOne.as_view(), name='user-detail'),
+    path('users/', UserGetAll.as_view(), name='user-all'),
+    path('users/<int:user_id>/delete/', UserDelete.as_view(), name='user-delete'),
+    path('users/<int:user_id>/update/', UserUpdate.as_view(), name='user-update'),
+    path('play/create/', CreateGame.as_view(), name='game-create'),
+    path('play/<int:game_id>/', GameGetOne.as_view(), name='game-detail'),
+    path('play/games/', GameGetAll.as_view(), name='games-all'),
+    path('play/<int:game_id>/delete/', GameDelete.as_view(), name='game-delete'),
+    path('play/<int:game_id>/update/', GameUpdate.as_view(), name='game-update')
 ]

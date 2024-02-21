@@ -11,6 +11,7 @@ done
 echo "PostgreSQL container is ready. Continuing with startup tasks..."
 
 echo "Applying database migrations..."
+python transcendence/manage.py makemigrations
 python transcendence/manage.py migrate
 
 echo "Removing existing superusers..."
