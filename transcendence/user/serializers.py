@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from django.core.validators import RegexValidator, EmailValidator
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import User
 
-class ProfileSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
+        model = User
         fields = ['id', 'username', 'email', 'password', 'activity']
         extra_kwargs = {
             'username': {
@@ -20,12 +20,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         }
 
     def validate_username(self, value):
-        if Profile.objects.filter(username=value).exists():
+        if User.objects.filter(username=value).exists():
             raise serializers.ValidationError("Username already exists.")
         return value
 
     def validate_email(self, value):
-        if Profile.objects.filter(email=value).exists():
+        if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("Email already exists.")
         return value
 

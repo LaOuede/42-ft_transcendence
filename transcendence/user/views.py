@@ -1,65 +1,64 @@
-
-from user.models import Profile
+from user.models import User
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ProfileSerializer
+from .serializers import UserSerializer
 from rest_framework.generics import get_object_or_404
 
-class ProfileCreate(APIView):
+class UserCreate(APIView):
     def post(self, request):
-        serializer = ProfileSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProfileDelete(APIView):
-    def get_profile(self, profile_id):
-        return get_object_or_404(Profile, id=profile_id)
+class UserDelete(APIView):
+    def get_user(self, user_id):
+        return get_object_or_404(User, id=user_id)
 
-    def get(self, request, profile_id):
-        profile = self.get_profile(profile_id)
-        serializer = ProfileSerializer(profile)
+    def get(self, request, user_id):
+        user = self.get_user(user_id)
+        serializer = UserSerializer(user)
         return Response(serializer.data)
     
-    def delete(self, request, profile_id):
+    def delete(self, request, user_id):
         try:
-            profile = Profile.objects.get(id=profile_id)
-            profile.delete()
+            user = User.objects.get(id=user_id)
+            user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Profile.DoesNotExist:
-            return Response({"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
-class ProfileGetOne(APIView):
-    def get(self, request, profile_id):
+class UserGetOne(APIView):
+    def get(self, request, user_id):
         try:
-            profile = Profile.objects.get(id=profile_id)
-            serializer = ProfileSerializer(profile)
+            user = User.objects.get(id=user_id)
+            serializer = UserSerializer(user)
             return Response(serializer.data)
-        except Profile.DoesNotExist:
-            return Response({"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
-class ProfileGetAll(APIView):
+class UserGetAll(APIView):
      def get(self, request):
-        profiles = Profile.objects.all()
-        if not profiles:
-            return Response({"detail": "No profiles found."}, status=status.HTTP_404_NOT_FOUND)
-        serializer = ProfileSerializer(profiles, many=True)
+        users = User.objects.all()
+        if not users:
+            return Response({"detail": "No users found."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-class ProfileUpdate(APIView):
-    def get_profile(self, profile_id):
-        return get_object_or_404(Profile, id=profile_id)
+class UserUpdate(APIView):
+    def get_user(self, user_id):
+        return get_object_or_404(User, id=user_id)
 
-    def get(self, request, profile_id):
-        profile = self.get_profile(profile_id)
-        serializer = ProfileSerializer(profile)
+    def get(self, request, user_id):
+        user = self.get_user(user_id)
+        serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    def patch(self, request, profile_id):
-        profile = self.get_profile(profile_id)
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+    def patch(self, request, user_id):
+        user = self.get_user(user_id)
+        serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
