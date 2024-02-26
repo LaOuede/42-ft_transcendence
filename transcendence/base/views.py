@@ -101,12 +101,12 @@ def register(request):
 @authentication_classes([JWTAuthentication])
 def logout(request):
     if request.method == "POST":
-        user = request.user
-        print({user})
-        if user != None and user.activity != 'OF':
-            return JsonResponse({"success": "Logged out successfully"}, status=200)
-        else:
-            return JsonResponse({"error": "Could not find user."}, status=400)
+        # user = request.user
+        # print({user})
+        # if user != None and user.activity != 'OF':
+        return JsonResponse({"success": "Logged out successfully"}, status=200)
+        # else:
+        #     return JsonResponse({"error": "Could not find user."}, status=400)
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
 
