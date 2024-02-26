@@ -42,7 +42,6 @@ def login(request):
 
         # user = authenticate(username=user, password=password)
         user = find_user(user, password)
-        print(f'User found? {user}')
         if user is not None or False:
             tokens = get_tokens_for_user(user)
             return JsonResponse(
@@ -100,9 +99,13 @@ def register(request):
 
 @authentication_classes([JWTAuthentication])
 def logout(request):
-    print("here")
     if request.method == "POST":
-        return JsonResponse({"success": "Logged out successfully"}, status=200)
+        user = request.user
+        print({user})
+        if user != None and user.activity != 'OF':
+            return JsonResponse({"success": "Logged out successfully"}, status=200)
+        else:
+            return JsonResponse({"error": "Could not find user."}, status=400)
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
 
