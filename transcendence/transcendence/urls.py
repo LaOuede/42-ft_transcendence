@@ -20,8 +20,17 @@ from user import views
 from base import views
 from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate
 from games.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView  # Import TokenRefreshView here
+
 
 urlpatterns = [
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name="create_profile"),
+    path('logout/', views.logout, name="logout"),
+
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('play/', views.play, name='play'),
