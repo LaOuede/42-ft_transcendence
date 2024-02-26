@@ -22,19 +22,27 @@
     <header class="header">
       <h1>Welcome to Transcendence Pong</h1>
     </header>
-    <nav class="nav">
-      <a href="#" onclick="loadContent(''); return false;">Home</a>
-      <a href="#" onclick="loadContent('play/'); return false;">Play</a>
-      <a href="#" onclick="loadContent('tournaments/'); return false;"
-        >Tournaments</a
-      >
+    <nav class="is-signed-in nav">
+      <div class="main-nav-links">
+        <a href="#" onclick="loadContent(''); return false;">Home</a>
+        <a href="#" onclick="loadContent('play/'); return false;">Play</a>
+        <a href="#" onclick="loadContent('tournaments/'); return false;"
+          >Tournaments</a
+        >
+      </div>
+      <div id="logout-div">
+        <a href="#">Logout</a>
+      </div>
+    </nav>
+    <nav class="not-signed-in nav">
+      <div class="main-nav-links">
+        <a href="#" onclick="loadContent('login/'); return false;">Login</a>
+        <a href="#" onclick="loadContent('register/'); return false;">Signup</a>
+      </div>
     </nav>
 
     <main class="main" id="content">
-
-      {% block content %}
-      <!-- Content will be overridden by each child template -->
-      {% endblock %}
+      {% block content %} {% include content %} {% endblock %}
     </main>
 
     <footer class="footer">
@@ -83,24 +91,8 @@
       </ul>
     </footer>
   </body>
-  <script>
-    function loadContent(path) {
-      fetch("/" + path, {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      })
-        .then((response) => response.text())
-        .then((html) => {
-          document.querySelector(".main").innerHTML = html;
-          history.pushState({ path: path }, "", "/" + path);
-        });
-    }
-
-    window.onpopstate = function (event) {
-      if (event.state) {
-        loadContent(event.state.path);
-      }
-    };
-  </script>
+  {% load static %}
+  <script src="{% static 'js/nav.js' %}" type="module" defer></script>
+  <script src="{% static 'js/api.js' %}" type="module" defer></script>
+  <script src="{% static 'js/auth.js' %}" type="module" defer></script>
 </html>
