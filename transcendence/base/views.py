@@ -35,29 +35,28 @@ def find_user(username, password):
 
 
 def login(request):
-	if request.method == "POST":
-		data = json.loads(request.body)
-		user = data.get("user")
-		password = data.get("password")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user = data.get("user")
+        password = data.get("password")
 
-		# user = authenticate(username=user, password=password)
-		user = find_user(user, password)
-		print(f'User found? {user}')
-		if user is not None or False:
-			tokens = get_tokens_for_user(user)
-			return JsonResponse(
-				{"tokens": tokens, "success": "User logged in successfully"}, status=201
-			)
-		else:
-			return JsonResponse(
-				{
-					"error": "Invalid user or password.",
-				},
-				status=401,
-			)
-	if is_ajax(request):
-		return render(request, "login.html")
-	return render(request, "base.html", {"content": "login.html"})
+        # user = authenticate(username=user, password=password)
+        user = find_user(user, password)
+        if user is not None or False:
+            tokens = get_tokens_for_user(user)
+            return JsonResponse(
+                {"tokens": tokens, "success": "User logged in successfully"}, status=201
+            )
+        else:
+            return JsonResponse(
+                {
+                    "error": "Invalid user or password.",
+                },
+                status=401,
+            )
+    if is_ajax(request):
+        return render(request, "login.html")
+    return render(request, "base.html", {"content": "login.html"})
 
 
 def register(request):
