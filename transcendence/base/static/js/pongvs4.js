@@ -28,7 +28,7 @@ x: 0,
 y: board.size / 2 - board.thickness * 2,
 width: 75,
 height: board.thickness,
-light_color: 0xff0000,
+light_color: 0xffff00,
 dead: false,
 };
 let paddle4_att = {
@@ -36,7 +36,7 @@ x: 0,
 y: -board.size / 2 + board.thickness * 2,
 width: 75,
 height: board.thickness,
-light_color: 0xff0000,
+light_color: 0x00ffff,
 dead: false,
 };
 let control = {
@@ -104,7 +104,10 @@ const ballplightHelper = new THREE.PointLightHelper(ballplight);
 ballplight.castShadow = true;
 scene.add(ballplightHelper);
 
-const p1light1 = new THREE.PointLight(paddle1_att.light_color, 0.8, 10000);
+let light_prim_intense = 1.5
+let light_prim_distance = 300
+
+const p1light1 = new THREE.PointLight(paddle1_att.light_color, light_prim_intense, light_prim_distance);
 p1light1.position.set(board.size / -4, 0, 100);
 scene.add(p1light1);
 const p1lightHelper1 = new THREE.PointLightHelper(p1light1);
@@ -125,7 +128,9 @@ const p1lightHelper3 = new THREE.PointLightHelper(p1light3);
 // p1light3.castShadow = true
 scene.add(p1lightHelper3);
 
-const p2light1 = new THREE.PointLight(paddle2_att.light_color, 0.8, 10000);
+
+
+const p2light1 = new THREE.PointLight(paddle2_att.light_color, light_prim_intense, light_prim_distance);
 p2light1.position.set(board.size / 4, 0, 100);
 scene.add(p2light1);
 const p2lightHelper1 = new THREE.PointLightHelper(p2light1);
@@ -146,6 +151,51 @@ const p2lightHelper3 = new THREE.PointLightHelper(p2light3);
 // p2light3.castShadow = true
 scene.add(p2lightHelper3);
 
+
+const p3light1 = new THREE.PointLight(paddle3_att.light_color, light_prim_intense, light_prim_distance);
+p3light1.position.set(0, board.size / 4, 100);
+scene.add(p3light1);
+const p3lightHelper1 = new THREE.PointLightHelper(p3light1);
+// p3light1.castShadow = true
+scene.add(p3lightHelper1);
+
+const p3light2 = new THREE.PointLight(paddle3_att.light_color, 0.4, 10000);
+p3light2.position.set(375, -375, -200);
+scene.add(p3light2);
+const p3lightHelper2 = new THREE.PointLightHelper(p3light2);
+// p3light2.castShadow = true
+scene.add(p3lightHelper2);
+
+const p3light3 = new THREE.PointLight(paddle3_att.light_color, 0.4, 10000);
+p3light3.position.set(375, 375, -200);
+scene.add(p3light3);
+const p3lightHelper3 = new THREE.PointLightHelper(p3light3);
+// p3light3.castShadow = true
+scene.add(p3lightHelper3);
+
+
+
+
+const p4light1 = new THREE.PointLight(paddle4_att.light_color, light_prim_intense, light_prim_distance);
+p4light1.position.set(0, board.size / -4, 100);
+scene.add(p4light1);
+const p4lightHelper1 = new THREE.PointLightHelper(p4light1);
+// p4light1.castShadow = true
+scene.add(p4lightHelper1);
+
+const p4light2 = new THREE.PointLight(paddle4_att.light_color, 0.4, 10000);
+p4light2.position.set(375, -375, -200);
+scene.add(p4light2);
+const p4lightHelper2 = new THREE.PointLightHelper(p4light2);
+// p4light2.castShadow = true
+scene.add(p4lightHelper2);
+
+const p4light3 = new THREE.PointLight(paddle4_att.light_color, 0.4, 10000);
+p4light3.position.set(375, 375, -200);
+scene.add(p4light3);
+const p4lightHelper3 = new THREE.PointLightHelper(p4light3);
+// p4light3.castShadow = true
+scene.add(p4lightHelper3);
 // const textureLoader = new THREE.TextureLoader()
 
 const sphereGeometry = new THREE.SphereGeometry(board.thickness, 64, 64);
