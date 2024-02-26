@@ -99,7 +99,6 @@ def register(request):
 
 @authentication_classes([JWTAuthentication])
 def logout(request):
-	print("here")
 	if request.method == "POST":
 		return JsonResponse({"success": "Logged out successfully"}, status=200)
 	else:
