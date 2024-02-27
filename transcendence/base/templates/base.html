@@ -103,5 +103,10 @@
   <script src="{% static 'js/nav.js' %}" type="module" defer></script>
   <script src="{% static 'js/api.js' %}" type="module" defer></script>
   <script src="{% static 'js/auth.js' %}" type="module" defer></script>
-  <script src="{% static 'js/pongvs4.js' %}" type="module" defer></script>
+  <script type="text/javascript">
+    // Define a global variable for your static URLs
+    window.staticUrls = {
+      pongScript: "{% static 'js/pongvs4.js' %}"
+    };
+  </script>
 </html>

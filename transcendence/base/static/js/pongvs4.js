@@ -4,7 +4,7 @@
 // 		4
 import * as THREE from "three";
 
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js"; 
 let vs4 = true;
 let board = { size: 500, thickness: 10 };
 let paddle1_att = {
@@ -69,7 +69,6 @@ setTimeout(() => {
   renderer.shadowMap.enabled = true;
 
   const canvas = document.querySelector("#content #root #pong");
-  const parentDiv = document.querySelector("#content #root");
   renderer.setSize(1000, 1000);
   canvas.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
@@ -548,13 +547,21 @@ setTimeout(() => {
     }
   }
 
-  initGame();
-  function animate() {
-    if (gameInfo.gameover === false && countDownDone === true) {
-      controlDetection();
-      ballPhysic();
+  function initPongGame() {
+    initGame();
+    function animate() {
+      if (gameInfo.gameover === false && countDownDone === true) {
+        controlDetection();
+        ballPhysic();
+      }
+      console.log("is playing");
+      renderer.render(scene, camera);
     }
-    renderer.render(scene, camera);
+    renderer.setAnimationLoop(animate);
+    if (window.stopGameFlag) {
+      console.log(window.stopGameFlag);
+      renderer.setAnimationLoop(null);
+    }
   }
-  renderer.setAnimationLoop(animate);
+  window.init_pong_game = initPongGame();
 }, 500);
