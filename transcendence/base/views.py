@@ -118,6 +118,7 @@ def register(request):
             user = User.objects.create_user(email, username, password)
             user.save()
             if user:
+                change_user_status(user, "ON")
                 tokens = get_tokens_for_user(user)
             return JsonResponse(
                 {"success": "User registered successfully", "tokens": tokens},
