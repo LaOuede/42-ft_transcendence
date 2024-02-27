@@ -5,6 +5,7 @@
 import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
 let vs4 = true;
 let board = { size: 500, thickness: 10 };
 let paddle1_att = {
@@ -15,6 +16,7 @@ height: 75,
 light_color: 0x0000ff,
 dead: false,
 };
+
 let paddle2_att = {
 x: board.size / 2 - board.thickness * 2,
 y: 0,
@@ -23,6 +25,7 @@ height: 75,
 light_color: 0xff0000,
 dead: false,
 };
+
 let paddle3_att = {
 x: 0,
 y: board.size / 2 - board.thickness * 2,
@@ -31,6 +34,7 @@ height: board.thickness,
 light_color: 0xffff00,
 dead: false,
 };
+
 let paddle4_att = {
 x: 0,
 y: -board.size / 2 + board.thickness * 2,
@@ -39,6 +43,7 @@ height: board.thickness,
 light_color: 0x00ffff,
 dead: false,
 };
+
 let control = {
 w: false,
 s: false,
@@ -49,8 +54,10 @@ arrowDown: false,
 arrowLeft: false,
 arrowRight: false,
 };
+
 let ball_att = { x: 0, y: 0, dirX: 1, dirY: -1, speedX: 1, speedY: 0 };
 let gameInfo = {
+lives: 2,
 p1Lives: 1,
 p2Lives: 1,
 p3Lives: 1,
@@ -58,6 +65,7 @@ p4Lives: 1,
 gameover: false,
 player_count: 4,
 };
+
 let countDownDone = false;
 let view = 0;
 let level = 3;
@@ -68,20 +76,26 @@ const renderer = new THREE.WebGLRenderer();
 
 renderer.shadowMap.enabled = true;
 
+const p1ScoreTag = document.getElementById("p1Score")
+const p2ScoreTag = document.getElementById("p2Score")
+const p3ScoreTag = document.getElementById("p3Score")
+const p4ScoreTag = document.getElementById("p4Score")
+
+const navHeight = document.querySelector('nav').offsetHeight;
+const headerHeight = document.querySelector('header').offsetHeight;
+const footerHeight = document.querySelector('footer').offsetHeight;
+const canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
 const canvas = document.querySelector("#content #root #pong");
 const parentDiv = document.querySelector("#content #root");
-renderer.setSize(window.innerWidth, window.innerHeight * 0.75);
+renderer.setSize(window.innerWidth, canvasHeight);
 canvas.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / (window.innerHeight * 0.75), 0.1, 10000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 10000);
 camera.position.set(0, -350, 700);
 
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
-
-// const axesHelper = new THREE.AxesHelper(5)
-// scene.add(axesHelper)
 
 //plane
 const planeGeometry = new THREE.PlaneGeometry(board.size + 2, board.size + 2);
@@ -93,10 +107,7 @@ const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 plane.receiveShadow = true;
 scene.add(plane);
 
-// const gridHelper = new THREE.GridHelper(board.width, 20)
-// gridHelper.rotation.x = 0.5 * Math.PI
-// scene.add(gridHelper)
-
+//BALL
 const ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
 ballplight.position.set(0, 0, board.thickness);
 scene.add(ballplight);
@@ -104,8 +115,8 @@ const ballplightHelper = new THREE.PointLightHelper(ballplight);
 ballplight.castShadow = true;
 scene.add(ballplightHelper);
 
-let light_prim_intense = 1.5
-let light_prim_distance = 300
+let light_prim_intense = 1.1
+let light_prim_distance = 400
 
 const p1light1 = new THREE.PointLight(paddle1_att.light_color, light_prim_intense, light_prim_distance);
 p1light1.position.set(board.size / -4, 0, 100);
@@ -114,19 +125,12 @@ const p1lightHelper1 = new THREE.PointLightHelper(p1light1);
 // p1light1.castShadow = true
 scene.add(p1lightHelper1);
 
-const p1light2 = new THREE.PointLight(paddle1_att.light_color, 0.4, 10000);
-p1light2.position.set(-375, -375, -200);
-scene.add(p1light2);
-const p1lightHelper2 = new THREE.PointLightHelper(p1light2);
-// p1light2.castShadow = true
-scene.add(p1lightHelper2);
-
-const p1light3 = new THREE.PointLight(paddle1_att.light_color, 0.4, 10000);
-p1light3.position.set(-375, 375, -200);
-scene.add(p1light3);
-const p1lightHelper3 = new THREE.PointLightHelper(p1light3);
-// p1light3.castShadow = true
-scene.add(p1lightHelper3);
+// const p1light2 = new THREE.PointLight(paddle1_att.light_color, light_prim_intense, light_prim_distance * 2);
+// p1light2.position.set(-board.size, 0, -150);
+// scene.add(p1light2);
+// const p1lightHelper2 = new THREE.PointLightHelper(p1light2);
+// // p1light2.castShadow = true
+// scene.add(p1lightHelper2);
 
 
 
@@ -137,19 +141,12 @@ const p2lightHelper1 = new THREE.PointLightHelper(p2light1);
 // p2light1.castShadow = true
 scene.add(p2lightHelper1);
 
-const p2light2 = new THREE.PointLight(paddle2_att.light_color, 0.4, 10000);
-p2light2.position.set(375, -375, -200);
-scene.add(p2light2);
-const p2lightHelper2 = new THREE.PointLightHelper(p2light2);
-// p2light2.castShadow = true
-scene.add(p2lightHelper2);
-
-const p2light3 = new THREE.PointLight(paddle2_att.light_color, 0.4, 10000);
-p2light3.position.set(375, 375, -200);
-scene.add(p2light3);
-const p2lightHelper3 = new THREE.PointLightHelper(p2light3);
-// p2light3.castShadow = true
-scene.add(p2lightHelper3);
+// const p2light2 = new THREE.PointLight(paddle2_att.light_color, 0.4, 10000);
+// p2light2.position.set(375, -375, -200);
+// scene.add(p2light2);
+// const p2lightHelper2 = new THREE.PointLightHelper(p2light2);
+// // p2light2.castShadow = true
+// scene.add(p2lightHelper2);
 
 
 const p3light1 = new THREE.PointLight(paddle3_att.light_color, light_prim_intense, light_prim_distance);
@@ -159,20 +156,12 @@ const p3lightHelper1 = new THREE.PointLightHelper(p3light1);
 // p3light1.castShadow = true
 scene.add(p3lightHelper1);
 
-const p3light2 = new THREE.PointLight(paddle3_att.light_color, 0.4, 10000);
-p3light2.position.set(375, -375, -200);
-scene.add(p3light2);
-const p3lightHelper2 = new THREE.PointLightHelper(p3light2);
-// p3light2.castShadow = true
-scene.add(p3lightHelper2);
-
-const p3light3 = new THREE.PointLight(paddle3_att.light_color, 0.4, 10000);
-p3light3.position.set(375, 375, -200);
-scene.add(p3light3);
-const p3lightHelper3 = new THREE.PointLightHelper(p3light3);
-// p3light3.castShadow = true
-scene.add(p3lightHelper3);
-
+// const p3light2 = new THREE.PointLight(paddle3_att.light_color, 0.4, 10000);
+// p3light2.position.set(375, -375, -200);
+// scene.add(p3light2);
+// const p3lightHelper2 = new THREE.PointLightHelper(p3light2);
+// // p3light2.castShadow = true
+// scene.add(p3lightHelper2);
 
 
 
@@ -183,20 +172,13 @@ const p4lightHelper1 = new THREE.PointLightHelper(p4light1);
 // p4light1.castShadow = true
 scene.add(p4lightHelper1);
 
-const p4light2 = new THREE.PointLight(paddle4_att.light_color, 0.4, 10000);
-p4light2.position.set(375, -375, -200);
-scene.add(p4light2);
-const p4lightHelper2 = new THREE.PointLightHelper(p4light2);
-// p4light2.castShadow = true
-scene.add(p4lightHelper2);
+// const p4light2 = new THREE.PointLight(paddle4_att.light_color, 0.4, 10000);
+// p4light2.position.set(375, -375, -200);
+// scene.add(p4light2);
+// const p4lightHelper2 = new THREE.PointLightHelper(p4light2);
+// // p4light2.castShadow = true
+// scene.add(p4lightHelper2);
 
-const p4light3 = new THREE.PointLight(paddle4_att.light_color, 0.4, 10000);
-p4light3.position.set(375, 375, -200);
-scene.add(p4light3);
-const p4lightHelper3 = new THREE.PointLightHelper(p4light3);
-// p4light3.castShadow = true
-scene.add(p4lightHelper3);
-const textureLoader = new THREE.TextureLoader()
 
 const sphereGeometry = new THREE.SphereGeometry(board.thickness, 64, 64);
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
@@ -313,6 +295,28 @@ paddle4.castShadow = true;
 paddle4.receiveShadow = true;
 scene.add(paddle4);
 
+function resetGame(){
+	initGame()
+	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
+	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
+	if(!scene.children.includes(paddle3)) {scene.add(paddle3)};
+	if(!scene.children.includes(paddle4)) {scene.add(paddle4)};
+	paddle1_att.dead = false
+	paddle2_att.dead = false
+	paddle3_att.dead = false
+	paddle4_att.dead = false
+	gameInfo.p1Lives = gameInfo.lives
+	gameInfo.p2Lives = gameInfo.lives
+	gameInfo.p3Lives = gameInfo.lives
+	gameInfo.p4Lives = gameInfo.lives
+	p1ScoreTag.textContent = gameInfo.p1Lives
+	p2ScoreTag.textContent = gameInfo.p2Lives
+	p3ScoreTag.textContent = gameInfo.p3Lives
+	p4ScoreTag.textContent = gameInfo.p4Lives
+	gameInfo.player_count = 4
+	gameInfo.gameover = false
+}
+
 function initGame() {
 	sphere.position.x = 0;
 	sphere.position.y = 0;
@@ -325,7 +329,6 @@ function initGame() {
 	randomStartDir();
 	changeAngle();
 	if (countDownDone === false) countDown();
-	console.log("init")
 }
 
 function countDown() {
@@ -337,7 +340,7 @@ function countDown() {
 		countDownDone = true;
 		clearInterval(countdown);
 	}
-	}, 1000);
+	}, 500);
 }
 
 function randomStartDir() {
@@ -388,13 +391,14 @@ function goalDetection() {
 	paddle1_att.dead === false
 	) {
 	gameInfo.p1Lives--;
+	p1ScoreTag.textContent = gameInfo.p1Lives
 	if (gameInfo.p1Lives == 0) {
 		paddle1_att.dead = true;
 		scene.remove(paddle1);
 		gameInfo.player_count--
 
 	}
-	// countDownDone = false
+	countDownDone = false
 	initGame();
 	}
 	if (
@@ -402,13 +406,13 @@ function goalDetection() {
 	paddle2_att.dead === false
 	) {
 	gameInfo.p2Lives--;
+	p2ScoreTag.textContent = gameInfo.p2Lives
 	if (gameInfo.p2Lives == 0) {
 		paddle2_att.dead = true;
 		scene.remove(paddle2);
 		gameInfo.player_count--
-
 	}
-	// countDownDone = false
+	countDownDone = false
 	initGame();
 	}
 	if (
@@ -416,13 +420,13 @@ function goalDetection() {
 	paddle3_att.dead === false
 	) {
 	gameInfo.p3Lives--;
+	p3ScoreTag.textContent = gameInfo.p3Lives
 	if (gameInfo.p3Lives == 0) {
 		paddle3_att.dead = true;
 		scene.remove(paddle3);
 		gameInfo.player_count--
-
 	}
-	// countDownDone = false
+	countDownDone = false
 	initGame();
 	}
 	if (
@@ -430,16 +434,17 @@ function goalDetection() {
 	paddle4_att.dead === false
 	) {
 	gameInfo.p4Lives--;
+	p4ScoreTag.textContent = gameInfo.p4Lives
 	if (gameInfo.p4Lives == 0) {
 		paddle4_att.dead = true;
 		scene.remove(paddle4);
 		gameInfo.player_count--
 	}
-	// countDownDone = false
+	countDownDone = false
 	initGame();
 	}
-	// if(gameInfo.player_count === 1)
-	// 	gameInfo.gameover = true
+	if(gameInfo.player_count === 1)
+		gameInfo.gameover = true
 }
 
 function sideRebound() {
@@ -471,22 +476,22 @@ function sideRebound() {
 
 function paddleColision() {
 	if (
-	paddle1_att.dead === false &&
-	sphere.position.x - board.thickness <=
+		paddle1_att.dead === false &&
+		sphere.position.x - board.thickness <=
 		paddle1.position.x + board.thickness / 2 &&
-	sphere.position.y <= paddle1.position.y + paddle1_att.height / 2 &&
-	sphere.position.y >= paddle1.position.y - paddle1_att.height / 2
+		sphere.position.y <= paddle1.position.y + paddle1_att.height / 2 &&
+		sphere.position.y >= paddle1.position.y - paddle1_att.height / 2
 	) {
 	changeAngle();
 	ball_att.dirX = 1;
 	level += level_inc;
 	}
 	if (
-	paddle2_att.dead === false &&
-	sphere.position.x + board.thickness >=
-	paddle2.position.x - board.thickness / 2 &&
-	sphere.position.y <= paddle2.position.y + paddle2_att.height / 2 &&
-	sphere.position.y >= paddle2.position.y - paddle2_att.height / 2
+		paddle2_att.dead === false &&
+		sphere.position.x + board.thickness >=
+		paddle2.position.x - board.thickness / 2 &&
+		sphere.position.y <= paddle2.position.y + paddle2_att.height / 2 &&
+		sphere.position.y >= paddle2.position.y - paddle2_att.height / 2
 	) {
 	changeAngle();
 	ball_att.dirX = -1;
@@ -573,14 +578,14 @@ function controlDetection() {
 document.addEventListener("keypress", (event) => {
 	if (event.key === "v") changeView();
 	if (event.key === "k") {
-		renderer.setAnimationLoop(null);
-		let item =  document.querySelector("#pong canvas")
-		item.remove()
-		item =  document.querySelector("#root script")
-		item.remove()
+		// renderer.setAnimationLoop(null);
+		// let item =  document.querySelector("#pong canvas")
+		// item.remove()
+		// item =  document.querySelector("#root script")
+		// item.remove()
 	}
 	if (event.key === "l") {
-		runGame()
+		resetGame()
 	}
 });
 
@@ -629,7 +634,7 @@ function animate() {
 }
 
 function runGame(){
-	initGame();
+	resetGame();
 	renderer.setAnimationLoop(animate);
 }
 runGame()
