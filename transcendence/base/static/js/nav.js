@@ -20,12 +20,6 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
-      if (path === "play/") {
-        initializePongGame();
-      } else {
-        const canvas = document.querySelector("#pong-game-script");
-        canvas.remove();
-      }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }

@@ -2,7 +2,11 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from user.models import User
+from django.contrib.auth import authenticate
 import json
+
+import jwt
+from rest_framework_simplejwt.settings import api_settings
 
 ## REST
 from rest_framework.decorators import api_view, authentication_classes
@@ -13,25 +17,58 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 def is_ajax(request):
-	return request.headers.get("X-Requested-With") == "XMLHttpRequest"
+    return request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
 
 def get_tokens_for_user(user):
-	refresh = RefreshToken.for_user(user)
-	return {
-		"refresh": str(refresh),
-		"access": str(refresh.access_token),
-	}
+    refresh = RefreshToken.for_user(user)
+    return {
+        "refresh": str(refresh),
+        "access": str(refresh.access_token),
+    }
 
+def find_user_by_id(id):
+    users = User.objects.all()
+    for user in users:
+        if user.id == id:
+            return user
+    return False
 
 def find_user(username, password):
-	users = User.objects.all()
+    users = User.objects.all()
 
-	for user in users:
-		print({user})
-		if user.username == username and user.password == password:
-			return user
-	return False
+    for user in users:
+        if user.username == username and user.password == password:
+            return user
+    return False
+    
+def get_user_from_token(request):
+    token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+    decoded_payload = decode_jwt(token)
+    user = find_user_by_id(decoded_payload['user_id'])
+    if (user is not False or user is not None):
+        return user
+    return False
+
+def change_user_status(user, status):
+    if user is not None and user.activity != status:
+        user.activity = status  # Corrected this line
+        user.save()
+        return True
+    else:
+        return False
+    
+def decode_jwt(token):
+    try:
+        # Decode the token
+        decoded = jwt.decode(token, api_settings.SIGNING_KEY, algorithms=[api_settings.ALGORITHM])
+        # Print or return the decoded payload
+        print(decoded)
+        return decoded
+    except jwt.ExpiredSignatureError:
+        print("Token expired. Get a new one.")
+    except jwt.InvalidTokenError:
+        print("Invalid token. Please log in again.")
 
 
 def login(request):
@@ -43,6 +80,7 @@ def login(request):
         # user = authenticate(username=user, password=password)
         user = find_user(user, password)
         if user is not None or False:
+            change_user_status(user, "ON")
             tokens = get_tokens_for_user(user)
             return JsonResponse(
                 {"tokens": tokens, "success": "User logged in successfully"}, status=201
@@ -60,71 +98,74 @@ def login(request):
 
 
 def register(request):
-	if request.method == "POST":
-		data = json.loads(request.body)
-		username = data.get("username")
-		password = data.get("password")
-		password2 = data.get("password2")
-		email = data.get("email")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        username = data.get("username")
+        password = data.get("password")
+        password2 = data.get("password2")
+        email = data.get("email")
 
-		if User.objects.filter(username=username).exists():
-			return JsonResponse({"error": "Username is already taken."}, status=400)
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({"error": "Username is already taken."}, status=400)
 
-		if User.objects.filter(email=email).exists():
-			return JsonResponse({"error": "Email is already in use."}, status=400)
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({"error": "Email is already in use."}, status=400)
 
-		if password != password2:
-			return JsonResponse({"error": "Passwords do not match."}, status=400)
+        if password != password2:
+            return JsonResponse({"error": "Passwords do not match."}, status=400)
 
-		if username and password and email:
-			user = User.objects.create_user(username, email, password)
-			user.save()
-			if user:
-				tokens = get_tokens_for_user(user)
-			return JsonResponse(
-				{"success": "User registered successfully", "tokens": tokens},
-				status=201,
-			)
-		else:
-			return JsonResponse(
-				{
-					"error": "Invalid user or password.",
-				},
-				status=400,
-			)
-	if is_ajax(request):
-		return render(request, "register.html")
-	return render(request, "base.html", {"content": "register.html"})
+        if username and password and email:
+            user = User.objects.create_user(email, username, password)
+            user.save()
+            if user:
+                tokens = get_tokens_for_user(user)
+            return JsonResponse(
+                {"success": "User registered successfully", "tokens": tokens},
+                status=201,
+            )
+        else:
+            return JsonResponse(
+                {
+                    "error": "Invalid user or password.",
+                },
+                status=400,
+            )
+    if is_ajax(request):
+        return render(request, "register.html")
+    return render(request, "base.html", {"content": "register.html"})
 
 
 @authentication_classes([JWTAuthentication])
 def logout(request):
-	if request.method == "POST":
-		return JsonResponse({"success": "Logged out successfully"}, status=200)
-	else:
-		return JsonResponse({"error": "Invalid request"}, status=400)
+    if request.method == "POST":
+        user = get_user_from_token(request)
+        if change_user_status(user, "OF") == False:
+            return JsonResponse({"error": "You are already logged out."}, status=500)
+        return JsonResponse({"success": "Logged out successfully"}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid request"}, status=400)
 
 
 def index(request):
-	if is_ajax(request):
-		return render(request, "index.html")
-	else:
-		if not request.user.is_authenticated:
-			content = "login.html"
-		else:
-			content = "index.html"
-		return render(request, "base.html", {"content": content})
+    if is_ajax(request):
+        return render(request, "index.html")
+    else:
+        if not request.user.is_authenticated:
+            content = "login.html"
+        else:
+            content = "index.html"
+        return render(request, "base.html", {"content": content})
 
 
 def play(request):
-	# Serve play content for AJAX, full SPA for direct access
-	if is_ajax(request):
-		return render(request, "play.html")
-	return render(request, "base.html", {"content": "play.html"})
+    # Serve play content for AJAX, full SPA for direct access
+    if is_ajax(request):
+        return render(request, "play.html")
+    return render(request, "base.html", {"content": "play.html"})
 
 
 def tournaments(request):
-	# Serve tournaments content for AJAX, full SPA for direct access
-	if is_ajax(request):
-		return render(request, "tournaments.html")
-	return render(request, "base.html", {"content": "tournaments.html"})
+    # Serve tournaments content for AJAX, full SPA for direct access
+    if is_ajax(request):
+        return render(request, "tournaments.html")
+    return render(request, "base.html", {"content": "tournaments.html"})
