@@ -77,7 +77,7 @@ def register(request):
             return JsonResponse({"error": "Passwords do not match."}, status=400)
 
         if username and password and email:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(email, username, password)
             user.save()
             if user:
                 tokens = get_tokens_for_user(user)
