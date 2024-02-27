@@ -27,6 +27,9 @@ if [[ -z "$SUPERUSER_EMAIL" || -z "$SUPERUSER_PASSWORD" || -z "$SUPERUSER_USERNA
   echo "Superuser environment variables not set. Please set DJANGO_SUPERUSER_EMAIL, DJANGO_SUPERUSER_PASSWORD, and DJANGO_SUPERUSER_USERNAME."
   exit 1
 fi
+echo "SUPERUSER_EMAIL: $SUPERUSER_EMAIL"
+echo "SUPERUSER_PASSWORD: $SUPERUSER_PASSWORD"
+echo "SUPERUSER_USERNAME: $SUPERUSER_USERNAME"
 
 # Use Django management command to create superuser with environment variables
 python transcendence/manage.py createsuperuser --noinput --username $SUPERUSER_USERNAME --email $SUPERUSER_EMAIL
