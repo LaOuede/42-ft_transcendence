@@ -70,11 +70,11 @@ renderer.shadowMap.enabled = true;
 
 const canvas = document.querySelector("#content #root #pong");
 const parentDiv = document.querySelector("#content #root");
-renderer.setSize(1000, 1000);
+renderer.setSize(window.innerWidth, window.innerHeight * 0.75);
 canvas.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(45, 1000 / 1000, 0.1, 10000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / (window.innerHeight * 0.75), 0.1, 10000);
 camera.position.set(0, -350, 700);
 
 const orbit = new OrbitControls(camera, renderer.domElement);
@@ -196,7 +196,7 @@ scene.add(p4light3);
 const p4lightHelper3 = new THREE.PointLightHelper(p4light3);
 // p4light3.castShadow = true
 scene.add(p4lightHelper3);
-// const textureLoader = new THREE.TextureLoader()
+const textureLoader = new THREE.TextureLoader()
 
 const sphereGeometry = new THREE.SphereGeometry(board.thickness, 64, 64);
 const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
@@ -325,6 +325,7 @@ function initGame() {
 	randomStartDir();
 	changeAngle();
 	if (countDownDone === false) countDown();
+	console.log("init")
 }
 
 function countDown() {
@@ -437,8 +438,8 @@ function goalDetection() {
 	// countDownDone = false
 	initGame();
 	}
-	if(gameInfo.player_count === 1)
-		gameInfo.gameover = true
+	// if(gameInfo.player_count === 1)
+	// 	gameInfo.gameover = true
 }
 
 function sideRebound() {
@@ -571,6 +572,16 @@ function controlDetection() {
 
 document.addEventListener("keypress", (event) => {
 	if (event.key === "v") changeView();
+	if (event.key === "k") {
+		renderer.setAnimationLoop(null);
+		let item =  document.querySelector("#pong canvas")
+		item.remove()
+		item =  document.querySelector("#root script")
+		item.remove()
+	}
+	if (event.key === "l") {
+		runGame()
+	}
 });
 
 document.addEventListener("keydown", (event) => {
@@ -605,15 +616,22 @@ function changeView() {
 	camera.lookAt(0, 0, 0);
 	view = 0;
 	}
+
 }
 
-initGame();
 function animate() {
 	if (gameInfo.gameover === false && countDownDone === true) {
 	controlDetection();
 	ballPhysic();
 	}
 	renderer.render(scene, camera);
+	console.log("running")
 }
-renderer.setAnimationLoop(animate);
+
+function runGame(){
+	initGame();
+	renderer.setAnimationLoop(animate);
+}
+runGame()
+
 }, 500);
