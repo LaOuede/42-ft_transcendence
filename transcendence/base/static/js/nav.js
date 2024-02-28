@@ -1,3 +1,5 @@
+import { runGame, initializeGame } from "./pong/pongvs4.js";
+
 // function to load the appropriate content on the base page
 function loadContent(path) {
   const headers = {
@@ -20,6 +22,11 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
+      if (path === "play/") {
+        initializeGame(runGame);
+      } else {
+        /* stopGame(); */
+      }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
