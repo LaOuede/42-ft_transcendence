@@ -76,8 +76,6 @@ def login(request):
         password = data.get("password")
 
         user = authenticate(username=user, password=password)
-        # user = find_user(user, password)
-        print({user})
         if user is not False:
             change_user_status(user, "ON")
             tokens = get_tokens_for_user(user)

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       handleLogin(e);
     }
   });
+  document.querySelector("#login-2fa").addEventListener("click", handle2FA);
 });
 
 // login function
@@ -197,4 +198,18 @@ function highlightErrorInput(input) {
   input.style.borderColor = "red";
   input.value = ""; // Optionally clear the input
   input.focus(); // Set focus to the input with the error
+}
+
+// ------------------------------
+// 2FA
+// ------------------------------
+document.addEventListener("DOMContentLoaded", function (e) {
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "login-2fa") {
+      handle2FA();
+    }
+  });
+});
+function handle2FA() {
+  console.log("2FA");
 }
