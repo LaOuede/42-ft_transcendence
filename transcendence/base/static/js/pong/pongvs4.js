@@ -2,186 +2,80 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-import {
-  plane,
-  ball,
-  side1,
-  side2,
-  side3,
-  side4,
-  paddle1,
-  paddle2,
-  paddle3,
-  paddle4,
-} from "./pong_obj.js";
-import {
-  boardVs4,
-  ball_att,
-  paddle1_att,
-  paddle2_att,
-  paddle3_att,
-  paddle4_att,
-  control,
-  gameInfoVs4,
-} from "./pong_var.js";
-import {
-  ballplight,
-  ballplightHelper,
-  p1light1,
-  p1lightHelper1,
-  p2light1,
-  p2lightHelper1,
-  p3light1,
-  p3lightHelper1,
-  p4light1,
-  p4lightHelper1,
-} from "./pong_light.js";
-const board = boardVs4;
-const gameInfo = gameInfoVs4;
+import {plane, ball, side1, side2, side3, side4,
+	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
+import {boardVs4, ball_att, paddle1_att, paddle2_att, 
+	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
+import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
+	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
+	p4light1, p4lightHelper1} from "./pong_light.js"
+const board = boardVs4
+const gameInfo = gameInfoVs4
 
-let frameId;
+setTimeout(() => {
+	
+	const p1ScoreTag = document.getElementById("p1Score")
+	const p2ScoreTag = document.getElementById("p2Score")
+	const p3ScoreTag = document.getElementById("p3Score")
+	const p4ScoreTag = document.getElementById("p4Score")
+	
+	const navHeight = document.querySelector('nav').offsetHeight;
+	const headerHeight = document.querySelector('header').offsetHeight;
+	const footerHeight = document.querySelector('footer').offsetHeight;
+	const canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+	const canvas = document.querySelector("#game");
+	
+	const renderer = new THREE.WebGLRenderer({ canvas });
+	
+renderer.shadowMap.enabled = true;// voir ou le mettre
 
-function initializeGame(callback) {
-  setTimeout(() => {
-    // DOM elements and game setup
-    const p1ScoreTag = document.getElementById("p1Score");
-    const p2ScoreTag = document.getElementById("p2Score");
-    const p3ScoreTag = document.getElementById("p3Score");
-    const p4ScoreTag = document.getElementById("p4Score");
+renderer.setSize(window.innerWidth, canvasHeight);
+const scene = new THREE.Scene();
 
-    const navHeight = document.querySelector("nav").offsetHeight;
-    const headerHeight = document.querySelector("header").offsetHeight;
-    const footerHeight = document.querySelector("footer").offsetHeight;
-    const canvasHeight =
-      window.innerHeight - navHeight - headerHeight - footerHeight + 1;
-    const canvas = document.querySelector("#game");
-
-    const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.shadowMap.enabled = true;
-    renderer.setSize(window.innerWidth, canvasHeight);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / canvasHeight,
-      0.1,
-      10000
-    );
-    camera.position.set(0, -350, 700);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 10000);
+camera.position.set(0, -350, 700);
 
     const orbit = new OrbitControls(camera, renderer.domElement);
     orbit.update();
 
-    // Callback to run the game
-    callback({
-      renderer,
-      scene,
-      camera,
-      p1ScoreTag,
-      p2ScoreTag,
-      p3ScoreTag,
-      p4ScoreTag,
-    });
-  }, 500);
+function initGraphic(){
+	let item_list = [paddle1, paddle2, paddle3, paddle4, ball,
+		plane, side1, side2, side3, side4, p1light1, ballplight, 
+		p2light1, p3light1, p4light1, sky]
+	for(let i = 0; i < item_list.length; i++)
+		scene.add(item_list[i])
 }
 
-// Function to run the game, called after initialization is complete
-function runGame({
-  renderer,
-  scene,
-  camera,
-  p1ScoreTag,
-  p2ScoreTag,
-  p3ScoreTag,
-  p4ScoreTag,
-}) {
-  // Initialization functions that depend on the setup completed in initializeGame
-  function initGraphic() {
-    let item_list = [
-      paddle1,
-      paddle2,
-      paddle3,
-      paddle4,
-      ball,
-      plane,
-      side1,
-      side2,
-      side3,
-      side4,
-      p1light1,
-      ballplight,
-      p2light1,
-      p3light1,
-      p4light1,
-    ];
-    item_list.forEach((item) => scene.add(item));
-  }
+function initHelpers(){
+	let item_list = [p1lightHelper1, 
+		p2lightHelper1, p3lightHelper1, p4lightHelper1, ballplightHelper]
+	for(let i = 0; i < item_list.length; i++)
+		scene.add(item_list[i])
+}
 
-  function initHelpers() {
-    let item_list = [
-      p1lightHelper1,
-      p2lightHelper1,
-      p3lightHelper1,
-      p4lightHelper1,
-      ballplightHelper,
-    ];
-    item_list.forEach((helper) => scene.add(helper));
-  }
-
-  function resetGame() {
-    initGame();
-    if (!scene.children.includes(paddle1)) {
-      scene.add(paddle1);
-    }
-    if (!scene.children.includes(paddle2)) {
-      scene.add(paddle2);
-    }
-    if (!scene.children.includes(paddle3)) {
-      scene.add(paddle3);
-    }
-    if (!scene.children.includes(paddle4)) {
-      scene.add(paddle4);
-    }
-    paddle1_att.dead = false;
-    paddle2_att.dead = false;
-    paddle3_att.dead = false;
-    paddle4_att.dead = false;
-    gameInfo.p1Lives = gameInfo.lives;
-    gameInfo.p2Lives = gameInfo.lives;
-    gameInfo.p3Lives = gameInfo.lives;
-    gameInfo.p4Lives = gameInfo.lives;
-    p1ScoreTag.textContent = gameInfo.p1Lives;
-    p2ScoreTag.textContent = gameInfo.p2Lives;
-    p3ScoreTag.textContent = gameInfo.p3Lives;
-    p4ScoreTag.textContent = gameInfo.p4Lives;
-    gameInfo.player_count = 4;
-    gameInfo.gameover = false;
-  }
-
-  function initGame() {
-    // Game initialization logic here...
-  }
-
-  // Additional game functions (e.g., ballPhysic, moveBall, goalDetection, etc.) go here...
-
-  function animate() {
-    if (gameInfo.gameover === false && gameInfo.countDownDone === true) {
-      controlDetection();
-      ballPhysic();
-    }
-    renderer.render(scene, camera);
-    console.log("running");
-  }
-  function initHelpers() {
-    let item_list = [
-      p1lightHelper1,
-      p2lightHelper1,
-      p3lightHelper1,
-      p4lightHelper1,
-      ballplightHelper,
-    ];
-    for (let i = 0; i < item_list.length; i++) scene.add(item_list[i]);
-  }
+function resetGame(){
+	initGame()
+	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
+	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
+	if(!scene.children.includes(paddle3)) {scene.add(paddle3)};
+	if(!scene.children.includes(paddle4)) {scene.add(paddle4)};
+	paddle1_att.dead = false
+	paddle2_att.dead = false
+	paddle3_att.dead = false
+	paddle4_att.dead = false
+	gameInfo.p1Lives = gameInfo.lives
+	gameInfo.p2Lives = gameInfo.lives
+	gameInfo.p3Lives = gameInfo.lives
+	gameInfo.p4Lives = gameInfo.lives
+	p1ScoreTag.textContent = gameInfo.p1Lives
+	p2ScoreTag.textContent = gameInfo.p2Lives
+	p3ScoreTag.textContent = gameInfo.p3Lives
+	p4ScoreTag.textContent = gameInfo.p4Lives
+	gameInfo.player_count = 4
+	gameInfo.gameover = false
+	camera.position.set(0, -400, 375)
+	camera.lookAt(0, -75, 0)
+}
 
   function initGame() {
     ball.position.x = 0;
@@ -443,15 +337,15 @@ function runGame({
       paddle4.position.x -= 4;
   }
 
-  document.addEventListener("keypress", (event) => {
-    if (event.key === "v") changeView();
-    if (event.key === "k") {
-      // renderer.setAnimationLoop(null);
-    }
-    if (event.key === "l") {
-      resetGame();
-    }
-  });
+document.addEventListener("keypress", (event) => {
+	if (event.key === "v") changeView();
+		if (event.key === "k") {
+		// renderer.setAnimationLoop(null);
+			}
+	if (event.key === "l") {
+		resetGame()
+	}
+});
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "w") control.w = true;
@@ -475,29 +369,34 @@ function runGame({
     if (event.key === "9") control.arrowRight = false;
   });
 
-  function changeView() {
-    if (gameInfo.view === 0) {
-      camera.position.set(0, 0, board.size * 2);
-      camera.lookAt(0, 0, 0);
-      gameInfo.view = 1;
-    } else {
-      camera.position.set(0, -1 * (board.size * 2), 300);
-      camera.lookAt(0, 0, 0);
-      gameInfo.view = 0;
-    }
-  }
-  console.log("running game");
-  // Start the game
-  initGraphic();
-  initHelpers();
-  resetGame();
-  renderer.setAnimationLoop(animate);
+function changeView() {
+	if (gameInfo.view === 0) {
+	camera.position.set(0, 0, board.size * 2);
+	camera.lookAt(0, 0, 0);
+	gameInfo.view = 1;
+	} else {
+	camera.position.set(0, -400, 375)
+	camera.lookAt(0, -75, 0)
+	gameInfo.view = 0;
+	}
 }
 
-// create a stop game function
-function stopGame() {
-  renderer.setAnimationLoop(null);
+function animate() {
+	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {
+	controlDetection();
+	ballPhysic();
+	}
+	renderer.render(scene, camera);
+		// console.log("running")
 }
 
-// export callback and run game
-export { initializeGame, runGame, stopGame };
+function runGame(){
+	initGraphic()
+	initHelpers()
+	resetGame();
+// canvas.appendChild(renderer.domElement);
+	renderer.setAnimationLoop(animate);
+	}
+runGame()
+
+}, 500);

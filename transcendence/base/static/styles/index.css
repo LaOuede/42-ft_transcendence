@@ -250,27 +250,27 @@ body {
 
 #root #pong #playerInfo1{
     bottom: 0;
-    left: 15%;
+    left: 5%;
     background-color: #0000ff66;
 }
 
 #root #pong #playerInfo2{
     top: 0;
-    right: 15%;
+    right: 5%;
     background-color: #ff000066;
 
 }
 
 #root #pong #playerInfo3{
     top: 0;
-    left: 15%;
+    left: 5%;
     background-color: #ffff0066;
 
 }
 
 #root #pong #playerInfo4{
     bottom: 0;
-    right: 15%;
+    right: 5%;
     background-color: #00ffff66;
 
 }
