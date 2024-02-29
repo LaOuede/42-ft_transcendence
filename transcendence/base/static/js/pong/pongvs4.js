@@ -11,8 +11,6 @@ import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
 	p4light1, p4lightHelper1} from "./pong_light.js"
 const board = boardVs4
 const gameInfo = gameInfoVs4
-
-setTimeout(() => {
 	
 	const p1ScoreTag = document.getElementById("p1Score")
 	const p2ScoreTag = document.getElementById("p2Score")
@@ -54,6 +52,7 @@ function initHelpers(){
 }
 
 function resetGame(){
+	gameInfo.countDownDone = false
 	initGame()
 	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
 	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
@@ -399,4 +398,4 @@ function runGame(){
 	}
 runGame()
 
-}, 500);
+export {resetGame}

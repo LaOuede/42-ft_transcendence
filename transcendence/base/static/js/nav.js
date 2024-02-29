@@ -1,4 +1,4 @@
-import { runGame, initializeGame } from "./pong/pongvs4.js";
+import { resetGame } from "../js/pong/pongvs4.js";
 
 // function to load the appropriate content on the base page
 function loadContent(path) {
@@ -23,9 +23,13 @@ function loadContent(path) {
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
       if (path === "play/") {
-        initializeGame(runGame);
+        // document.querySelector("#lobby").style.display = "block"
+        document.querySelector("#pong").style.display = "block"
+        resetGame()
+
       } else {
-        /* stopGame(); */
+        document.querySelector("#pong").style.display = "none"
+        document.querySelector("#lobby").style.display = "none"
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
