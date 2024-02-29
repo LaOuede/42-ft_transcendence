@@ -1,3 +1,5 @@
+import { resetGame } from "../js/pong/pongvs4.js";
+
 // function to load the appropriate content on the base page
 function loadContent(path) {
   const headers = {
@@ -20,6 +22,15 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
+      if (path === "play/") {
+        // document.querySelector("#lobby").style.display = "block"
+        document.querySelector("#pong").style.display = "block"
+        resetGame()
+
+      } else {
+        document.querySelector("#pong").style.display = "none"
+        document.querySelector("#lobby").style.display = "none"
+      }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
