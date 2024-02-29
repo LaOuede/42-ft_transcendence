@@ -30,22 +30,26 @@
     <header class="header">
       <h1>Welcome to Transcendence Pong</h1>
     </header>
-    <nav class="is-signed-in nav">
-      <div class="main-nav-links">
-        <a href="#" onclick="loadContent(''); return false;">Home</a>
-        <a href="#" onclick="loadContent('play/'); return false;">Play</a>
-        <a href="#" onclick="loadContent('tournaments/'); return false;"
-          >Tournaments</a
-        >
+    <nav class="nav">
+      <div class="is-signed-in">
+        <div class="main-nav-links">
+          <a href="#" onclick="loadContent(''); return false;">Home</a>
+          <a href="#" onclick="loadContent('play/'); return false;">Play</a>
+          <a href="#" onclick="loadContent('tournaments/'); return false;"
+            >Tournaments</a
+          >
+        </div>
+        <div id="logout-div">
+          <a href="#">Logout</a>
+        </div>
       </div>
-      <div id="logout-div">
-        <a href="#">Logout</a>
-      </div>
-    </nav>
-    <nav class="not-signed-in nav">
-      <div class="main-nav-links">
-        <a href="#" onclick="loadContent('login/'); return false;">Login</a>
-        <a href="#" onclick="loadContent('register/'); return false;">Signup</a>
+      <div class="not-signed-in">
+        <div class="main-nav-links">
+          <a href="#" onclick="loadContent('login/'); return false;">Login</a>
+          <a href="#" onclick="loadContent('register/'); return false;"
+            >Signup</a
+          >
+        </div>
       </div>
     </nav>
 

@@ -45,10 +45,11 @@ def find_user(username, password):
 def get_user_from_token(request):
     token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
     decoded_payload = decode_jwt(token)
-    user = find_user_by_id(decoded_payload['user_id'])
-    if (user is not False or user is not None):
-        return user
-    return False
+    if decoded_payload is not None:  # Check if decoded_payload is not None
+        user = find_user_by_id(decoded_payload.get('user_id'))  # Use .get() to avoid KeyError
+        if user:
+            return user
+    return None
 
 def change_user_status(user, status):
     if user is not None and user.activity != status:
@@ -60,15 +61,13 @@ def change_user_status(user, status):
     
 def decode_jwt(token):
     try:
-        # Decode the token
         decoded = jwt.decode(token, api_settings.SIGNING_KEY, algorithms=[api_settings.ALGORITHM])
-        # Print or return the decoded payload
-        print(decoded)
         return decoded
     except jwt.ExpiredSignatureError:
         print("Token expired. Get a new one.")
     except jwt.InvalidTokenError:
         print("Invalid token. Please log in again.")
+    return None
 
 
 def login(request):
@@ -140,6 +139,8 @@ def register(request):
 def logout(request):
     if request.method == "POST":
         user = get_user_from_token(request)
+        if user is None:
+            return JsonResponse({"error": "Invalid token"}, status=401)
         if change_user_status(user, "OF") == False:
             return JsonResponse({"error": "You are already logged out."}, status=500)
         return JsonResponse({"success": "Logged out successfully"}, status=200)

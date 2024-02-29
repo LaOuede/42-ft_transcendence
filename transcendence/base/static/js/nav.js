@@ -50,7 +50,7 @@ function initializePongGame() {
 }
 
 // Function to handle redirection to the login page
-function redirectToLogin() {
+export function redirectToLogin() {
   loadContent("login/");
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";

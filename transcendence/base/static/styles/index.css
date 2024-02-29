@@ -87,8 +87,14 @@ body {
     justify-content: space-between;
 }
 
-#main-nav-links {
+.main-nav-links {
     width:auto;
+}
+
+.not-signed-in {
+    display: none;
+    align-items: center;
+    width: '100%';
 }
 
 #logout-div {
