@@ -75,8 +75,8 @@ def login(request):
         user = data.get("user")
         password = data.get("password")
 
-        # user = authenticate(username=user, password=password)
-        user = find_user(user, password)
+        user = authenticate(username=user, password=password)
+        # user = find_user(user, password)
         print({user})
         if user is not False:
             change_user_status(user, "ON")

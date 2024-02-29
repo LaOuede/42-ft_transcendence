@@ -1,5 +1,5 @@
 import requests
-
+from user.models import User
 class Color:
 	RESET = '\033[0m'
 	BOLD = '\033[1m'
@@ -26,20 +26,25 @@ def create_user(username, email, password):
 		print(f"{Color.RED}[ERROR]{Color.RESET} Failed to create user '{username}'. Error: {response.text}")
 
 def populate_database():
-	print(f"{Color.BOLD}Checking if the database is populated...{Color.RESET}")
-	if check_database():
-		print(f"{Color.YELLOW}[WARNING]{Color.RESET} Database is already populated.")
-	else:
-		users = [
-			{"username": "Alex", "email": "alex@example.com", "password": "pass"},
-			{"username": "Bob", "email": "bob@example.com", "password": "pass"},
-			{"username": "Chet", "email": "chet@example.com", "password": "pass"},
-			{"username": "Dave", "email": "dave@example.com", "password": "pass"},
-			{"username": "Edward", "email": "edward@example.com", "password": "pass"},
-			{"username": "Frank", "email": "frank@example.com", "password": "pass"}
-		]
-		print(f"{Color.BOLD}Populating the database...{Color.RESET}")
-		for user in users:
-			create_user(user["username"], user["email"], user["password"])
+    print(f"{Color.BOLD}Checking if the database is populated...{Color.RESET}")
+    if check_database():
+        print(f"{Color.YELLOW}[WARNING]{Color.RESET} Database is already populated.")
+    else:
+        users = [
+            {"username": "Alex", "email": "alex@example.com", "password": "pass"},
+            {"username": "Bob", "email": "bob@example.com", "password": "pass"},
+            {"username": "Chet", "email": "chet@example.com", "password": "pass"},
+            {"username": "Dave", "email": "dave@example.com", "password": "pass"},
+            {"username": "Edward", "email": "edward@example.com", "password": "pass"},
+            {"username": "Frank", "email": "frank@example.com", "password": "pass"}
+        ]
+
+        for user_info in users:
+            user = User.objects.create_user(username=user_info['username'],
+                                            email=user_info['email'],
+                                            password=user_info['password'])
+            user.save()
+            print(f"User {user.username} created successfully.")
+    
 
 populate_database()
