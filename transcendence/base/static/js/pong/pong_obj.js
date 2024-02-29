@@ -7,6 +7,14 @@ import {boardVs4, ball_att, paddle1_att, paddle2_att,
 
 const board = boardVs4
 
+//SKY
+const skyGeometry = new THREE.SphereGeometry(2000, 64, 64);
+const texture = new THREE.TextureLoader().load("../static/js/pong/nebuleuse.jpeg");
+const skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide});
+const sky = new THREE.Mesh(skyGeometry, skyMaterial);
+sky.rotateY(Math.PI * -0.5)
+sky.rotateZ(Math.PI)
+
 //PLANE
 const planeGeometry = new THREE.PlaneGeometry(board.size + 2, board.size + 2);
 const planeMaterial = new THREE.MeshStandardMaterial({
@@ -128,4 +136,4 @@ paddle4.receiveShadow = true;
 
 
 export {plane, ball, side1, side2, side3, side4,
-	paddle1, paddle2, paddle3, paddle4};
+	paddle1, paddle2, paddle3, paddle4, sky};

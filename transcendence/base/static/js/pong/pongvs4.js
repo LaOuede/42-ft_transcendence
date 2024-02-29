@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import {plane, ball, side1, side2, side3, side4,
-	paddle1, paddle2, paddle3, paddle4} from "./pong_obj.js"
+	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
 import {boardVs4, ball_att, paddle1_att, paddle2_att, 
 	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
 import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
@@ -41,7 +41,7 @@ orbit.update();
 function initGraphic(){
 	let item_list = [paddle1, paddle2, paddle3, paddle4, ball,
 		plane, side1, side2, side3, side4, p1light1, ballplight, 
-		p2light1, p3light1, p4light1]
+		p2light1, p3light1, p4light1, sky]
 	for(let i = 0; i < item_list.length; i++)
 		scene.add(item_list[i])
 }
@@ -73,6 +73,8 @@ function resetGame(){
 	p4ScoreTag.textContent = gameInfo.p4Lives
 	gameInfo.player_count = 4
 	gameInfo.gameover = false
+	camera.position.set(0, -400, 375)
+	camera.lookAt(0, -75, 0)
 }
 
 function initGame() {
@@ -339,9 +341,9 @@ function controlDetection() {
 
 document.addEventListener("keypress", (event) => {
 	if (event.key === "v") changeView();
-	if (event.key === "k") {
+		if (event.key === "k") {
 		// renderer.setAnimationLoop(null);
-	}
+			}
 	if (event.key === "l") {
 		resetGame()
 	}
@@ -375,8 +377,8 @@ function changeView() {
 	camera.lookAt(0, 0, 0);
 	gameInfo.view = 1;
 	} else {
-	camera.position.set(0, -1 * (board.size * 2), 300);
-	camera.lookAt(0, 0, 0);
+	camera.position.set(0, -400, 375)
+	camera.lookAt(0, -75, 0)
 	gameInfo.view = 0;
 	}
 }
@@ -387,16 +389,16 @@ function animate() {
 	ballPhysic();
 	}
 	renderer.render(scene, camera);
-	// console.log("running")
+		// console.log("running")
 }
 
 function runGame(){
 	initGraphic()
 	initHelpers()
 	resetGame();
-	// canvas.appendChild(renderer.domElement);
+// canvas.appendChild(renderer.domElement);
 	renderer.setAnimationLoop(animate);
-}
+	}
 runGame()
 
 }, 500);
