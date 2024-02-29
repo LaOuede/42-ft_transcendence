@@ -36,7 +36,6 @@ def find_user_by_id(id):
 
 def find_user(username, password):
     users = User.objects.all()
-
     for user in users:
         if user.username == username and user.password == password:
             return user
@@ -78,7 +77,8 @@ def login(request):
 
         # user = authenticate(username=user, password=password)
         user = find_user(user, password)
-        if user is not None or False:
+        print({user})
+        if user is not False:
             change_user_status(user, "ON")
             tokens = get_tokens_for_user(user)
             return JsonResponse(
