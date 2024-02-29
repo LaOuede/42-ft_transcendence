@@ -14,13 +14,18 @@ Including another URLconf
 	1. Import the include() function: from django.urls import include, path
 	2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.urls import path
 from django.contrib import admin
 from user import views
 from base import views
 from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate
 from games.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView  # Import TokenRefreshView here
+from pong.views import pong
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)  # Import TokenRefreshView here
 
 
 urlpatterns = [
