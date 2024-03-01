@@ -27,7 +27,10 @@ const apiHandler = {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || "API request failed");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        redirectToLogin();
+        throw new Error(data.detail || "Something went wrong");
       }
 
       return data;
@@ -86,6 +89,8 @@ function storeTokens({ access, refresh }) {
 }
 
 function redirectToLogin() {
+  document.querySelector(".is-signed-in").style.display = "none";
+  document.querySelector(".not-signed-in").style.display = "flex";
   window.loadContent("login/");
 }
 

@@ -1,7 +1,7 @@
 // -------------------------------------------------//
 // LOGIN
 // -------------------------------------------------//
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function (e) {
   document.body.addEventListener("submit", function (e) {
     if (e.target && e.target.id === "login-form") {
       handleLogin(e);
