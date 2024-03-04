@@ -1,4 +1,4 @@
-import { resetGame } from "../js/pong/pongvs4.js";
+import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
 
 // function to load the appropriate content on the base page
 function loadContent(path) {
@@ -23,13 +23,13 @@ function loadContent(path) {
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
       if (path === "play/") {
-        // document.querySelector("#lobby").style.display = "block"
-        document.querySelector("#pong").style.display = "block"
-        resetGame()
-
+        // document.querySelector("#pong").style.display = "block"
+        playGameV4()// peut aller sur un bouton pour demarrer la joute
+        // playGameV2()
       } else {
-        document.querySelector("#pong").style.display = "none"
-        document.querySelector("#lobby").style.display = "none"
+        // document.querySelector("#pong").style.display = "none"
+        // stopGame()
+        playDemo()
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);

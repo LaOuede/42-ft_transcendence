@@ -1,7 +1,5 @@
 import * as THREE from "three";
 
-// import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
 import {boardVs4, ball_att, paddle1_att, paddle2_att, 
 	paddle3_att, paddle4_att} from "./pong_var.js"
 
