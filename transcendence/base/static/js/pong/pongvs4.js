@@ -8,7 +8,7 @@ import {boardVs4, ball_att, paddle1_att, paddle2_att,
 	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
 import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
 	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
-	p4light1, p4lightHelper1} from "./pong_light.js"
+	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
 const board = boardVs4
 const gameInfo = gameInfoVs4
 let reboundx = true
@@ -45,7 +45,7 @@ renderer.shadowMap.enabled = true;// voir ou le mettre
 renderer.setSize(window.innerWidth, canvasHeight);
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 10000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 10000000);
 camera.position.set(0, -350, 700);
 
     const orbit = new OrbitControls(camera, renderer.domElement);
@@ -54,7 +54,7 @@ camera.position.set(0, -350, 700);
 function initGraphic(){
 	let item_list = [paddle1, paddle2, paddle3, paddle4, ball,
 		plane, side1, side2, side3, side4, p1light1, ballplight, 
-		p2light1, p3light1, p4light1, sky]
+		p2light1, p3light1, p4light1, sky, backLight1, backLight2, backLight3, backLight4]
 	for(let i = 0; i < item_list.length; i++)
 		scene.add(item_list[i])
 }
@@ -75,6 +75,8 @@ function resetGameOverV2(){
 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
 	if(scene.children.includes(p3light1)) {scene.remove(p3light1)};
 	if(scene.children.includes(p4light1)) {scene.remove(p4light1)};
+	p1light1.distance = 800
+	p2light1.distance = 800
 	paddle1_att.dead = false
 	paddle2_att.dead = false
 	paddle3_att.dead = true
@@ -106,6 +108,8 @@ function resetGameOverV4(){
 	if(!scene.children.includes(paddle4)) {scene.add(paddle4)};
 	if(!scene.children.includes(p3light1)) {scene.add(p3light1)};
 	if(!scene.children.includes(p4light1)) {scene.add(p4light1)};
+	p1light1.distance = 400
+	p2light1.distance = 400
 	paddle1limit = 2.5
 	paddle2limit = 2.5
 	paddle3limit = 2.5
@@ -361,11 +365,11 @@ function paddleColision() {
 		ball.position.x <= paddle3.position.x + paddle3_att.width / 2 &&
 		ball.position.x >= paddle3.position.x - paddle3_att.width / 2
 	) {
-	if(reboundx === true){
+	if(reboundy === true){
 		changeAngle();
 		ball_att.dirY = -1;
 		if(gameInfo.level < maxlevel)
-		gameInfo.level += gameInfo.level_inc;
+			gameInfo.level += gameInfo.level_inc;
 	}
 	reboundy = false
 	}
@@ -376,11 +380,11 @@ function paddleColision() {
 		ball.position.x <= paddle4.position.x + paddle4_att.width / 2 &&
 		ball.position.x >= paddle4.position.x - paddle4_att.width / 2
 	) {
-	if(reboundx === true){
+	if(reboundy === true){
 		changeAngle();
 		ball_att.dirY = 1;
 		if(gameInfo.level < maxlevel)
-		gameInfo.level -= gameInfo.level_inc;
+			gameInfo.level -= gameInfo.level_inc;
 	}
 	
 	reboundy = false
@@ -411,14 +415,14 @@ function controlDetection() {
 	paddle1.position.y -= paddleSpeed;
 
 	if (
-	control.g === true &&
+	control.h === true &&
 	paddle3.position.x <
 		board.size / 2 - paddle3_att.width / 2 - board.thickness * paddle2limit
 	)
 	paddle3.position.x += paddleSpeed;
 
 	if (
-	control.h === true &&
+	control.g === true &&
 	paddle3.position.x >
 		-board.size / 2 + paddle3_att.width / 2 + board.thickness * paddle1limit
 	)
@@ -439,14 +443,14 @@ function controlDetection() {
 	paddle2.position.y -= paddleSpeed;
 
 	if (
-	control.num8 === true &&
+	control.num9 === true &&
 	paddle4.position.x <
 		board.size / 2 - paddle3_att.width / 2 - board.thickness * paddle2limit
 	)
 	paddle4.position.x += paddleSpeed;
 
 	if (
-	control.num9 === true &&
+	control.num8 === true &&
 	paddle4.position.x >
 		-board.size / 2 + paddle3_att.width / 2 + board.thickness * paddle1limit 
 	)
