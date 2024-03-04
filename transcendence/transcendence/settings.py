@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'base',
 	'custom_auth',
-	'games',
+	'games_history',
 	'user',
 	'rest_framework',
 	'rest_framework.authtoken',

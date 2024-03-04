@@ -13,5 +13,4 @@ class GameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Game
-        fields = ['id', 'player1', 'player2', 'player1_score', 'player2_score', 'winner']
-        read_only_fields = ['id', 'score', 'winner']
+        fields = ['id', 'player1', 'player2', 'player1_score', 'player2_score', 'winner', 'loser', 'created_at']
