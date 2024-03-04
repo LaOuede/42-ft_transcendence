@@ -1,277 +1,318 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--main-dark-color: #000000;
+	--main-purple-color: #69327A;
+	--main-blue-color: #249DC6;
+	--main-soft-blue-color: #00FAFA;
+	font-family: 'Courier';
+}
 
-/* Add your CSS here */
+.gradient {
+		background: linear-gradient(90deg, var(--main-purple-color) 0%, var(--main-blue-color) 100%);
+}
+
+h1 {
+	background: linear-gradient(90deg, #CA78E5 0%, #44244F 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	font-size: 30px;
+	margin-top: -15px;
+	padding: 1em;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden;
+/*   font-family: 'Courier'; */
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 40px;
+	box-sizing: border-box;
 }
-.header, .footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em 1em;
-}
-.footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-#root {
-    width: '100%';
-    height: '100%';
-}
-.main {
-    flex: 1;
-    text-align: center;
 
+.master {
+	display: flex;
+	justify-content: space-between; /* Align items at both ends */
+	align-items: center; /* Center items vertically in the middle */
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background: var(--main-dark-color);
+	box-sizing: border-box;
+	padding: 10px; /* Add padding for spacing */
 }
+  
+h1 {
+	font-size: 30px;
+	margin-top: -5px;
+}
+  
 .nav {
-    background-color: #555;
-    overflow: hidden;
-}
-.nav a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-}
-.nav a:hover {
-    background-color: #ddd;
-    color: black;
+	display: flex;
+	align-items: center; /* Center items vertically in the middle */
+	position: absolute;
+	width: 100%;
+	top: 5px;
+
 }
 
-.fa-brands {
-    padding-left: 10px;
+.is-signed-in {
+	display: flex;
+	align-items: center; /* Align items vertically in the middle */
+	justify-content: space-between;
+	width: 100%;
 }
 
-.footer-links {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links li {
-    display: inline; /* or 'inline-block' if you want to give some margin, padding, etc. */
-    margin-right: 10px; /* Adjust spacing as needed */
-  }
-  
-  .github-link {
-    text-decoration: none;
-    color: #ddd; /* Or any color */
-  }
-  
-  .github-link:hover,
-  .github-link:hover .fa-brands {
-    color: #f37c6c; /* Color on hover */
-  }
-  
+#logout-div {
+	margin-right: 30px; /* Push LOGOUT to the left */
+}
 
-#github-links {
-    text-decoration: none;
-    color: #ddd;
+.main-nav-links a , .is-signed-in a {
+	color: var(--main-soft-blue-color);
+	text-align: left;
+	padding: 10px;
+	text-decoration: none;
+}
+.main-nav-links a , .not-signed-in a {
+	color: var(--main-soft-blue-color);
+	text-align: left;
+	padding: 10px;
+	text-decoration: none;
+}
+.content {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center; /* Center the content vertically */
+	align-items: center; /* Center the content horizontally */
+}
+
+.footer {
+	display: flex;
+	flex-direction: row; /* Align h5 and other footer content horizontally */
+	align-items: center; /* Center vertically if needed */
+	justify-content: space-between; /* Adjust as needed */
+	color: var(--main-soft-blue-color);
+	text-align: center;
+	padding: 10px; /* Adjust the padding as needed */
+}
+
+h5 {
+	color: var(--main-blue-color);
+	font-size: 14px;
 }
 
 /* ------------------------------------------------ */
 /* AUTH */
 /* ------------------------------------------------ */
 
-.is-signed-in {
+.not-signed-in {
     width: '100%';
     display: flex;
     justify-content: space-between;
 }
 
-.main-nav-links {
-    width:auto;
-}
-
-.not-signed-in {
-    display: none;
-    align-items: center;
-    width: '100%';
-}
-
-#logout-div {
-    width: auto;
-}
-
 .signup-container {
-    max-width: 32rem;
-    margin: auto;
-    padding: 1.5rem;
-    height: '100%';
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center; /* Center the content vertically */
+	align-items: center; /* Center the content horizontally */
+	position: absolute;
+	left: 40%;
+	right: 40%;
+	top: 20%;
+	bottom: 20%;
+	z-index: 10;
+
+	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
+	border-radius: 20px;
+}
+
+.signup-container-black {
+	position: absolute;
+	width: 87%;
+	height: 92%;
+
+	z-index: 11;
+
+	background: black;
+	border-radius: 20px;
+}
+.signup-container-login {
+	/* position: absolute; */
+	align-items: center;
+	justify-content: center;
+	/* padding: 50px; */
+	height: 90%;
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-top: 60px;
+
+	z-index: 12;
+
+	background: transparent;
+	border-radius: 20px;
 }
 
 .signup-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
+	text-align: center;
+	margin-bottom: 1.5rem;
 }
 
 .signup-title {
-    font-size: 1.875rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+	font-size: 1.875rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
 }
 
 .signup-description {
-    color: #6b7280;
+	color: #6b7280;
 }
 
 .signup-form .input-row {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 
 .login-error-message {
-    font-size: 0.875rem;
-    color: red;
-    opacity:  0.9;
+	font-size: 0.875rem;
+	color: red;
+	opacity:  0.9;
 }
 
 .signup-error {
-    font-size: 0.875rem;
-    color: red;
-    opacity:  0.9;
+	font-size: 0.875rem;
+	color: red;
+	opacity:  0.9;
 }
 
 .input-group {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
 }
 
 .input-group input.login-is-invalid {
-    border-color: red;
+	border-color: red;
 }
 
 .input-group label {
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    opacity: 0.7;
+	font-size: 0.875rem;
+	margin-bottom: 0.5rem;
+	opacity: 0.7;
 }
 
 .input-group input {
-    height: 2.5rem;
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    background-color: #f9fafb;
-    font-size: 0.875rem;
+	height: 2.5rem;
+	padding: 0.5rem;
+	border: 1px solid #d1d5db;
+	border-radius: 0.375rem;
+	background-color: #f9fafb;
+	font-size: 0.875rem;
 }
 
 .input-group input:focus {
-    outline: 2px solid #3b82f6;
-    border-color: transparent;
+	outline: 2px solid #3b82f6;
+	border-color: transparent;
 }
 
 .signup-btn,
 .enable-2fa-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem 1rem;
-    width: 100%;
-    height: 2.5rem;
-    font-size: 0.875rem;
-    font-weight: medium;
-    text-align: center;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin: 16px 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5rem 1rem;
+	width: 100%;
+	height: 2.5rem;
+	font-size: 0.875rem;
+	font-weight: medium;
+	text-align: center;
+	border-radius: 0.375rem;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	margin: 16px 0px;
 }
 
 .signup-btn {
-    background-color: #2563eb;
-    color: white;
-    border: none;
+	background-color: #2563eb;
+	color: white;
+	border: none;
 }
 
 .signup-btn:hover {
-    background-color: #1d4ed8;
+	background-color: #1d4ed8;
 }
 
 .enable-2fa-btn {
-    background-color: #f9fafb;
-    color: #374151;
-    border: 1px solid #d1d5db;
+	background-color: #f9fafb;
+	color: #374151;
+	border: 1px solid #d1d5db;
 }
 
 .enable-2fa-btn:hover {
-    background-color: #e5e7eb;
+	background-color: #e5e7eb;
 }
-
-/* #root #content #pong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 
 /*PONG*/
 #root #pong {
-    /* border:  solid greenyellow; */
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+	/* border:  solid greenyellow; */
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
 }
 
 #root #pong #playerInfo1, #root #pong #playerInfo2, #root #pong #playerInfo3, #root #pong #playerInfo4{
-        text-align: center;
-        width: 200px;
-        height: 275px;
-        border-radius: 20px;
-        color: white;
-        font-size: 1.3em;
-        border: solid white 5px;
-        box-shadow: white 5px 5px 20px;
-        margin: 10px;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+		text-align: center;
+		width: 200px;
+		height: 275px;
+		border-radius: 20px;
+		color: white;
+		font-size: 1.3em;
+		border: solid white 5px;
+		box-shadow: white 5px 5px 20px;
+		margin: 10px;
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 
 }
 
 #root #pong #playerInfo1{
-    bottom: 0;
-    left: 15%;
-    background-color: #0000ff66;
+	bottom: 0;
+	left: 15%;
+	background-color: #0000ff66;
 }
 
 #root #pong #playerInfo2{
-    top: 0;
-    right: 15%;
-    background-color: #ff000066;
+	top: 0;
+	right: 15%;
+	background-color: #ff000066;
 
 }
 
 #root #pong #playerInfo3{
-    top: 0;
-    left: 15%;
-    background-color: #ffff0066;
+	top: 0;
+	left: 15%;
+	background-color: #ffff0066;
 
 }
 
 #root #pong #playerInfo4{
-    bottom: 0;
-    right: 15%;
-    background-color: #00ffff66;
+	bottom: 0;
+	right: 15%;
+	background-color: #00ffff66;
 
 }
 
