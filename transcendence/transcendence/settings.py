@@ -40,11 +40,16 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'base',
+	'custom_auth',
 	'games',
 	'user',
 	'rest_framework',
 	'rest_framework.authtoken',
 	'channels',
+ 	'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +60,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ 	'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
@@ -150,4 +156,4 @@ SIMPLE_JWT = {
 	
 }
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'user.User'	
