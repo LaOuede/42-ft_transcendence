@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
 }
 .header, .footer {
-    background-color: #333;
+    background-color: #000000;
     color: white;
     text-align: center;
     padding: 1em 1em;
