@@ -1,0 +1,11 @@
+{% load static %}
+<div>
+    <h1>Mon profil</h1>
+    {% if user_data %}
+        <img src="{{ user_data.avatar }}" alt="User Avatar">
+        <p><strong>Username:</strong> {{ user_data.username }}</p>
+        <p><strong>Email:</strong> {{ user_data.email }}</p>
+    {% else %}
+        <p>No user data available.</p>
+    {% endif %}
+</div>

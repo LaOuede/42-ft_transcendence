@@ -18,11 +18,11 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 from custom_auth import views as custom_auth_views
-from user import views
-from base import views
+from user import views as user_views
+from base import views as base_views
 from custom_auth.views import login, register, logout
-from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate
-from games.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
+from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate, UserProfile
+from games_history.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -37,9 +37,10 @@ urlpatterns = [
     path("register/", custom_auth_views.register, name="create_profile"),
     path("logout/", custom_auth_views.logout, name="logout"),
     path("admin/", admin.site.urls),
-    path("", views.index, name="index"),
-    path("play/", views.play, name="play"),
-    path("tournaments/", views.tournaments, name="tournaments"),
+    path('profile/', user_views.UserProfile, name='profile'),
+    path("", base_views.index, name="index"),
+    path("play/", base_views.play, name="play"),
+    path("tournaments/", base_views.tournaments, name="tournaments"),
     path("users/create/", UserCreate.as_view(), name="user-create"),
     path("users/<int:user_id>/", UserGetOne.as_view(), name="user-detail"),
     path("users/", UserGetAll.as_view(), name="user-all"),

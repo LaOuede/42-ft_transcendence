@@ -3,7 +3,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer
-from rest_framework.generics import get_object_or_404
+from django.shortcuts import render
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from custom_auth.views import get_user_from_token
+
+def is_ajax(request):
+	return request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
 class UserCreate(APIView):
 	def post(self, request):
@@ -63,3 +70,17 @@ class UserUpdate(APIView):
 			serializer.save()
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+def UserProfile(request):
+	if request.method == 'GET':
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		serializer = UserSerializer(user)
+		user_data = serializer.data
+
+	if is_ajax(request):
+		return render(request, 'profile.html', {'user_data': user_data})
+	return render(request, "base.html", {"content": "profile.html"})
