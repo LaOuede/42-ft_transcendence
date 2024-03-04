@@ -17,8 +17,10 @@ Including another URLconf
 
 from django.urls import path
 from django.contrib import admin
+from custom_auth import views as custom_auth_views
 from user import views
 from base import views
+from custom_auth.views import login, register, logout
 from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate
 from games.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
@@ -31,9 +33,9 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("login/", views.login, name="login"),
-    path("register/", views.register, name="create_profile"),
-    path("logout/", views.logout, name="logout"),
+    path("login/", custom_auth_views.login, name="login"),
+    path("register/", custom_auth_views.register, name="create_profile"),
+    path("logout/", custom_auth_views.logout, name="logout"),
     path("admin/", admin.site.urls),
     path("", views.index, name="index"),
     path("play/", views.play, name="play"),
