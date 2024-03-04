@@ -7,10 +7,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from base.views import get_user_from_token
+from custom_auth.views import get_user_from_token
 
 def is_ajax(request):
-    return request.headers.get("X-Requested-With") == "XMLHttpRequest"
+	return request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
 class UserCreate(APIView):
 	def post(self, request):

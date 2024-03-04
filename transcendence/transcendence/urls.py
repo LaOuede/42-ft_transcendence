@@ -37,6 +37,7 @@ urlpatterns = [
     path("register/", custom_auth_views.register, name="create_profile"),
     path("logout/", custom_auth_views.logout, name="logout"),
     path("admin/", admin.site.urls),
+    path('profile/', user_views.UserProfile, name='profile'),
     path("", base_views.index, name="index"),
     path("play/", base_views.play, name="play"),
     path("tournaments/", base_views.tournaments, name="tournaments"),
