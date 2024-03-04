@@ -5,7 +5,16 @@ import {boardVs4, ball_att, paddle1_att, paddle2_att,
 
 const board = boardVs4
 const light_prim_intense = 1.15
-const light_prim_distance = 500
+const light_prim_distance = 400
+
+const backLight1 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight1.position.set(500, 500, -500)
+const backLight2 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight2.position.set(-500, 500, -500)
+const backLight3 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight3.position.set(-500, -500, -500)
+const backLight4 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight4.position.set(500, -500, -500)
 
 //BALL
 const ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
@@ -71,4 +80,4 @@ const p4lightHelper1 = new THREE.PointLightHelper(p4light1);
 
 export {ballplight, ballplightHelper, p1light1, p1lightHelper1,
 	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
-	p4light1, p4lightHelper1};
+	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4};

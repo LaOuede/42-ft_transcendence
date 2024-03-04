@@ -6,7 +6,7 @@ import {boardVs4, ball_att, paddle1_att, paddle2_att,
 const board = boardVs4
 
 //SKY
-const skyGeometry = new THREE.SphereGeometry(4000, 64, 64);
+const skyGeometry = new THREE.SphereGeometry(100000, 64, 64);
 const texture = new THREE.TextureLoader().load("../static/js/pong/nebuleuse.jpeg");
 const skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide});
 const sky = new THREE.Mesh(skyGeometry, skyMaterial);
@@ -14,11 +14,16 @@ sky.rotateY(Math.PI * -0.5)
 sky.rotateZ(Math.PI)
 
 //PLANE
-const planeGeometry = new THREE.PlaneGeometry(board.size + 2, board.size + 2);
-const planeMaterial = new THREE.MeshStandardMaterial({
+const planeGeometry = new THREE.BoxGeometry(
+	board.size + board.thickness * 2,
+	board.size + board.thickness * 2,
+	board.thickness
+);
+const planeMaterial = new THREE.MeshPhongMaterial({
 	color: 0xffffff,
 	side: THREE.DoubleSide});
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0 , 0, -board.thickness / 2)
 plane.receiveShadow = true;
 
 //BALL
@@ -34,7 +39,7 @@ const side1geometry = new THREE.BoxGeometry(
 	board.thickness,
 	board.thickness * 2
 );
-const side1material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const side1material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 const side1 = new THREE.Mesh(side1geometry, side1material);
 side1.position.set(0, -board.size / 2 - board.thickness / 2, board.thickness);
 side1.receiveShadow = true;
@@ -45,7 +50,7 @@ const side2geometry = new THREE.BoxGeometry(
 	board.thickness,
 	board.thickness * 2
 );
-const side2material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const side2material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 const side2 = new THREE.Mesh(side2geometry, side2material);
 side2.position.set(0, board.size / 2 + board.thickness / 2, board.thickness);
 side2.receiveShadow = true;
@@ -56,7 +61,7 @@ const side3geometry = new THREE.BoxGeometry(
 	board.size,
 	board.thickness * 2
 );
-const side3material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const side3material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 const side3 = new THREE.Mesh(side3geometry, side3material);
 side3.position.set(board.size / 2 + board.thickness / 2, 0, board.thickness);
 side3.receiveShadow = true;
@@ -67,7 +72,7 @@ const side4geometry = new THREE.BoxGeometry(
 	board.size,
 	board.thickness * 2
 );
-const side4material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const side4material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 const side4 = new THREE.Mesh(side4geometry, side4material);
 side4.position.set(-board.size / 2 - board.thickness / 2, 0, board.thickness);
 side4.receiveShadow = true;
