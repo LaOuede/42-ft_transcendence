@@ -3,6 +3,10 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from .models import User
 
+from rest_framework.test import APITestCase
+from django.contrib.auth import get_user_model
+from django.urls import reverse
+
 class UserTestCase(TestCase):
 	def setUp(self):
 		User.objects.create(
@@ -154,3 +158,29 @@ class UserUpdateTestCase(TestCase):
 		}
 		response = self.client.patch("/users/1000/update/", updated_data, format='json')  # Nonexistent user ID
 		self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+User = get_user_model()
+
+class UserCreateAPIViewTestCase(APITestCase):
+	def test_create_user_with_empty_fields(self):
+		data = {
+			'username': '',
+			'password': '',
+			'email': ''
+		}
+		response = self.client.post('/users/create/', data, format='json')
+		self.assertIn('This field may not be blank.', response.data['username'])
+		self.assertIn('This field may not be blank.', response.data['password'])
+
+class UserProfileTestCase(APITestCase):
+	def setUp(self):
+		self.user = User.objects.create_user(username='testuser', password='testpassword', email='test@example.com')
+
+	def test_authenticated_user(self):
+		self.client.force_authenticate(user=self.user)
+		response = self.client.get(reverse('profile'))
+		self.assertEqual(response.status_code, 200)
+
+	def test_non_authenticated_user(self):
+		response = self.client.get(reverse('profile'))
+		self.assertEqual(response.status_code, 401)

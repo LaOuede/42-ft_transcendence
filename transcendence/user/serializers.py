@@ -1,12 +1,11 @@
 from rest_framework import serializers
 from django.core.validators import RegexValidator, EmailValidator
-from django.contrib.auth.models import User
 from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ['id', 'username', 'email', 'password', 'activity']
+		fields = ['id', 'username', 'email', 'activity']
 		extra_kwargs = {
 			'username': {
 				'required': True,
