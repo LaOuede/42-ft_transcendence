@@ -16,16 +16,13 @@ const apiHandler = {
 
     try {
       let response = await fetch(fullUrl, { ...options, headers });
-
+      const data = await response.json();
       if (!response.ok || response.status === 401) {
-        console.log('crisse');
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         redirectToLogin();
         throw new Error(data.detail || "Something went wrong");
       }
-
-      const data = await response.json();
 
       return data;
     } catch (error) {
@@ -104,4 +101,3 @@ function getCookie(name) {
 }
 
 window.apiHandler = apiHandler;
-

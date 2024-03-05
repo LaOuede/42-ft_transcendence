@@ -1,7 +1,12 @@
 from django.http import HttpResponse, JsonResponse
+from datetime import timedelta
+from django.core.mail import send_mail
+from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render
 from user.models import User
+import random
+import string
 from django.contrib.auth import authenticate
 import json
 
@@ -20,6 +25,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 def is_ajax(request):
     return request.headers.get("X-Requested-With") == "XMLHttpRequest"
+
+def generate_random_otp(n=6):
+    return "".join(random.choices(string.digits, k=n))
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -69,6 +77,20 @@ def decode_jwt(token):
         print("Invalid token. Please log in again.")
     return None
 
+def generate_otp_user(user):
+    otp = generate_random_otp()
+    user.otp = otp
+    user.otp_expiry_time = timezone.now() + timedelta(minutes=5)
+    user.save()
+    
+    send_mail(
+        'Transcendence - Verification code',
+        f'Your verification code is {otp}',
+        'from@example.com',
+        [user.email],
+        fail_silently=False,
+    )
+
 def login(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -78,6 +100,7 @@ def login(request):
         user = authenticate(username=user, password=password)
         if user is not False:
             change_user_status(user, "ON")
+            generate_otp_user(user)
             tokens = get_tokens_for_user(user)
             return JsonResponse(
                 {"tokens": tokens, "success": "User logged in successfully"}, status=201

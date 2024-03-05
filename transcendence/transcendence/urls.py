@@ -27,7 +27,7 @@ from pong.views import pong
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-)  # Import TokenRefreshView here
+)
 
 
 urlpatterns = [
@@ -36,7 +36,7 @@ urlpatterns = [
     path("login/", custom_auth_views.login, name="login"),
     path("register/", custom_auth_views.register, name="create_profile"),
     path("logout/", custom_auth_views.logout, name="logout"),
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls, name="admin"),
     path('profile/', user_views.UserProfile, name='profile'),
     path("", base_views.index, name="index"),
     path("play/", base_views.play, name="play"),

@@ -5,13 +5,16 @@
   </button>
   <div class="settings-container">
     <h1>Settings</h1>
+    <button id="enable-2fa-button" type="button" class="btn btn-primary">
+      {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
+    </button>
   </div>
   <div class="profile-container">
     <h1>Mon profil</h1>
-    {% if user_data %}
-    <img src="{{ user_data.avatar }}" alt="User Avatar" />
-    <p><strong>Username:</strong> {{ user_data.username }}</p>
-    <p><strong>Email:</strong> {{ user_data.email }}</p>
+    {% if user %}
+    <img src="{{ user.avatar }}" alt="User Avatar" />
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
     {% else %}
     <p>No user data available.</p>
     {% endif %}

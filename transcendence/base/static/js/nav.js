@@ -2,15 +2,11 @@ import { runGame, initializeGame } from "./pong/pongvs4.js";
 
 // function to load the appropriate content on the base page
 function loadContent(path) {
+  let accessToken = localStorage.getItem("accessToken");
   const headers = {
     "X-Requested-With": "XMLHttpRequest",
+    Authorization: `Bearer ${accessToken}`,
   };
-
-  // Include the JWT in the Authorization header for authenticated requests
-  const accessToken = localStorage.getItem("accessToken");
-  if (accessToken) {
-    headers["Authorization"] = `Bearer ${accessToken}`;
-  }
 
   fetch("/" + path, { headers })
     .then((response) => {
@@ -24,31 +20,16 @@ function loadContent(path) {
       document.querySelector(".main").innerHTML = html;
       if (path === "play/") {
         initializeGame(runGame);
-      } else {
-        /* stopGame(); */
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
     })
-    .catch((error) => console.error("Error loading content:", error));
+    .catch((error) => {
+      console.error("Error loading content:", error);
+      redirectToLogin();
+    });
 }
-
-function initializePongGame() {
-  // Check if the game script is already loaded
-  if (!document.querySelector("#pong-game-script")) {
-    const script = document.createElement("script");
-    script.id = "pong-game-script";
-    script.src = window.staticUrls.pongScript;
-    script.type = "module";
-    script.defer = true;
-    script.onload = () => {
-      window.init_pong_game;
-    };
-    document.body.appendChild(script);
-  }
-}
-
 // Function to handle redirection to the login page
 export function redirectToLogin() {
   loadContent("login/");

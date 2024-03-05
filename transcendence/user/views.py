@@ -74,13 +74,10 @@ class UserUpdate(APIView):
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 def UserProfile(request):
-	if request.method == 'GET':
+	if is_ajax(request):
 		user = get_user_from_token(request)
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		serializer = UserSerializer(user)
-		user_data = serializer.data
-
-	if is_ajax(request):
-		return render(request, 'profile.html', {'user_data': user_data})
-	return render(request, "base.html", {"content": "profile.html"})
+		return render(request, 'profile.html', {"user": serializer.data})
+	return render(request, "base.html", {"content": "login.html"})

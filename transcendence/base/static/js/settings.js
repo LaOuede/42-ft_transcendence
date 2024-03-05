@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (e.target && e.target.id === "settings-button") {
       handleSettings();
     }
+    if (e.target && e.target.id === "enable-2fa-button") {
+      handle2FA();
+    }
   });
 });
 
@@ -21,4 +24,8 @@ function handleSettings() {
     profileContainer.style.display = "none";
     settingsContainer.style.display = "block";
   }
+}
+
+function handle2FA() {
+  console.log("yoo 2fa");
 }

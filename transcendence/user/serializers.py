@@ -5,7 +5,7 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ['id', 'username', 'email', 'activity', 'avatar']
+		fields = ['id', 'username', 'email', 'activity', 'avatar', 'twoFA', 'is_active']
 		extra_kwargs = {
 			'username': {
 				'required': True,
