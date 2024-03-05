@@ -32,10 +32,10 @@ let paddle4limit = 2.5
 	const p4Info = document.getElementById("playerInfo4")
 
 	
-	const navHeight = document.querySelector('nav').offsetHeight;
-	const headerHeight = document.querySelector('header').offsetHeight;
-	const footerHeight = document.querySelector('footer').offsetHeight;
-	const canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+	let navHeight = document.querySelector('nav').offsetHeight;
+	let headerHeight = document.querySelector('header').offsetHeight;
+	let footerHeight = document.querySelector('footer').offsetHeight;
+	let canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
 	const canvas = document.querySelector("#game");
 	
 	const renderer = new THREE.WebGLRenderer({ canvas });
@@ -493,6 +493,18 @@ document.addEventListener("keyup", (event) => {
 	if (event.key === "ArrowDown") control.arrowDown = false;
 	if (event.key === "8") control.num8 = false;
 	if (event.key === "9") control.num9 = false;
+});
+
+window.addEventListener("resize", () => {
+
+	navHeight = document.querySelector('nav').offsetHeight;
+	headerHeight = document.querySelector('header').offsetHeight;
+	footerHeight = document.querySelector('footer').offsetHeight;
+	canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+	
+	camera.aspect = window.innerWidth / canvasHeight
+	camera.updateProjectionMatrix()
+	renderer.setSize(window.innerWidth, canvasHeight)
 });
 
 function changeView() {
