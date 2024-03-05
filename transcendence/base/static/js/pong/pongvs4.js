@@ -49,11 +49,11 @@ function initializeGame(callback) {
     const p3ScoreTag = document.getElementById("p3Score");
     const p4ScoreTag = document.getElementById("p4Score");
 
-    const navHeight = document.querySelector("nav").offsetHeight;
-    const headerHeight = document.querySelector("header").offsetHeight;
-    const footerHeight = document.querySelector("footer").offsetHeight;
-    const canvasHeight =
-      window.innerHeight - navHeight - headerHeight - footerHeight + 1;
+    // const navHeight = document.querySelector("nav").offsetHeight;
+    // const headerHeight = document.querySelector("header").offsetHeight;
+    // const footerHeight = document.querySelector("footer").offsetHeight;
+    const canvasHeight = window.innerHeight - 300;
+      // window.innerHeight - navHeight - headerHeight - footerHeight + 1;
     const canvas = document.querySelector("#game");
 
     const renderer = new THREE.WebGLRenderer({ canvas });

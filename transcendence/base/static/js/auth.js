@@ -49,7 +49,7 @@ function handleWrongCredentials(error) {
   );
   for (let i = 0; i < formInputs.length; i++) {
     formInputs[i].value = "";
-    formInputs[i].style.borderColor = "red";
+    formInputs[i].style.borderColor = "#ff000066";
     formInputs[i].blur();
     loginErrorMessage.innerHTML = error || "Invalid username or password.";
     setTimeout(() => {
@@ -194,7 +194,7 @@ function handleSignupError(data) {
 
 // Helper function to highlight an input with an error
 function highlightErrorInput(input) {
-  input.style.borderColor = "red";
+  input.style.borderColor = "#ff000066";
   input.value = ""; // Optionally clear the input
   input.focus(); // Set focus to the input with the error
 }
