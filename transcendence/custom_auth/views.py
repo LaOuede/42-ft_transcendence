@@ -3,22 +3,21 @@ from datetime import timedelta
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth import authenticate
 from django.shortcuts import render
-from user.models import User
+import json
+import jwt
 import random
 import string
-from django.contrib.auth import authenticate
-import json
+import uuid
+from user.models import User
+from .models import OTPSession
 
-import jwt
-from rest_framework_simplejwt.settings import api_settings
-
-## REST
 from rest_framework.decorators import api_view, authentication_classes
-
-## JWT
+from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 # Create your views here.
@@ -28,6 +27,9 @@ def is_ajax(request):
 
 def generate_random_otp(n=6):
     return "".join(random.choices(string.digits, k=n))
+
+def generate_session_token():
+    return str(uuid.uuid4())
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -80,16 +82,23 @@ def decode_jwt(token):
 def generate_otp_user(user):
     otp = generate_random_otp()
     user.otp = otp
-    user.otp_expiry_time = timezone.now() + timedelta(minutes=5)
+    user.otp_expiry_time = timezone.now() + timedelta(minutes=10)
     user.save()
     
-    send_mail(
+    session_token = generate_session_token()
+    # Store the session token and user association
+    OTPSession.objects.create(user=user, session_token=session_token)
+    
+    sent = send_mail(
         'Transcendence - Verification code',
         f'Your verification code is {otp}',
         'from@example.com',
         [user.email],
         fail_silently=False,
     )
+    if (sent == 0):
+        return False
+    return session_token
 
 def login(request):
     if request.method == "POST":
@@ -99,12 +108,24 @@ def login(request):
 
         user = authenticate(username=user, password=password)
         if user is not False:
-            change_user_status(user, "ON")
-            generate_otp_user(user)
-            tokens = get_tokens_for_user(user)
-            return JsonResponse(
-                {"tokens": tokens, "success": "User logged in successfully"}, status=201
-            )
+            if (user.twoFA == False):
+                change_user_status(user, "ON")
+                tokens = get_tokens_for_user(user)
+                return JsonResponse(
+                    { "token": tokens, "success": "User is logged in."}, status=200
+                )
+            session_token = generate_otp_user(user)   
+            if (session_token):
+                return JsonResponse(
+                    { "session_token": session_token, "success": "OTP Validation."}, status=200
+                )
+            else:
+                return JsonResponse(
+                    {
+                        "error": "Error sending email.",
+                    },
+                    status=401,
+                )
         else:
             return JsonResponse(
                 {
@@ -116,6 +137,27 @@ def login(request):
         return render(request, "login.html")
     return render(request, "base.html", {"content": "login.html"})
 
+def verify_otp(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        otp = data.get("otp")
+        session_token = data.get("session_token")
+
+        # Retrieve the OTP session
+        otp_session = OTPSession.objects.filter(session_token=session_token).first()
+
+        if otp_session and otp_session.is_valid():
+            user = otp_session.user
+            if user.otp == otp and user.otp_expiry_time > timezone.now():
+                # OTP is valid, issue JWT tokens
+                tokens = get_tokens_for_user(user)
+                otp_session.delete()
+
+                return JsonResponse({"token": tokens, "success": "User is logged in."}, status=200)
+            else:
+                return JsonResponse({"error": "Invalid OTP."}, status=401)
+        else:
+            return JsonResponse({"error": "Invalid session or session expired."}, status=401)
 
 def register(request):
     if request.method == "POST":
@@ -156,6 +198,10 @@ def register(request):
         return render(request, "register.html")
     return render(request, "base.html", {"content": "register.html"})
 
+def otp_view(request):
+    if is_ajax(request):
+        return render(request, "otp.html")
+    return render(request, "base.html", {"content": "login.html"})
 
 @authentication_classes([JWTAuthentication])
 def logout(request):

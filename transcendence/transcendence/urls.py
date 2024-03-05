@@ -20,7 +20,7 @@ from django.contrib import admin
 from custom_auth import views as custom_auth_views
 from user import views as user_views
 from base import views as base_views
-from custom_auth.views import login, register, logout
+from custom_auth.views import login, register, logout, otp_view
 from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate, UserProfile
 from games_history.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
@@ -36,6 +36,8 @@ urlpatterns = [
     path("login/", custom_auth_views.login, name="login"),
     path("register/", custom_auth_views.register, name="create_profile"),
     path("logout/", custom_auth_views.logout, name="logout"),
+    path("otp/", custom_auth_views.otp_view, name="otp"),
+    path("verify-otp/", custom_auth_views.verify_otp, name="verify_otp"),
     path("admin/", admin.site.urls, name="admin"),
     path('profile/', user_views.UserProfile, name='profile'),
     path("", base_views.index, name="index"),

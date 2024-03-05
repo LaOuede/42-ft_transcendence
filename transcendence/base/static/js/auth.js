@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.body.addEventListener("submit", function (e) {
     if (e.target && e.target.id === "login-form") {
       handleLogin(e);
+    } else if (e.target && e.target.id === "otp-form") {
+      verifyOTP(e);
     }
   });
   document.querySelector("#login-2fa").addEventListener("click", handle2FA);
@@ -27,18 +29,57 @@ function handleLogin(e) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data?.tokens?.access && data?.tokens?.refresh) {
-        localStorage.setItem("refreshToken", data.tokens.refresh);
-        localStorage.setItem("accessToken", data.tokens.access);
+      if (data?.token?.access && data?.token?.refresh) {
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("accessToken", data.token.access);
 
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
 
         window.loadContent("");
+        return;
+      } else if (data?.session_token && data?.session_token !== "") {
+        localStorage.setItem("sessionToken", data.session_token);
+        window.loadContent("otp/");
+        return;
       } else {
         handleWrongCredentials(data.error);
         console.log("FAILED TO READ DATA", data);
+        return;
+      }
+    });
+}
+
+function verifyOTP(e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const otp = formData.get("otp");
+  const sessionToken = localStorage.getItem("sessionToken");
+
+  fetch("/verify-otp/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    body: JSON.stringify({ otp: otp, session_token: sessionToken }),
+    credentials: "include",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data?.token?.access && data?.token?.refresh) {
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("accessToken", data.token.access);
+        localStorage.removeItem("sessionToken");
+        document.querySelector(".is-signed-in").style.display = "flex";
+        document.querySelector(".not-signed-in").style.display = "none";
+
+        window.loadContent("");
+      } else {
+        localStorage.removeItem("sessionToken");
+        loadContent("login/");
+        handleWrongCredentials(data.error);
       }
     });
 }

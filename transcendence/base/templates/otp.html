@@ -1,0 +1,23 @@
+<div>
+  <form id="otp-form" method="post">
+    {% csrf_token %}
+    <div class="signup-container">
+      <div class="signup-header">
+        <h1 class="signup-title">OTP - Validation</h1>
+      </div>
+      <div class="signup-form">
+        <div class="input-group">
+          <label for="user">OTP</label>
+          <input
+            id="otp"
+            placeholder="otp"
+            required=""
+            type="number"
+            name="otp"
+          />
+        </div>
+        <button id="otp-button" class="otp-btn" type="submit">Verify</button>
+      </div>
+    </div>
+  </form>
+</div>
