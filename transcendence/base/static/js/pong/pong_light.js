@@ -1,13 +1,20 @@
 import * as THREE from "three";
 
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
 import {boardVs4, ball_att, paddle1_att, paddle2_att, 
 	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
 
 const board = boardVs4
-const light_prim_intense = 1.1
+const light_prim_intense = 1.15
 const light_prim_distance = 400
+
+const backLight1 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight1.position.set(500, 500, -200)
+const backLight2 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight2.position.set(-500, 500, -200)
+const backLight3 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight3.position.set(-500, -500, -200)
+const backLight4 = new THREE.PointLight(0x704478, 0.9, 2000)
+backLight4.position.set(500, -500, -200)
 
 //BALL
 const ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
@@ -18,7 +25,7 @@ ballplight.castShadow = true;
 //PLAYER 1
 //LIGHT 1
 const p1light1 = new THREE.PointLight(paddle1_att.light_color, light_prim_intense, light_prim_distance);
-p1light1.position.set(board.size / -4, 0, 100);
+p1light1.position.set(board.size / -3, 0, 100);
 const p1lightHelper1 = new THREE.PointLightHelper(p1light1);
 // p1light1.castShadow = true
 
@@ -32,7 +39,7 @@ const p1lightHelper1 = new THREE.PointLightHelper(p1light1);
 //PLAYER 2
 //LIGHT 1
 const p2light1 = new THREE.PointLight(paddle2_att.light_color, light_prim_intense, light_prim_distance);
-p2light1.position.set(board.size / 4, 0, 100);
+p2light1.position.set(board.size / 3, 0, 100);
 const p2lightHelper1 = new THREE.PointLightHelper(p2light1);
 // p2light1.castShadow = true
 
@@ -46,7 +53,7 @@ const p2lightHelper1 = new THREE.PointLightHelper(p2light1);
 //PLAYER 3
 //LIGHT 1
 const p3light1 = new THREE.PointLight(paddle3_att.light_color, light_prim_intense, light_prim_distance);
-p3light1.position.set(0, board.size / 4, 100);
+p3light1.position.set(0, board.size / 3, 100);
 const p3lightHelper1 = new THREE.PointLightHelper(p3light1);
 // p3light1.castShadow = true
 
@@ -60,7 +67,7 @@ const p3lightHelper1 = new THREE.PointLightHelper(p3light1);
 //PLAYER 4
 //LIGHT 1
 const p4light1 = new THREE.PointLight(paddle4_att.light_color, light_prim_intense, light_prim_distance);
-p4light1.position.set(0, board.size / -4, 100);
+p4light1.position.set(0, board.size / -3, 100);
 const p4lightHelper1 = new THREE.PointLightHelper(p4light1);
 // p4light1.castShadow = true
 
@@ -73,4 +80,4 @@ const p4lightHelper1 = new THREE.PointLightHelper(p4light1);
 
 export {ballplight, ballplightHelper, p1light1, p1lightHelper1,
 	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
-	p4light1, p4lightHelper1};
+	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4};
