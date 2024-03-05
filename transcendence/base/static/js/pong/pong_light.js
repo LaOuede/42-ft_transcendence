@@ -8,13 +8,13 @@ const light_prim_intense = 1.15
 const light_prim_distance = 400
 
 const backLight1 = new THREE.PointLight(0x704478, 0.9, 2000)
-backLight1.position.set(500, 500, -500)
+backLight1.position.set(500, 500, -200)
 const backLight2 = new THREE.PointLight(0x704478, 0.9, 2000)
-backLight2.position.set(-500, 500, -500)
+backLight2.position.set(-500, 500, -200)
 const backLight3 = new THREE.PointLight(0x704478, 0.9, 2000)
-backLight3.position.set(-500, -500, -500)
+backLight3.position.set(-500, -500, -200)
 const backLight4 = new THREE.PointLight(0x704478, 0.9, 2000)
-backLight4.position.set(500, -500, -500)
+backLight4.position.set(500, -500, -200)
 
 //BALL
 const ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);

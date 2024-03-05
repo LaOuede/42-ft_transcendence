@@ -8,7 +8,7 @@ const board = boardVs4
 //SKY
 const skyGeometry = new THREE.SphereGeometry(100000, 64, 64);
 const texture = new THREE.TextureLoader().load("../static/js/pong/nebuleuse.jpeg");
-const skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide});
+const skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side:THREE.BackSide});
 const sky = new THREE.Mesh(skyGeometry, skyMaterial);
 sky.rotateY(Math.PI * -0.5)
 sky.rotateZ(Math.PI)

@@ -45,7 +45,7 @@ renderer.shadowMap.enabled = true;// voir ou le mettre
 renderer.setSize(window.innerWidth, canvasHeight);
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 10000000);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 500000);
 camera.position.set(0, -350, 700);
 
     const orbit = new OrbitControls(camera, renderer.domElement);
@@ -330,8 +330,8 @@ function paddleColision() {
 	const maxlevel = 6
 	if (
 		paddle1_att.dead === false &&
-		ball.position.x - board.thickness <=
-		paddle1.position.x + board.thickness / 2 &&
+		ball.position.x - board.thickness <= paddle1.position.x + board.thickness / 2 + 2 &&
+		ball.position.x - board.thickness >= paddle1.position.x + board.thickness / 2 - 8 &&
 		ball.position.y <= paddle1.position.y + paddle1_att.height / 2 &&
 		ball.position.y >= paddle1.position.y - paddle1_att.height / 2
 	) {
@@ -345,8 +345,8 @@ function paddleColision() {
 	}
 	if (
 		paddle2_att.dead === false &&
-		ball.position.x + board.thickness >=
-		paddle2.position.x - board.thickness / 2 &&
+		ball.position.x + board.thickness >= paddle2.position.x - board.thickness / 2 - 2 &&
+		ball.position.x + board.thickness <= paddle2.position.x - board.thickness / 2 + 8 &&
 		ball.position.y <= paddle2.position.y + paddle2_att.height / 2 &&
 		ball.position.y >= paddle2.position.y - paddle2_att.height / 2
 	) {
@@ -360,8 +360,8 @@ function paddleColision() {
 	}
 	if (
 		paddle3_att.dead === false &&
-		ball.position.y + board.thickness >=
-		paddle3.position.y - board.thickness / 2 &&
+		ball.position.y + board.thickness >= paddle3.position.y - board.thickness / 2 - 2 &&
+		ball.position.y + board.thickness <= paddle3.position.y - board.thickness / 2 + 8 &&
 		ball.position.x <= paddle3.position.x + paddle3_att.width / 2 &&
 		ball.position.x >= paddle3.position.x - paddle3_att.width / 2
 	) {
@@ -375,8 +375,8 @@ function paddleColision() {
 	}
 	if (
 		paddle4_att.dead === false &&
-		ball.position.y - board.thickness <=
-		paddle4.position.y + board.thickness / 2 &&
+		ball.position.y - board.thickness <= paddle4.position.y + board.thickness / 2 + 2 &&
+		ball.position.y - board.thickness >= paddle4.position.y + board.thickness / 2 - 8 &&
 		ball.position.x <= paddle4.position.x + paddle4_att.width / 2 &&
 		ball.position.x >= paddle4.position.x - paddle4_att.width / 2
 	) {
@@ -384,7 +384,7 @@ function paddleColision() {
 		changeAngle();
 		ball_att.dirY = 1;
 		if(gameInfo.level < maxlevel)
-			gameInfo.level -= gameInfo.level_inc;
+			gameInfo.level += gameInfo.level_inc;
 	}
 	
 	reboundy = false
@@ -471,6 +471,11 @@ document.addEventListener("keypress", (event) => {
 	if (event.key === "l") {
 		playDemo()
 	}
+	if(event.key === "1"){
+		console.log("1")
+		lightColorSwitch(3, "#ff55ff")
+	}
+		
 });
 
 document.addEventListener("keydown", (event) => {
@@ -521,29 +526,43 @@ function changeView() {
 }
 
 function demoCamPlay(){
-	if(camera.position.x < -500)
+	if(camera.position.x < -400)
 		camDemoDirX = 1
-	else if(camera.position.x > 500)
+	else if(camera.position.x > 400)
 		camDemoDirX = -1
 	if(camera.position.y < -210)
 		camDemoDirY = 1
 	else if(camera.position.y > 210)
 		camDemoDirY = -1
-	camera.position.x += (0.5 * camDemoDirX)
-	camera.position.y += (0.3 * camDemoDirY)
+	camera.position.x += (0.4 * camDemoDirX)
+	camera.position.y += (0.1 * camDemoDirY)
 	camera.lookAt(0, 0, 0)
+}
+
+function camLimiter(){
+	if(camera.position.length() > 10000){camera.position.setLength(10000);}
+	if(camera.position.length() < 200){camera.position.setLength(200);}
+	camera.updateProjectionMatrix();
 }
 
 function animate() {
 	//vs2 et vs4
 	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {
-	controlDetection();
-	ballPhysic();
+		controlDetection();
+		ballPhysic();
 	}
+	camLimiter()
 	renderer.render(scene, camera);
 	if(demoCam)
 		demoCamPlay()
 	// console.log("running")
+}
+
+function lightColorSwitch(player, color){
+	const lights = [p1light1, p2light1, p3light1, p4light1]
+	const pInfos = [p1Info, p2Info, p3Info, p4Info]
+	lights[player - 1].color.set(color)
+	pInfos[player - 1].style.backgroundColor = color + "66"
 }
 
 function showPlayerInfoV4(){
