@@ -58,6 +58,12 @@
       {% block content %} {% include content %} {% endblock %}
     </main>
     <div id="pong">
+      <div id="lobby">
+        <label for="tournLength">Tournament length :</label>
+        <input name="tournLength" id=tournLength type="text">
+        <button id="startTourn">Play</button>
+      </div>
+
       <canvas id="game"></canvas>
       <div id="playerInfo1">
         <div id="p1Score">0</div>
@@ -148,4 +154,5 @@
   <script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_obj.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pongvs4.js' %}" type="module" defer></script>
+  <script src="{% static 'js/pong/tournament.js' %}" type="module" defer></script>
 </html>

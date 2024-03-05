@@ -230,6 +230,12 @@ body {
     margin: 0;
 }
 
+#pong #lobby{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
 #pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4{
         text-align: center;
         width: 200px;
