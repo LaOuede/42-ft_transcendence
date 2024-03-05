@@ -34,7 +34,9 @@
       <div class="is-signed-in">
         <div class="main-nav-links">
           <a href="#" onclick="loadContent(''); return false;">Home</a>
-          <a href="#" onclick="loadContent('profile/'); return false;">Profile</a>
+          <a href="#" onclick="loadContent('profile/'); return false;"
+            >Profile</a
+          >
           <a href="#" onclick="loadContent('play/'); return false;">Play</a>
           <a href="#" onclick="loadContent('tournaments/'); return false;"
             >Tournaments</a
@@ -113,6 +115,7 @@
     type="module"
     defer
   ></script>
+  <script src="{% static 'js/settings.js' %}"></script>
   <script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_obj.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pongvs4.js' %}" type="module" defer></script>

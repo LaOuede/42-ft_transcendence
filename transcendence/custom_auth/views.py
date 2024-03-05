@@ -45,8 +45,8 @@ def find_user(username, password):
 def get_user_from_token(request):
     token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
     decoded_payload = decode_jwt(token)
-    if decoded_payload is not None:  # Check if decoded_payload is not None
-        user = find_user_by_id(decoded_payload.get('user_id'))  # Use .get() to avoid KeyError
+    if decoded_payload is not None:
+        user = User.objects.filter(id=decoded_payload.get('user_id')).first()# Check if decoded_payload is not None
         if user:
             return user
     return None

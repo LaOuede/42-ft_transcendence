@@ -1,11 +1,19 @@
 {% load static %}
-<div>
+<div class="edit-profile-container">
+  <button id="settings-button" type="button" class="btn btn-primary">
+    Settings
+  </button>
+  <div class="settings-container">
+    <h1>Settings</h1>
+  </div>
+  <div class="profile-container">
     <h1>Mon profil</h1>
     {% if user_data %}
-        <img src="{{ user_data.avatar }}" alt="User Avatar">
-        <p><strong>Username:</strong> {{ user_data.username }}</p>
-        <p><strong>Email:</strong> {{ user_data.email }}</p>
+    <img src="{{ user_data.avatar }}" alt="User Avatar" />
+    <p><strong>Username:</strong> {{ user_data.username }}</p>
+    <p><strong>Email:</strong> {{ user_data.email }}</p>
     {% else %}
-        <p>No user data available.</p>
+    <p>No user data available.</p>
     {% endif %}
+  </div>
 </div>

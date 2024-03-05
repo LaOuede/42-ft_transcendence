@@ -1,0 +1,24 @@
+document.addEventListener("DOMContentLoaded", function (e) {
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "settings-button") {
+      handleSettings();
+    }
+  });
+});
+
+function handleSettings() {
+  const profileContainer = document.querySelector(
+    ".edit-profile-container .profile-container"
+  );
+  const settingsContainer = document.querySelector(
+    ".edit-profile-container .settings-container"
+  );
+
+  if (profileContainer.style.display === "none") {
+    profileContainer.style.display = "block";
+    settingsContainer.style.display = "none";
+  } else {
+    profileContainer.style.display = "none";
+    settingsContainer.style.display = "block";
+  }
+}
