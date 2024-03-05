@@ -9,6 +9,8 @@ import {boardVs4, ball_att, paddle1_att, paddle2_att,
 import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
 	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
 	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
+import { playersScores } from "./tournament.js"
+
 const board = boardVs4
 const gameInfo = gameInfoVs4
 let reboundx = true
@@ -245,6 +247,13 @@ function moveBall() {
 	}
 }
 
+function giveTournPoints(player){
+	const tournPoint = [10, 5, 2, 0]
+	playersScores[player] += tournPoint[gameInfo.player_count]
+	for(let i = 0; i < playersScores.length; i++)
+		console.log(playersScores)
+}
+
 function goalDetection() {
 	//vs2 et vs4
 	if (
@@ -258,6 +267,7 @@ function goalDetection() {
 		paddle1limit = 0
 		scene.remove(paddle1);
 		gameInfo.player_count--
+		giveTournPoints(0)
 
 	}
 	gameInfo.countDownDone = false
@@ -274,6 +284,8 @@ function goalDetection() {
 		paddle2limit = 0
 		scene.remove(paddle2);
 		gameInfo.player_count--
+		giveTournPoints(1)
+
 	}
 	gameInfo.countDownDone = false
 	defaultPosition();
@@ -289,6 +301,8 @@ function goalDetection() {
 		paddle3limit = 0
 		scene.remove(paddle3);
 		gameInfo.player_count--
+		giveTournPoints(3)
+
 	}
 	gameInfo.countDownDone = false
 	defaultPosition();
@@ -304,12 +318,21 @@ function goalDetection() {
 		paddle4limit = 0
 		scene.remove(paddle4);
 		gameInfo.player_count--
+		giveTournPoints(3)
 	}
 	gameInfo.countDownDone = false
 	defaultPosition();
 	}
-	if(gameInfo.player_count === 1)
+	if(gameInfo.player_count === 1){
+		gameInfo.player_count--;
+		let tempPaddle = [paddle1_att, paddle2_att, paddle3_att, paddle4_att]
+		for(let i = 0; i < tempPaddle.length; i++){
+			if(tempPaddle.dead === false){
+				giveTournPoints(i)
+			}
+		}
 		gameInfo.gameover = true
+	}
 }
   
 function sideRebound() {
@@ -635,4 +658,4 @@ function stopGame(){
 }
 initGame()
 
-export { playGameV2, playGameV4, stopGame, playDemo}
+export { playGameV2, playGameV4, stopGame, playDemo }
