@@ -267,15 +267,15 @@ h5 {
 	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 700px; /* Ajoutez la valeur minimale en pixels */
-	min-height: 400px; 
+	min-width: 650px; /* Ajoutez la valeur minimale en pixels */
+	min-height: 500px; 
 	overflow: hidden;
 }
 
 .pong-container-black {
 	position: fixed;
-	width: 87%;
-	height: 92%;
+	width: 90%;
+	height: 90%;
 	z-index: 11;
 	background: black;
 	border-radius: 20px;
@@ -297,7 +297,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
-	max-height: 600px;
+	max-height: 500px;
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
