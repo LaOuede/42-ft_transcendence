@@ -79,7 +79,6 @@ function verifyOTP(e) {
       } else {
         localStorage.removeItem("sessionToken");
         loadContent("login/");
-        handleWrongCredentials(data.error);
       }
     });
 }

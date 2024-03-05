@@ -79,16 +79,7 @@ def decode_jwt(token):
         print("Invalid token. Please log in again.")
     return None
 
-def generate_otp_user(user):
-    otp = generate_random_otp()
-    user.otp = otp
-    user.otp_expiry_time = timezone.now() + timedelta(minutes=10)
-    user.save()
-    
-    session_token = generate_session_token()
-    # Store the session token and user association
-    OTPSession.objects.create(user=user, session_token=session_token)
-    
+def sendingEmail(otp, user):
     sent = send_mail(
         'Transcendence - Verification code',
         f'Your verification code is {otp}',
@@ -97,6 +88,20 @@ def generate_otp_user(user):
         fail_silently=False,
     )
     if (sent == 0):
+        return False
+    return True
+
+## TODO : Need to hnadle if otp already exists
+def generate_otp_user(user): 
+    otp = generate_random_otp()
+    user.otp = otp
+    user.otp_expiry_time = timezone.now() + timedelta(minutes=10)
+    user.save()
+    
+    session_token = generate_session_token()
+    # Store the session token and user association
+    OTPSession.objects.create(user=user, session_token=session_token)
+    if (sendingEmail(otp, user) == False):
         return False
     return session_token
 
@@ -115,7 +120,7 @@ def login(request):
                     { "token": tokens, "success": "User is logged in."}, status=200
                 )
             session_token = generate_otp_user(user)   
-            if (session_token):
+            if (session_token != False):
                 return JsonResponse(
                     { "session_token": session_token, "success": "OTP Validation."}, status=200
                 )
@@ -149,10 +154,8 @@ def verify_otp(request):
         if otp_session and otp_session.is_valid():
             user = otp_session.user
             if user.otp == otp and user.otp_expiry_time > timezone.now():
-                # OTP is valid, issue JWT tokens
                 tokens = get_tokens_for_user(user)
                 otp_session.delete()
-
                 return JsonResponse({"token": tokens, "success": "User is logged in."}, status=200)
             else:
                 return JsonResponse({"error": "Invalid OTP."}, status=401)
