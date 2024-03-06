@@ -2,72 +2,51 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-import {
-  plane,
-  ball,
-  side1,
-  side2,
-  side3,
-  side4,
-  paddle1,
-  paddle2,
-  paddle3,
-  paddle4,
-} from "./pong_obj.js";
-import {
-  boardVs4,
-  ball_att,
-  paddle1_att,
-  paddle2_att,
-  paddle3_att,
-  paddle4_att,
-  control,
-  gameInfoVs4,
-} from "./pong_var.js";
-import {
-  ballplight,
-  ballplightHelper,
-  p1light1,
-  p1lightHelper1,
-  p2light1,
-  p2lightHelper1,
-  p3light1,
-  p3lightHelper1,
-  p4light1,
-  p4lightHelper1,
-} from "./pong_light.js";
-const board = boardVs4;
-const gameInfo = gameInfoVs4;
+import {plane, ball, side1, side2, side3, side4,
+	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
+import {boardVs4, ball_att, paddle1_att, paddle2_att, 
+	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
+import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
+	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
+	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
+const board = boardVs4
+const gameInfo = gameInfoVs4
+let reboundx = true
+let reboundy = true
+let demoCam = false
+let camDemoDirX = 1
+let camDemoDirY = 1
+let paddle1limit = 2.5
+let paddle2limit = 2.5
+let paddle3limit = 2.5
+let paddle4limit = 2.5
+	
+	const p1ScoreTag = document.getElementById("p1Score")
+	const p2ScoreTag = document.getElementById("p2Score")
+	const p3ScoreTag = document.getElementById("p3Score")
+	const p4ScoreTag = document.getElementById("p4Score")
+	
+	const p1Info = document.getElementById("playerInfo1")
+	const p2Info = document.getElementById("playerInfo2")
+	const p3Info = document.getElementById("playerInfo3")
+	const p4Info = document.getElementById("playerInfo4")
 
-let frameId;
+	
+	// let navHeight = document.querySelector('nav').offsetHeight;
+	// let headerHeight = document.querySelector('header').offsetHeight;
+	// let footerHeight = document.querySelector('footer').offsetHeight;
+	let canvasHeight = 300;
+	const canvas = document.querySelector("#game");
+	
+	const renderer = new THREE.WebGLRenderer({ canvas });
+	
+renderer.shadowMap.enabled = true;// voir ou le mettre
 
-function initializeGame(callback) {
-  setTimeout(() => {
-    // DOM elements and game setup
-    const p1ScoreTag = document.getElementById("p1Score");
-    const p2ScoreTag = document.getElementById("p2Score");
-    const p3ScoreTag = document.getElementById("p3Score");
-    const p4ScoreTag = document.getElementById("p4Score");
+renderer.setSize(window.innerWidth, canvasHeight);
+const scene = new THREE.Scene();
 
-    const navHeight = document.querySelector("nav").offsetHeight;
-    const headerHeight = document.querySelector("header").offsetHeight;
-    const footerHeight = document.querySelector("footer").offsetHeight;
-    const canvasHeight =
-      window.innerHeight - navHeight - headerHeight - footerHeight + 1;
-    const canvas = document.querySelector("#game");
-
-    const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.shadowMap.enabled = true;
-    renderer.setSize(window.innerWidth, canvasHeight);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / canvasHeight,
-      0.1,
-      10000
-    );
-    camera.position.set(0, -350, 700);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 500000);
+camera.position.set(0, -350, 700);
 
     const orbit = new OrbitControls(camera, renderer.domElement);
     orbit.update();
