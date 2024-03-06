@@ -1,35 +1,73 @@
 import { playGameV2, playGameV4, stopGame, playDemo} from "../pong/pongvs4.js"
+import { gameInfo } from "../pong/pong_var.js"
 
 const btStartTourn = document.querySelector("#startTourn")
 const inputTournLength = document.querySelector("#tournLength")
 
 
-const playersScores = [0, 2, 5, 4]
-console.log(btStartTourn)
-console.log(inputTournLength)
+const playersScores = [0, 0, 0, 0]
+let game_count = inputTournLength.value
+
+const p1TournScore = document.getElementById("p1TournScore")
+const p2TournScore = document.getElementById("p2TournScore")
+const p3TournScore = document.getElementById("p3TournScore")
+const p4TournScore = document.getElementById("p4TournScore")
+const tournScores = [document.getElementById("p1TournScore"),
+	document.getElementById("p2TournScore"),
+	document.getElementById("p3TournScore"),
+	document.getElementById("p4TournScore")]
 
 function resetTourn(){
-	playersScores.forEach((i) => {
-		i = 0
-	})
-	// for(let i = 0; i < playersScores.length; i++){
-	// 	playersScores[i] = 0
-	// }
+	for(let i = 0; i < playersScores.length; i++){
+		playersScores[i] = 0
+	}
 }
 
-btStartTourn.addEventListener("click", () => {
+function updateScores(){
+	for(let i = 0; i < tournScores.length; i++){
+		tournScores[i].textContent = playersScores[i]
+		console.log(tournScores[i].textContent)
+		console.log(playersScores[i])
+	}
+}
 
-	resetTourn()
-	console.log("clack")
-	console.log(inputTournLength.value)
-	if(inputTournLength.value > 0){
-		inputTournLength.value--
+function giveTournPoints(player){
+	const tournPoint = [10, 5, 2, 0]
+	playersScores[player] += tournPoint[gameInfo.player_count]
+	for(let i = 0; i < playersScores.length; i++)
+		console.log(playersScores)
+}
+
+function tieCheck(){
+	let best_score = 0
+	let winner = -1
+	for(let i = 0; i < playersScores.length; i++){
+		if(best_score < playersScores[i]){
+			best_score = playersScores[i]
+			winner = i
+		}
+	}
+}
+
+function tournament(){
+	if(game_count > 0){
+		gameInfo.gameover = false
+		console.log(game_count)
+		game_count--
 		playGameV4()
+		updateScores()
 	}
 	else{
+		updateScores()
 		//fin du tournois
-		resetTourn()
 	}
+}
+	
+btStartTourn.addEventListener("click", () => {
+	game_count = inputTournLength.value
+	resetTourn()
+	gameInfo.gameover = true
+	tournament()
 })
 
-export { playersScores }
+export { playersScores, game_count, tournament, giveTournPoints}
