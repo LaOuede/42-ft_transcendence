@@ -91,6 +91,27 @@ body {
 	padding: 10px;
 	text-decoration: none;
 }
+
+.main-nav-links a:hover,
+.is-signed-in a:hover {
+    color: #249DC6; /* Change the color when hovering */
+    /* background-color: #3089A8; Change the background color when hovering */
+}
+
+.not-signed-in a:hover {
+    color: #249DC6; /* Change the color when hovering */
+    /* background-color: #3089A8; Change the background color when hovering */
+}
+
+.main-nav-links a.active,
+.is-signed-in a.active {
+    color: #fff; /* Change the color for the active link */
+}
+
+.not-signed-in a.active {
+    color: #fff; /* Change the color for the active link */
+}
+
 .content {
 	display: flex;
 	flex-direction: column;
@@ -357,16 +378,38 @@ h5 {
 	overflow: hidden;
 }
 
-.login-error-message {
-	font-size: 0.875rem;
-    color: #9D2406;
-    /* /* opacity: 0; */
-    height: 0; /* Assure que la hauteur du message est nulle */
-    /* overflow: hidden; */
-    transition: opacity 0.3s ease-in-out;
+.visible {
+    display: block !important; /* Utilisez !important pour vous assurer qu'elle prend le dessus sur d'autres styles */
 }
 
+.error-container {
+    height: 50px;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    box-sizing: border-box; /* Inclure les marges et les paddings dans la hauteur totale */
+}
 
+.login-error-message {
+    font-size: 0.875rem;
+    color: #9D2406;
+    visibility: hidden; /* Cachez initialement le message */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.error-container.show-error {
+    height: 50px; /* Ajustez la hauteur lorsque le message est visible */
+}
+
+.error-container.show-error .login-error-message {
+    visibility: visible; /* Rendez le message visible lorsque la classe show-error est présente */
+}
+
+.signup-form .input-group input.error {
+    outline: 2px solid #ff0000; /* Bordure rouge lorsqu'il y a une erreur */
+    border-color: transparent; /* Vous pouvez ajuster cela en fonction de vos préférences */
+}
 
 .signup-error {
 	font-size: 0.875rem;
@@ -431,7 +474,7 @@ h5 {
 }
 
 .signup-btn {
-	margin-top: 30px;
+	margin-top: 10px;
 	background-color: #2D2D2D;
 	color: #00FAFA;
 	border: 1px solid #00FAFA;
@@ -461,6 +504,7 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	margin: 0;
+	top: 65px;
 }
 
 #pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4 {

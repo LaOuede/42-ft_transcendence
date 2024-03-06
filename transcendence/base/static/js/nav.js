@@ -24,10 +24,10 @@ function loadContent(path) {
       document.querySelector(".main").innerHTML = html;
       if (path === "play/") {
         // document.querySelector("#pong").style.display = "block"
-        playGameV4()// peut aller sur un bouton pour demarrer la joute
+        // playGameV4()// peut aller sur un bouton pour demarrer la joute
         // playGameV2()
       } else {
-        // document.querySelector("#pong").style.display = "none"
+        document.querySelector("#pong").style.display = "none"
         // stopGame()
         playDemo()
       }
@@ -90,4 +90,20 @@ document.addEventListener("DOMContentLoaded", function () {
       loadContent("");
     }
   }
+});
+
+// Add an "active" class to the current page's link
+document.addEventListener("DOMContentLoaded", function () {
+  // Get the current path of the URL
+  const currentPath = window.location.pathname;
+
+  // Get all navigation links
+  const navLinks = document.querySelectorAll('.main-nav-links a, .is-signed-in a, .not-signed-in a');
+
+  // Loop through each link and add the "active" class if the href matches the current path
+  navLinks.forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+          link.classList.add('active');
+      }
+  });
 });

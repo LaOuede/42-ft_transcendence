@@ -32,20 +32,23 @@ let paddle4limit = 2.5
 	const p4Info = document.getElementById("playerInfo4")
 
 	
-	// let navHeight = document.querySelector('nav').offsetHeight;
+	let navHeight = document.querySelector('nav').offsetHeight;
+	let masterHeight = document.querySelector('.master').offsetHeight;
+	let masterWidth = document.querySelector('.master').offsetWidth;
 	// let headerHeight = document.querySelector('header').offsetHeight;
 	// let footerHeight = document.querySelector('footer').offsetHeight;
-	let canvasHeight = 300;
+	let canvasHeight = masterHeight - navHeight;
 	const canvas = document.querySelector("#game");
+	console.log(masterHeight)
 	
 	const renderer = new THREE.WebGLRenderer({ canvas });
 	
 renderer.shadowMap.enabled = true;// voir ou le mettre
 
-renderer.setSize(window.innerWidth, canvasHeight);
+renderer.setSize(masterWidth - 20, canvasHeight);
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / canvasHeight, 0.1, 500000);
+const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / canvasHeight, 0.1, 500000);
 camera.position.set(0, -350, 700);
 
     const orbit = new OrbitControls(camera, renderer.domElement);
@@ -500,17 +503,17 @@ document.addEventListener("keyup", (event) => {
 	if (event.key === "9") control.num9 = false;
 });
 
-window.addEventListener("resize", () => {
+// window.addEventListener("resize", () => {
 
-	navHeight = document.querySelector('nav').offsetHeight;
-	headerHeight = document.querySelector('header').offsetHeight;
-	footerHeight = document.querySelector('footer').offsetHeight;
-	canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+// 	navHeight = document.querySelector('nav').offsetHeight;
+// 	headerHeight = document.querySelector('header').offsetHeight;
+// 	footerHeight = document.querySelector('footer').offsetHeight;
+// 	canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
 	
-	camera.aspect = window.innerWidth / canvasHeight
-	camera.updateProjectionMatrix()
-	renderer.setSize(window.innerWidth, canvasHeight)
-});
+// 	camera.aspect = window.innerWidth / canvasHeight
+// 	camera.updateProjectionMatrix()
+// 	renderer.setSize(window.innerWidth, canvasHeight)
+// });
 
 function changeView() {
 	//vs2 et vs4
