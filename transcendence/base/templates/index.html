@@ -1,11 +1,22 @@
-<h2>The Ultimate Pong Challenge</h2>
-<p>
-  Experience the classic game of Pong like never before. Join the Transcendence
-  Pong community and rise to the top of the leaderboard!
-</p>
-<button
-  onclick="loadContent('play/'); return false;"
-  style="padding: 10px 20px; font-size: 16px"
->
-  Start Playing
-</button>
+<div class="pong-container">
+	<div class="pong-container-black">
+		<div class="pong-container-login">
+		<form id="login-form" method="post">
+		{% csrf_token %}
+			<div class="signup-header">
+			<h2 class="header-title">WECOLME TO THE PONG GAME!</h2>
+			<a
+				onclick="loadContent('play/'); return false;"
+				class="signup-description"
+				style="cursor: pointer"
+			>
+
+			<div class="buttons-container">
+        <button class="button1" type="submit">1 VS 1</button>
+        <button class="button2">RUMBLE</button>
+      </div>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
