@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
       handleLogin(e);
     }
   });
-  document.querySelector("#login-2fa").addEventListener("click", handle2FA);
 });
 
 // login function

@@ -60,8 +60,12 @@
     <div id="pong">
       <div id="lobby">
         <label for="tournLength">Tournament length :</label>
-        <input name="tournLength" id=tournLength type="text">
+        <input name="tournLength" id=tournLength type="text" value="1">
         <button id="startTourn">Play</button>
+        <div>Player 1 Score: <span id="p1TournScore">0</span></div>
+        <div>Player 2 Score: <span id="p2TournScore">0</span></div>
+        <div>Player 3 Score: <span id="p3TournScore">0</span></div>
+        <div>Player 4 Score: <span id="p4TournScore">0</span></div>
       </div>
 
       <canvas id="game"></canvas>

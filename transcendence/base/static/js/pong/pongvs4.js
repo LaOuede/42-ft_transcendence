@@ -4,15 +4,13 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import {plane, ball, side1, side2, side3, side4,
 	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
-import {boardVs4, ball_att, paddle1_att, paddle2_att, 
-	paddle3_att, paddle4_att, control, gameInfoVs4} from "./pong_var.js"
-import {ballplight, ballplightHelper, p1light1, p1lightHelper1,
-	p2light1, p2lightHelper1, p3light1, p3lightHelper1,
-	p4light1, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
-import { playersScores } from "./tournament.js"
+import {board, ball_att, paddle1_att, paddle2_att, 
+	paddle3_att, paddle4_att, control, gameInfo} from "./pong_var.js"
+import {ballplight, ballplightHelper, p1light, p1lightHelper1,
+	p2light, p2lightHelper1, p3light, p3lightHelper1,
+	p4light, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
+import { playersScores, tournament, giveTournPoints } from "./tournament.js"
 
-const board = boardVs4
-const gameInfo = gameInfoVs4
 let reboundx = true
 let reboundy = true
 let demoCam = false
@@ -32,7 +30,6 @@ let paddle4limit = 2.5
 	const p2Info = document.getElementById("playerInfo2")
 	const p3Info = document.getElementById("playerInfo3")
 	const p4Info = document.getElementById("playerInfo4")
-
 	
 	let navHeight = document.querySelector('nav').offsetHeight;
 	let headerHeight = document.querySelector('header').offsetHeight;
@@ -55,8 +52,8 @@ camera.position.set(0, -350, 700);
 
 function initGraphic(){
 	let item_list = [paddle1, paddle2, paddle3, paddle4, ball,
-		plane, side1, side2, side3, side4, p1light1, ballplight, 
-		p2light1, p3light1, p4light1, sky, backLight1, backLight2, backLight3, backLight4]
+		plane, side1, side2, side3, side4, p1light, ballplight, 
+		p2light, p3light, p4light, sky, backLight1, backLight2, backLight3, backLight4]
 	for(let i = 0; i < item_list.length; i++)
 		scene.add(item_list[i])
 }
@@ -66,6 +63,20 @@ function initHelpers(){
 		p2lightHelper1, p3lightHelper1, p4lightHelper1, ballplightHelper]
 	for(let i = 0; i < item_list.length; i++)
 		scene.add(item_list[i])
+}
+
+function resetGameOverParam(players, lives){
+	let paddles = [paddle1, paddle2, paddle3, paddle4]
+	let paddles_atts = [paddle1_att, paddle2_att, paddle3_att, paddle4_att]
+	let lights = [p1light, p2light, p3light, p4light]
+	
+	gameInfo.countDownDone = false
+	defaultPosition()
+	for(let i = 0; i < players.length; i++){
+		if(players[i] === true){
+
+		}
+	}
 }
 
 function resetGameOverV2(){
@@ -96,7 +107,7 @@ function resetGameOverV2(){
 	p3ScoreTag.textContent = gameInfo.p3Lives
 	p4ScoreTag.textContent = gameInfo.p4Lives
 	gameInfo.player_count = 2
-	gameInfo.gameover = false
+	// gameInfo.gameover = false
 	camera.position.set(0, -400, 375)
 	camera.lookAt(0, -75, 0)
 }
@@ -108,10 +119,10 @@ function resetGameOverV4(){
 	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
 	if(!scene.children.includes(paddle3)) {scene.add(paddle3)};
 	if(!scene.children.includes(paddle4)) {scene.add(paddle4)};
-	if(!scene.children.includes(p3light1)) {scene.add(p3light1)};
-	if(!scene.children.includes(p4light1)) {scene.add(p4light1)};
-	p1light1.distance = 400
-	p2light1.distance = 400
+	if(!scene.children.includes(p3light)) {scene.add(p3light)};
+	if(!scene.children.includes(p4light)) {scene.add(p4light)};
+	p1light.distance = 400
+	p2light.distance = 400
 	paddle1limit = 2.5
 	paddle2limit = 2.5
 	paddle3limit = 2.5
@@ -129,7 +140,7 @@ function resetGameOverV4(){
 	p3ScoreTag.textContent = gameInfo.p3Lives
 	p4ScoreTag.textContent = gameInfo.p4Lives
 	gameInfo.player_count = 4
-	gameInfo.gameover = false
+	// gameInfo.gameover = false
 	camera.position.set(0, -400, 375)
 	camera.lookAt(0, -75, 0)
 }
@@ -141,8 +152,8 @@ function resetGameDemo(){
 	if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
 	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-	if(!scene.children.includes(p3light1)) {scene.add(p3light1)};
-	if(!scene.children.includes(p4light1)) {scene.add(p4light1)};
+	if(!scene.children.includes(p3light)) {scene.add(p3light)};
+	if(!scene.children.includes(p4light)) {scene.add(p4light)};
 	paddle1_att.dead = true
 	paddle2_att.dead = true
 	paddle3_att.dead = true
@@ -156,7 +167,7 @@ function resetGameDemo(){
 	p3ScoreTag.textContent = gameInfo.p3Lives
 	p4ScoreTag.textContent = gameInfo.p4Lives
 	gameInfo.player_count = 0
-	gameInfo.gameover = false
+	// gameInfo.gameover = false
 	camera.position.set(0, 0, 750)
 	camera.lookAt(0, 0, 0)
 }
@@ -201,9 +212,6 @@ function changeAngle() {
 	let rand = Math.random();
 	ball_att.speedX = rand * gameInfo.level + 1;
 	ball_att.speedY = gameInfo.level - rand + 1;
-	console.log(rand);
-	console.log(ball_att.speedX);
-	console.log(ball_att.speedY);
 }
 
 function ballPhysic() {
@@ -234,12 +242,7 @@ function moveBall() {
 	}
 }
 
-function giveTournPoints(player){
-	const tournPoint = [10, 5, 2, 0]
-	playersScores[player] += tournPoint[gameInfo.player_count]
-	for(let i = 0; i < playersScores.length; i++)
-		console.log(playersScores)
-}
+
 
 function goalDetection() {
 	//vs2 et vs4
@@ -288,7 +291,7 @@ function goalDetection() {
 		paddle3limit = 0
 		scene.remove(paddle3);
 		gameInfo.player_count--
-		giveTournPoints(3)
+		giveTournPoints(2)
 
 	}
 	gameInfo.countDownDone = false
@@ -314,11 +317,13 @@ function goalDetection() {
 		gameInfo.player_count--;
 		let tempPaddle = [paddle1_att, paddle2_att, paddle3_att, paddle4_att]
 		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle.dead === false){
+			if(tempPaddle[i].dead === false){
 				giveTournPoints(i)
 			}
+			console.log()
 		}
 		gameInfo.gameover = true
+		tournament()
 	}
 }
   
@@ -484,6 +489,10 @@ document.addEventListener("keypress", (event) => {
 	if (event.key === "v") changeView();
 	if (event.key === "k") {
 		stopGame()
+	}
+	if (event.key === "m") {
+		renderer.setAnimationLoop(animate);
+
 	}
 	if (event.key === "j") {
 		playGameV4()
