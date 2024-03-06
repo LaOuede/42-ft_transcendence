@@ -1,47 +1,38 @@
-	<div class="login-container">
-	<div class="login-container-black">
-		<div class="login-container-login">
-		<form id="login-form" method="post">
-		{% csrf_token %}
-			<div class="signup-header">
-			<h2 class="header-title">LOGIN</h2>
-			<a
-				onclick="loadContent('login/'); return false;"
-				class="signup-description"
-				style="cursor: pointer"
-			>
-				WELCOME!
-			</a>
-			</div>
-			<div class="signup-form">
-			<div class="input-group">
-				<div>
-				<!--write username text -->
-				<p class="signup-title">USERNAME:</p>
-				</div>
-			
-				<!-- <label for="user">Username</label> -->
-				<input
-				id="user"
-				placeholder=""
-				required=""
-				type="text"
-				name="user"
-				/>
-			</div>
-			<div class="input-group">
-				<div>
-				<!--write username text -->
-				<p class="signup-title">PASSWORD:</p>
-				</div>
-				<!-- <label for="password">Password</label> -->
-				<input id="password" name="password" required="" type="password" />
-			</div>
-			<p class="login-error-message"></p>
-			<button class="signup-btn" type="submit">LOGIN</button>
-			<button class="enable-2fa-btn">2FA</button>
-			</div>
-		</form>
-		</div>
-	</div>
+<div class="signup-container">
+  <div class="signup-container-black">
+    <div class="signup-container-login">
+      <form id="login-form" method="post">
+      {% csrf_token %}
+        <div class="signup-header">
+          <h1 class="signup-title">LOGIN</h1>
+          <a
+            onclick="loadContent('login/'); return false;"
+            class="signup-description"
+            style="cursor: pointer"
+          >
+            Welcome back
+          </a>
+        </div>
+        <div class="signup-form">
+          <div class="input-group">
+            <label for="user">Username</label>
+            <input
+              id="user"
+              placeholder="user"
+              required=""
+              type="text"
+              name="user"
+            />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" required="" type="password" />
+          </div>
+          <p class="login-error-message"></p>
+          <button class="signup-btn" type="submit">Login</button>
+          <button class="enable-2fa-btn">2FA</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
