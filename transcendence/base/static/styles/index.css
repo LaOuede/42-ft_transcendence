@@ -480,32 +480,31 @@ h5 {
         align-items: center;
 }
 
-#pong #playerInfo1{
-    display: none;
-    bottom: 0;
-    left: 5%;
-    background-color: #0000ff66;
+#root #pong #playerInfo1 {
+	bottom: 0;
+	left: 15%;
+	background-color: #0000ff66;
 }
 
-#pong #playerInfo2{
-    display: none;
-    top: 0;
-    right: 5%;
-    background-color: #ff000066;
+#root #pong #playerInfo2 {
+	top: 0;
+	right: 15%;
+	background-color: #ff000066;
+
 }
 
-#pong #playerInfo3{
-    display: none;
-    top: 0;
-    left: 5%;
-    background-color: #ffff0066;
+#root #pong #playerInfo3 {
+	top: 0;
+	left: 15%;
+	background-color: #ffff0066;
+
 }
 
-#pong #playerInfo4{
-    display: none;
-    bottom: 0;
-    right: 5%;
-    background-color: #00ffff66;
+#root #pong #playerInfo4 {
+	bottom: 0;
+	right: 15%;
+	background-color: #00ffff66;
+
 }
 
 #pong #player1avatar, #pong #player2avatar, #pong #player3avatar, #pong #player4avatar{
