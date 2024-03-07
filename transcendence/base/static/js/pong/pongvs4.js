@@ -6,10 +6,9 @@ import {plane, ball, side1, side2, side3, side4,
 	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
 import {board, ball_att, paddle1_att, paddle2_att, 
 	paddle3_att, paddle4_att, control, gameInfo} from "./pong_var.js"
-import {ballplight, ballplightHelper, p1light, p1lightHelper1,
-	p2light, p2lightHelper1, p3light, p3lightHelper1,
-	p4light, p4lightHelper1, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
-import { playersScores, tournament, giveTournPoints } from "./tournament.js"
+import {ballplight, p1light, p2light,  p3light,
+	p4light, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
+import {tournament, giveTournPoints } from "./tournament.js"
 
 let reboundx = true
 let reboundy = true
@@ -20,28 +19,53 @@ let paddle1limit = 2.5
 let paddle2limit = 2.5
 let paddle3limit = 2.5
 let paddle4limit = 2.5
-let demoRunning = false
-	
-	const p1ScoreTag = document.getElementById("p1Score")
-	const p2ScoreTag = document.getElementById("p2Score")
-	const p3ScoreTag = document.getElementById("p3Score")
-	const p4ScoreTag = document.getElementById("p4Score")
-	
-	const p1Info = document.getElementById("playerInfo1")
-	const p2Info = document.getElementById("playerInfo2")
-	const p3Info = document.getElementById("playerInfo3")
-	const p4Info = document.getElementById("playerInfo4")
-	
-	let navHeight = document.querySelector('nav').offsetHeight;
-	let masterHeight = document.querySelector('.master').offsetHeight;
-	let masterWidth = document.querySelector('.master').offsetWidth;
-	// let headerHeight = document.querySelector('header').offsetHeight;
-	// let footerHeight = document.querySelector('footer').offsetHeight;
-	let canvasHeight = masterHeight - navHeight;
-	const canvas = document.querySelector("#game");
-	console.log(masterHeight)
-	
-	const renderer = new THREE.WebGLRenderer({ canvas });
+
+let p1ScoreTag
+let p2ScoreTag
+let p3ScoreTag
+let p4ScoreTag
+
+let p1Info
+let p2Info
+let p3Info
+let p4Info
+
+function initElements() {
+
+	if (document.getElementById("p1Score")) {
+		p1ScoreTag = document.getElementById("p1Score")
+	}
+	if (document.getElementById("p2Score")) {
+		p2ScoreTag  = document.getElementById("p2Score") 
+	}
+	if (document.getElementById("p3Score")) {
+		p3ScoreTag  = document.getElementById("p3Score") 
+	}
+	if (document.getElementById("p4Score")) {
+		p4ScoreTag  = document.getElementById("p4Score") 
+	}
+	if (document.getElementById("playerInfo1")) {
+		p1Info = document.getElementById("playerInfo1") 
+	}
+	if (document.getElementById("playerInfo2")) {
+		p2Info = document.getElementById("playerInfo2") 
+	}
+	if (document.getElementById("playerInfo3")) {
+		p3Info = document.getElementById("playerInfo3") 
+	}
+	if (document.getElementById("playerInfo4")) {
+		p4Info= document.getElementById("playerInfo4") 
+	}
+}
+
+
+let navHeight = document.querySelector('nav').offsetHeight;
+let headerHeight = document.querySelector('header').offsetHeight;
+let footerHeight = document.querySelector('footer').offsetHeight;
+let canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+const canvas = document.querySelector("#game");
+
+const renderer = new THREE.WebGLRenderer({ canvas });
 	
 renderer.shadowMap.enabled = true;// voir ou le mettre
 
@@ -84,15 +108,15 @@ function resetGameOverParam(players, lives){
 }
 
 function resetGameOverV2(){
-	demoRunning = false
+	initElements()
 	gameInfo.countDownDone = false
 	defaultPosition()
 	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
 	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
 	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-	if(scene.children.includes(p3light1)) {scene.remove(p3light1)};
-	if(scene.children.includes(p4light1)) {scene.remove(p4light1)};
+	if(scene.children.includes(p3light)) {scene.remove(p3light)};
+	if(scene.children.includes(p4light)) {scene.remove(p4light)};
 	p1light1.distance = 800
 	p2light1.distance = 800
 	paddle1_att.dead = false
@@ -115,10 +139,11 @@ function resetGameOverV2(){
 	// gameInfo.gameover = false
 	camera.position.set(0, -400, 375)
 	camera.lookAt(0, -75, 0)
+	orbit.enabled = true
 }
 
 function resetGameOverV4(){
-	demoRunning = false
+	initElements()
 	gameInfo.countDownDone = false
 	defaultPosition()
 	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
@@ -149,40 +174,27 @@ function resetGameOverV4(){
 	// gameInfo.gameover = false
 	camera.position.set(0, -400, 375)
 	camera.lookAt(0, -75, 0)
+	orbit.enabled = true
+
 }
 
 function resetGameDemo(){
-	if(demoRunning === false){
-		demoRunning = true	
-		gameInfo.countDownDone = false
-		defaultPosition()
-		if(scene.children.includes(paddle1)) {scene.remove(paddle1)};
-		if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
-		if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
-		if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-		if(scene.children.includes(p3light1)) {scene.remove(p3light1)};
-		if(scene.children.includes(p4light1)) {scene.remove(p4light1)};
-		p2light1.color.set("#249DC6")
-		p1light1.color.set("#69327A")
-		p1light1.distance = 800
-		p2light1.distance = 800
-		paddle1_att.dead = true
-		paddle2_att.dead = true
-		paddle3_att.dead = true
-		paddle4_att.dead = true
-		gameInfo.p1Lives = gameInfo.lives
-		gameInfo.p2Lives = gameInfo.lives
-		gameInfo.p3Lives = gameInfo.lives
-		gameInfo.p4Lives = gameInfo.lives
-		p1ScoreTag.textContent = gameInfo.p1Lives
-		p2ScoreTag.textContent = gameInfo.p2Lives
-		p3ScoreTag.textContent = gameInfo.p3Lives
-		p4ScoreTag.textContent = gameInfo.p4Lives
-		gameInfo.player_count = 0
-		gameInfo.gameover = false
-		camera.position.set(0, 0, 750)
-		camera.lookAt(0, 0, 0)
-	}
+	gameInfo.countDownDone = false
+	defaultPosition()
+	if(scene.children.includes(paddle1)) {scene.remove(paddle1)};
+	if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
+	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
+	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
+	if(!scene.children.includes(p3light)) {scene.add(p3light)};
+	if(!scene.children.includes(p4light)) {scene.add(p4light)};
+	paddle1_att.dead = true
+	paddle2_att.dead = true
+	paddle3_att.dead = true
+	paddle4_att.dead = true
+	gameInfo.player_count = 0
+	camera.position.set(0, 0, 750)
+	camera.lookAt(0, 0, 0)
+	// orbit.enabled = false
 }
 
 function defaultPosition() {
@@ -254,8 +266,6 @@ function moveBall() {
 	ballplight.position.y = ball.position.y;
 	}
 }
-
-
 
 function goalDetection() {
 	//vs2 et vs4
@@ -575,8 +585,8 @@ function demoCamPlay(){
 		camDemoDirX = 1
 	else if(camera.position.x > 400)
 		camDemoDirX = -1
-	if(camera.position.y < -210)
-		camDemoDirY = 1
+	if(camera.position.y != 0)
+		camera.position.y
 	else if(camera.position.y > 210)
 		camDemoDirY = -1
 	camera.position.x += (0.4 * camDemoDirX)
@@ -611,24 +621,30 @@ function lightColorSwitch(player, color){
 }
 
 function showPlayerInfoV4(){
-	p1Info.style.display = "block"
-	p2Info.style.display = "block"
-	p3Info.style.display = "block"
-	p4Info.style.display = "block"
+	if(p1Info && p2Info && p3Info && p4Info ){
+		p1Info.style.display = "block"
+		p2Info.style.display = "block"
+		p3Info.style.display = "block"
+		p4Info.style.display = "block"
+	}
 }
 
 function showPlayerInfoV2(){
-	p1Info.style.display = "block"
-	p2Info.style.display = "block"
-	p3Info.style.display = "none"
-	p4Info.style.display = "none"
+	if(p1Info && p2Info && p3Info && p4Info ){
+		p1Info.style.display = "block"
+		p2Info.style.display = "block"
+		p3Info.style.display = "none"
+		p4Info.style.display = "none"
+	}
 }
 
 function hidePlayerInfo(){
-	p1Info.style.display = "none"
-	p2Info.style.display = "none"
-	p3Info.style.display = "none"
-	p4Info.style.display = "none"
+	if(p1Info && p2Info && p3Info && p4Info ){
+		p1Info.style.display = "none"
+		p2Info.style.display = "none"
+		p3Info.style.display = "none"
+		p4Info.style.display = "none"
+	}
 }
 
 function initGame(){
@@ -666,5 +682,6 @@ function stopGame(){
 	renderer.setAnimationLoop(null)
 }
 initGame()
+initElements()
 
 export { playGameV2, playGameV4, stopGame, playDemo }

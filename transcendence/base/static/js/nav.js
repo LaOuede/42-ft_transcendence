@@ -1,4 +1,5 @@
 import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
+import {tournament} from "../js/pong/tournament.js";
 
 // function to load the appropriate content on the base page
 function loadContent(path) {
