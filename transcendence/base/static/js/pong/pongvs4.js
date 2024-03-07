@@ -2,12 +2,10 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-import {plane, ball, side1, side2, side3, side4,
-	paddle1, paddle2, paddle3, paddle4, sky} from "./pong_obj.js"
+import {initGraphic} from "./pong_scene.js"
+
 import {board, ball_att, paddle1_att, paddle2_att, 
 	paddle3_att, paddle4_att, control, gameInfo} from "./pong_var.js"
-import {ballplight, p1light, p2light,  p3light,
-	p4light, backLight1, backLight2, backLight3, backLight4} from "./pong_light.js"
 import {tournament, giveTournPoints } from "./tournament.js"
 
 let reboundx = true
@@ -58,7 +56,6 @@ function initElements() {
 	}
 }
 
-
 let navHeight = document.querySelector('nav').offsetHeight;
 let headerHeight = document.querySelector('header').offsetHeight;
 let footerHeight = document.querySelector('footer').offsetHeight;
@@ -69,29 +66,26 @@ const renderer = new THREE.WebGLRenderer({ canvas });
 	
 renderer.shadowMap.enabled = true;// voir ou le mettre
 
-renderer.setSize(masterWidth - 20, canvasHeight);
-const scene = new THREE.Scene();
+renderer.setSize(window.innerWidth, canvasHeight);
+
+
+const scene = initGraphic()
+const ball = scene.getObjectByName("ball")
+const ballplight = scene.getObjectByName("ballplight")
+const paddle1 = scene.getObjectByName("paddle1")
+const paddle2 = scene.getObjectByName("paddle2")
+const paddle3 = scene.getObjectByName("paddle3")
+const paddle4 = scene.getObjectByName("paddle4")
+const p1light = scene.getObjectByName("p1light")
+const p2light = scene.getObjectByName("p2light")
+const p3light = scene.getObjectByName("p3light")
+const p4light = scene.getObjectByName("p4light")
 
 const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / canvasHeight, 0.1, 500000);
 camera.position.set(0, -350, 700);
 
-    const orbit = new OrbitControls(camera, renderer.domElement);
-    orbit.update();
-
-function initGraphic(){
-	let item_list = [paddle1, paddle2, paddle3, paddle4, ball,
-		plane, side1, side2, side3, side4, p1light, ballplight, 
-		p2light, p3light, p4light, sky, backLight1, backLight2, backLight3, backLight4]
-	for(let i = 0; i < item_list.length; i++)
-		scene.add(item_list[i])
-}
-
-function initHelpers(){
-	let item_list = [p1lightHelper1, 
-		p2lightHelper1, p3lightHelper1, p4lightHelper1, ballplightHelper]
-	for(let i = 0; i < item_list.length; i++)
-		scene.add(item_list[i])
-}
+const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.update();
 
 function resetGameOverParam(players, lives){
 	let paddles = [paddle1, paddle2, paddle3, paddle4]
@@ -117,20 +111,16 @@ function resetGameOverV2(){
 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
 	if(scene.children.includes(p3light)) {scene.remove(p3light)};
 	if(scene.children.includes(p4light)) {scene.remove(p4light)};
-	p1light1.distance = 800
-	p2light1.distance = 800
-	paddle1_att.dead = false
-	paddle2_att.dead = false
-	paddle3_att.dead = true
-	paddle4_att.dead = true
+	p1light.distance = 800
+	p2light.distance = 800
 	paddle1limit = 0
 	paddle2limit = 0
 	paddle3limit = 0
 	paddle4limit = 0
 	gameInfo.p1Lives = gameInfo.lives
 	gameInfo.p2Lives = gameInfo.lives
-	gameInfo.p3Lives = gameInfo.lives
-	gameInfo.p4Lives = gameInfo.lives
+	gameInfo.p3Lives = 0
+	gameInfo.p4Lives = 0
 	p1ScoreTag.textContent = gameInfo.p1Lives
 	p2ScoreTag.textContent = gameInfo.p2Lives
 	p3ScoreTag.textContent = gameInfo.p3Lives
@@ -158,10 +148,6 @@ function resetGameOverV4(){
 	paddle2limit = 2.5
 	paddle3limit = 2.5
 	paddle4limit = 2.5
-	paddle1_att.dead = false
-	paddle2_att.dead = false
-	paddle3_att.dead = false
-	paddle4_att.dead = false
 	gameInfo.p1Lives = gameInfo.lives
 	gameInfo.p2Lives = gameInfo.lives
 	gameInfo.p3Lives = gameInfo.lives
@@ -187,10 +173,11 @@ function resetGameDemo(){
 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
 	if(!scene.children.includes(p3light)) {scene.add(p3light)};
 	if(!scene.children.includes(p4light)) {scene.add(p4light)};
-	paddle1_att.dead = true
-	paddle2_att.dead = true
-	paddle3_att.dead = true
-	paddle4_att.dead = true
+
+	gameInfo.p1Lives = 0
+	gameInfo.p2Lives = 0
+	gameInfo.p3Lives = 0
+	gameInfo.p4Lives = 0
 	gameInfo.player_count = 0
 	camera.position.set(0, 0, 750)
 	camera.lookAt(0, 0, 0)
@@ -198,7 +185,6 @@ function resetGameDemo(){
 }
 
 function defaultPosition() {
-	//vs2 et vs4 
 	ball.position.x = 0
 	ball.position.y = 0
 	paddle1.position.y = 0
@@ -212,20 +198,19 @@ function defaultPosition() {
 	if (gameInfo.countDownDone === false) countDown()
 }
 
-  function countDown() {
-    let count = 1;
-    let countdown = setInterval(() => {
-      if (count > 0) {
-        count--;
-      } else {
-        gameInfo.countDownDone = true;
-        clearInterval(countdown);
-      }
-    }, 500);
-  }
+function countDown() {
+	let count = 1;
+	let countdown = setInterval(() => {
+	if (count > 0) {
+		count--;
+	} else {
+		gameInfo.countDownDone = true;
+		clearInterval(countdown);
+	}
+	}, 500);
+}
 
 function randomStartDir() {
-	//vs2 et vs4
 	if (Math.random() <= 0.5)ball_att.dirX = 1;
 	else ball_att.dirX = -1;
 	if (Math.random() <= 0.5) ball_att.dirY = 1;
@@ -233,14 +218,12 @@ function randomStartDir() {
 }
 
 function changeAngle() {
-	//vs2 et vs4
 	let rand = Math.random();
 	ball_att.speedX = rand * gameInfo.level + 1;
 	ball_att.speedY = gameInfo.level - rand + 1;
 }
 
 function ballPhysic() {
-	//vs2 et vs4
 	moveBall();
 	sideRebound();
 	paddleColision();
@@ -248,7 +231,6 @@ function ballPhysic() {
 }
 
 function moveBall() {
-	//vs2 et vs4
 	if (ball_att.dirX > 0) {
 	ball.position.x += ball_att.speedX;
 	ballplight.position.x = ball.position.x;
@@ -270,14 +252,13 @@ function moveBall() {
 function goalDetection() {
 	//vs2 et vs4
 	if (
-	ball.position.x < -board.size / 2 + board.thickness &&
-	paddle1_att.dead === false
+	ball.position.x < -board.size / 2 + board.thickness && 
+		gameInfo.p1Lives > 0
 	) {
 	gameInfo.p1Lives--;
 	p1ScoreTag.textContent = gameInfo.p1Lives
 	if (gameInfo.p1Lives == 0) {
-		paddle1_att.dead = true;
-		paddle1limit = 0
+			paddle1limit = 0
 		scene.remove(paddle1);
 		gameInfo.player_count--
 		giveTournPoints(0)
@@ -288,12 +269,10 @@ function goalDetection() {
 	}
 	if (
 	ball.position.x > board.size / 2 - board.thickness &&
-	paddle2_att.dead === false
-	) {
+	gameInfo.p2Lives > 0) {
 	gameInfo.p2Lives--;
 	p2ScoreTag.textContent = gameInfo.p2Lives
 	if (gameInfo.p2Lives == 0) {
-		paddle2_att.dead = true;
 		paddle2limit = 0
 		scene.remove(paddle2);
 		gameInfo.player_count--
@@ -305,12 +284,10 @@ function goalDetection() {
 	}
 	if (
 	ball.position.y > board.size / 2 - board.thickness &&
-	paddle3_att.dead === false
-	) {
+		gameInfo.p3Lives > 0) {
 	gameInfo.p3Lives--;
 	p3ScoreTag.textContent = gameInfo.p3Lives
 	if (gameInfo.p3Lives == 0) {
-		paddle3_att.dead = true;
 		paddle3limit = 0
 		scene.remove(paddle3);
 		gameInfo.player_count--
@@ -322,12 +299,11 @@ function goalDetection() {
 	}
 	if (
 	ball.position.y < -board.size / 2 + board.thickness &&
-	paddle4_att.dead === false
+	gameInfo.p4Lives > 0
 	) {
 	gameInfo.p4Lives--;
 	p4ScoreTag.textContent = gameInfo.p4Lives
 	if (gameInfo.p4Lives == 0) {
-		paddle4_att.dead = true;
 		paddle4limit = 0
 		scene.remove(paddle4);
 		gameInfo.player_count--
@@ -338,12 +314,11 @@ function goalDetection() {
 	}
 	if(gameInfo.player_count === 1){
 		gameInfo.player_count--;
-		let tempPaddle = [paddle1_att, paddle2_att, paddle3_att, paddle4_att]
+		let tempPaddle = [gameInfo.p1Lives ,gameInfo.p2Lives, gameInfo.p3Lives, gameInfo.p4Lives]
 		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle[i].dead === false){
+			if(tempPaddle[i] > 0){
 				giveTournPoints(i)
 			}
-			console.log()
 		}
 		gameInfo.gameover = true
 		tournament()
@@ -351,36 +326,24 @@ function goalDetection() {
 }
   
 function sideRebound() {
-	if (
-	ball.position.y < -board.size / 2 + board.thickness &&
-	paddle4_att.dead === true
-	) {
-	ball_att.dirY = 1;
+	if (ball.position.x < -board.size / 2 + board.thickness && gameInfo.p1Lives === 0) {
+			ball_att.dirX = 1;
 	}
-	if (
-	ball.position.y > board.size / 2 - board.thickness &&
-	paddle3_att.dead === true
-	) {
-	ball_att.dirY = -1;
+	if (ball.position.x > board.size / 2 - board.thickness && gameInfo.p2Lives === 0) {
+			ball_att.dirX = -1;
 	}
-	if (
-	ball.position.x < -board.size / 2 + board.thickness &&
-	paddle1_att.dead === true
-	) {
-	ball_att.dirX = 1;
+	if (ball.position.y < -board.size / 2 + board.thickness && gameInfo.p4Lives === 0) {
+		ball_att.dirY = 1;
 	}
-	if (
-	ball.position.x > board.size / 2 - board.thickness &&
-	paddle2_att.dead === true
-	) {
-	ball_att.dirX = -1;
+	if (ball.position.y > board.size / 2 - board.thickness && gameInfo.p3Lives === 0) {
+		ball_att.dirY = -1;
 	}
 }
 
 function paddleColision() {
 	const maxlevel = 6
 	if (
-		paddle1_att.dead === false &&
+		gameInfo.p1Lives > 0 &&
 		ball.position.x - board.thickness <= paddle1.position.x + board.thickness / 2 + 2 &&
 		ball.position.x - board.thickness >= paddle1.position.x + board.thickness / 2 - 8 &&
 		ball.position.y <= paddle1.position.y + paddle1_att.height / 2 &&
@@ -395,7 +358,7 @@ function paddleColision() {
 	reboundx = false
 	}
 	if (
-		paddle2_att.dead === false &&
+		gameInfo.p2Lives > 0 &&
 		ball.position.x + board.thickness >= paddle2.position.x - board.thickness / 2 - 2 &&
 		ball.position.x + board.thickness <= paddle2.position.x - board.thickness / 2 + 8 &&
 		ball.position.y <= paddle2.position.y + paddle2_att.height / 2 &&
@@ -410,7 +373,7 @@ function paddleColision() {
 	reboundx = false
 	}
 	if (
-		paddle3_att.dead === false &&
+		gameInfo.p3Lives > 0 &&
 		ball.position.y + board.thickness >= paddle3.position.y - board.thickness / 2 - 2 &&
 		ball.position.y + board.thickness <= paddle3.position.y - board.thickness / 2 + 8 &&
 		ball.position.x <= paddle3.position.x + paddle3_att.width / 2 &&
@@ -425,7 +388,7 @@ function paddleColision() {
 	reboundy = false
 	}
 	if (
-		paddle4_att.dead === false &&
+		gameInfo.p4Lives > 0 &&
 		ball.position.y - board.thickness <= paddle4.position.y + board.thickness / 2 + 2 &&
 		ball.position.y - board.thickness >= paddle4.position.y + board.thickness / 2 - 8 &&
 		ball.position.x <= paddle4.position.x + paddle4_att.width / 2 &&
@@ -647,12 +610,6 @@ function hidePlayerInfo(){
 	}
 }
 
-function initGame(){
-	initGraphic()
-	// initHelpers()
-	// resetGameOverV4()
-}
-
 function playGameV2(){
 	showPlayerInfoV2()
 	resetGameOverV2()
@@ -681,7 +638,7 @@ function stopGame(){
 	demoCam = false
 	renderer.setAnimationLoop(null)
 }
-initGame()
+initGraphic()
 initElements()
 
 export { playGameV2, playGameV4, stopGame, playDemo }
