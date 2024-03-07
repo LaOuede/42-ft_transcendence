@@ -191,6 +191,7 @@ h5 {
 	min-width: 500px; /* Ajoutez la valeur minimale en pixels */
 	min-height: 700px; 
 	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
 
 .signup-container-black {
@@ -241,6 +242,7 @@ h5 {
 	min-width: 500px; /* Ajoutez la valeur minimale en pixels */
 	min-height: 600px; 
 	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
 
 .login-container-black {
@@ -291,6 +293,7 @@ h5 {
 	min-width: 650px; /* Ajoutez la valeur minimale en pixels */
 	min-height: 500px; 
 	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
 
 .pong-container-black {
@@ -347,57 +350,58 @@ h5 {
 	min-width: 950px; /* Ajoutez la valeur minimale en pixels */
 	min-height: 800px; 
 	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
 
 .onevsone-container-black {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Cela poussera le contenu en haut et en bas respectivement */
-    align-items: center; /* Cela centrera les enfants horizontalement */
-    width: 90%;
-    height: 90%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: black;
-    border-radius: 20px;
-    padding: 20px; /* Ajoutez du padding selon vos besoins */
-    box-sizing: border-box;
-    z-index: 11;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Cela poussera le contenu en haut et en bas respectivement */
+	align-items: center; /* Cela centrera les enfants horizontalement */
+	width: 90%;
+	height: 90%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: black;
+	border-radius: 20px;
+	padding: 20px; /* Ajoutez du padding selon vos besoins */
+	box-sizing: border-box;
+	z-index: 11;
 }
 
 .players-container {
-    display: flex;
-    justify-content: space-around; /* Ajustez l'espacement entre les joueurs */
-    width: 100%; /* Assurez-vous que le conteneur prend toute la largeur possible */
-    padding: 20px 0; /* Ajoutez du padding selon vos besoins */
+	display: flex;
+	justify-content: space-around; /* Ajustez l'espacement entre les joueurs */
+	width: 100%; /* Assurez-vous que le conteneur prend toute la largeur possible */
+	padding: 20px 0; /* Ajoutez du padding selon vos besoins */
 }
 
 .player1-container, .player2-container {
-    display: flex;
-    flex-direction: column; /* Organise le contenu de chaque joueur verticalement */
-    align-items: center; /* Centre les éléments verticalement */
+	display: flex;
+	flex-direction: column; /* Organise le contenu de chaque joueur verticalement */
+	align-items: center; /* Centre les éléments verticalement */
 }
 
 .player2-input-ok-container {
-    display: flex; /* Active Flexbox */
-    align-items: center; /* Centre les éléments verticalement */
-    gap: 10px; /* Ajoute un espace entre l'input et le bouton */
+	display: flex; /* Active Flexbox */
+	align-items: center; /* Centre les éléments verticalement */
+	gap: 10px; /* Ajoute un espace entre l'input et le bouton */
 }
 
 .input-group.player2-container {
-    display: flex;
-    flex-direction: column; /* Organise le titre et le nouveau conteneur verticalement */
-    align-items: center; /* Alignement au début pour garder le titre aligné avec l'input */
+	display: flex;
+	flex-direction: column; /* Organise le titre et le nouveau conteneur verticalement */
+	align-items: center; /* Alignement au début pour garder le titre aligné avec l'input */
 }
 
 .button3-container {
-    width: 50%; /* Adapté à la largeur du conteneur parent */
-    display: flex;
-    justify-content: center; /* Centre le bouton3 horizontalement */
-    align-items: center; /* Centre le bouton3 verticalement, utile si vous avez une hauteur spécifique */
-    /* margin-top: auto; Pousse le conteneur vers le bas */
+	width: 50%; /* Adapté à la largeur du conteneur parent */
+	display: flex;
+	justify-content: center; /* Centre le bouton3 horizontalement */
+	align-items: center; /* Centre le bouton3 verticalement, utile si vous avez une hauteur spécifique */
+	/* margin-top: auto; Pousse le conteneur vers le bas */
 }
 
 .button1,
