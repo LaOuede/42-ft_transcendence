@@ -1,7 +1,6 @@
 import * as THREE from "three";
 
-import {board, ball_att, paddle1_att, paddle2_att, 
-	paddle3_att, paddle4_att, control, gameInfo} from "./pong_var.js"
+import {board, ball_att, gameInfo} from "./pong_var.js"
 
 export function initGraphic(){
 	const scene = new THREE.Scene();
@@ -93,21 +92,21 @@ export function initGraphic(){
 
 	//PLAYER 1
 	//LIGHT 1
-	const p1light = new THREE.PointLight(paddle1_att.light_color, light_prim_intense, light_prim_distance);
+	const p1light = new THREE.PointLight(gameInfo.colors[0], light_prim_intense, light_prim_distance);
 	p1light.position.set(board.size / -3, 0, 100);
 	p1light.name = "p1light"
 	scene.add(p1light)
 
 	//PLAYER 2
 	//LIGHT 1
-	const p2light = new THREE.PointLight(paddle2_att.light_color, light_prim_intense, light_prim_distance);
+	const p2light = new THREE.PointLight(gameInfo.colors[1], light_prim_intense, light_prim_distance);
 	p2light.position.set(board.size / 3, 0, 100);
 	p2light.name = "p2light"
 	scene.add(p2light)
 
 	//PLAYER 3
 	//LIGHT 1
-	const p3light = new THREE.PointLight(paddle3_att.light_color, light_prim_intense, light_prim_distance);
+	const p3light = new THREE.PointLight(gameInfo.colors[2], light_prim_intense, light_prim_distance);
 	p3light.position.set(0, board.size / 3, 100);
 	p3light.name = "p3light"
 
@@ -115,46 +114,46 @@ export function initGraphic(){
 
 	//PLAYER 4
 	//LIGHT 1
-	const p4light = new THREE.PointLight(paddle4_att.light_color, light_prim_intense, light_prim_distance);
+	const p4light = new THREE.PointLight(gameInfo.colors[3], light_prim_intense, light_prim_distance);
 	p4light.position.set(0, board.size / -3, 100);
 	p4light.name = "p4light"
 	scene.add(p4light)
 
 	//PADDLE1
-	const paddle1geometry = new THREE.BoxGeometry(board.thickness, paddle1_att.height, board.thickness);
+	const paddle1geometry = new THREE.BoxGeometry(board.thickness, gameInfo.paddleLenght, board.thickness);
 	const paddle1material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000,});
 	const paddle1 = new THREE.Mesh(paddle1geometry, paddle1material);
-	paddle1.position.set(paddle1_att.x, 0, board.thickness);
+	paddle1.position.set(-board.size / 2 + board.thickness * 2, 0, board.thickness);
 	paddle1.castShadow = true;
 	paddle1.receiveShadow = true;
 	paddle1.name = "paddle1"
 	scene.add(paddle1)
 
 	//PADDLE2
-	const paddle2geometry = new THREE.BoxGeometry(board.thickness, paddle2_att.height, board.thickness);
+	const paddle2geometry = new THREE.BoxGeometry(board.thickness, gameInfo.paddleLenght, board.thickness);
 	const paddle2material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
 	const paddle2 = new THREE.Mesh(paddle2geometry, paddle2material);
-	paddle2.position.set(paddle2_att.x, 0, board.thickness);
+	paddle2.position.set(board.size / 2 - board.thickness * 2, 0, board.thickness);
 	paddle2.castShadow = true;
 	paddle2.receiveShadow = true;
 	paddle2.name = "paddle2"
 	scene.add(paddle2)
 
 	//PADDLE3
-	const paddle3geometry = new THREE.BoxGeometry( paddle3_att.width, board.thickness, board.thickness);
+	const paddle3geometry = new THREE.BoxGeometry(gameInfo.paddleLenght, board.thickness, board.thickness);
 	const paddle3material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
 	const paddle3 = new THREE.Mesh(paddle3geometry, paddle3material);
-	paddle3.position.set(0, paddle3_att.y, board.thickness);
+	paddle3.position.set(0, board.size / 2 - board.thickness * 2, board.thickness);
 	paddle3.castShadow = true;
 	paddle3.receiveShadow = true;
 	paddle3.name = "paddle3"
 	scene.add(paddle3)
 
 	//PADDLE4
-	const paddle4geometry = new THREE.BoxGeometry(paddle4_att.width, board.thickness, board.thickness);
+	const paddle4geometry = new THREE.BoxGeometry(gameInfo.paddleLenght, board.thickness, board.thickness);
 	const paddle4material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000});
 	const paddle4 = new THREE.Mesh(paddle4geometry, paddle4material);
-	paddle4.position.set(0, paddle4_att.y, board.thickness);
+	paddle4.position.set(0, -board.size / 2 + board.thickness * 2, board.thickness);
 	paddle4.castShadow = true;
 	paddle4.receiveShadow = true;
 	paddle4.name = "paddle4"

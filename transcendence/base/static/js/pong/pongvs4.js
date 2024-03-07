@@ -4,8 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import {initGraphic} from "./pong_scene.js"
 
-import {board, ball_att, paddle1_att, paddle2_att, 
-	paddle3_att, paddle4_att, control, gameInfo} from "./pong_var.js"
+import {board, ball_att, control, gameInfo} from "./pong_var.js"
 import {tournament, giveTournPoints } from "./tournament.js"
 
 let reboundx = true
@@ -346,8 +345,8 @@ function paddleColision() {
 		gameInfo.p1Lives > 0 &&
 		ball.position.x - board.thickness <= paddle1.position.x + board.thickness / 2 + 2 &&
 		ball.position.x - board.thickness >= paddle1.position.x + board.thickness / 2 - 8 &&
-		ball.position.y <= paddle1.position.y + paddle1_att.height / 2 &&
-		ball.position.y >= paddle1.position.y - paddle1_att.height / 2
+		ball.position.y <= paddle1.position.y + gameInfo.paddleLenght / 2 &&
+		ball.position.y >= paddle1.position.y - gameInfo.paddleLenght / 2
 	) {
 	if(reboundx === true){
 		changeAngle();
@@ -361,8 +360,8 @@ function paddleColision() {
 		gameInfo.p2Lives > 0 &&
 		ball.position.x + board.thickness >= paddle2.position.x - board.thickness / 2 - 2 &&
 		ball.position.x + board.thickness <= paddle2.position.x - board.thickness / 2 + 8 &&
-		ball.position.y <= paddle2.position.y + paddle2_att.height / 2 &&
-		ball.position.y >= paddle2.position.y - paddle2_att.height / 2
+		ball.position.y <= paddle2.position.y + gameInfo.paddleLenght / 2 &&
+		ball.position.y >= paddle2.position.y - gameInfo.paddleLenght / 2
 	) {
 	if(reboundx === true){
 		changeAngle();
@@ -376,8 +375,8 @@ function paddleColision() {
 		gameInfo.p3Lives > 0 &&
 		ball.position.y + board.thickness >= paddle3.position.y - board.thickness / 2 - 2 &&
 		ball.position.y + board.thickness <= paddle3.position.y - board.thickness / 2 + 8 &&
-		ball.position.x <= paddle3.position.x + paddle3_att.width / 2 &&
-		ball.position.x >= paddle3.position.x - paddle3_att.width / 2
+		ball.position.x <= paddle3.position.x + gameInfo.paddleLenght / 2 &&
+		ball.position.x >= paddle3.position.x - gameInfo.paddleLenght / 2
 	) {
 	if(reboundy === true){
 		changeAngle();
@@ -391,8 +390,8 @@ function paddleColision() {
 		gameInfo.p4Lives > 0 &&
 		ball.position.y - board.thickness <= paddle4.position.y + board.thickness / 2 + 2 &&
 		ball.position.y - board.thickness >= paddle4.position.y + board.thickness / 2 - 8 &&
-		ball.position.x <= paddle4.position.x + paddle4_att.width / 2 &&
-		ball.position.x >= paddle4.position.x - paddle4_att.width / 2
+		ball.position.x <= paddle4.position.x + gameInfo.paddleLenght / 2 &&
+		ball.position.x >= paddle4.position.x - gameInfo.paddleLenght / 2
 	) {
 	if(reboundy === true){
 		changeAngle();
@@ -417,56 +416,56 @@ function controlDetection() {
 	if (
 	control.w === true &&
 	paddle1.position.y <
-		board.size / 2 - paddle1_att.height / 2 - board.thickness * paddle3limit
+		board.size / 2 - gameInfo.paddleLenght / 2 - board.thickness * paddle3limit
 	)
 	paddle1.position.y += paddleSpeed;
 
 	if (
 	control.s === true &&
 	paddle1.position.y >
-		-board.size / 2 + paddle1_att.height / 2 + board.thickness * paddle4limit
+		-board.size / 2 + gameInfo.paddleLenght / 2 + board.thickness * paddle4limit
 	)
 	paddle1.position.y -= paddleSpeed;
 
 	if (
 	control.h === true &&
 	paddle3.position.x <
-		board.size / 2 - paddle3_att.width / 2 - board.thickness * paddle2limit
+		board.size / 2 - gameInfo.paddleLenght / 2 - board.thickness * paddle2limit
 	)
 	paddle3.position.x += paddleSpeed;
 
 	if (
 	control.g === true &&
 	paddle3.position.x >
-		-board.size / 2 + paddle3_att.width / 2 + board.thickness * paddle1limit
+		-board.size / 2 + gameInfo.paddleLenght / 2 + board.thickness * paddle1limit
 	)
 	paddle3.position.x -= paddleSpeed;
 
 	if (
 	control.arrowUp === true &&
 	paddle2.position.y <
-		board.size / 2 - paddle2_att.height / 2 - board.thickness * paddle3limit
+		board.size / 2 - gameInfo.paddleLenght / 2 - board.thickness * paddle3limit
 	)
 	paddle2.position.y += paddleSpeed;
 
 	if (
 	control.arrowDown === true &&
 	paddle2.position.y >
-		-board.size / 2 + paddle2_att.height / 2 + board.thickness * paddle4limit
+		-board.size / 2 + gameInfo.paddleLenght / 2 + board.thickness * paddle4limit
 	)
 	paddle2.position.y -= paddleSpeed;
 
 	if (
 	control.num9 === true &&
 	paddle4.position.x <
-		board.size / 2 - paddle3_att.width / 2 - board.thickness * paddle2limit
+		board.size / 2 - gameInfo.paddleLenght / 2 - board.thickness * paddle2limit
 	)
 	paddle4.position.x += paddleSpeed;
 
 	if (
 	control.num8 === true &&
 	paddle4.position.x >
-		-board.size / 2 + paddle3_att.width / 2 + board.thickness * paddle1limit 
+		-board.size / 2 + gameInfo.paddleLenght / 2 + board.thickness * paddle1limit 
 	)
 	paddle4.position.x -= paddleSpeed;
 }
