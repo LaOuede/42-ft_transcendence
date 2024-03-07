@@ -1,16 +1,14 @@
 <div class="pong-container">
-    <div class="pong-container-black">
-        <div class="pong-container-login">
-            <form id="login-form" method="post">
-                {% csrf_token %}
-                <div class="signup-header">
-                    <h2 class="header-title">WELCOME TO THE PONG GAME!</h2>
-                    <div class="buttons-container">
-                        <button class="button1" onclick="loadContent('play/1vs1/'); return false;" type="submit">1 VS 1</button>
-                        <button class="button2" onclick="loadContent('play/rumble/'); return false;" type="submit">RUMBLE</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="pong-container-black">
+		<div class="pong-container-login">
+			{% csrf_token %}
+			<div class="signup-header">
+				<h2 class="header-title">WHAT KIND OF GAME YOU WANNA PLAY?</h2>
+				<div class="buttons-container">
+					<button class="button1" onclick="loadContent('onevsone/'); return false;" type="submit">1 VS 1</button>
+					<button class="button2" onclick="loadContent('rumble/'); return false;" type="submit">RUMBLE</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

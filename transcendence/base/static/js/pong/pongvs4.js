@@ -20,6 +20,7 @@ let paddle1limit = 2.5
 let paddle2limit = 2.5
 let paddle3limit = 2.5
 let paddle4limit = 2.5
+let demoRunning = false
 	
 	const p1ScoreTag = document.getElementById("p1Score")
 	const p2ScoreTag = document.getElementById("p2Score")
@@ -70,6 +71,7 @@ function initHelpers(){
 }
 
 function resetGameOverV2(){
+	demoRunning = false
 	gameInfo.countDownDone = false
 	defaultPosition()
 	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
@@ -103,6 +105,7 @@ function resetGameOverV2(){
 }
 
 function resetGameOverV4(){
+	demoRunning = false
 	gameInfo.countDownDone = false
 	defaultPosition()
 	if(!scene.children.includes(paddle1)) {scene.add(paddle1)};
@@ -136,30 +139,37 @@ function resetGameOverV4(){
 }
 
 function resetGameDemo(){
-	gameInfo.countDownDone = false
-	defaultPosition()
-	if(scene.children.includes(paddle1)) {scene.remove(paddle1)};
-	if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
-	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
-	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-	if(!scene.children.includes(p3light1)) {scene.add(p3light1)};
-	if(!scene.children.includes(p4light1)) {scene.add(p4light1)};
-	paddle1_att.dead = true
-	paddle2_att.dead = true
-	paddle3_att.dead = true
-	paddle4_att.dead = true
-	gameInfo.p1Lives = gameInfo.lives
-	gameInfo.p2Lives = gameInfo.lives
-	gameInfo.p3Lives = gameInfo.lives
-	gameInfo.p4Lives = gameInfo.lives
-	p1ScoreTag.textContent = gameInfo.p1Lives
-	p2ScoreTag.textContent = gameInfo.p2Lives
-	p3ScoreTag.textContent = gameInfo.p3Lives
-	p4ScoreTag.textContent = gameInfo.p4Lives
-	gameInfo.player_count = 0
-	gameInfo.gameover = false
-	camera.position.set(0, 0, 750)
-	camera.lookAt(0, 0, 0)
+	if(demoRunning === false){
+		demoRunning = true	
+		gameInfo.countDownDone = false
+		defaultPosition()
+		if(scene.children.includes(paddle1)) {scene.remove(paddle1)};
+		if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
+		if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
+		if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
+		if(scene.children.includes(p3light1)) {scene.remove(p3light1)};
+		if(scene.children.includes(p4light1)) {scene.remove(p4light1)};
+		p2light1.color.set("#249DC6")
+		p1light1.color.set("#69327A")
+		p1light1.distance = 800
+		p2light1.distance = 800
+		paddle1_att.dead = true
+		paddle2_att.dead = true
+		paddle3_att.dead = true
+		paddle4_att.dead = true
+		gameInfo.p1Lives = gameInfo.lives
+		gameInfo.p2Lives = gameInfo.lives
+		gameInfo.p3Lives = gameInfo.lives
+		gameInfo.p4Lives = gameInfo.lives
+		p1ScoreTag.textContent = gameInfo.p1Lives
+		p2ScoreTag.textContent = gameInfo.p2Lives
+		p3ScoreTag.textContent = gameInfo.p3Lives
+		p4ScoreTag.textContent = gameInfo.p4Lives
+		gameInfo.player_count = 0
+		gameInfo.gameover = false
+		camera.position.set(0, 0, 750)
+		camera.lookAt(0, 0, 0)
+	}
 }
 
 function defaultPosition() {
@@ -538,7 +548,7 @@ function demoCamPlay(){
 	else if(camera.position.y > 210)
 		camDemoDirY = -1
 	camera.position.x += (0.4 * camDemoDirX)
-	camera.position.y += (0.1 * camDemoDirY)
+	// camera.position.y += (0.1 * camDemoDirY)
 	camera.lookAt(0, 0, 0)
 }
 

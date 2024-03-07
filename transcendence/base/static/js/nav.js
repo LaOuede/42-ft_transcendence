@@ -22,13 +22,15 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
-      if (path === "play/") {
+      if (path === "playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        // playGameV2()
-      } else {
-        document.querySelector("#pong").style.display = "none"
+        playGameV2()
+      } else if (path === "playrumble/") {
+        playGameV4()
+        // document.querySelector("#pong").style.display = "none"
         // stopGame()
+      } else {
         playDemo()
       }
       if (window.location.pathname !== "/" + path) {

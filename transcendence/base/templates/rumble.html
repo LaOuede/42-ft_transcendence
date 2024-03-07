@@ -1,0 +1,57 @@
+<div class="onevsone-container">
+	<div class="onevsone-container-black">
+		{% csrf_token %}
+		<div class="signup-header-onevsone">
+			<h2 class="onevsone-title">1 VS 1</h2>
+		</div>
+		<div class="players-container">
+			<div class="input-group player1-container">
+				<p class="onevsone-player-title">PLAYER 1</p>
+			</div>
+			<div class="input-group player2-container">
+				<p class="onevsone-player-title">PLAYER 2:</p>
+				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+					<input
+					id="player2"
+					placeholder="Enter Player 2 Name"
+					required=""
+					type="text"
+					name="player2"
+					/>
+					<button class="button3" onclick="loadContent('play/'); return false;" type="submit">OK</button>
+				</div>
+			</div>
+		</div>
+		<div class="players-container">
+				<div class="input-group player2-container">
+					<p class="onevsone-player-title">PLAYER 3:</p>
+					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+						<input
+						id="player3"
+						placeholder="Enter Player 3 Name"
+						required=""
+						type="text"
+						name="player3"
+						/>
+						<button class="button3" onclick="loadContent('play/'); return false;" type="submit">OK</button>
+					</div>
+				</div>
+				<div class="input-group player2-container">
+					<p class="onevsone-player-title">PLAYER 4:</p>
+					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+						<input
+						id="player4"
+						placeholder="Enter Player 4 Name"
+						required=""
+						type="text"
+						name="player4"
+						/>
+						<button class="button3" onclick="loadContent('play/'); return false;" type="submit">OK</button>
+					</div>
+				</div>
+			</div>
+		<div class="button3-container">
+			<button class="button4" onclick="loadContent('playrumble/'); return false;" type="submit">LET'S FIGHT!!!</button>
+		</div>
+	</div>
+</div>

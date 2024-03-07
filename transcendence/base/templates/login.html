@@ -1,48 +1,39 @@
-	<div class="login-container">
+<div class="login-container">
 	<div class="login-container-black">
 		<div class="login-container-login">
-		<form id="login-form" method="post">
-		{% csrf_token %}
-			<div class="signup-header">
-			<h2 class="header-title">LOGIN</h2>
-			<a
-				onclick="loadContent('login/'); return false;"
-				class="signup-description"
-				style="cursor: pointer"
-			>
-				WELCOME!
-			</a>
-			</div>
-			<div class="signup-form">
-			<div class="input-group">
-				<div>
-				<!--write username text -->
-				<p class="signup-title">USERNAME:</p>
+			<form id="login-form" method="post">
+				{% csrf_token %}
+				<div class="signup-header">
+					<h2 class="header-title">LOGIN</h2>
+					<a onclick="loadContent('login/'); return false; "class="signup-description" style="cursor: pointer">
+						WELCOME!
+					</a>
 				</div>
-			
-				<!-- <label for="user">Username</label> -->
-				<input
-				id="user"
-				placeholder=""
-				required=""
-				type="text"
-				name="user"
-				/>
-			</div>
-			<div class="input-group">
-				<div>
-				<!--write username text -->
-				<p class="signup-title">PASSWORD:</p>
+				<div class="signup-form">
+					<div class="input-group">
+						<div>
+							<p class="signup-title">USERNAME:</p>
+						</div>
+						<input
+						id="user"
+						placeholder=""
+						required=""
+						type="text"
+						name="user"
+						/>
+					</div>
+					<div class="input-group">
+						<div>
+							<p class="signup-title">PASSWORD:</p>
+						</div>
+						<input id="password" name="password" required="" type="password" />
+					</div>
+					<div class="error-container">
+						<p class="login-error-message"></p>
+					</div>
+					<button class="signup-btn" type="submit">LOGIN</button>
 				</div>
-				<!-- <label for="password">Password</label> -->
-				<input id="password" name="password" required="" type="password" />
-			</div>
-				<div class="error-container">
-				  <p class="login-error-message"></p>
-				</div>
-				<button class="signup-btn" type="submit">LOGIN</button>
-			  </div>
-		</form>
+			</form>
 		</div>
 	</div>
 </div>
