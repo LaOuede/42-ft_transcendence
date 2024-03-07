@@ -1,4 +1,5 @@
 import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
+import {tournament} from "../js/pong/tournament.js";
 
 // function to load the appropriate content on the base page
 function loadContent(path) {
@@ -23,6 +24,7 @@ function loadContent(path) {
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
       if (path === "play/") {
+        tournament()
         // document.querySelector("#pong").style.display = "block"
         playGameV4()// peut aller sur un bouton pour demarrer la joute
         // playGameV2()

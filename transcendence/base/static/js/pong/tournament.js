@@ -1,22 +1,46 @@
 import { playGameV2, playGameV4, stopGame, playDemo} from "../pong/pongvs4.js"
 import { gameInfo } from "../pong/pong_var.js"
 
-const btStartTourn = document.querySelector("#startTourn")
-const inputTournLength = document.querySelector("#tournLength")
+let btStartTourn = document.querySelector("#startTourn")
+let inputTournLength = document.querySelector("#tournLength")
 
 
 const playersScores = [0, 0, 0, 0]
-let game_count = inputTournLength.value
+let game_count
 
-const p1TournScore = document.getElementById("p1TournScore")
-const p2TournScore = document.getElementById("p2TournScore")
-const p3TournScore = document.getElementById("p3TournScore")
-const p4TournScore = document.getElementById("p4TournScore")
-const tournScores = [document.getElementById("p1TournScore"),
-	document.getElementById("p2TournScore"),
-	document.getElementById("p3TournScore"),
-	document.getElementById("p4TournScore")]
+let p1TournScore
+let p2TournScore
+let p3TournScore
+let p4TournScore
+let tournScores = [p1TournScore,
+	p2TournScore,
+	p3TournScore,
+	p4TournScore]
 
+function initElements() {
+	console.log(document.getElementById("p1TournScore"))
+	if (document.getElementById("p1TournScore")) {
+		tournScores[0] = document.getElementById("p1TournScore")
+	}
+	if (document.getElementById("p2TournScore")) {
+		tournScores[1] = document.getElementById("p2TournScore") 
+	}
+	if (document.getElementById("p3TournScore")) {
+		tournScores[2] = document.getElementById("p3TournScore") 
+	}
+	if (document.getElementById("p4TournScore")) {
+		tournScores[3] = document.getElementById("p4TournScore") 
+	}
+	if (document.getElementById("startTourn")) {
+		btStartTourn = document.getElementById("startTourn") 
+	}
+	if (document.getElementById("tournLength")) {
+		inputTournLength = document.getElementById("tournLength") 
+	}
+	// tournScores.textContent = 4235345
+	// console.log(p1TournScore.textContent)
+}
+	
 function resetTourn(){
 	for(let i = 0; i < playersScores.length; i++){
 		playersScores[i] = 0
@@ -50,6 +74,17 @@ function tieCheck(){
 }
 
 function tournament(){
+	initElements()
+	if(btStartTourn){
+		btStartTourn.addEventListener("click", function (e) {
+			game_count = inputTournLength.value
+			resetTourn()
+			gameInfo.gameover = true
+			tournament()
+			console.log("SALUT")
+		})
+	}
+	console.log(game_count)
 	if(game_count > 0){
 		gameInfo.gameover = false
 		console.log(game_count)
@@ -63,11 +98,23 @@ function tournament(){
 	}
 }
 	
-btStartTourn.addEventListener("click", () => {
-	game_count = inputTournLength.value
-	resetTourn()
-	gameInfo.gameover = true
-	tournament()
-})
+// btStartTourn.addEventListener("click", () => {
+// 	game_count = inputTournLength.value
+// 	resetTourn()
+// 	gameInfo.gameover = true
+// 	tournament()
+// })
+
+document.addEventListener("DOMContentLoaded", function (e) {
+	if(btStartTourn){
+		btStartTourn.addEventListener("click", function (e) {
+			game_count = inputTournLength.value
+			resetTourn()
+			gameInfo.gameover = true
+			tournament()
+			console.log("SALUT")
+		});
+	}
+});
 
 export { playersScores, game_count, tournament, giveTournPoints}
