@@ -10,7 +10,6 @@ let paddle1_att = {
 	width: board.thickness,
 	height: 75,
 	light_color: 0x0000ff,
-	dead: true
 };
 
 let paddle2_att = {
@@ -19,7 +18,6 @@ let paddle2_att = {
 	width: board.thickness,
 	height: 75,
 	light_color: 0xff0000,
-	dead: true
 };
 
 let paddle3_att = {
@@ -28,7 +26,6 @@ let paddle3_att = {
 	width: 75,
 	height: board.thickness,
 	light_color: 0xffff00,
-	dead: true,
 };
 
 let paddle4_att = {
@@ -37,7 +34,6 @@ let paddle4_att = {
 	width: 75,
 	height: board.thickness,
 	light_color: 0x00ffff,
-	dead: true,
 };
 
 let control = {
