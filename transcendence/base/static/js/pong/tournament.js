@@ -81,7 +81,6 @@ function tournament(){
 			resetTourn()
 			gameInfo.gameover = true
 			tournament()
-			console.log("SALUT")
 		})
 	}
 	console.log(game_count)

@@ -40,7 +40,7 @@ function initElements() {
 		p4ScoreTag  = document.getElementById("p4Score") 
 	}
 	if (document.getElementById("playerInfo1")) {
-		p1Info = document.getElementById("playerInfo1") 
+		p1Info = document.getElementById("playerInfo1")
 	}
 	if (document.getElementById("playerInfo2")) {
 		p2Info = document.getElementById("playerInfo2") 
@@ -103,8 +103,8 @@ function resetGameOverParam(players, lives){
 // 	paddle2limit = 0
 // 	paddle3limit = 0
 // 	paddle4limit = 0
-// 	gameInfo.p1Lives = gameInfo.lives
-// 	gameInfo.p2Lives = gameInfo.lives
+// 	gameInfo.p1Lives = gameInfo.default_lives
+// 	gameInfo.p2Lives = gameInfo.default_lives
 // 	gameInfo.p3Lives = 0
 // 	gameInfo.p4Lives = 0
 // 	p1ScoreTag.textContent = gameInfo.p1Lives
@@ -130,14 +130,14 @@ function resetGameOverV4(){
 	if(!sceneObjs.scene.children.includes(sceneObjs.lights[3])) {sceneObjs.scene.add(sceneObjs.lights[3])};
 	sceneObjs.lights[0].distance = 400
 	sceneObjs.lights[1].distance = 400
-	paddle1limit = 2.75
-	paddle2limit = 2.75
-	paddle3limit = 2.75
-	paddle4limit = 2.75
-	gameInfo.p1Lives = gameInfo.lives
-	gameInfo.p2Lives = gameInfo.lives
-	gameInfo.p3Lives = gameInfo.lives
-	gameInfo.p4Lives = gameInfo.lives
+	gameInfo.paddle_limit_list[0] = 2.75
+	gameInfo.paddle_limit_list[1] = 2.75
+	gameInfo.paddle_limit_list[2] = 2.75
+	gameInfo.paddle_limit_list[3] = 2.75
+	gameInfo.player_lives[0] = gameInfo.default_lives
+	gameInfo.player_lives[1] = gameInfo.default_lives
+	gameInfo.player_lives[2] = gameInfo.default_lives
+	gameInfo.player_lives[3] = gameInfo.default_lives
 	p1ScoreTag.textContent = gameInfo.p1Lives
 	p2ScoreTag.textContent = gameInfo.p2Lives
 	p3ScoreTag.textContent = gameInfo.p3Lives
@@ -239,12 +239,12 @@ function goalDetection() {
 	//vs2 et vs4
 	if (
 		sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && 
-		gameInfo.p1Lives > 0
+		gameInfo.player_lives[0] > 0
 	) {
-	gameInfo.p1Lives--;
-	p1ScoreTag.textContent = gameInfo.p1Lives
-	if (gameInfo.p1Lives == 0) {
-			paddle1limit = 0
+		gameInfo.player_lives[0]--;
+		p1ScoreTag.textContent = gameInfo.player_lives[0]
+	if (gameInfo.player_lives[0] === 0) {
+		gameInfo.paddle_limit_list[0] = 0
 			sceneObjs.scene.remove(sceneObjs.paddles[0]);
 		gameInfo.player_count--
 		giveTournPoints(0)
@@ -255,11 +255,11 @@ function goalDetection() {
 	}
 	if (
 		sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
-	gameInfo.p2Lives > 0) {
-	gameInfo.p2Lives--;
-	p2ScoreTag.textContent = gameInfo.p2Lives
-	if (gameInfo.p2Lives == 0) {
-		paddle2limit = 0
+		gameInfo.player_lives[1] > 0) {
+			gameInfo.player_lives[1]--;
+			p2ScoreTag.textContent = gameInfo.player_lives[1]
+	if (gameInfo.player_lives[1] === 0) {
+		gameInfo.paddle_limit_list[1] = 0
 		sceneObjs.scene.remove(sceneObjs.paddles[1]);
 		gameInfo.player_count--
 		giveTournPoints(1)
@@ -270,11 +270,11 @@ function goalDetection() {
 	}
 	if (
 		sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
-		gameInfo.p3Lives > 0) {
-	gameInfo.p3Lives--;
-	p3ScoreTag.textContent = gameInfo.p3Lives
-	if (gameInfo.p3Lives == 0) {
-		paddle3limit = 0
+		gameInfo.player_lives[2] > 0) {
+			gameInfo.player_lives[2]--;
+			p3ScoreTag.textContent = gameInfo.player_lives[2]
+	if (gameInfo.player_lives[2] === 0) {
+		gameInfo.paddle_limit_list[2] = 0
 		sceneObjs.scene.remove(sceneObjs.paddles[2]);
 		gameInfo.player_count--
 		giveTournPoints(2)
@@ -285,12 +285,12 @@ function goalDetection() {
 	}
 	if (
 		sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness &&
-	gameInfo.p4Lives > 0
+		gameInfo.player_lives[3] > 0
 	) {
-	gameInfo.p4Lives--;
-	p4ScoreTag.textContent = gameInfo.p4Lives
-	if (gameInfo.p4Lives == 0) {
-		paddle4limit = 0
+		gameInfo.player_lives[3]--;
+		p4ScoreTag.textContent = gameInfo.player_lives[3]
+	if (gameInfo.player_lives[3] === 0) {
+		gameInfo.paddle_limit_list[3] = 0
 		sceneObjs.scene.remove(sceneObjs.paddles[3]);
 		gameInfo.player_count--
 		giveTournPoints(3)
@@ -300,7 +300,7 @@ function goalDetection() {
 	}
 	if(gameInfo.player_count === 1){
 		gameInfo.player_count--;
-		let tempPaddle = [gameInfo.p1Lives ,gameInfo.p2Lives, gameInfo.p3Lives, gameInfo.p4Lives]
+		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
 		for(let i = 0; i < tempPaddle.length; i++){
 			if(tempPaddle[i] > 0){
 				giveTournPoints(i)
@@ -312,16 +312,16 @@ function goalDetection() {
 }
   
 function sideRebound() {
-	if (sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.p1Lives === 0) {
+	if (sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
 			gameInfo.ball_att.dirX = 1;
 	}
-	if (sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.p2Lives === 0) {
+	if (sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
 			gameInfo.ball_att.dirX = -1;
 	}
-	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.p4Lives === 0) {
+	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
 		gameInfo.ball_att.dirY = 1;
 	}
-	if (sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.p3Lives === 0) {
+	if (sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
 		gameInfo.ball_att.dirY = -1;
 	}
 }
@@ -329,7 +329,7 @@ function sideRebound() {
 function paddleColision() {
 	const maxlevel = 6
 	if (
-		gameInfo.p1Lives > 0 &&
+		gameInfo.player_lives[0] > 0 &&
 		sceneObjs.ball.position.x - gameInfo.board_size.thickness <= sceneObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 + 2 &&
 		sceneObjs.ball.position.x - gameInfo.board_size.thickness >= sceneObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 - 8 &&
 		sceneObjs.ball.position.y <= sceneObjs.paddles[0].position.y + gameInfo.board_size.paddleLenght / 2 &&
@@ -344,7 +344,7 @@ function paddleColision() {
 	gameInfo.ball_att.reboundx = false
 	}
 	if (
-		gameInfo.p2Lives > 0 &&
+		gameInfo.player_lives[1] > 0 &&
 		sceneObjs.ball.position.x + gameInfo.board_size.thickness >= sceneObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 - 2 &&
 		sceneObjs.ball.position.x + gameInfo.board_size.thickness <= sceneObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 + 8 &&
 		sceneObjs.ball.position.y <= sceneObjs.paddles[1].position.y + gameInfo.board_size.paddleLenght / 2 &&
@@ -359,7 +359,7 @@ function paddleColision() {
 	gameInfo.ball_att.reboundx = false
 	}
 	if (
-		gameInfo.p3Lives > 0 &&
+		gameInfo.player_lives[2] > 0 &&
 		sceneObjs.ball.position.y + gameInfo.board_size.thickness >= sceneObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 - 2 &&
 		sceneObjs.ball.position.y + gameInfo.board_size.thickness <= sceneObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 + 8 &&
 		sceneObjs.ball.position.x <= sceneObjs.paddles[2].position.x + gameInfo.board_size.paddleLenght / 2 &&
@@ -374,7 +374,7 @@ function paddleColision() {
 	gameInfo.ball_att.reboundy = false
 	}
 	if (
-		gameInfo.p4Lives > 0 &&
+		gameInfo.player_lives[3] > 0 &&
 		sceneObjs.ball.position.y - gameInfo.board_size.thickness <= sceneObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 + 2 &&
 		sceneObjs.ball.position.y - gameInfo.board_size.thickness >= sceneObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 - 8 &&
 		sceneObjs.ball.position.x <= sceneObjs.paddles[3].position.x + gameInfo.board_size.paddleLenght / 2 &&
@@ -399,35 +399,35 @@ function controlDetection() {
 	//vs2 et vs4
 	const paddleSpeed = 6
 	if ( gameInfo.controls.paddle1key[0] === true && sceneObjs.paddles[0].position.y <
-		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * paddle3limit))
+		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[2]))
 		sceneObjs.paddles[0].position.y += paddleSpeed;
 
 	if ( gameInfo.controls.paddle1key[1] === true && sceneObjs.paddles[0].position.y >
-		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * paddle4limit))
+		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[3]))
 		sceneObjs.paddles[0].position.y -= paddleSpeed;
 
 	if ( gameInfo.controls.paddle2key[0] === true && sceneObjs.paddles[1].position.y <
-		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * paddle3limit))
+		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[2]))
 		sceneObjs.paddles[1].position.y += paddleSpeed;
 
 	if ( gameInfo.controls.paddle2key[1] === true && sceneObjs.paddles[1].position.y >
-		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * paddle4limit))
+		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[3]))
 		sceneObjs.paddles[1].position.y -= paddleSpeed;
 
 	if ( gameInfo.controls.paddle3key[0] === true && sceneObjs.paddles[2].position.x >
-		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * paddle1limit))
+		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[0]))
 		sceneObjs.paddles[2].position.x -= paddleSpeed;
 
 	if ( gameInfo.controls.paddle3key[1] === true && sceneObjs.paddles[2].position.x <
-		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * paddle2limit))
+		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[1]))
 		sceneObjs.paddles[2].position.x += paddleSpeed;
 
 	if ( gameInfo.controls.paddle4key[0] === true && sceneObjs.paddles[3].position.x >
-		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * paddle1limit))
+		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[0]))
 		sceneObjs.paddles[3].position.x -= paddleSpeed;
 
 	if ( gameInfo.controls.paddle4key[1] === true && sceneObjs.paddles[3].position.x <
-		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * paddle2limit))
+		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[1]))
 		sceneObjs.paddles[3].position.x += paddleSpeed;
 
 }
@@ -507,15 +507,15 @@ function changeView() {
 
 function demoCamPlay(){
 	if(camera.position.x < -400)
-		camDemoDirX = 1
+		gameInfo.demoCam.DirX = 1
 	else if(camera.position.x > 400)
-		camDemoDirX = -1
+		gameInfo.demoCam.DirX = -1
 	if(camera.position.y != 0)
 		camera.position.y
 	else if(camera.position.y > 210)
-		camDemoDirY = -1
-	camera.position.x += (0.4 * camDemoDirX)
-	// camera.position.y += (0.1 * camDemoDirY)
+	gameInfo.demoCam.DirY = -1
+	camera.position.x += (0.4 * gameInfo.demoCam.DirX)
+	// camera.position.y += (0.1 * gameInfo.demoCam.DirY)
 	camera.lookAt(0, 0, 0)
 }
 
@@ -533,7 +533,7 @@ function animate() {
 	}
 	camLimiter()
 	renderer.render(sceneObjs.scene, camera);
-	if(demoCam)
+	if(gameInfo.demoCam.enabled)
 		demoCamPlay()
 	// console.log("running")
 }
@@ -551,7 +551,7 @@ function showPlayerInfoV4(){
 		p2Info.style.display = "block"
 		p3Info.style.display = "block"
 		p4Info.style.display = "block"
-	}
+}
 }
 
 function showPlayerInfoV2(){
@@ -597,7 +597,7 @@ function playDemo(){
 }
 
 function stopGame(){
-	demoCam = false
+	gameInfo.demoCam.enabled = false
 	renderer.setAnimationLoop(null)
 }
 initSceneObjs()
