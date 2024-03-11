@@ -12,9 +12,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.querySelector("#login-2fa").addEventListener("click", handle2FA);
 });
 
+console.log(window);
+
 // login function
 function handleLogin(e) {
   e.preventDefault();
+  let loader = document.querySelector(".lds-default");
+  loader.style.display = "inline-block";
   const formData = new FormData(e.target);
   const user = formData.get("user");
   const password = formData.get("password");
@@ -38,14 +42,17 @@ function handleLogin(e) {
         document.querySelector(".not-signed-in").style.display = "none";
 
         window.loadContent("");
+        loader.style.display = "none";
         return;
       } else if (data?.session_token && data?.session_token !== "") {
         localStorage.setItem("sessionToken", data.session_token);
         window.loadContent("otp/");
+        loader.style.display = "none";
         return;
       } else {
         handleWrongCredentials(data.error);
         console.log("FAILED TO READ DATA", data);
+        loader.style.display = "none";
         return;
       }
     });
@@ -77,10 +84,37 @@ function verifyOTP(e) {
 
         window.loadContent("");
       } else {
-        localStorage.removeItem("sessionToken");
-        loadContent("login/");
+        handleWrongOtp(data);
       }
     });
+}
+
+function handleWrongOTPStyle(otpErrorMessage) {
+  let otpInput = document.querySelector("#otp-form input");
+  otpInput.value = "";
+  otpInput.style.borderColor = "red";
+  otpInput.blur();
+  setTimeout(() => {
+    otpErrorMessage.innerHTML = "";
+    otpInput.style.borderColor = "";
+  }, 3000);
+}
+
+function handleWrongOtp(data) {
+  if (data?.error === "Invalid OTP.") {
+    let otpErrorMessage = document.querySelector("#otp-form .otp-error");
+    otpErrorMessage.innerHTML = "Invalid OTP. Please try again.";
+    handleWrongOTPStyle(otpErrorMessage);
+  } else if (data?.error === "OTP expired.") {
+    let otpErrorMessage = document.querySelector("#otp-form .otp-error");
+    otpErrorMessage.innerHTML = "OTP expired. Please login again.";
+    handleWrongOTPStyle(otpErrorMessage);
+    localStorage.removeItem("sessionToken");
+    loadContent("login/");
+  } else {
+    localStorage.removeItem("sessionToken");
+    loadContent("login/");
+  }
 }
 
 function handleWrongCredentials(error) {

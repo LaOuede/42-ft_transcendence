@@ -5,11 +5,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-import json
-import jwt
-import random
-import string
-import uuid
+import random, string, uuid, time, jwt, json
 from user.models import User
 from .models import OTPSession
 
@@ -91,7 +87,6 @@ def sendingEmail(otp, user):
         return False
     return True
 
-## TODO : Need to hnadle if otp already exists
 def generate_otp_user(user): 
     otp = generate_random_otp()
     user.otp = otp
@@ -107,6 +102,7 @@ def generate_otp_user(user):
 
 def login(request):
     if request.method == "POST":
+        time.sleep(2)
         data = json.loads(request.body)
         user = data.get("user")
         password = data.get("password")
@@ -143,6 +139,7 @@ def login(request):
     return render(request, "base.html", {"content": "login.html"})
 
 def verify_otp(request):
+    time.sleep(2)
     if request.method == "POST":
         data = json.loads(request.body)
         otp = data.get("otp")
@@ -151,16 +148,19 @@ def verify_otp(request):
         # Retrieve the OTP session
         otp_session = OTPSession.objects.filter(session_token=session_token).first()
 
-        if otp_session and otp_session.is_valid():
+        if otp_session:
             user = otp_session.user
-            if user.otp == otp and user.otp_expiry_time > timezone.now():
+            if user.otp_expiry_time <= timezone.now():  # Check for expiry first
+                return JsonResponse({"error": "OTP expired."}, status=401)
+            elif user.otp != otp:  # Then check for correctness
+                return JsonResponse({"error": "Invalid OTP."}, status=401)
+            else:
                 tokens = get_tokens_for_user(user)
                 otp_session.delete()
                 return JsonResponse({"token": tokens, "success": "User is logged in."}, status=200)
-            else:
-                return JsonResponse({"error": "Invalid OTP."}, status=401)
         else:
             return JsonResponse({"error": "Invalid session or session expired."}, status=401)
+
 
 def register(request):
     if request.method == "POST":

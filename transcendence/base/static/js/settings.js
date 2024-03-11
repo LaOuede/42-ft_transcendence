@@ -25,7 +25,3 @@ function handleSettings() {
     settingsContainer.style.display = "block";
   }
 }
-
-function handle2FA() {
-  console.log("yoo 2fa");
-}

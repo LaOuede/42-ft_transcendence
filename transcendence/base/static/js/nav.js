@@ -1,5 +1,6 @@
-import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
 
+
+console.log("nav.js loaded" );
 // function to load the appropriate content on the base page
 function loadContent(path) {
   let accessToken = localStorage.getItem("accessToken");
@@ -18,7 +19,7 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
-      if (path === "play/") {
+      /* if (path === "play/") {
         // document.querySelector("#pong").style.display = "block"
         playGameV4()// peut aller sur un bouton pour demarrer la joute
         // playGameV2()
@@ -26,7 +27,7 @@ function loadContent(path) {
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
         playDemo()
-      }
+      } */
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const token = localStorage.getItem("accessToken");
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
+  console.log(token);
   if (!token) {
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
