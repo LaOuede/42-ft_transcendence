@@ -1,9 +1,18 @@
 import * as THREE from "three";
 
-import {board, ball_att, gameInfo} from "./pong_var.js"
+import {gameInfo} from "./pong_var.js"
 
-export function initGraphic(){
-	const scene = new THREE.Scene();
+export function initSceneObjs(){
+	
+const sceneObjs = {
+		scene: undefined,
+		ball: undefined,
+		ballplight: undefined,
+		paddles: [undefined, undefined, undefined, undefined],
+		lights: [undefined, undefined, undefined, undefined],
+	}
+	
+	sceneObjs.scene = new THREE.Scene();
 	
 	//SKY
 	const skyGeometry = new THREE.SphereGeometry(100000, 64, 64);
@@ -12,152 +21,139 @@ export function initGraphic(){
 	const sky = new THREE.Mesh(skyGeometry, skyMaterial);
 	sky.rotateY(Math.PI * -0.5)
 	sky.rotateZ(Math.PI)
-	scene.add(sky)
+	sceneObjs.scene.add(sky)
 
 	//PLANE
-	const planeGeometry = new THREE.BoxGeometry(board.size + board.thickness * 2, board.size + board.thickness * 2, board.thickness);
+	const planeGeometry = new THREE.BoxGeometry(gameInfo.board_size.size + gameInfo.board_size.thickness * 2, gameInfo.board_size.size + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
 	const planeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, side: THREE.DoubleSide});
 	const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-	plane.position.set(0 , 0, -board.thickness / 2)
+	plane.position.set(0 , 0, -gameInfo.board_size.thickness / 2)
 	plane.receiveShadow = true;
-	scene.add(plane)
+	sceneObjs.scene.add(plane)
 
 	//SIDE1
-	const side1geometry = new THREE.BoxGeometry(board.size + board.thickness * 2, board.thickness, board.thickness * 2);
+	const side1geometry = new THREE.BoxGeometry(gameInfo.board_size.size + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness, gameInfo.board_size.thickness * 2);
 	const side1material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 	const side1 = new THREE.Mesh(side1geometry, side1material);
-	side1.position.set(0, -board.size / 2 - board.thickness / 2, board.thickness);
+	side1.position.set(0, -gameInfo.board_size.size / 2 - gameInfo.board_size.thickness / 2, gameInfo.board_size.thickness);
 	side1.receiveShadow = true;
-	scene.add(side1)
+	sceneObjs.scene.add(side1)
 
 	//SIDE2
-	const side2geometry = new THREE.BoxGeometry(board.size + board.thickness * 2, board.thickness, board.thickness * 2);
+	const side2geometry = new THREE.BoxGeometry(gameInfo.board_size.size + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness, gameInfo.board_size.thickness * 2);
 	const side2material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 	const side2 = new THREE.Mesh(side2geometry, side2material);
-	side2.position.set(0, board.size / 2 + board.thickness / 2, board.thickness);
+	side2.position.set(0, gameInfo.board_size.size / 2 + gameInfo.board_size.thickness / 2, gameInfo.board_size.thickness);
 	side2.receiveShadow = true;
-	scene.add(side2)
+	sceneObjs.scene.add(side2)
 
 	//SIDE3
-	const side3geometry = new THREE.BoxGeometry(board.thickness, board.size, board.thickness * 2);
+	const side3geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.size, gameInfo.board_size.thickness * 2);
 	const side3material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 	const side3 = new THREE.Mesh(side3geometry, side3material);
-	side3.position.set(board.size / 2 + board.thickness / 2, 0, board.thickness);
+	side3.position.set(gameInfo.board_size.size / 2 + gameInfo.board_size.thickness / 2, 0, gameInfo.board_size.thickness);
 	side3.receiveShadow = true;
-	scene.add(side3)
+	sceneObjs.scene.add(side3)
 
 	//SIDE4
-	const side4geometry = new THREE.BoxGeometry(board.thickness, board.size, board.thickness * 2);
+	const side4geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.size, gameInfo.board_size.thickness * 2);
 	const side4material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 	const side4 = new THREE.Mesh(side4geometry, side4material);
-	side4.position.set(-board.size / 2 - board.thickness / 2, 0, board.thickness);
+	side4.position.set(-gameInfo.board_size.size / 2 - gameInfo.board_size.thickness / 2, 0, gameInfo.board_size.thickness);
 	side4.receiveShadow = true;
-	scene.add(side4)
+	sceneObjs.scene.add(side4)
 
 	//BALL
-	const ballGeometry = new THREE.SphereGeometry(board.thickness, 64, 64);
+	const ballGeometry = new THREE.SphereGeometry(gameInfo.board_size.thickness, 64, 64);
 	const ballMaterial = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
-	const ball = new THREE.Mesh(ballGeometry, ballMaterial);
-	ball.castShadow = false;
-	ball.position.set(ball_att.x, ball_att.y, board.thickness);
-	ball.name = "ball"
-	scene.add(ball)
+	sceneObjs.ball = new THREE.Mesh(ballGeometry, ballMaterial);
+	sceneObjs.ball.castShadow = false;
+	sceneObjs.ball.position.set(gameInfo.ball_att.x, gameInfo.ball_att.y, gameInfo.board_size.thickness);
+	sceneObjs.scene.add(sceneObjs.ball)
+	console.log("ici")
+	console.log(sceneObjs.ball)
 	
 	//BALL LIGHT
-	const ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
-	ballplight.position.set(0, 0, board.thickness);
-	ballplight.castShadow = true;
-	ballplight.name = "ballplight"
-	scene.add(ballplight)
+	sceneObjs.ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
+	sceneObjs.ballplight.position.set(0, 0, gameInfo.board_size.thickness);
+	sceneObjs.ballplight.castShadow = true;
+	sceneObjs.scene.add(sceneObjs.ballplight)
 
 	//BACKLIGHTS
 	const backLight1 = new THREE.PointLight(0x704478, 0.9, 2000)
 	backLight1.position.set(500, 500, -200)
-	scene.add(backLight1)
+	sceneObjs.scene.add(backLight1)
 	
 	const backLight2 = new THREE.PointLight(0x704478, 0.9, 2000)
 	backLight2.position.set(-500, 500, -200)
-	scene.add(backLight2)
+	sceneObjs.scene.add(backLight2)
 	
 	const backLight3 = new THREE.PointLight(0x704478, 0.9, 2000)
 	backLight3.position.set(-500, -500, -200)
-	scene.add(backLight3)
+	sceneObjs.scene.add(backLight3)
 	
 	const backLight4 = new THREE.PointLight(0x704478, 0.9, 2000)
 	backLight4.position.set(500, -500, -200)
-	scene.add(backLight4)
+	sceneObjs.scene.add(backLight4)
 
 	const light_prim_intense = 1.15
 	const light_prim_distance = 400
 
-	//PLAYER 1
-	//LIGHT 1
-	const p1light = new THREE.PointLight(gameInfo.colors[0], light_prim_intense, light_prim_distance);
-	p1light.position.set(board.size / -3, 0, 100);
-	p1light.name = "p1light"
-	scene.add(p1light)
+	//PLAYER 1 LIGHT
+	sceneObjs.lights[0] = new THREE.PointLight(gameInfo.colors[0], light_prim_intense, light_prim_distance);
+	sceneObjs.lights[0].position.set(gameInfo.board_size.size / -3, 0, 100);
+	sceneObjs.scene.add(sceneObjs.lights[0])
 
-	//PLAYER 2
-	//LIGHT 1
-	const p2light = new THREE.PointLight(gameInfo.colors[1], light_prim_intense, light_prim_distance);
-	p2light.position.set(board.size / 3, 0, 100);
-	p2light.name = "p2light"
-	scene.add(p2light)
+	//PLAYER 2 LIGHT
+	sceneObjs.lights[1] = new THREE.PointLight(gameInfo.colors[1], light_prim_intense, light_prim_distance);
+	sceneObjs.lights[1].position.set(gameInfo.board_size.size / 3, 0, 100);
+	sceneObjs.scene.add(sceneObjs.lights[1])
 
-	//PLAYER 3
-	//LIGHT 1
-	const p3light = new THREE.PointLight(gameInfo.colors[2], light_prim_intense, light_prim_distance);
-	p3light.position.set(0, board.size / 3, 100);
-	p3light.name = "p3light"
+	//PLAYER 3 LIGHT
+	sceneObjs.lights[2] = new THREE.PointLight(gameInfo.colors[2], light_prim_intense, light_prim_distance);
+	sceneObjs.lights[2].position.set(0, gameInfo.board_size.size / 3, 100);
+	sceneObjs.scene.add(sceneObjs.lights[2])
 
-	scene.add(p3light)
-
-	//PLAYER 4
-	//LIGHT 1
-	const p4light = new THREE.PointLight(gameInfo.colors[3], light_prim_intense, light_prim_distance);
-	p4light.position.set(0, board.size / -3, 100);
-	p4light.name = "p4light"
-	scene.add(p4light)
+	//PLAYER 4 LIGHT
+	sceneObjs.lights[3] = new THREE.PointLight(gameInfo.colors[3], light_prim_intense, light_prim_distance);
+	sceneObjs.lights[3].position.set(0, gameInfo.board_size.size / -3, 100);
+	sceneObjs.scene.add(sceneObjs.lights[3])
 
 	//PADDLE1
-	const paddle1geometry = new THREE.BoxGeometry(board.thickness, gameInfo.paddleLenght, board.thickness);
+	const paddle1geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
 	const paddle1material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000,});
-	const paddle1 = new THREE.Mesh(paddle1geometry, paddle1material);
-	paddle1.position.set(-board.size / 2 + board.thickness * 2, 0, board.thickness);
-	paddle1.castShadow = true;
-	paddle1.receiveShadow = true;
-	paddle1.name = "paddle1"
-	scene.add(paddle1)
+	sceneObjs.paddles[0] = new THREE.Mesh(paddle1geometry, paddle1material);
+	sceneObjs.paddles[0].position.set(-gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
+	sceneObjs.paddles[0].castShadow = true;
+	sceneObjs.paddles[0].receiveShadow = true;
+	sceneObjs.scene.add(sceneObjs.paddles[0])
 
 	//PADDLE2
-	const paddle2geometry = new THREE.BoxGeometry(board.thickness, gameInfo.paddleLenght, board.thickness);
+	const paddle2geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
 	const paddle2material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
-	const paddle2 = new THREE.Mesh(paddle2geometry, paddle2material);
-	paddle2.position.set(board.size / 2 - board.thickness * 2, 0, board.thickness);
-	paddle2.castShadow = true;
-	paddle2.receiveShadow = true;
-	paddle2.name = "paddle2"
-	scene.add(paddle2)
+	sceneObjs.paddles[1] = new THREE.Mesh(paddle2geometry, paddle2material);
+	sceneObjs.paddles[1].position.set(gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
+	sceneObjs.paddles[1].castShadow = true;
+	sceneObjs.paddles[1].receiveShadow = true;
+	sceneObjs.scene.add(sceneObjs.paddles[1])
 
 	//PADDLE3
-	const paddle3geometry = new THREE.BoxGeometry(gameInfo.paddleLenght, board.thickness, board.thickness);
+	const paddle3geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
 	const paddle3material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
-	const paddle3 = new THREE.Mesh(paddle3geometry, paddle3material);
-	paddle3.position.set(0, board.size / 2 - board.thickness * 2, board.thickness);
-	paddle3.castShadow = true;
-	paddle3.receiveShadow = true;
-	paddle3.name = "paddle3"
-	scene.add(paddle3)
+	sceneObjs.paddles[2] = new THREE.Mesh(paddle3geometry, paddle3material);
+	sceneObjs.paddles[2].position.set(0, gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
+	sceneObjs.paddles[2].castShadow = true;
+	sceneObjs.paddles[2].receiveShadow = true;
+	sceneObjs.scene.add(sceneObjs.paddles[2])
 
 	//PADDLE4
-	const paddle4geometry = new THREE.BoxGeometry(gameInfo.paddleLenght, board.thickness, board.thickness);
+	const paddle4geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
 	const paddle4material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000});
-	const paddle4 = new THREE.Mesh(paddle4geometry, paddle4material);
-	paddle4.position.set(0, -board.size / 2 + board.thickness * 2, board.thickness);
-	paddle4.castShadow = true;
-	paddle4.receiveShadow = true;
-	paddle4.name = "paddle4"
-	scene.add(paddle4)
+	sceneObjs.paddles[3] = new THREE.Mesh(paddle4geometry, paddle4material);
+	sceneObjs.paddles[3].position.set(0, -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
+	sceneObjs.paddles[3].castShadow = true;
+	sceneObjs.paddles[3].receiveShadow = true;
+	sceneObjs.scene.add(sceneObjs.paddles[3])
 
-	return scene
+	return sceneObjs
 }
