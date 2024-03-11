@@ -70,8 +70,6 @@ const sceneObjs = {
 	sceneObjs.ball.castShadow = false;
 	sceneObjs.ball.position.set(gameInfo.ball_att.x, gameInfo.ball_att.y, gameInfo.board_size.thickness);
 	sceneObjs.scene.add(sceneObjs.ball)
-	console.log("ici")
-	console.log(sceneObjs.ball)
 	
 	//BALL LIGHT
 	sceneObjs.ballplight = new THREE.PointLight(0xeeeeee, 0.8, 100);
