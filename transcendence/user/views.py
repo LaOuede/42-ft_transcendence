@@ -81,3 +81,19 @@ def UserProfile(request):
 		serializer = UserSerializer(user)
 		return render(request, 'profile.html', {"user": serializer.data})
 	return render(request, "base.html", {"content": "login.html"})
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+def toggle2FA(request):
+	if request.method == "POST":
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		if (user.twoFA):
+			user.twoFA = False
+		elif (not user.twoFA):
+			user.twoFA = True
+		user.save()
+		print(user.twoFA)
+		return JsonResponse({"success": "2FA enabled", "twoFA": user.twoFA}, status=200)
+	return JsonResponse({"error": "Invalid request"}, status=400)

@@ -1,6 +1,7 @@
 // -------------------------------------------------//
 // LOGIN
 // -------------------------------------------------//
+
 document.addEventListener("DOMContentLoaded", function (e) {
   document.body.addEventListener("submit", function (e) {
     if (e.target && e.target.id === "login-form") {
@@ -63,6 +64,8 @@ function verifyOTP(e) {
   const formData = new FormData(e.target);
   const otp = formData.get("otp");
   const sessionToken = localStorage.getItem("sessionToken");
+  const loader = document.querySelector(".lds-default");
+  loader.style.display = "inline-block";
 
   fetch("/verify-otp/", {
     method: "POST",
@@ -83,6 +86,7 @@ function verifyOTP(e) {
         document.querySelector(".not-signed-in").style.display = "none";
 
         window.loadContent("");
+        loader.style.display = "none";
       } else {
         handleWrongOtp(data);
       }
@@ -115,6 +119,7 @@ function handleWrongOtp(data) {
     localStorage.removeItem("sessionToken");
     loadContent("login/");
   }
+  loader.style.display = "none";
 }
 
 function handleWrongCredentials(error) {
