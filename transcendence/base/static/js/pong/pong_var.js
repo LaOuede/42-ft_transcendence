@@ -1,7 +1,5 @@
 // import * as THREE from "three";
 
-// import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
 const boardVs4 = { size: 500, thickness: 10 };
 
 const ball_att = { x: 0, y: 0, dirX: 1, dirY: 1, speedX: 1, speedY: 0 };
@@ -45,12 +43,12 @@ let paddle4_att = {
 let control = {
 	w: false,
 	s: false,
-	a: false,
-	d: false,
+	g: false,
+	h: false,
 	arrowUp: false,
 	arrowDown: false,
-	arrowLeft: false,
-	arrowRight: false,
+	num8: false,
+	num9: false,
 };
 
 let gameInfo = {
@@ -63,7 +61,7 @@ let gameInfo = {
 	player_count: 4,
 	countDownDone: false,
 	view: 0,
-	level: 3,
+	level: 2,
 	level_inc: 0.1
 };
 
@@ -78,7 +76,7 @@ const gameInfoVs4 = {
 	countDownDone: false,
 	view: 0,
 	level: 3,
-	level_inc: 0.1
+	level_inc: 0.5
 };
 
 export {boardVs4, ball_att, paddle1_att, paddle2_att, 

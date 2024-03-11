@@ -219,18 +219,18 @@ body {
 } */
 
 /*PONG*/
-#root #pong {
+#pong {
     /* border:  solid greenyellow; */
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
+    /* display: none; */
     justify-content: center;
     align-items: center;
     margin: 0;
 }
 
-#root #pong #playerInfo1, #root #pong #playerInfo2, #root #pong #playerInfo3, #root #pong #playerInfo4{
+#pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4{
         text-align: center;
         width: 200px;
         height: 275px;
@@ -245,37 +245,37 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
 }
 
-#root #pong #playerInfo1{
+#pong #playerInfo1{
+    display: none;
     bottom: 0;
-    left: 15%;
+    left: 5%;
     background-color: #0000ff66;
 }
 
-#root #pong #playerInfo2{
+#pong #playerInfo2{
+    display: none;
     top: 0;
-    right: 15%;
+    right: 5%;
     background-color: #ff000066;
-
 }
 
-#root #pong #playerInfo3{
+#pong #playerInfo3{
+    display: none;
     top: 0;
-    left: 15%;
+    left: 5%;
     background-color: #ffff0066;
-
 }
 
-#root #pong #playerInfo4{
+#pong #playerInfo4{
+    display: none;
     bottom: 0;
-    right: 15%;
+    right: 5%;
     background-color: #00ffff66;
-
 }
 
-#root #pong #player1avatar, #root #pong #player2avatar, #root #pong #player3avatar, #root #pong #player4avatar{
+#pong #player1avatar, #pong #player2avatar, #pong #player3avatar, #pong #player4avatar{
 	border-radius: 20px;
 	border: solid 5px;
 	width: 150px;
@@ -285,11 +285,11 @@ body {
 	margin-bottom: -15px;
 }
 
-#root #pong #player1name, #root #pong #player2name, #root #pong #player3name, #root #pong #player4name{
+#pong #player1name, #pong #player2name, #pong #player3name, #pong #player4name{
 	font-size: 20px;
 }
 
-#root #pong #p1Score, #root #pong #p2Score, #root #pong #p3Score, #root #pong #p4Score{
+#pong #p1Score, #pong #p2Score, #pong #p3Score, #pong #p4Score{
 	border-radius: 20px;
 	border: solid 5px;
 	width: 75px;
@@ -298,7 +298,6 @@ body {
 	margin-top: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 45px;
-
 }
 
 .edit-profile-container {

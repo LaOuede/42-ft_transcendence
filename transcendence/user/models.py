@@ -14,6 +14,7 @@ class UserManager(BaseUserManager):
 	def create_superuser(self, email, username, password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
+		extra_fields.setdefault('avatar', "static/default_avatar.jpg")
 
 		return self.create_user(email, username, password, **extra_fields)
 	def get_by_natural_key(self, username):
@@ -49,8 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	otp_expiry_time = models.DateTimeField(blank=True, null=True)
 
 	# Fields that we may need :
-	#nickname = models.CharField(max_length=30, unique=True)
-	#isadmin = models.BooleanField(default=False)
+	# nickname = models.CharField(max_length=30, unique=True)
+	# isadmin = models.BooleanField(default=False)
 	twoFA = models.BooleanField(default=False)
 
 
