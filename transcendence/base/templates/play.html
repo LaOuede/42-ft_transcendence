@@ -1,14 +1,14 @@
-<div id="root">
-	<!-- <div id="lobby">
-		<p>personne logger</p>
-		
-		<label for="myInput">Player 2</label>
-		<input type="text" id="player2name" placeholder="Nickname">
-		<label for="myInput">Player 3</label>
-		<input type="text" id="player2name" placeholder="Nickname">
-		<label for="myInput">Player 4</label>
-		<input type="text" id="player2name" placeholder="Nickname">
-		
-		<button id="play">PLAY !</button> -->
+<div class="pong-container">
+	<div class="pong-container-black">
+		<div class="pong-container-login">
+			{% csrf_token %}
+			<div class="signup-header">
+				<h2 class="header-title">WHAT KIND OF GAME YOU WANNA PLAY?</h2>
+				<div class="buttons-container">
+					<button class="button1" onclick="loadContent('onevsone/'); return false;" type="submit">1 VS 1</button>
+					<button class="button2" onclick="loadContent('rumble/'); return false;" type="submit">RUMBLE</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
