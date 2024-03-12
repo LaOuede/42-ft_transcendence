@@ -1,4 +1,4 @@
-/* import { playGameV4, playDemo } from "./pong/pongvs4.js"; */
+import { playGameV4, playDemo, playGameV2 } from "./pong/pongvs4.js";
 // function to load the appropriate content on the base page
 function loadContent(path) {
   let accessToken = localStorage.getItem("accessToken");
@@ -20,13 +20,13 @@ function loadContent(path) {
       if (path === "playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        playGameV2()
+        playGameV2();
       } else if (path === "playrumble/") {
-        playGameV4()
+        playGameV4();
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
       } else {
-        playDemo()
+        playDemo();
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
@@ -40,6 +40,8 @@ function loadContent(path) {
 // Function to handle redirection to the login page
 export function redirectToLogin() {
   loadContent("login/");
+  /* localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken"); */
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";
 }
@@ -83,12 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentPath = window.location.pathname;
 
   // Get all navigation links
-  const navLinks = document.querySelectorAll('.main-nav-links a, .is-signed-in a, .not-signed-in a');
+  const navLinks = document.querySelectorAll(
+    ".main-nav-links a, .is-signed-in a, .not-signed-in a"
+  );
 
   // Loop through each link and add the "active" class if the href matches the current path
-  navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-      }
+  navLinks.forEach((link) => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active");
+    }
   });
 });

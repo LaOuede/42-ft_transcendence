@@ -357,8 +357,8 @@ h5 {
 	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 950px; /* Ajoutez la valeur minimale en pixels */
-	min-height: 600px; 
+	min-width: 60%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 50%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
