@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
       handleLogin(e);
     }
   });
-  document.querySelector("#login-2fa").addEventListener("click", handle2FA);
 });
 
 // login function
@@ -44,20 +43,36 @@ function handleLogin(e) {
 }
 
 function handleWrongCredentials(error) {
+  console.log("Error:", error);
+
   let formInputs = document.querySelectorAll(".signup-form .input-group input");
-  let loginErrorMessage = document.querySelector(
-    ".signup-form .login-error-message"
-  );
-  for (let i = 0; i < formInputs.length; i++) {
-    formInputs[i].value = "";
-    formInputs[i].style.borderColor = "red";
-    formInputs[i].blur();
-    loginErrorMessage.innerHTML = error || "Invalid username or password.";
-    setTimeout(() => {
-      loginErrorMessage.innerHTML = "";
-      formInputs[i].style.borderColor = "";
-    }, 3000);
-  }
+  let loginErrorMessage = document.querySelector(".signup-form .login-error-message");
+  let errorContainer = document.querySelector(".signup-form .error-container");
+
+  // Réinitialisez tous les styles d'entrée d'abord
+  formInputs.forEach((input) => {
+    input.classList.remove("error");
+  });
+
+  // Affichez le message d'erreur
+  loginErrorMessage.innerHTML = error || "Invalid username or password.";
+  errorContainer.classList.add("show-error"); // Ajoutez la classe pour afficher le message d'erreur
+
+  // Ajoutez la classe 'error' aux champs d'entrée
+  formInputs.forEach((input) => {
+    input.classList.add("error");
+  });
+
+  // Nettoyez le message d'erreur après 3 secondes
+  setTimeout(() => {
+    loginErrorMessage.innerHTML = "";
+    errorContainer.classList.remove("show-error"); // Retirez la classe pour cacher le message d'erreur
+
+    // Retirez la classe 'error' des champs d'entrée
+    formInputs.forEach((input) => {
+      input.classList.remove("error");
+    });
+  }, 3000);
 }
 
 // Function to get CSRF token from cookies
@@ -148,16 +163,14 @@ function handleSignup(e) {
 }
 
 function handleSignupError(data) {
-  // Reset all input styles and error messages first
-  const formInputs = document.querySelectorAll(
-    ".signup-form .input-group input"
-  );
+  // Reset all input styles first
+  const formInputs = document.querySelectorAll(".signup-form .input-group input");
   formInputs.forEach((input) => {
     input.style.borderColor = "";
   });
 
-  // Target element for displaying the error message
-  const errorElement = document.querySelector(".signup-form .signup-error");
+  // Target the element for displaying the error message
+  const errorElement = document.querySelector(".signup-error");
   errorElement.innerHTML = ""; // Clear previous errors
 
   if (data.error) {
@@ -165,20 +178,15 @@ function handleSignupError(data) {
     errorElement.innerHTML = data.error;
     errorElement.style.display = "block";
 
+    // Highlight the corresponding input based on the error type
     if (data.error.includes("Username")) {
-      const usernameInput = document.querySelector(
-        ".signup-form input[name='username']"
-      );
+      const usernameInput = document.querySelector(".signup-form input[name='username']");
       highlightErrorInput(usernameInput);
     } else if (data.error.includes("Email")) {
-      const emailInput = document.querySelector(
-        ".signup-form input[name='email']"
-      );
+      const emailInput = document.querySelector(".signup-form input[name='email']");
       highlightErrorInput(emailInput);
     } else if (data.error.includes("password")) {
-      const passwordInputs = document.querySelectorAll(
-        ".signup-form input[type='password']"
-      );
+      const passwordInputs = document.querySelectorAll(".signup-form input[type='password']");
       passwordInputs.forEach((input) => highlightErrorInput(input));
     } // You can add more conditions here for other fields if necessary
 
@@ -195,7 +203,7 @@ function handleSignupError(data) {
 
 // Helper function to highlight an input with an error
 function highlightErrorInput(input) {
-  input.style.borderColor = "red";
+  input.style.borderColor = "#ff000066";
   input.value = ""; // Optionally clear the input
   input.focus(); // Set focus to the input with the error
 }

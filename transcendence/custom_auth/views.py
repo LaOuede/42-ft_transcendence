@@ -76,7 +76,7 @@ def login(request):
         password = data.get("password")
 
         user = authenticate(username=user, password=password)
-        if user is not False:
+        if user is not None:
             change_user_status(user, "ON")
             tokens = get_tokens_for_user(user)
             return JsonResponse(

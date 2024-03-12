@@ -6,3 +6,4 @@ function setToLocalStorage(name, data) {
   }
 }
 window.setToLocalStorage =  setToLocalStorage;
+
