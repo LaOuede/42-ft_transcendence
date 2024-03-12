@@ -24,6 +24,8 @@ from custom_auth.views import login, register, logout
 from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate, UserProfile
 from games_history.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
+
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
