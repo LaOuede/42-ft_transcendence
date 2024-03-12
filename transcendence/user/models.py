@@ -26,24 +26,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	def natural_key(self):
 		return (self.username,)
-
-	ONLINE = 'ON'
-	IN_GAME = 'IG'
-	OFFLINE = 'OF'
-	UNAVAILABLE = 'UN'
-
-	ACTIVITY_CHOICES = [
-		(ONLINE, 'En ligne'),
-		(IN_GAME, 'En partie'),
-		(OFFLINE, 'Hors ligne'),
-		(UNAVAILABLE, 'Indisponible')
+	
+	activity_enum = [
+		('ON', 'En ligne 🟢'),
+		('IG', 'En partie 🟣'),
+		('OF', 'Hors ligne 🔴'),
+		('UN', 'Indisponible 🟡')
 	]
 
 	username = models.CharField(max_length=30, unique=True)
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=100, default='pass')
-	avatar = models.ImageField(upload_to='avatars/', blank=True, null=True) #blank=True need to be removed because an avatar is always required
-	activity = models.CharField(max_length=2, choices=ACTIVITY_CHOICES, default=OFFLINE)
+	avatar = models.ImageField(upload_to='static/avatars/', default='static/avatars/default_avatar.jpg')
+	activity = models.CharField(max_length=2, choices=activity_enum, default='OF')
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 	otp = models.CharField(max_length=6, blank=True, null=True)

@@ -401,6 +401,11 @@ h5 {
 	width: 100%; /* Adjust the width as needed */
 }
 
+.profile-infos {
+	color: #00FAFA;
+	display: flex;
+}
+
 .onevsone-container {
 	display: flex;
 	flex-direction: column;

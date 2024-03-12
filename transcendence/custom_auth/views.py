@@ -181,7 +181,6 @@ def register(request):
 
         if username and password and email:
             user = User.objects.create_user(email, username, password)
-            user.avatar = 'static/avatars/default_avatar.jpg'
             user.save()
             if user:
                 change_user_status(user, "ON")
