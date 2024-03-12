@@ -59,7 +59,7 @@
     <main class="main" id="content">
       {% block content %} {% include content %} {% endblock %}
     </main>
-    {% comment %} <canvas id="game"></canvas> {% endcomment %}
+    <canvas id="game"></canvas>
 
     <footer class="footer">
       <p>&copy; 2024 Transcendence Pong.</p>
@@ -112,7 +112,7 @@
   <script src="{% static 'js/api.js' %}" type="module" defer></script>
   <script src="{% static 'js/auth.js' %}" type="module" defer></script>
   <script src="{% static 'js/settings.js' %}" type="module" defer></script>
-  {% comment %}
+
   <script
     src="{% static 'js/pong/pong_light.js' %}"
     type="module"
@@ -121,5 +121,4 @@
   <script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_obj.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pongvs4.js' %}" type="module" defer></script>
-  {% endcomment %}
 </html>

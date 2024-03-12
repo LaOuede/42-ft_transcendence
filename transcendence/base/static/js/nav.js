@@ -1,6 +1,4 @@
-
-
-console.log("nav.js loaded" );
+/* import { playGameV4, playDemo } from "./pong/pongvs4.js"; */
 // function to load the appropriate content on the base page
 function loadContent(path) {
   let accessToken = localStorage.getItem("accessToken");
@@ -21,12 +19,12 @@ function loadContent(path) {
       document.querySelector(".main").innerHTML = html;
       /* if (path === "play/") {
         // document.querySelector("#pong").style.display = "block"
-        playGameV4()// peut aller sur un bouton pour demarrer la joute
+        playGameV4(); // peut aller sur un bouton pour demarrer la joute
         // playGameV2()
       } else {
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
-        playDemo()
+        playDemo();
       } */
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
