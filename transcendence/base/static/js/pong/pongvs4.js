@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-import {initSceneObjs} from "./pong_scene.js"
+import {initPongObjs} from "./pong_objs.js"
 
 import {gameInfo} from "./pong_var.js"
 // import {tournament, giveTournPoints } from "./tournament.js"
@@ -38,8 +38,6 @@ function initElements() {
 	if (document.getElementById("playerInfo4")) {
 		tags.cards[3] = document.getElementById("playerInfo4") 
 	}
-	console.log(tags)
-	console.log(document.getElementById("playerInfo4"))
 	return tags
 }
 	let navHeight = document.querySelector('nav').offsetHeight;
@@ -56,21 +54,21 @@ function initElements() {
 
 	const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / (canvasHeight - 20), 0.1, 500000);
 	camera.position.set(0, -350, 700);
-
-	const sceneObjs = initSceneObjs()
-	let tags = initElements()
 	const orbit = new OrbitControls(camera, renderer.domElement);
 	orbit.enablePan = false
-	orbit.update();;
+	orbit.update();
+
+	const pongObjs = initPongObjs()
+	let tags = initElements()
 
 function demoLights(){
-	if(!sceneObjs.scene.add(sceneObjs.lights[0])){
-		sceneObjs.scene.add(sceneObjs.lights[0])
-		sceneObjs.lights[0].distance = 800
+	if(!pongObjs.scene.add(pongObjs.lights[0])){
+		pongObjs.scene.add(pongObjs.lights[0])
+		pongObjs.lights[0].distance = 800
 	}
-	if(!sceneObjs.scene.add(sceneObjs.lights[1])){
-		sceneObjs.scene.add(sceneObjs.lights[1])
-		sceneObjs.lights[1].distance = 800
+	if(!pongObjs.scene.add(pongObjs.lights[1])){
+		pongObjs.scene.add(pongObjs.lights[1])
+		pongObjs.lights[1].distance = 800
 
 	}
 
@@ -105,20 +103,20 @@ function resetGameOver(){
 	countPlayers()
 	for(let i = 0; i < 4; i++){
 		if(gameInfo.player_lives[i] > 0){
-			if(!sceneObjs.scene.add(sceneObjs.paddles[i]))
-				sceneObjs.scene.add(sceneObjs.paddles[i])
-			if(!sceneObjs.scene.add(sceneObjs.lights[i])){
-				sceneObjs.lights[i].color = gameInfo.colors[i]
-				sceneObjs.scene.add(sceneObjs.lights[i])
+			if(!pongObjs.scene.add(pongObjs.paddles[i]))
+				pongObjs.scene.add(pongObjs.paddles[i])
+			if(!pongObjs.scene.add(pongObjs.lights[i])){
+				pongObjs.lights[i].color = gameInfo.colors[i]
+				pongObjs.scene.add(pongObjs.lights[i])
 			}
-			sceneObjs.lights[i].distance = setDistanceLight()
+			pongObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
 			tags.cards[i].style.display = "block"
 			tags.cards[i].style.backgroundColor = "#" + gameInfo.colors[i]
 			tags.scores[i].textContent = gameInfo.player_lives[i]
 		} else {
-			sceneObjs.scene.remove(sceneObjs.paddles[i])
-			sceneObjs.scene.remove(sceneObjs.lights[i])
+			pongObjs.scene.remove(pongObjs.paddles[i])
+			pongObjs.scene.remove(pongObjs.lights[i])
 			gameInfo.paddle_limit_list[i] = 0
 			tags.cards[i].style.display = "none"
 		}
@@ -134,14 +132,14 @@ function resetGameOver(){
 function resetGameDemo(){
 	gameInfo.countDownDone = false
 	defaultPosition()
-	if(sceneObjs.scene.children.includes(sceneObjs.paddles[0])) {sceneObjs.scene.remove(sceneObjs.paddles[0])};
-	if(sceneObjs.scene.children.includes(sceneObjs.paddles[1])) {sceneObjs.scene.remove(sceneObjs.paddles[1])};
-	if(sceneObjs.scene.children.includes(sceneObjs.paddles[2])) {sceneObjs.scene.remove(sceneObjs.paddles[2])};
-	if(sceneObjs.scene.children.includes(sceneObjs.paddles[3])) {sceneObjs.scene.remove(sceneObjs.paddles[3])};
-	if(sceneObjs.scene.children.includes(sceneObjs.lights[2])) {sceneObjs.scene.remove(sceneObjs.lights[2])};
-	if(sceneObjs.scene.children.includes(sceneObjs.lights[3])) {sceneObjs.scene.remove(sceneObjs.lights[3])};
-	sceneObjs.lights[0].distance = 800
-	sceneObjs.lights[1].distance = 800
+	if(pongObjs.scene.children.includes(pongObjs.paddles[0])) {pongObjs.scene.remove(pongObjs.paddles[0])};
+	if(pongObjs.scene.children.includes(pongObjs.paddles[1])) {pongObjs.scene.remove(pongObjs.paddles[1])};
+	if(pongObjs.scene.children.includes(pongObjs.paddles[2])) {pongObjs.scene.remove(pongObjs.paddles[2])};
+	if(pongObjs.scene.children.includes(pongObjs.paddles[3])) {pongObjs.scene.remove(pongObjs.paddles[3])};
+	if(pongObjs.scene.children.includes(pongObjs.lights[2])) {pongObjs.scene.remove(pongObjs.lights[2])};
+	if(pongObjs.scene.children.includes(pongObjs.lights[3])) {pongObjs.scene.remove(pongObjs.lights[3])};
+	pongObjs.lights[0].distance = 800
+	pongObjs.lights[1].distance = 800
 	gameInfo.player_lives[0] = 0
 	gameInfo.player_lives[1] = 0
 	gameInfo.player_lives[2] = 0
@@ -153,13 +151,13 @@ function resetGameDemo(){
 }
 
 function defaultPosition() {
-	sceneObjs.ball.position.x = 0
-	sceneObjs.ball.position.y = 0
-	sceneObjs.paddles[0].position.y = 0
-	sceneObjs.paddles[1].position.y = 0
-	sceneObjs.paddles[2].position.x = 0
-	sceneObjs.paddles[3].position.x = 0
-	sceneObjs.ballplight.position.set(0, 0, gameInfo.board_size.thickness)
+	pongObjs.ball.position.x = 0
+	pongObjs.ball.position.y = 0
+	pongObjs.paddles[0].position.y = 0
+	pongObjs.paddles[1].position.y = 0
+	pongObjs.paddles[2].position.x = 0
+	pongObjs.paddles[3].position.x = 0
+	pongObjs.ballplight.position.set(0, 0, gameInfo.board_size.thickness)
 	gameInfo.level = 1.5
 	randomStartDir()
 	changeAngle()
@@ -200,34 +198,34 @@ function ballPhysic() {
 
 function moveBall() {
 	if (gameInfo.ball_att.dirX > 0) {
-		sceneObjs.ball.position.x += gameInfo.ball_att.speedX;
-		sceneObjs.ballplight.position.x = sceneObjs.ball.position.x;
+		pongObjs.ball.position.x += gameInfo.ball_att.speedX;
+		pongObjs.ballplight.position.x = pongObjs.ball.position.x;
 	}
 	if (gameInfo.ball_att.dirX <= 0) {
-		sceneObjs.ball.position.x -= gameInfo.ball_att.speedX;
-		sceneObjs.ballplight.position.x = sceneObjs.ball.position.x;
+		pongObjs.ball.position.x -= gameInfo.ball_att.speedX;
+		pongObjs.ballplight.position.x = pongObjs.ball.position.x;
 	}
 	if (gameInfo.ball_att.dirY > 0) {
-		sceneObjs.ball.position.y += gameInfo.ball_att.speedY;
-		sceneObjs.ballplight.position.y = sceneObjs.ball.position.y;
+		pongObjs.ball.position.y += gameInfo.ball_att.speedY;
+		pongObjs.ballplight.position.y = pongObjs.ball.position.y;
 	}
 	if (gameInfo.ball_att.dirY <= 0) {
-		sceneObjs.ball.position.y -= gameInfo.ball_att.speedY;
-		sceneObjs.ballplight.position.y = sceneObjs.ball.position.y;
+		pongObjs.ball.position.y -= gameInfo.ball_att.speedY;
+		pongObjs.ballplight.position.y = pongObjs.ball.position.y;
 	}
 }
 
 function goalDetection() {
 	//vs2 et vs4
 	if (
-		sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && 
+		pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && 
 		gameInfo.player_lives[0] > 0
 	) {
 		gameInfo.player_lives[0]--;
 		tags.scores[0].textContent = gameInfo.player_lives[0]
 		if (gameInfo.player_lives[0] === 0) {
 			gameInfo.paddle_limit_list[0] = 0
-				sceneObjs.scene.remove(sceneObjs.paddles[0]);
+				pongObjs.scene.remove(pongObjs.paddles[0]);
 			gameInfo.player_count--
 			// giveTournPoints(0)
 
@@ -236,13 +234,13 @@ function goalDetection() {
 		defaultPosition();
 	}
 	if (
-		sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
+		pongObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
 		gameInfo.player_lives[1] > 0) {
 			gameInfo.player_lives[1]--;
 			tags.scores[1].textContent = gameInfo.player_lives[1]
 		if (gameInfo.player_lives[1] === 0) {
 			gameInfo.paddle_limit_list[1] = 0
-			sceneObjs.scene.remove(sceneObjs.paddles[1]);
+			pongObjs.scene.remove(pongObjs.paddles[1]);
 			gameInfo.player_count--
 			// giveTournPoints(1)
 
@@ -251,13 +249,13 @@ function goalDetection() {
 		defaultPosition();
 	}
 	if (
-		sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
+		pongObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
 		gameInfo.player_lives[2] > 0) {
 			gameInfo.player_lives[2]--;
 			tags.scores[2].textContent = gameInfo.player_lives[2]
 		if (gameInfo.player_lives[2] === 0) {
 			gameInfo.paddle_limit_list[2] = 0
-			sceneObjs.scene.remove(sceneObjs.paddles[2]);
+			pongObjs.scene.remove(pongObjs.paddles[2]);
 			gameInfo.player_count--
 			// giveTournPoints(2)
 
@@ -266,14 +264,14 @@ function goalDetection() {
 		defaultPosition();
 	}
 	if (
-		sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness &&
+		pongObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness &&
 		gameInfo.player_lives[3] > 0
 	) {
 		gameInfo.player_lives[3]--;
 		tags.scores[3].textContent = gameInfo.player_lives[3]
 		if (gameInfo.player_lives[3] === 0) {
 			gameInfo.paddle_limit_list[3] = 0
-			sceneObjs.scene.remove(sceneObjs.paddles[3]);
+			pongObjs.scene.remove(pongObjs.paddles[3]);
 			gameInfo.player_count--
 			// giveTournPoints(3)
 		}
@@ -294,16 +292,16 @@ function goalDetection() {
 }
   
 function sideRebound() {
-	if (sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
+	if (pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
 		gameInfo.ball_att.dirX = 1;
 	}
-	if (sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
+	if (pongObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
 		gameInfo.ball_att.dirX = -1;
 	}
-	if (sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
+	if (pongObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
 		gameInfo.ball_att.dirY = -1;
 	}
-	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
+	if (pongObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
 		gameInfo.ball_att.dirY = 1;
 	}
 }
@@ -312,10 +310,10 @@ function paddleColision() {
 	const maxlevel = 6
 	if (
 		gameInfo.player_lives[0] > 0 &&
-		sceneObjs.ball.position.x - gameInfo.board_size.thickness <= sceneObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 + 2 &&
-		sceneObjs.ball.position.x - gameInfo.board_size.thickness >= sceneObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 - 8 &&
-		sceneObjs.ball.position.y <= sceneObjs.paddles[0].position.y + gameInfo.board_size.paddleLenght / 2 &&
-		sceneObjs.ball.position.y >= sceneObjs.paddles[0].position.y - gameInfo.board_size.paddleLenght / 2
+		pongObjs.ball.position.x - gameInfo.board_size.thickness <= pongObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 + 2 &&
+		pongObjs.ball.position.x - gameInfo.board_size.thickness >= pongObjs.paddles[0].position.x + gameInfo.board_size.thickness / 2 - 8 &&
+		pongObjs.ball.position.y <= pongObjs.paddles[0].position.y + gameInfo.board_size.paddleLenght / 2 &&
+		pongObjs.ball.position.y >= pongObjs.paddles[0].position.y - gameInfo.board_size.paddleLenght / 2
 	) {
 	if(gameInfo.ball_att.reboundx === true){
 		changeAngle();
@@ -327,10 +325,10 @@ function paddleColision() {
 	}
 	if (
 		gameInfo.player_lives[1] > 0 &&
-		sceneObjs.ball.position.x + gameInfo.board_size.thickness >= sceneObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 - 2 &&
-		sceneObjs.ball.position.x + gameInfo.board_size.thickness <= sceneObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 + 8 &&
-		sceneObjs.ball.position.y <= sceneObjs.paddles[1].position.y + gameInfo.board_size.paddleLenght / 2 &&
-		sceneObjs.ball.position.y >= sceneObjs.paddles[1].position.y - gameInfo.board_size.paddleLenght / 2
+		pongObjs.ball.position.x + gameInfo.board_size.thickness >= pongObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 - 2 &&
+		pongObjs.ball.position.x + gameInfo.board_size.thickness <= pongObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 + 8 &&
+		pongObjs.ball.position.y <= pongObjs.paddles[1].position.y + gameInfo.board_size.paddleLenght / 2 &&
+		pongObjs.ball.position.y >= pongObjs.paddles[1].position.y - gameInfo.board_size.paddleLenght / 2
 	) {
 	if(gameInfo.ball_att.reboundx === true){
 		changeAngle();
@@ -342,10 +340,10 @@ function paddleColision() {
 	}
 	if (
 		gameInfo.player_lives[2] > 0 &&
-		sceneObjs.ball.position.y + gameInfo.board_size.thickness >= sceneObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 - 2 &&
-		sceneObjs.ball.position.y + gameInfo.board_size.thickness <= sceneObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 + 8 &&
-		sceneObjs.ball.position.x <= sceneObjs.paddles[2].position.x + gameInfo.board_size.paddleLenght / 2 &&
-		sceneObjs.ball.position.x >= sceneObjs.paddles[2].position.x - gameInfo.board_size.paddleLenght / 2
+		pongObjs.ball.position.y + gameInfo.board_size.thickness >= pongObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 - 2 &&
+		pongObjs.ball.position.y + gameInfo.board_size.thickness <= pongObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 + 8 &&
+		pongObjs.ball.position.x <= pongObjs.paddles[2].position.x + gameInfo.board_size.paddleLenght / 2 &&
+		pongObjs.ball.position.x >= pongObjs.paddles[2].position.x - gameInfo.board_size.paddleLenght / 2
 	) {
 	if(gameInfo.ball_att.reboundy === true){
 		changeAngle();
@@ -357,10 +355,10 @@ function paddleColision() {
 	}
 	if (
 		gameInfo.player_lives[3] > 0 &&
-		sceneObjs.ball.position.y - gameInfo.board_size.thickness <= sceneObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 + 2 &&
-		sceneObjs.ball.position.y - gameInfo.board_size.thickness >= sceneObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 - 8 &&
-		sceneObjs.ball.position.x <= sceneObjs.paddles[3].position.x + gameInfo.board_size.paddleLenght / 2 &&
-		sceneObjs.ball.position.x >= sceneObjs.paddles[3].position.x - gameInfo.board_size.paddleLenght / 2
+		pongObjs.ball.position.y - gameInfo.board_size.thickness <= pongObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 + 2 &&
+		pongObjs.ball.position.y - gameInfo.board_size.thickness >= pongObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 - 8 &&
+		pongObjs.ball.position.x <= pongObjs.paddles[3].position.x + gameInfo.board_size.paddleLenght / 2 &&
+		pongObjs.ball.position.x >= pongObjs.paddles[3].position.x - gameInfo.board_size.paddleLenght / 2
 	) {
 	if(gameInfo.ball_att.reboundy === true){
 		changeAngle();
@@ -371,46 +369,46 @@ function paddleColision() {
 	
 	gameInfo.ball_att.reboundy = false
 	}
-	if(sceneObjs.ball.position.y <= 10 && sceneObjs.ball.position.y >= -10)
+	if(pongObjs.ball.position.y <= 10 && pongObjs.ball.position.y >= -10)
 		gameInfo.ball_att.reboundy = true
-	if(sceneObjs.ball.position.x <= 10 && sceneObjs.ball.position.x >= -10)
+	if(pongObjs.ball.position.x <= 10 && pongObjs.ball.position.x >= -10)
 		gameInfo.ball_att.reboundx = true
 }
 
 function controlDetection() {
 	//vs2 et vs4
 	const paddleSpeed = 6
-	if ( gameInfo.controls.paddle1key[0] === true && sceneObjs.paddles[0].position.y <
+	if ( gameInfo.controls.paddle1key[0] === true && pongObjs.paddles[0].position.y <
 		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[2]))
-		sceneObjs.paddles[0].position.y += paddleSpeed;
+		pongObjs.paddles[0].position.y += paddleSpeed;
 
-	if ( gameInfo.controls.paddle1key[1] === true && sceneObjs.paddles[0].position.y >
+	if ( gameInfo.controls.paddle1key[1] === true && pongObjs.paddles[0].position.y >
 		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[3]))
-		sceneObjs.paddles[0].position.y -= paddleSpeed;
+		pongObjs.paddles[0].position.y -= paddleSpeed;
 
-	if ( gameInfo.controls.paddle2key[0] === true && sceneObjs.paddles[1].position.y <
+	if ( gameInfo.controls.paddle2key[0] === true && pongObjs.paddles[1].position.y <
 		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[2]))
-		sceneObjs.paddles[1].position.y += paddleSpeed;
+		pongObjs.paddles[1].position.y += paddleSpeed;
 
-	if ( gameInfo.controls.paddle2key[1] === true && sceneObjs.paddles[1].position.y >
+	if ( gameInfo.controls.paddle2key[1] === true && pongObjs.paddles[1].position.y >
 		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[3]))
-		sceneObjs.paddles[1].position.y -= paddleSpeed;
+		pongObjs.paddles[1].position.y -= paddleSpeed;
 
-	if ( gameInfo.controls.paddle3key[0] === true && sceneObjs.paddles[2].position.x >
+	if ( gameInfo.controls.paddle3key[0] === true && pongObjs.paddles[2].position.x >
 		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[0]))
-		sceneObjs.paddles[2].position.x -= paddleSpeed;
+		pongObjs.paddles[2].position.x -= paddleSpeed;
 
-	if ( gameInfo.controls.paddle3key[1] === true && sceneObjs.paddles[2].position.x <
+	if ( gameInfo.controls.paddle3key[1] === true && pongObjs.paddles[2].position.x <
 		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[1]))
-		sceneObjs.paddles[2].position.x += paddleSpeed;
+		pongObjs.paddles[2].position.x += paddleSpeed;
 
-	if ( gameInfo.controls.paddle4key[0] === true && sceneObjs.paddles[3].position.x >
+	if ( gameInfo.controls.paddle4key[0] === true && pongObjs.paddles[3].position.x >
 		-gameInfo.board_size.size / 2 + gameInfo.board_size.paddleLenght / 2 + (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[0]))
-		sceneObjs.paddles[3].position.x -= paddleSpeed;
+		pongObjs.paddles[3].position.x -= paddleSpeed;
 
-	if ( gameInfo.controls.paddle4key[1] === true && sceneObjs.paddles[3].position.x <
+	if ( gameInfo.controls.paddle4key[1] === true && pongObjs.paddles[3].position.x <
 		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLenght / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[1]))
-		sceneObjs.paddles[3].position.x += paddleSpeed;
+		pongObjs.paddles[3].position.x += paddleSpeed;
 
 }
 
@@ -516,19 +514,18 @@ function animate() {
 		ballPhysic();
 	}
 	camLimiter()
-	renderer.render(sceneObjs.scene, camera);
+	renderer.render(pongObjs.scene, camera);
 	if(gameInfo.demoCam.enabled === true)
 		demoCamPlay()
 	// console.log("running")
 }
 
 function lightColorSwitch(player, color){
-	const lights = [sceneObjs.lights[0], sceneObjs.lights[1], sceneObjs.lights[2], sceneObjs.lights[3]]
+	const lights = [pongObjs.lights[0], pongObjs.lights[1], pongObjs.lights[2], pongObjs.lights[3]]
 	const pInfos = [p1Info, p2Info, p3Info, p4Info]
 	lights[player - 1].color.set(color)
 	pInfos[player - 1].style.backgroundColor = color + "66"
 }
-
 
 function playGameV2(){
 	gameInfo.gameover = false
@@ -552,7 +549,6 @@ function playGameV4(){
 function playDemo(){
 	if(gameInfo.demoCam.enabled === false){
 		gameInfo.controls.enabled = false
-
 		gameInfo.demoCam.enabled = true
 		gameInfo.player_lives = [0, 0, 0, 0]
 		resetGameDemo()
@@ -565,7 +561,7 @@ function stopGame(){
 	gameInfo.demoCam.enabled = false
 	renderer.setAnimationLoop(null)
 }
-initSceneObjs()
+initPongObjs()
 initElements()
 
 export { playGameV2, playGameV4, stopGame, playDemo }
