@@ -48,7 +48,10 @@
 			<main class="main" id="content">
 				{% block content %} {% include content %} {% endblock %}
 			</main>
-			<canvas id="game"></canvas>
+			<div id="pong">
+				<canvas id="game"></canvas>
+			</div>
+		</div>
 		<footer class="footer">
 			<h5>&copy; 2024 Transcendence Pong.</h5>
 			<div class="footer-links">
@@ -64,9 +67,8 @@
 	<script src="{% static 'js/nav.js' %}" type="module" defer></script>
 	<script src="{% static 'js/api.js' %}" type="module" defer></script>
 	<script src="{% static 'js/auth.js' %}" type="module" defer></script>
-	<script src="{% static 'js/pong/pong_light.js' %}" type="module" defer></script>
 	<script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
-	<script src="{% static 'js/pong/pong_obj.js' %}" type="module" defer></script>
+	<script src="{% static 'js/pong/pong_scene.js' %}" type="module" defer></script>
 	<script src="{% static 'js/pong/pongvs4.js' %}" type="module" defer></script>
-  <script src="{% static 'js/pong/tournament.js' %}" type="module" defer></script>
+	<!-- <script src="{% static 'js/pong/tournament.js' %}" type="module" defer></script> -->
 </html>

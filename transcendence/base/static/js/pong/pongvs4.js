@@ -5,7 +5,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import {initSceneObjs} from "./pong_scene.js"
 
 import {gameInfo} from "./pong_var.js"
-import {tournament, giveTournPoints } from "./tournament.js"
+// import {tournament, giveTournPoints } from "./tournament.js"
 
 function initElements() {
 	const tags = {
@@ -42,26 +42,26 @@ function initElements() {
 	console.log(document.getElementById("playerInfo4"))
 	return tags
 }
-let navHeight = document.querySelector('nav').offsetHeight;
-let headerHeight = document.querySelector('header').offsetHeight;
-let footerHeight = document.querySelector('footer').offsetHeight;
-let canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
-const canvas = document.querySelector("#game");
-
-const renderer = new THREE.WebGLRenderer({ canvas });
+	let navHeight = document.querySelector('nav').offsetHeight;
+	let masterHeight = document.querySelector('.master').offsetHeight;
+	let masterWidth = document.querySelector('.master').offsetWidth;
+	let canvasHeight = masterHeight;
+	const canvas = document.querySelector("#game");
 	
-renderer.shadowMap.enabled = true;// voir ou le mettre
+	const renderer = new THREE.WebGLRenderer({ canvas });
+	
+	renderer.shadowMap.enabled = true;
 
-renderer.setSize(window.innerWidth, canvasHeight);
+	renderer.setSize(masterWidth - 20, canvasHeight - 20);
 
-const sceneObjs = initSceneObjs()
-let tags = initElements()
+	const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / (canvasHeight - 20), 0.1, 500000);
+	camera.position.set(0, -350, 700);
 
-const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / canvasHeight, 0.1, 500000);
-camera.position.set(0, -350, 700);
-
-const orbit = new OrbitControls(camera, renderer.domElement);
-orbit.update();
+	const sceneObjs = initSceneObjs()
+	let tags = initElements()
+	const orbit = new OrbitControls(camera, renderer.domElement);
+	orbit.enablePan = false
+	orbit.update();;
 
 function demoLights(){
 	if(!sceneObjs.scene.add(sceneObjs.lights[0])){
@@ -107,11 +107,14 @@ function resetGameOver(){
 		if(gameInfo.player_lives[i] > 0){
 			if(!sceneObjs.scene.add(sceneObjs.paddles[i]))
 				sceneObjs.scene.add(sceneObjs.paddles[i])
-			if(!sceneObjs.scene.add(sceneObjs.lights[i]))
+			if(!sceneObjs.scene.add(sceneObjs.lights[i])){
+				sceneObjs.lights[i].color = gameInfo.colors[i]
 				sceneObjs.scene.add(sceneObjs.lights[i])
+			}
 			sceneObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
 			tags.cards[i].style.display = "block"
+			tags.cards[i].style.backgroundColor = "#" + gameInfo.colors[i]
 			tags.scores[i].textContent = gameInfo.player_lives[i]
 		} else {
 			sceneObjs.scene.remove(sceneObjs.paddles[i])
@@ -226,7 +229,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[0] = 0
 				sceneObjs.scene.remove(sceneObjs.paddles[0]);
 			gameInfo.player_count--
-			giveTournPoints(0)
+			// giveTournPoints(0)
 
 		}
 		gameInfo.countDownDone = false
@@ -241,7 +244,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[1] = 0
 			sceneObjs.scene.remove(sceneObjs.paddles[1]);
 			gameInfo.player_count--
-			giveTournPoints(1)
+			// giveTournPoints(1)
 
 		}
 		gameInfo.countDownDone = false
@@ -256,7 +259,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[2] = 0
 			sceneObjs.scene.remove(sceneObjs.paddles[2]);
 			gameInfo.player_count--
-			giveTournPoints(2)
+			// giveTournPoints(2)
 
 		}
 		gameInfo.countDownDone = false
@@ -272,7 +275,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[3] = 0
 			sceneObjs.scene.remove(sceneObjs.paddles[3]);
 			gameInfo.player_count--
-			giveTournPoints(3)
+			// giveTournPoints(3)
 		}
 		gameInfo.countDownDone = false
 		defaultPosition();
@@ -281,12 +284,12 @@ function goalDetection() {
 		gameInfo.player_count--;
 		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
 		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle[i] > 0){
-				giveTournPoints(i)
-			}
+			// if(tempPaddle[i] > 0){
+			// 	giveTournPoints(i)
+			// }
 		}
 		gameInfo.gameover = true
-		tournament()
+		// tournament()
 	}
 }
   
@@ -297,11 +300,11 @@ function sideRebound() {
 	if (sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
 		gameInfo.ball_att.dirX = -1;
 	}
-	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
-		gameInfo.ball_att.dirY = 1;
-	}
-	if (sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
+	if (sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
 		gameInfo.ball_att.dirY = -1;
+	}
+	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
+		gameInfo.ball_att.dirY = 1;
 	}
 }
 
@@ -412,38 +415,42 @@ function controlDetection() {
 }
 
 document.addEventListener("keypress", (event) => {
-	if (event.key === "v") changeView();
-	if (event.key === "k") {
-		stopGame()
-	}
-	if (event.key === "m") {
-		renderer.setAnimationLoop(animate);
-
-	}
-	if (event.key === "j") {
-		playGameV4()
-	}
-	if (event.key === "o") {
-		playGameV2()
-	}
-	if (event.key === "l") {
-		playDemo()
-	}
-	if(event.key === "1"){
-		lightColorSwitch(3, "#ff55ff")
+	if(gameInfo.controls.enabled){
+		if (event.key === "v") changeView();
+		if (event.key === "k") {
+			stopGame()
+		}
+		if (event.key === "m") {
+			renderer.setAnimationLoop(animate);
+	
+		}
+		if (event.key === "j") {
+			playGameV4()
+		}
+		if (event.key === "o") {
+			playGameV2()
+		}
+		if (event.key === "l") {
+			playDemo()
+		}
+		if(event.key === "1"){
+			lightColorSwitch(3, "#ff55ff")
+		}
 	}
 		
 });
 
 document.addEventListener("keydown", (event) => {
-	if (event.key === "w") gameInfo.controls.paddle1key[0] = true;
-	if (event.key === "s") gameInfo.controls.paddle1key[1] = true;
-	if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = true;
-	if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = true;
-	if (event.key === "g") gameInfo.controls.paddle3key[0] = true;
-	if (event.key === "h") gameInfo.controls.paddle3key[1] = true;
-	if (event.key === "8") gameInfo.controls.paddle4key[0] = true;
-	if (event.key === "9") gameInfo.controls.paddle4key[1] = true;
+	if(gameInfo.controls.enabled){
+		if (event.key === "w") gameInfo.controls.paddle1key[0] = true;
+		if (event.key === "s") gameInfo.controls.paddle1key[1] = true;
+		if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = true;
+		if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = true;
+		if (event.key === "g") gameInfo.controls.paddle3key[0] = true;
+		if (event.key === "h") gameInfo.controls.paddle3key[1] = true;
+		if (event.key === "8") gameInfo.controls.paddle4key[0] = true;
+		if (event.key === "9") gameInfo.controls.paddle4key[1] = true;
+	}
 });
 
 document.addEventListener("keyup", (event) => {
@@ -457,17 +464,17 @@ document.addEventListener("keyup", (event) => {
 	if (event.key === "9") gameInfo.controls.paddle4key[1] = false;
 });
 
-// window.addEventListener("resize", () => {
+window.addEventListener("resize", () => {
 
-// 	navHeight = document.querySelector('nav').offsetHeight;
-// 	headerHeight = document.querySelector('header').offsetHeight;
-// 	footerHeight = document.querySelector('footer').offsetHeight;
-// 	canvasHeight = window.innerHeight - navHeight - headerHeight - footerHeight + 1
+	navHeight = document.querySelector('nav').offsetHeight;
+	masterHeight = document.querySelector('.master').offsetHeight;
+	masterWidth = document.querySelector('.master').offsetWidth;
+	canvasHeight = masterHeight - navHeight;
 	
-// 	camera.aspect = window.innerWidth / canvasHeight
-// 	camera.updateProjectionMatrix()
-// 	renderer.setSize(window.innerWidth, canvasHeight)
-// });
+	renderer.setSize((masterWidth - 20), canvasHeight +20)
+	camera.aspect = (masterWidth - 20) / (canvasHeight + 20)
+	camera.updateProjectionMatrix()
+});
 
 function changeView() {
 	//vs2 et vs4
@@ -532,7 +539,8 @@ function playGameV2(){
 	renderer.setAnimationLoop(animate);
 }
 
-function playGameV4(){
+function playGameV4(){	
+	gameInfo.controls.enabled = true
 	gameInfo.gameover = false
 	gameInfo.player_lives = [4, 4, 4, 4]
 	resetGameOver()
@@ -543,6 +551,8 @@ function playGameV4(){
 
 function playDemo(){
 	if(gameInfo.demoCam.enabled === false){
+		gameInfo.controls.enabled = false
+
 		gameInfo.demoCam.enabled = true
 		gameInfo.player_lives = [0, 0, 0, 0]
 		resetGameDemo()

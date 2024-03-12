@@ -1,7 +1,7 @@
 /*PONG*/
 #pong {
 	/* border:  solid greenyellow; */
-	position: relative;
+	/* position: relative; */
 	width: 100%;
 	height: 100%;
 	/* display: none; */
@@ -30,28 +30,28 @@
 
 #pong #playerInfo1 {
 	display: none;
-	bottom: 0;
+	bottom: 5%;
 	left: 5%;
 	background-color: #69327A66;
 }
 
 #pong #playerInfo2 {
 	display: none;
-	top: 0;
+	top: 5%;
 	right: 5%;
 	background-color: #249DC666;
 }
 
 #pong #playerInfo3 {
 	display: none;
-	top: 0;
+	top: 5%;
 	left: 5%;
 	background-color: #ffff0066;
 }
 
 #pong #playerInfo4 {
 	display: none;
-	bottom: 0;
+	bottom: 5%;
 	right: 5%;
 	background-color: #00ffff66;
 }
