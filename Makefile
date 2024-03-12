@@ -20,18 +20,18 @@ help: check_docker_status
 
 #up: dev # Start the containers in development mode
 up:
-	docker-compose up -d
+	docker compose up -d
 	@echo "--> If you want to populate the database type 'make pop' 🌱."
 
 dev: check_docker_status ## Start the containers in development mode
-	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+	docker compose -f docker compose.yml -f docker compose.dev.yml up -d
 	@read -p "Do you want to seed the database? (y/n) " answer; \
 	if [ "$$answer" = "y" ]; then \
 		$(MAKE) seed; \
 	else \
 		echo "Skipping seed."; \
 	fi
-	
+
 
 #prod: check_docker_status ## Start the containers in production mode
 #	docker compose up -d --build --remove-orphans --force-recreate
@@ -46,7 +46,7 @@ status: check_docker_status ## Check the status of the containers
 
 # ---------------------------------------------------------------------------- #
 db: check_docker_status ## Open database shell
-	docker compose -f docker-compose.yml up -d postgres
+	docker compose -f docker compose.yml up -d postgres
 
 psql: check_docker_status ## Open postgresql shell
 	docker compose exec postgres psql -U postgres -d postgres
@@ -82,10 +82,6 @@ fclean: check_docker_status clean	## Stop the containers and remove the volumes 
 	-@docker rmi -f postgres:13  > /dev/null
 
 pop:
-	@if ! docker-compose exec backend pip show requests > /dev/null 2>&1; then \
-	    echo "Installing requests..." && \
-	    docker-compose exec backend pip install requests > /dev/null; \
-	fi
-	@docker-compose exec backend python3 transcendence/tools/populate_db.py
+	@docker compose exec backend python3 transcendence/manage.py populate_db
 
 .PHONY: up down reup rm_images pop psql prisma seed shell-% logs logs-% check_docker_status check_env help clean fclean
