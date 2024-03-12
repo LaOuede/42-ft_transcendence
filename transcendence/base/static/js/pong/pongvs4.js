@@ -7,52 +7,41 @@ import {initSceneObjs} from "./pong_scene.js"
 import {gameInfo} from "./pong_var.js"
 import {tournament, giveTournPoints } from "./tournament.js"
 
-let demoCam = false
-let camDemoDirX = 1
-let camDemoDirY = 1
-let paddle1limit = 2.5
-let paddle2limit = 2.5
-let paddle3limit = 2.5
-let paddle4limit = 2.5
-
-let p1ScoreTag
-let p2ScoreTag
-let p3ScoreTag
-let p4ScoreTag
-
-let p1Info
-let p2Info
-let p3Info
-let p4Info
-
 function initElements() {
-
+	const tags = {
+		scores: [undefined, undefined, undefined, undefined],
+		cards: [undefined, undefined, undefined, undefined],
+	}
+	const tags_name = ["p1Score", "p2Score", "p3Score", "p4Score",
+		"playerInfo1", "playerInfo2", "playerInfo3", "playerInfo4"]
 	if (document.getElementById("p1Score")) {
-		p1ScoreTag = document.getElementById("p1Score")
+		tags.scores[0] = document.getElementById("p1Score")
 	}
 	if (document.getElementById("p2Score")) {
-		p2ScoreTag  = document.getElementById("p2Score") 
+		tags.scores[1]  = document.getElementById("p2Score") 
 	}
 	if (document.getElementById("p3Score")) {
-		p3ScoreTag  = document.getElementById("p3Score") 
+		tags.scores[2]  = document.getElementById("p3Score") 
 	}
 	if (document.getElementById("p4Score")) {
-		p4ScoreTag  = document.getElementById("p4Score") 
+		tags.scores[3]  = document.getElementById("p4Score") 
 	}
 	if (document.getElementById("playerInfo1")) {
-		p1Info = document.getElementById("playerInfo1")
+		tags.cards[0] = document.getElementById("playerInfo1")
 	}
 	if (document.getElementById("playerInfo2")) {
-		p2Info = document.getElementById("playerInfo2") 
+		tags.cards[1] = document.getElementById("playerInfo2") 
 	}
 	if (document.getElementById("playerInfo3")) {
-		p3Info = document.getElementById("playerInfo3") 
+		tags.cards[2] = document.getElementById("playerInfo3") 
 	}
 	if (document.getElementById("playerInfo4")) {
-		p4Info= document.getElementById("playerInfo4") 
+		tags.cards[3] = document.getElementById("playerInfo4") 
 	}
+	console.log(tags)
+	console.log(document.getElementById("playerInfo4"))
+	return tags
 }
-
 let navHeight = document.querySelector('nav').offsetHeight;
 let headerHeight = document.querySelector('header').offsetHeight;
 let footerHeight = document.querySelector('footer').offsetHeight;
@@ -66,6 +55,7 @@ renderer.shadowMap.enabled = true;// voir ou le mettre
 renderer.setSize(window.innerWidth, canvasHeight);
 
 const sceneObjs = initSceneObjs()
+let tags = initElements()
 
 const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / canvasHeight, 0.1, 500000);
 camera.position.set(0, -350, 700);
@@ -73,75 +63,64 @@ camera.position.set(0, -350, 700);
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
 
-function resetGameOverParam(players, lives){
-	let paddles = [paddle1, paddle2, paddle3, paddle4]
-	let lights = [p1light, p2light, p3light, p4light]
-	
-	gameInfo.countDownDone = false
-	defaultPosition()
-	for(let i = 0; i < players.length; i++){
-		if(players[i] === true){
+function demoLights(){
+	if(!sceneObjs.scene.add(sceneObjs.lights[0])){
+		sceneObjs.scene.add(sceneObjs.lights[0])
+		sceneObjs.lights[0].distance = 800
+	}
+	if(!sceneObjs.scene.add(sceneObjs.lights[1])){
+		sceneObjs.scene.add(sceneObjs.lights[1])
+		sceneObjs.lights[1].distance = 800
 
+	}
+
+}
+
+function countPlayers(){
+	gameInfo.player_count = 0
+	for(let i = 0; i < 4; i++){
+		if(gameInfo.player_lives[i] > 0){
+				gameInfo.player_count++
 		}
 	}
 }
 
-// function resetGameOverV2(){
-// 	initElements()
-// 	gameInfo.countDownDone = false
-// 	defaultPosition()
-// 	if(!scene.children.includes(sceneObjs.paddles[0])) {scene.add(sceneObjs.paddles[0])};
-// 	if(!scene.children.includes(paddle2)) {scene.add(paddle2)};
-// 	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
-// 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-// 	if(scene.children.includes(p3light)) {scene.remove(p3light)};
-// 	if(scene.children.includes(p4light)) {scene.remove(p4light)};
-// 	p1light.distance = 800
-// 	p2light.distance = 800
-// 	paddle1limit = 0
-// 	paddle2limit = 0
-// 	paddle3limit = 0
-// 	paddle4limit = 0
-// 	gameInfo.p1Lives = gameInfo.default_lives
-// 	gameInfo.p2Lives = gameInfo.default_lives
-// 	gameInfo.p3Lives = 0
-// 	gameInfo.p4Lives = 0
-// 	p1ScoreTag.textContent = gameInfo.p1Lives
-// 	p2ScoreTag.textContent = gameInfo.p2Lives
-// 	p3ScoreTag.textContent = gameInfo.p3Lives
-// 	p4ScoreTag.textContent = gameInfo.p4Lives
-// 	gameInfo.player_count = 2
-// 	// gameInfo.gameover = false
-// 	camera.position.set(0, -400, 375)
-// 	camera.lookAt(0, -75, 0)
-// 	orbit.enabled = true
-// }
+function setDistanceLight(){
+	switch (gameInfo.player_count) {
+		case 2:
+			return 800
+		case 3:
+			return 600
+		case 4:
+			return 400
+		default:
+			return 10
+	}
+}
 
-function resetGameOverV4(){
-	initElements()
+function resetGameOver(){
+	tags = initElements()
 	gameInfo.countDownDone = false
 	defaultPosition()
-	if(!sceneObjs.scene.children.includes(sceneObjs.paddles[0])) {sceneObjs.scene.add(sceneObjs.paddles[0])};
-	if(!sceneObjs.scene.children.includes(sceneObjs.paddles[1])) {sceneObjs.scene.add(sceneObjs.paddles[1])};
-	if(!sceneObjs.scene.children.includes(sceneObjs.paddles[2])) {sceneObjs.scene.add(sceneObjs.paddles[2])};
-	if(!sceneObjs.scene.children.includes(sceneObjs.paddles[3])) {sceneObjs.scene.add(sceneObjs.paddles[3])};
-	if(!sceneObjs.scene.children.includes(sceneObjs.lights[2])) {sceneObjs.scene.add(sceneObjs.lights[2])};
-	if(!sceneObjs.scene.children.includes(sceneObjs.lights[3])) {sceneObjs.scene.add(sceneObjs.lights[3])};
-	sceneObjs.lights[0].distance = 400
-	sceneObjs.lights[1].distance = 400
-	gameInfo.paddle_limit_list[0] = 2.75
-	gameInfo.paddle_limit_list[1] = 2.75
-	gameInfo.paddle_limit_list[2] = 2.75
-	gameInfo.paddle_limit_list[3] = 2.75
-	gameInfo.player_lives[0] = gameInfo.default_lives
-	gameInfo.player_lives[1] = gameInfo.default_lives
-	gameInfo.player_lives[2] = gameInfo.default_lives
-	gameInfo.player_lives[3] = gameInfo.default_lives
-	p1ScoreTag.textContent = gameInfo.p1Lives
-	p2ScoreTag.textContent = gameInfo.p2Lives
-	p3ScoreTag.textContent = gameInfo.p3Lives
-	p4ScoreTag.textContent = gameInfo.p4Lives
-	gameInfo.player_count = 4
+	countPlayers()
+	for(let i = 0; i < 4; i++){
+		if(gameInfo.player_lives[i] > 0){
+			if(!sceneObjs.scene.add(sceneObjs.paddles[i]))
+				sceneObjs.scene.add(sceneObjs.paddles[i])
+			if(!sceneObjs.scene.add(sceneObjs.lights[i]))
+				sceneObjs.scene.add(sceneObjs.lights[i])
+			sceneObjs.lights[i].distance = setDistanceLight()
+			gameInfo.paddle_limit_list[i] = 2.75
+			tags.cards[i].style.display = "block"
+			tags.scores[i].textContent = gameInfo.player_lives[i]
+		} else {
+			sceneObjs.scene.remove(sceneObjs.paddles[i])
+			sceneObjs.scene.remove(sceneObjs.lights[i])
+			gameInfo.paddle_limit_list[i] = 0
+			tags.cards[i].style.display = "none"
+		}
+	}
+	
 	// gameInfo.gameover = false
 	camera.position.set(0, -400, 375)
 	camera.lookAt(0, -75, 0)
@@ -149,25 +128,26 @@ function resetGameOverV4(){
 
 }
 
-// function resetGameDemo(){
-// 	gameInfo.countDownDone = false
-// 	defaultPosition()
-// 	if(scene.children.includes(paddle1)) {scene.remove(paddle1)};
-// 	if(scene.children.includes(paddle2)) {scene.remove(paddle2)};
-// 	if(scene.children.includes(paddle3)) {scene.remove(paddle3)};
-// 	if(scene.children.includes(paddle4)) {scene.remove(paddle4)};
-// 	if(!scene.children.includes(p3light)) {scene.add(p3light)};
-// 	if(!scene.children.includes(p4light)) {scene.add(p4light)};
-
-// 	gameInfo.p1Lives = 0
-// 	gameInfo.p2Lives = 0
-// 	gameInfo.p3Lives = 0
-// 	gameInfo.p4Lives = 0
-// 	gameInfo.player_count = 0
-// 	camera.position.set(0, 0, 750)
-// 	camera.lookAt(0, 0, 0)
-// 	// orbit.enabled = false
-// }
+function resetGameDemo(){
+	gameInfo.countDownDone = false
+	defaultPosition()
+	if(sceneObjs.scene.children.includes(sceneObjs.paddles[0])) {sceneObjs.scene.remove(sceneObjs.paddles[0])};
+	if(sceneObjs.scene.children.includes(sceneObjs.paddles[1])) {sceneObjs.scene.remove(sceneObjs.paddles[1])};
+	if(sceneObjs.scene.children.includes(sceneObjs.paddles[2])) {sceneObjs.scene.remove(sceneObjs.paddles[2])};
+	if(sceneObjs.scene.children.includes(sceneObjs.paddles[3])) {sceneObjs.scene.remove(sceneObjs.paddles[3])};
+	if(sceneObjs.scene.children.includes(sceneObjs.lights[2])) {sceneObjs.scene.remove(sceneObjs.lights[2])};
+	if(sceneObjs.scene.children.includes(sceneObjs.lights[3])) {sceneObjs.scene.remove(sceneObjs.lights[3])};
+	sceneObjs.lights[0].distance = 800
+	sceneObjs.lights[1].distance = 800
+	gameInfo.player_lives[0] = 0
+	gameInfo.player_lives[1] = 0
+	gameInfo.player_lives[2] = 0
+	gameInfo.player_lives[3] = 0
+	gameInfo.player_count = 0
+	camera.position.set(0, 0, 750)
+	camera.lookAt(0, 0, 0)
+	// orbit.enabled = false
+}
 
 function defaultPosition() {
 	sceneObjs.ball.position.x = 0
@@ -184,7 +164,7 @@ function defaultPosition() {
 }
 
 function countDown() {
-	let count = 1;
+	let count = 3;
 	let countdown = setInterval(() => {
 	if (count > 0) {
 		count--;
@@ -241,61 +221,61 @@ function goalDetection() {
 		gameInfo.player_lives[0] > 0
 	) {
 		gameInfo.player_lives[0]--;
-		p1ScoreTag.textContent = gameInfo.player_lives[0]
-	if (gameInfo.player_lives[0] === 0) {
-		gameInfo.paddle_limit_list[0] = 0
-			sceneObjs.scene.remove(sceneObjs.paddles[0]);
-		gameInfo.player_count--
-		giveTournPoints(0)
+		tags.scores[0].textContent = gameInfo.player_lives[0]
+		if (gameInfo.player_lives[0] === 0) {
+			gameInfo.paddle_limit_list[0] = 0
+				sceneObjs.scene.remove(sceneObjs.paddles[0]);
+			gameInfo.player_count--
+			giveTournPoints(0)
 
-	}
-	gameInfo.countDownDone = false
-	defaultPosition();
+		}
+		gameInfo.countDownDone = false
+		defaultPosition();
 	}
 	if (
 		sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
 		gameInfo.player_lives[1] > 0) {
 			gameInfo.player_lives[1]--;
-			p2ScoreTag.textContent = gameInfo.player_lives[1]
-	if (gameInfo.player_lives[1] === 0) {
-		gameInfo.paddle_limit_list[1] = 0
-		sceneObjs.scene.remove(sceneObjs.paddles[1]);
-		gameInfo.player_count--
-		giveTournPoints(1)
+			tags.scores[1].textContent = gameInfo.player_lives[1]
+		if (gameInfo.player_lives[1] === 0) {
+			gameInfo.paddle_limit_list[1] = 0
+			sceneObjs.scene.remove(sceneObjs.paddles[1]);
+			gameInfo.player_count--
+			giveTournPoints(1)
 
-	}
-	gameInfo.countDownDone = false
-	defaultPosition();
+		}
+		gameInfo.countDownDone = false
+		defaultPosition();
 	}
 	if (
 		sceneObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness &&
 		gameInfo.player_lives[2] > 0) {
 			gameInfo.player_lives[2]--;
-			p3ScoreTag.textContent = gameInfo.player_lives[2]
-	if (gameInfo.player_lives[2] === 0) {
-		gameInfo.paddle_limit_list[2] = 0
-		sceneObjs.scene.remove(sceneObjs.paddles[2]);
-		gameInfo.player_count--
-		giveTournPoints(2)
+			tags.scores[2].textContent = gameInfo.player_lives[2]
+		if (gameInfo.player_lives[2] === 0) {
+			gameInfo.paddle_limit_list[2] = 0
+			sceneObjs.scene.remove(sceneObjs.paddles[2]);
+			gameInfo.player_count--
+			giveTournPoints(2)
 
-	}
-	gameInfo.countDownDone = false
-	defaultPosition();
+		}
+		gameInfo.countDownDone = false
+		defaultPosition();
 	}
 	if (
 		sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness &&
 		gameInfo.player_lives[3] > 0
 	) {
 		gameInfo.player_lives[3]--;
-		p4ScoreTag.textContent = gameInfo.player_lives[3]
-	if (gameInfo.player_lives[3] === 0) {
-		gameInfo.paddle_limit_list[3] = 0
-		sceneObjs.scene.remove(sceneObjs.paddles[3]);
-		gameInfo.player_count--
-		giveTournPoints(3)
-	}
-	gameInfo.countDownDone = false
-	defaultPosition();
+		tags.scores[3].textContent = gameInfo.player_lives[3]
+		if (gameInfo.player_lives[3] === 0) {
+			gameInfo.paddle_limit_list[3] = 0
+			sceneObjs.scene.remove(sceneObjs.paddles[3]);
+			gameInfo.player_count--
+			giveTournPoints(3)
+		}
+		gameInfo.countDownDone = false
+		defaultPosition();
 	}
 	if(gameInfo.player_count === 1){
 		gameInfo.player_count--;
@@ -312,10 +292,10 @@ function goalDetection() {
   
 function sideRebound() {
 	if (sceneObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
-			gameInfo.ball_att.dirX = 1;
+		gameInfo.ball_att.dirX = 1;
 	}
 	if (sceneObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
-			gameInfo.ball_att.dirX = -1;
+		gameInfo.ball_att.dirX = -1;
 	}
 	if (sceneObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
 		gameInfo.ball_att.dirY = 1;
@@ -450,7 +430,6 @@ document.addEventListener("keypress", (event) => {
 		playDemo()
 	}
 	if(event.key === "1"){
-		console.log("1")
 		lightColorSwitch(3, "#ff55ff")
 	}
 		
@@ -458,7 +437,6 @@ document.addEventListener("keypress", (event) => {
 
 document.addEventListener("keydown", (event) => {
 	if (event.key === "w") gameInfo.controls.paddle1key[0] = true;
-	console.log(gameInfo.controls.paddle1key[0])
 	if (event.key === "s") gameInfo.controls.paddle1key[1] = true;
 	if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = true;
 	if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = true;
@@ -532,7 +510,7 @@ function animate() {
 	}
 	camLimiter()
 	renderer.render(sceneObjs.scene, camera);
-	if(gameInfo.demoCam.enabled)
+	if(gameInfo.demoCam.enabled === true)
 		demoCamPlay()
 	// console.log("running")
 }
@@ -544,55 +522,33 @@ function lightColorSwitch(player, color){
 	pInfos[player - 1].style.backgroundColor = color + "66"
 }
 
-function showPlayerInfoV4(){
-	if(p1Info && p2Info && p3Info && p4Info ){
-		p1Info.style.display = "block"
-		p2Info.style.display = "block"
-		p3Info.style.display = "block"
-		p4Info.style.display = "block"
-}
-}
-
-function showPlayerInfoV2(){
-	if(p1Info && p2Info && p3Info && p4Info ){
-		p1Info.style.display = "block"
-		p2Info.style.display = "block"
-		p3Info.style.display = "none"
-		p4Info.style.display = "none"
-	}
-}
-
-function hidePlayerInfo(){
-	if(p1Info && p2Info && p3Info && p4Info ){
-		p1Info.style.display = "none"
-		p2Info.style.display = "none"
-		p3Info.style.display = "none"
-		p4Info.style.display = "none"
-	}
-}
 
 function playGameV2(){
-	// showPlayerInfoV2()
-	// resetGameOverV2()
-	// demoCam = false
-	// gameInfo.countDownDone = false
-	// renderer.setAnimationLoop(animate);
+	gameInfo.gameover = false
+	gameInfo.player_lives = [4, 4, 0, 0]
+	resetGameOver()
+	gameInfo.demoCam.enabled = false
+	gameInfo.countDownDone = false
+	renderer.setAnimationLoop(animate);
 }
 
 function playGameV4(){
-	showPlayerInfoV4()
-	resetGameOverV4()
-	demoCam = false
+	gameInfo.gameover = false
+	gameInfo.player_lives = [4, 4, 4, 4]
+	resetGameOver()
+	gameInfo.demoCam.enabled = false
 	gameInfo.countDownDone = false
 	renderer.setAnimationLoop(animate);
 }
 
 function playDemo(){
-	// hidePlayerInfo()
-	// demoCam = true
-	// resetGameDemo()
-	// renderer.setAnimationLoop(animate);
-
+	if(gameInfo.demoCam.enabled === false){
+		gameInfo.demoCam.enabled = true
+		gameInfo.player_lives = [0, 0, 0, 0]
+		resetGameDemo()
+		demoLights()
+		renderer.setAnimationLoop(animate);
+	}
 }
 
 function stopGame(){
