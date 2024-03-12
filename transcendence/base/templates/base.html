@@ -37,6 +37,7 @@
         <h1>TRANSCENDENCE</h1>
         <div class="is-signed-in">
           <div class="main-nav-links">
+            <a href="#" onclick="loadContent(''); return false;">HOME</a>
             <a href="#" onclick="loadContent('play/'); return false;">PLAY</a>
             <a href="#" onclick="loadContent('profile/'); return false;"
               >PROFILE</a
@@ -132,6 +133,7 @@
   {% load static %}
   <script src="{% static 'js/nav.js' %}" type="module" defer></script>
   <script src="{% static 'js/api.js' %}" type="module" defer></script>
+  <script src="{% static 'js/settings.js' %}" type="module" defer></script>
   <script src="{% static 'js/auth.js' %}" type="module" defer></script>
   <script
     src="{% static 'js/pong/pong_light.js' %}"
