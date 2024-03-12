@@ -26,7 +26,7 @@ function loadContent(path) {
       if (path === "play/") {
         tournament()
         // document.querySelector("#pong").style.display = "block"
-        playGameV4()// peut aller sur un bouton pour demarrer la joute
+        // playGameV4()// peut aller sur un bouton pour demarrer la joute
         // playGameV2()
       } else {
         // document.querySelector("#pong").style.display = "none"

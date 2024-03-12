@@ -4,7 +4,7 @@ import {gameInfo} from "./pong_var.js"
 
 export function initSceneObjs(){
 	
-const sceneObjs = {
+	const sceneObjs = {
 		scene: undefined,
 		ball: undefined,
 		ballplight: undefined,
@@ -100,22 +100,22 @@ const sceneObjs = {
 	//PLAYER 1 LIGHT
 	sceneObjs.lights[0] = new THREE.PointLight(gameInfo.colors[0], light_prim_intense, light_prim_distance);
 	sceneObjs.lights[0].position.set(gameInfo.board_size.size / -3, 0, 100);
-	sceneObjs.scene.add(sceneObjs.lights[0])
+	// sceneObjs.scene.add(sceneObjs.lights[0])
 
 	//PLAYER 2 LIGHT
 	sceneObjs.lights[1] = new THREE.PointLight(gameInfo.colors[1], light_prim_intense, light_prim_distance);
 	sceneObjs.lights[1].position.set(gameInfo.board_size.size / 3, 0, 100);
-	sceneObjs.scene.add(sceneObjs.lights[1])
-
+	// sceneObjs.scene.add(sceneObjs.lights[1])
+// 
 	//PLAYER 3 LIGHT
 	sceneObjs.lights[2] = new THREE.PointLight(gameInfo.colors[2], light_prim_intense, light_prim_distance);
 	sceneObjs.lights[2].position.set(0, gameInfo.board_size.size / 3, 100);
-	sceneObjs.scene.add(sceneObjs.lights[2])
+	// sceneObjs.scene.add(sceneObjs.lights[2])
 
 	//PLAYER 4 LIGHT
 	sceneObjs.lights[3] = new THREE.PointLight(gameInfo.colors[3], light_prim_intense, light_prim_distance);
 	sceneObjs.lights[3].position.set(0, gameInfo.board_size.size / -3, 100);
-	sceneObjs.scene.add(sceneObjs.lights[3])
+	// sceneObjs.scene.add(sceneObjs.lights[3])
 
 	//PADDLE1
 	const paddle1geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
@@ -124,7 +124,7 @@ const sceneObjs = {
 	sceneObjs.paddles[0].position.set(-gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
 	sceneObjs.paddles[0].castShadow = true;
 	sceneObjs.paddles[0].receiveShadow = true;
-	sceneObjs.scene.add(sceneObjs.paddles[0])
+	// sceneObjs.scene.add(sceneObjs.paddles[0])
 
 	//PADDLE2
 	const paddle2geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
@@ -133,7 +133,7 @@ const sceneObjs = {
 	sceneObjs.paddles[1].position.set(gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
 	sceneObjs.paddles[1].castShadow = true;
 	sceneObjs.paddles[1].receiveShadow = true;
-	sceneObjs.scene.add(sceneObjs.paddles[1])
+	// sceneObjs.scene.add(sceneObjs.paddles[1])
 
 	//PADDLE3
 	const paddle3geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
@@ -142,7 +142,7 @@ const sceneObjs = {
 	sceneObjs.paddles[2].position.set(0, gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
 	sceneObjs.paddles[2].castShadow = true;
 	sceneObjs.paddles[2].receiveShadow = true;
-	sceneObjs.scene.add(sceneObjs.paddles[2])
+	// sceneObjs.scene.add(sceneObjs.paddles[2])
 
 	//PADDLE4
 	const paddle4geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
@@ -151,7 +151,7 @@ const sceneObjs = {
 	sceneObjs.paddles[3].position.set(0, -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
 	sceneObjs.paddles[3].castShadow = true;
 	sceneObjs.paddles[3].receiveShadow = true;
-	sceneObjs.scene.add(sceneObjs.paddles[3])
+	// sceneObjs.scene.add(sceneObjs.paddles[3])
 
 	return sceneObjs
 }

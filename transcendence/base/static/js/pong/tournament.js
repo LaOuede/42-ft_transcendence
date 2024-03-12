@@ -83,10 +83,8 @@ function tournament(){
 			tournament()
 		})
 	}
-	console.log(game_count)
 	if(game_count > 0){
 		gameInfo.gameover = false
-		console.log(game_count)
 		game_count--
 		playGameV4()
 		updateScores()
