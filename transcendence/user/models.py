@@ -23,10 +23,10 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
 
 	objects = UserManager()
-	
+
 	def natural_key(self):
 		return (self.username,)
-	
+
 	ONLINE = 'ON'
 	IN_GAME = 'IG'
 	OFFLINE = 'OF'
@@ -73,4 +73,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 	REQUIRED_FIELDS = ['password', 'email']
 
 	def __str__(self):
-		return self.user.username + ' User'	
+		return self.username + ' User'
