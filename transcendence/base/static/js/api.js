@@ -1,12 +1,12 @@
 const apiHandler = {
   baseUrl: "/",
 
-  async fetchWithAuth(url, options = {}) {
+  async fetchWithAuth(url, options = {}, type) {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
     const headers = {
-      "Content-Type": "application/json",
+      "Content-Type": type === '' ? "application/json" : type,
       "X-CSRFToken": getCookie("csrftoken"),
       ...options.headers,
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
