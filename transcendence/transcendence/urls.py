@@ -20,8 +20,8 @@ from django.contrib import admin
 from custom_auth import views as custom_auth_views
 from user import views as user_views
 from base import views as base_views
-from custom_auth.views import login, register, logout
-from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate, UserProfile
+from custom_auth.views import login, register, logout, otp_view
+from user.views import UserCreate, UserDelete, UserGetOne, UserGetAll, UserUpdate, UserProfile, toggle2FA
 from games_history.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
 
@@ -29,7 +29,7 @@ from pong.views import pong
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-)  # Import TokenRefreshView here
+)
 
 
 urlpatterns = [
@@ -38,7 +38,9 @@ urlpatterns = [
     path("login/", custom_auth_views.login, name="login"),
     path("register/", custom_auth_views.register, name="create_profile"),
     path("logout/", custom_auth_views.logout, name="logout"),
-    path("admin/", admin.site.urls),
+    path("otp/", custom_auth_views.otp_view, name="otp"),
+    path("verify-otp/", custom_auth_views.verify_otp, name="verify_otp"),
+    path("admin/", admin.site.urls, name="admin"),
     path('profile/', user_views.UserProfile, name='profile'),
     path("", base_views.index, name="index"),
     path("play/", base_views.play, name="play"),
@@ -48,6 +50,7 @@ urlpatterns = [
     path("playrumble/", base_views.playrumble, name="playrumble"),
     path("tournaments/", base_views.tournaments, name="tournaments"),
     path("users/create/", UserCreate.as_view(), name="user-create"),
+    path("users/toggle-2fa/", toggle2FA, name="toggle-2fa"),
     path("users/<int:user_id>/", UserGetOne.as_view(), name="user-detail"),
     path("users/", UserGetAll.as_view(), name="user-all"),
     path("users/<int:user_id>/delete/", UserDelete.as_view(), name="user-delete"),

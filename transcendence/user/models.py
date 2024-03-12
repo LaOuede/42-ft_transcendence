@@ -46,6 +46,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	activity = models.CharField(max_length=2, choices=ACTIVITY_CHOICES, default=OFFLINE)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
+	otp = models.CharField(max_length=6, blank=True, null=True)
+	otp_expiry_time = models.DateTimeField(blank=True, null=True)
 
 	# Fields that we may need :
 	# nickname = models.CharField(max_length=30, unique=True)

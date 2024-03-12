@@ -1,16 +1,11 @@
-import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
-
+import { playGameV4, playDemo, playGameV2 } from "./pong/pongvs4.js";
 // function to load the appropriate content on the base page
 function loadContent(path) {
+  let accessToken = localStorage.getItem("accessToken");
   const headers = {
     "X-Requested-With": "XMLHttpRequest",
+    Authorization: `Bearer ${accessToken}`,
   };
-
-  // Include the JWT in the Authorization header for authenticated requests
-  const accessToken = localStorage.getItem("accessToken");
-  if (accessToken) {
-    headers["Authorization"] = `Bearer ${accessToken}`;
-  }
 
   fetch("/" + path, { headers })
     .then((response) => {
@@ -25,39 +20,28 @@ function loadContent(path) {
       if (path === "playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        playGameV2()
+        playGameV2();
       } else if (path === "playrumble/") {
-        playGameV4()
+        playGameV4();
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
       } else {
-        playDemo()
+        playDemo();
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
     })
-    .catch((error) => console.error("Error loading content:", error));
+    .catch((error) => {
+      console.error("Error loading content:", error);
+      redirectToLogin();
+    });
 }
-
-function initializePongGame() {
-  // Check if the game script is already loaded
-  if (!document.querySelector("#pong-game-script")) {
-    const script = document.createElement("script");
-    script.id = "pong-game-script";
-    script.src = window.staticUrls.pongScript;
-    script.type = "module";
-    script.defer = true;
-    script.onload = () => {
-      window.init_pong_game;
-    };
-    document.body.appendChild(script);
-  }
-}
-
 // Function to handle redirection to the login page
 export function redirectToLogin() {
   loadContent("login/");
+  /* localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken"); */
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";
 }
@@ -79,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const token = localStorage.getItem("accessToken");
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
+  console.log(token);
   if (!token) {
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
@@ -100,12 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const currentPath = window.location.pathname;
 
   // Get all navigation links
-  const navLinks = document.querySelectorAll('.main-nav-links a, .is-signed-in a, .not-signed-in a');
+  const navLinks = document.querySelectorAll(
+    ".main-nav-links a, .is-signed-in a, .not-signed-in a"
+  );
 
   // Loop through each link and add the "active" class if the href matches the current path
-  navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-      }
+  navLinks.forEach((link) => {
+    if (link.getAttribute("href") === currentPath) {
+      link.classList.add("active");
+    }
   });
 });

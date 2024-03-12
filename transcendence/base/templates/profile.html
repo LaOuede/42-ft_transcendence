@@ -1,18 +1,29 @@
-<div class="profile-container">
-	<div class="profile-container-black">
-		<div class="profile-container-login">
-			{% csrf_token %}
-			{% load static %}
-			<div class="signup-header">
-				<h2 class="header-title">PROFILE</h2>
-				{% if user_data %}
-					<img src="{{ user_data.avatar }}" alt="User Avatar">
-					<p><strong>Username:</strong> {{ user_data.username }}</p>
-					<p><strong>Email:</strong> {{ user_data.email }}</p>
-				{% else %}
-					<p>No user data available.</p>
-				{% endif %}
-			</div>
-		</div>
-	</div>
+{% load static %}
+<div class="edit-profile-container">
+  <button id="settings-button" type="button" class="btn btn-primary">
+    Settings
+  </button>
+  <div class="settings-container">
+    <h1>Settings</h1>
+    <button id="enable-2fa-button" type="button" class="btn btn-primary">
+      {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
+    </button>
+  </div>
+  <div class="profile-container">
+    <div class="profile-container-black">
+      <div class="profile-container-login">
+        {% csrf_token %} {% load static %}
+        <div class="signup-header">
+          <h2 class="header-title">PROFILE</h2>
+          {% if user_data %}
+          <img src="{{ user_data.avatar }}" alt="User Avatar" />
+          <p><strong>Username:</strong> {{ user_data.username }}</p>
+          <p><strong>Email:</strong> {{ user_data.email }}</p>
+          {% else %}
+          <p>No user data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

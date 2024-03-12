@@ -1,17 +1,24 @@
 // -------------------------------------------------//
 // LOGIN
 // -------------------------------------------------//
+
 document.addEventListener("DOMContentLoaded", function (e) {
   document.body.addEventListener("submit", function (e) {
     if (e.target && e.target.id === "login-form") {
       handleLogin(e);
+    } else if (e.target && e.target.id === "otp-form") {
+      verifyOTP(e);
     }
   });
 });
 
+console.log(window);
+
 // login function
 function handleLogin(e) {
   e.preventDefault();
+  let loader = document.querySelector(".lds-default");
+  loader.style.display = "inline-block";
   const formData = new FormData(e.target);
   const user = formData.get("user");
   const password = formData.get("password");
@@ -26,20 +33,92 @@ function handleLogin(e) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data?.tokens?.access && data?.tokens?.refresh) {
-        localStorage.setItem("refreshToken", data.tokens.refresh);
-        localStorage.setItem("accessToken", data.tokens.access);
+      if (data?.token?.access && data?.token?.refresh) {
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("accessToken", data.token.access);
 
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
 
         window.loadContent("");
+        loader.style.display = "none";
+        return;
+      } else if (data?.session_token && data?.session_token !== "") {
+        localStorage.setItem("sessionToken", data.session_token);
+        window.loadContent("otp/");
+        loader.style.display = "none";
+        return;
       } else {
         handleWrongCredentials(data.error);
         console.log("FAILED TO READ DATA", data);
+        loader.style.display = "none";
+        return;
       }
     });
+}
+
+function verifyOTP(e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const otp = formData.get("otp");
+  const sessionToken = localStorage.getItem("sessionToken");
+  const loader = document.querySelector(".lds-default");
+  loader.style.display = "inline-block";
+
+  fetch("/verify-otp/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    body: JSON.stringify({ otp: otp, session_token: sessionToken }),
+    credentials: "include",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data?.token?.access && data?.token?.refresh) {
+        localStorage.setItem("refreshToken", data.token.refresh);
+        localStorage.setItem("accessToken", data.token.access);
+        localStorage.removeItem("sessionToken");
+        document.querySelector(".is-signed-in").style.display = "flex";
+        document.querySelector(".not-signed-in").style.display = "none";
+
+        window.loadContent("");
+        loader.style.display = "none";
+      } else {
+        handleWrongOtp(data);
+      }
+    });
+}
+
+function handleWrongOTPStyle(otpErrorMessage) {
+  let otpInput = document.querySelector("#otp-form input");
+  otpInput.value = "";
+  otpInput.style.borderColor = "red";
+  otpInput.blur();
+  setTimeout(() => {
+    otpErrorMessage.innerHTML = "";
+    otpInput.style.borderColor = "";
+  }, 3000);
+}
+
+function handleWrongOtp(data) {
+  if (data?.error === "Invalid OTP.") {
+    let otpErrorMessage = document.querySelector("#otp-form .otp-error");
+    otpErrorMessage.innerHTML = "Invalid OTP. Please try again.";
+    handleWrongOTPStyle(otpErrorMessage);
+  } else if (data?.error === "OTP expired.") {
+    let otpErrorMessage = document.querySelector("#otp-form .otp-error");
+    otpErrorMessage.innerHTML = "OTP expired. Please login again.";
+    handleWrongOTPStyle(otpErrorMessage);
+    localStorage.removeItem("sessionToken");
+    loadContent("login/");
+  } else {
+    localStorage.removeItem("sessionToken");
+    loadContent("login/");
+  }
+  loader.style.display = "none";
 }
 
 function handleWrongCredentials(error) {

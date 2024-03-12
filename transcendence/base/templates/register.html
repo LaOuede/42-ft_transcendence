@@ -1,69 +1,79 @@
 <div class="signup-container">
-	<div class="signup-container-black">
-		<div class="signup-container-login">
-			<form id="signup-form" method="post">
-				{% csrf_token %}
-				<div class="signup-header">
-					<h2 class="header-title">SIGN UP</h2>
-					<a onclick="loadContent('login/'); return false;" class="signup-description" style="cursor: pointer">
-					Already have an
-					<span style="text-decoration: underline">account</span> ?
-					</a>
-				</div>
-				<div class="signup-form">
-					<!-- <div class="input-row"> -->
-					<div class="input-group">
-						<div>
-							<!--write username text -->
-							<p class="signup-title">USERNAME:</p>
-						  </div>
-						<!-- <label for="username">Username</label> -->
-						<input
-						id="username"
-						placeholder=""
-						name="username"
-						required="true"/>
-					<!-- </div> -->
-					</div>
-					<div class="input-group">
-						<div>
-							<!--write username text -->
-							<p class="signup-title">EMAIL:</p>
-						  </div>
-					<!-- <label for="email">Email</label> -->
-					<input
-						id="email"
-						placeholder="email@example.com"
-						required="true"
-						type="email"
-						name="email"
-					/>
-					</div>
-					<div class="input-group">
-						<div>
-							<!--write username text -->
-							<p class="signup-title">PASSWORD:</p>
-						  </div>
-					<!-- <label for="password">Password</label> -->
-					<input id="password" required="true" type="password" name="password" />
-					</div>
-					<div class="input-group">
-						<div>
-							<!--write username text -->
-							<p class="signup-title">CONFIRM PASSWORD:</p>
-						  </div>
-					<!-- <label for="confirm-password">Confirm Password</label> -->
-					<input
-						id="confirm-password"
-						required="true"
-						type="password"
-						name="password2"
-					/>
-					</div>
-					<p class="signup-error"></p>
-					<button class="signup-btn" type="submit">SIGN UP</button>
-				</div>
-			</form>
-		</div>
-	</div>
+  <div class="signup-container-black">
+    <div class="signup-container-login">
+      <form id="signup-form" method="post">
+        {% csrf_token %}
+        <div class="signup-header">
+          <h2 class="header-title">SIGN UP</h2>
+          <a
+            onclick="loadContent('login/'); return false;"
+            class="signup-description"
+            style="cursor: pointer"
+          >
+            Already have an
+            <span style="text-decoration: underline">account</span> ?
+          </a>
+        </div>
+        <div class="signup-form">
+          <!-- <div class="input-row"> -->
+          <div class="input-group">
+            <div>
+              <!--write username text -->
+              <p class="signup-title">USERNAME:</p>
+            </div>
+            <!-- <label for="username">Username</label> -->
+            <input
+              id="username"
+              placeholder=""
+              name="username"
+              required="true"
+            />
+            <!-- </div> -->
+          </div>
+          <div class="input-group">
+            <div>
+              <!--write username text -->
+              <p class="signup-title">EMAIL:</p>
+            </div>
+            <!-- <label for="email">Email</label> -->
+            <input
+              id="email"
+              placeholder="email@example.com"
+              required="true"
+              type="email"
+              name="email"
+            />
+          </div>
+          <div class="input-group">
+            <div>
+              <!--write username text -->
+              <p class="signup-title">PASSWORD:</p>
+            </div>
+            <!-- <label for="password">Password</label> -->
+            <input
+              id="password"
+              required="true"
+              type="password"
+              name="password"
+            />
+          </div>
+          <div class="input-group">
+            <div>
+              <!--write username text -->
+              <p class="signup-title">CONFIRM PASSWORD:</p>
+            </div>
+            <!-- <label for="confirm-password">Confirm Password</label> -->
+            <input
+              id="confirm-password"
+              required="true"
+              type="password"
+              name="password2"
+            />
+          </div>
+          <p class="signup-error"></p>
+          <button class="signup-btn" type="submit">SIGN UP</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

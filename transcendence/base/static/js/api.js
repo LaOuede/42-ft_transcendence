@@ -1,12 +1,12 @@
 const apiHandler = {
   baseUrl: "/",
 
-  async fetchWithAuth(url, options = {}) {
+  async fetchWithAuth(url, options = {}, type) {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
     const headers = {
-      "Content-Type": "application/json",
+      "Content-Type": type === '' ? "application/json" : type,
       "X-CSRFToken": getCookie("csrftoken"),
       ...options.headers,
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
@@ -16,16 +16,13 @@ const apiHandler = {
 
     try {
       let response = await fetch(fullUrl, { ...options, headers });
-
+      const data = await response.json();
       if (!response.ok || response.status === 401) {
-        console.log('crisse');
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         redirectToLogin();
         throw new Error(data.detail || "Something went wrong");
       }
-
-      const data = await response.json();
 
       return data;
     } catch (error) {
@@ -104,4 +101,3 @@ function getCookie(name) {
 }
 
 window.apiHandler = apiHandler;
-
