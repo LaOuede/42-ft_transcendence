@@ -39,24 +39,14 @@ function initElements(gameInfo) {
 	if (document.getElementById("playerInfo4")) {
 		tags.cards[3] = document.getElementById("playerInfo4") 
 	}
-	console.log(gameInfo.window.width)
 	gameInfo.window.width = document.querySelector('.master').offsetWidth
 	gameInfo.window.height = document.querySelector('.master').offsetHeight - document.querySelector('nav').offsetHeight
+  
 	tags.canvas = document.querySelector("#game")
 
 
 	return tags
 }
-	
-	// const canvas = tags.canvas
-	// const renderer = new THREE.WebGLRenderer( { canvas } );
-	// renderer.shadowMap.enabled = true;
-	// renderer.setSize(gameInfo.window.width - 20, gameInfo.window.height - 20);
-	
-	// const orbit = new OrbitControls(camera, renderer.domElement);
-	// orbit.enablePan = false
-	// orbit.update();
-
 
 function demoLights(){
 	if(!pongObjs.scene.add(pongObjs.lights[0])){
@@ -463,11 +453,11 @@ document.addEventListener("keyup", (event) => {
 
 window.addEventListener("resize", () => {
 
-	navHeight = document.querySelector('nav').offsetHeight;
-	masterHeight = document.querySelector('.master').offsetHeight;
-	masterWidth = document.querySelector('.master').offsetWidth;
-	canvasHeight = masterHeight - navHeight;
-	
+	const navHeight = document.querySelector('nav').offsetHeight;
+	const masterHeight = document.querySelector('.master').offsetHeight;
+	const masterWidth = document.querySelector('.master').offsetWidth;
+  const canvasHeight = masterHeight - navHeight;
+
 	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 20)
 	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
 	pongObjs.camera.updateProjectionMatrix()
@@ -476,7 +466,7 @@ window.addEventListener("resize", () => {
 function changeView() {
 	//vs2 et vs4
 	if (gameInfo.view === 0) {
-		pongObjs.camera.position.set(0, 0, gameInfo.board_size.size * 2);
+		pongObjs.camera.position.set(0, 0, 700);
 		pongObjs.camera.lookAt(0, 0, 0);
 		gameInfo.view = 1;
 	} else {
