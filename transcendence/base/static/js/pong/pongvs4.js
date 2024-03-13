@@ -1,13 +1,13 @@
-import * as THREE from "three";
-
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
 import {initPongObjs} from "./pong_objs.js"
 
-import {gameInfo} from "./pong_var.js"
+import {initGameInfo} from "./pong_var.js"
 // import {tournament, giveTournPoints } from "./tournament.js"
 
-function initElements() {
+let gameInfo = initGameInfo()
+let tags = initElements(gameInfo)
+const pongObjs = initPongObjs(gameInfo, tags)
+
+function initElements(gameInfo) {
 	const tags = {
 		canvas: undefined,
 		scores: [undefined, undefined, undefined, undefined],
@@ -39,33 +39,24 @@ function initElements() {
 	if (document.getElementById("playerInfo4")) {
 		tags.cards[3] = document.getElementById("playerInfo4") 
 	}
+	console.log(gameInfo.window.width)
 	gameInfo.window.width = document.querySelector('.master').offsetWidth
 	gameInfo.window.height = document.querySelector('.master').offsetHeight - document.querySelector('nav').offsetHeight
-	tags.canvas = document.querySelector("#game");
+	tags.canvas = document.querySelector("#game")
 
 
 	return tags
 }
-	let navHeight = document.querySelector('nav').offsetHeight;
-	let masterHeight = document.querySelector('.master').offsetHeight;
-	let masterWidth = document.querySelector('.master').offsetWidth;
-	let canvasHeight = masterHeight - navHeight;
-	const canvas = document.querySelector("#game");
 	
-	const renderer = new THREE.WebGLRenderer({ canvas });
+	// const canvas = tags.canvas
+	// const renderer = new THREE.WebGLRenderer( { canvas } );
+	// renderer.shadowMap.enabled = true;
+	// renderer.setSize(gameInfo.window.width - 20, gameInfo.window.height - 20);
 	
-	renderer.shadowMap.enabled = true;
+	// const orbit = new OrbitControls(camera, renderer.domElement);
+	// orbit.enablePan = false
+	// orbit.update();
 
-	renderer.setSize(masterWidth - 20, canvasHeight - 20);
-
-	const camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / (canvasHeight - 20), 0.1, 500000);
-	camera.position.set(0, -350, 700);
-	const orbit = new OrbitControls(camera, renderer.domElement);
-	orbit.enablePan = false
-	orbit.update();
-
-	const pongObjs = initPongObjs()
-	let tags = initElements()
 
 function demoLights(){
 	if(!pongObjs.scene.add(pongObjs.lights[0])){
@@ -105,7 +96,7 @@ function setDistanceLight(){
 }
 
 function resetGameOver(){
-	tags = initElements()
+	tags = initElements(gameInfo)
 	gameInfo.countDownDone = false
 	defaultPosition()
 	countPlayers()
@@ -131,9 +122,9 @@ function resetGameOver(){
 	}
 	
 	// gameInfo.gameover = false
-	camera.position.set(0, -400, 375)
-	camera.lookAt(0, -75, 0)
-	orbit.enabled = true
+	pongObjs.camera.position.set(0, -400, 375)
+	pongObjs.camera.lookAt(0, -75, 0)
+	// pongObjs.orbit.enabled = true
 
 }
 
@@ -153,9 +144,9 @@ function resetGameDemo(){
 	gameInfo.player_lives[2] = 0
 	gameInfo.player_lives[3] = 0
 	gameInfo.player_count = 0
-	camera.position.set(0, 0, 750)
-	camera.lookAt(0, 0, 0)
-	// orbit.enabled = false
+	pongObjs.camera.position.set(0, 0, 750)
+	pongObjs.camera.lookAt(0, 0, 0)
+	// pongObjs.orbit.enabled = false
 }
 
 function defaultPosition() {
@@ -427,7 +418,7 @@ document.addEventListener("keypress", (event) => {
 			stopGame()
 		}
 		if (event.key === "m") {
-			renderer.setAnimationLoop(animate);
+			pongObjs.renderer.setAnimationLoop(animate);
 	
 		}
 		if (event.key === "j") {
@@ -477,42 +468,42 @@ window.addEventListener("resize", () => {
 	masterWidth = document.querySelector('.master').offsetWidth;
 	canvasHeight = masterHeight - navHeight;
 	
-	renderer.setSize((masterWidth - 20), canvasHeight - 20)
-	camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
-	camera.updateProjectionMatrix()
+	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 20)
+	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
+	pongObjs.camera.updateProjectionMatrix()
 });
 
 function changeView() {
 	//vs2 et vs4
 	if (gameInfo.view === 0) {
-	camera.position.set(0, 0, gameInfo.board_size.size * 2);
-	camera.lookAt(0, 0, 0);
-	gameInfo.view = 1;
+		pongObjs.camera.position.set(0, 0, gameInfo.board_size.size * 2);
+		pongObjs.camera.lookAt(0, 0, 0);
+		gameInfo.view = 1;
 	} else {
-	camera.position.set(0, -400, 375)
-	camera.lookAt(0, -75, 0)
-	gameInfo.view = 0;
+		pongObjs.camera.position.set(0, -400, 375)
+		pongObjs.camera.lookAt(0, -75, 0)
+		gameInfo.view = 0;
 	}
 }
 
 function demoCamPlay(){
-	if(camera.position.x < -400)
+	if(pongObjs.camera.position.x < -400)
 		gameInfo.demoCam.DirX = 1
-	else if(camera.position.x > 400)
+	else if(pongObjs.camera.position.x > 400)
 		gameInfo.demoCam.DirX = -1
-	if(camera.position.y != 0)
-		camera.position.y
-	else if(camera.position.y > 210)
+	if(pongObjs.camera.position.y != 0)
+		pongObjs.camera.position.y
+	else if(pongObjs.camera.position.y > 210)
 	gameInfo.demoCam.DirY = -1
-	camera.position.x += (0.4 * gameInfo.demoCam.DirX)
-	// camera.position.y += (0.1 * gameInfo.demoCam.DirY)
-	camera.lookAt(0, 0, 0)
+	pongObjs.camera.position.x += (0.4 * gameInfo.demoCam.DirX)
+	// pongObjs.camera.position.y += (0.1 * gameInfo.demoCam.DirY)
+	pongObjs.camera.lookAt(0, 0, 0)
 }
 
 function camLimiter(){
-	if(camera.position.length() > 10000){camera.position.setLength(10000);}
-	if(camera.position.length() < 200){camera.position.setLength(200);}
-	camera.updateProjectionMatrix();
+	if(pongObjs.camera.position.length() > 10000){pongObjs.camera.position.setLength(10000);}
+	if(pongObjs.camera.position.length() < 200){pongObjs.camera.position.setLength(200);}
+	pongObjs.camera.updateProjectionMatrix();
 }
 
 function animate() {
@@ -522,7 +513,7 @@ function animate() {
 		ballPhysic();
 	}
 	camLimiter()
-	renderer.render(pongObjs.scene, camera);
+	pongObjs.renderer.render(pongObjs.scene, pongObjs.camera);
 	if(gameInfo.demoCam.enabled === true)
 		demoCamPlay()
 	// console.log("running")
@@ -541,7 +532,7 @@ function playGameV2(){
 	resetGameOver()
 	gameInfo.demoCam.enabled = false
 	gameInfo.countDownDone = false
-	renderer.setAnimationLoop(animate);
+	pongObjs.renderer.setAnimationLoop(animate);
 }
 
 function playGameV4(){	
@@ -551,7 +542,7 @@ function playGameV4(){
 	resetGameOver()
 	gameInfo.demoCam.enabled = false
 	gameInfo.countDownDone = false
-	renderer.setAnimationLoop(animate);
+	pongObjs.renderer.setAnimationLoop(animate);
 }
 
 function playDemo(){
@@ -561,15 +552,15 @@ function playDemo(){
 		gameInfo.player_lives = [0, 0, 0, 0]
 		resetGameDemo()
 		demoLights()
-		renderer.setAnimationLoop(animate);
+		pongObjs.renderer.setAnimationLoop(animate);
 	}
 }
 
 function stopGame(){
 	gameInfo.demoCam.enabled = false
-	renderer.setAnimationLoop(null)
+	pongObjs.renderer.setAnimationLoop(null)
 }
-initElements()
-initPongObjs()
+initElements(gameInfo)
+initPongObjs(gameInfo, tags)
 
 export { playGameV2, playGameV4, stopGame, playDemo }

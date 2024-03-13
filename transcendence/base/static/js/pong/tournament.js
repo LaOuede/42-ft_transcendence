@@ -1,5 +1,5 @@
 import { playGameV2, playGameV4, stopGame, playDemo} from "../pong/pongvs4.js"
-import { gameInfo } from "../pong/pong_var.js"
+import { initGameInfo } from "../pong/pong_var.js"
 
 let btStartTourn = document.querySelector("#startTourn")
 let inputTournLength = document.querySelector("#tournLength")

@@ -1,8 +1,8 @@
 import * as THREE from "three";
 
-import {gameInfo} from "./pong_var.js"
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-export function initPongObjs(){
+export function initPongObjs(gameInfo, tags){
 	
 	const pongObjs = {
 		orbit: undefined,
@@ -27,7 +27,22 @@ export function initPongObjs(){
 	// pongObjs.orbit.enablePan = false
 	// pongObjs.orbit.update();
 
+	//RENDERER
+	const canvas = tags.canvas
+	pongObjs.renderer = new THREE.WebGLRenderer( { canvas } )
+	pongObjs.renderer.shadowMap.enabled = true;
+	pongObjs.renderer.setSize(gameInfo.window.width - 20, gameInfo.window.height - 20);
 
+	//CAMERA
+	pongObjs.camera = new THREE.PerspectiveCamera(45, (gameInfo.window.width - 20 ) / (gameInfo.window.height - 20), 0.1, 500000);
+	pongObjs.camera.position.set(0, -350, 700);
+
+	//ORBIT
+	pongObjs.orbit = new OrbitControls(pongObjs.camera, pongObjs.renderer.domElement);
+	pongObjs.orbit.enablePan = false
+	pongObjs.orbit.update();
+
+	//SCENE
 	pongObjs.scene = new THREE.Scene();
 	
 	//SKY
