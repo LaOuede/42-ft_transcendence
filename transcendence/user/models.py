@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	username = models.CharField(max_length=30, unique=True)
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=100, default='pass')
-	avatar = models.ImageField(upload_to='avatars/', blank=True, null=True) #blank=True need to be removed because an avatar is always required
+	avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
 	activity = models.CharField(max_length=2, choices=ACTIVITY_CHOICES, default=OFFLINE)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)

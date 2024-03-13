@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.core.validators import RegexValidator, EmailValidator
+from django.core.files.storage import default_storage
 from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,9 +29,18 @@ class UserSerializer(serializers.ModelSerializer):
 			raise serializers.ValidationError("Email already exists.")
 		return value
 
-# For API purpose :
-# {
-#     "username": "testuser",
-#     "password": "testpassword",
-#     "email": "test@example.com"
-# }
+	def update(self, instance, validated_data):
+		if 'avatar' in validated_data:
+			if instance.avatar:
+				avatar_path = instance.avatar.path
+				if default_storage.exists(avatar_path):
+					default_storage.delete(avatar_path)
+			instance.avatar = validated_data.get('avatar', instance.avatar)
+		instance.username = validated_data.get('username', instance.username)
+		instance.email = validated_data.get('email', instance.email)
+		# Handle other fields as necessary
+
+		instance.save()
+		return instance
+
+

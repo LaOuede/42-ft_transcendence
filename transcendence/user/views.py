@@ -79,9 +79,27 @@ def UserProfile(request):
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		serializer = UserSerializer(user)
-		print(serializer.data)
 		return render(request, 'profile.html', {"user": serializer.data})
 	return render(request, "base.html", {"content": "login.html"})
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+def settingsView(request):
+	if is_ajax(request):
+		return render(request, 'settings.html', {"content": "settings.html"})
+	return render(request, "base.html", {"content": "login.html"})
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+def update_profile(request):
+    user = get_user_from_token(request)
+    if user is None:
+        return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
+    serializer = UserSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+    return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
@@ -95,6 +113,5 @@ def toggle2FA(request):
 		elif (not user.twoFA):
 			user.twoFA = True
 		user.save()
-		print(user.twoFA)
 		return JsonResponse({"success": "2FA enabled", "twoFA": user.twoFA}, status=200)
 	return JsonResponse({"error": "Invalid request"}, status=400)

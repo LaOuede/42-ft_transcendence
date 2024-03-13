@@ -1,14 +1,8 @@
 {% load static %}
 <div class="edit-profile-container">
-  <button id="settings-button" type="button" class="btn btn-primary">
-    Settings
+  <button id="view-settings-button" type="button" class="btn btn-primary">
+    Profile Settings
   </button>
-  <div class="settings-container">
-    <h1>Settings</h1>
-    <button id="enable-2fa-button" type="button" class="btn btn-primary">
-      {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
-    </button>
-  </div>
   <div class="profile-container">
     <div class="profile-container-black">
       <div class="profile-container-login">
@@ -16,7 +10,11 @@
           <h2 class="header-title">PROFILE</h2>
           <div class="profile-container-content">
             {% if user %}
-            <img src="{{ user.avatar }}" alt="User Avatar" />
+            <img
+              id="profile-container-avatar"
+              src="{{ user.avatar }}"
+              alt="User Avatar"
+            />
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             {% else %}
