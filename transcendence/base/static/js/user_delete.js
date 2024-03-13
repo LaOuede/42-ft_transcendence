@@ -20,7 +20,7 @@ function deleteAccount() {
 			console.log("Account suppressed", data);
 			document.querySelector(".is-signed-in").style.display = "none";
 			document.querySelector(".not-signed-in").style.display = "flex";
-			window.loadContent("login/");
+			window.loadContent("auth/login/");
 		})
 		.catch((error) => console.error("Error during deletion process:", error));
 }

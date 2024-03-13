@@ -1,13 +1,5 @@
 from django.urls import path
-from pong.views import (
-	pong,
-	play,
-	onevsone,
-	rumble,
-	playonevsone,
-	playrumble,
-	tournaments,
-)
+from pong.views import pong, play, onevsone, rumble, playonevsone, playrumble, tournaments
 
 urlpatterns = [
 	path("play/", play, name="play"),

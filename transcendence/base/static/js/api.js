@@ -57,7 +57,7 @@ const apiHandler = {
 };
 
 async function refreshAccessToken(refreshToken) {
-  const response = await fetch("/token/refresh/", {
+  const response = await fetch("/auth/token/refresh/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -82,12 +82,12 @@ function storeTokens({ access, refresh }) {
 function redirectToLogin() {
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";
-  window.loadContent("login/");
+  window.loadContent("auth/login/");
 }
 
 function getCookie(name) {
   let cookieValue = null;
-  if (document.cookie && document.cookie !== "") {
+  if (document.cookie && document.cookie !== "base/") {
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
