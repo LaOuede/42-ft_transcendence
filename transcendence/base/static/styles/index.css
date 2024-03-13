@@ -808,8 +808,8 @@ h5 {
 }
 
 #profile-container-avatar {
-	width: 5rem;
-	height: 5rem;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 50%;
 }
 
@@ -971,3 +971,4 @@ select {
   option[value="purple"] { background-color: purple; }
   option[value="black"] { background-color: black; }
   option[value="white"] { background-color: white; color: black; }
+}

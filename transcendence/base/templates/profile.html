@@ -6,21 +6,33 @@
   <div class="profile-container">
     <div class="profile-container-black">
       <div class="profile-container-login">
+        {% csrf_token %} {% load static %}
         <div class="signup-header">
           <h2 class="header-title">PROFILE</h2>
-          <div class="profile-container-content">
-            {% if user %}
-            <img
-              id="profile-container-avatar"
-              src="{{ user.avatar }}"
-              alt="User Avatar"
-            />
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            {% else %}
-            <p>No user data available.</p>
-            {% endif %}
+          {% if user_data %}
+          <img src="{{ user_data.avatar }}" alt="User Avatar" width="150" />
+
+          <!-- CSS à faire :) -->
+          <p style="color: white">
+            <strong>Username:</strong> {{ user_data.username }}
+          </p>
+          <p style="color: white">
+            <strong>Email:</strong> {{ user_data.email }}
+          </p>
+          <p style="color: white">
+            <strong>Status:</strong> {{ user_data.activity }}
+          </p>
+          <p style="color: white"><strong>Statistics:</strong></p>
+          <p style="color: white"><strong>Game history:</strong></p>
+
+          <div id="delete">
+            <button id="button-delete-user" type="button">
+              Delete my account
+            </button>
           </div>
+          {% else %}
+          <p>No user data available.</p>
+          {% endif %}
         </div>
       </div>
     </div>

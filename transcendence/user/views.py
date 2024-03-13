@@ -84,7 +84,6 @@ def UserProfile(request):
 		user = get_user_from_token(request)
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
-
 		activity_display = user.get_activity_display()
 		serializer = UserSerializer(user)
 		user_data = serializer.data

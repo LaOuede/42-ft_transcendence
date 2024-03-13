@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       window.loadContent("settings/");
     }
     if (e.target && e.target.id === "view-profile-button") {
-      window.loadContent("profile/");
+      window.loadContent("user/profile/");
     }
     if (e.target && e.target.id === "enable-2fa-button") {
       handle2FA();
@@ -66,7 +66,7 @@ async function handleUpdateProfile() {
   }
 
   try {
-    await window.apiHandler.post("users/update/", formData);
+    await window.apiHandler.post("user/update/", formData);
   } catch (error) {
     console.error("ERROR UPDATING PROFILE", error);
     handleUpdateProfileErrors(error);
