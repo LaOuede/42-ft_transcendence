@@ -9,6 +9,7 @@ import {gameInfo} from "./pong_var.js"
 
 function initElements() {
 	const tags = {
+		canvas: undefined,
 		scores: [undefined, undefined, undefined, undefined],
 		cards: [undefined, undefined, undefined, undefined],
 	}
@@ -38,12 +39,17 @@ function initElements() {
 	if (document.getElementById("playerInfo4")) {
 		tags.cards[3] = document.getElementById("playerInfo4") 
 	}
+	gameInfo.window.width = document.querySelector('.master').offsetWidth
+	gameInfo.window.height = document.querySelector('.master').offsetHeight - document.querySelector('nav').offsetHeight
+	tags.canvas = document.querySelector("#game");
+
+
 	return tags
 }
 	let navHeight = document.querySelector('nav').offsetHeight;
 	let masterHeight = document.querySelector('.master').offsetHeight;
 	let masterWidth = document.querySelector('.master').offsetWidth;
-	let canvasHeight = masterHeight;
+	let canvasHeight = masterHeight - navHeight;
 	const canvas = document.querySelector("#game");
 	
 	const renderer = new THREE.WebGLRenderer({ canvas });
@@ -471,8 +477,8 @@ window.addEventListener("resize", () => {
 	masterWidth = document.querySelector('.master').offsetWidth;
 	canvasHeight = masterHeight - navHeight;
 	
-	renderer.setSize((masterWidth - 20), canvasHeight +20)
-	camera.aspect = (masterWidth - 20) / (canvasHeight + 20)
+	renderer.setSize((masterWidth - 20), canvasHeight - 20)
+	camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
 	camera.updateProjectionMatrix()
 });
 
@@ -563,7 +569,7 @@ function stopGame(){
 	gameInfo.demoCam.enabled = false
 	renderer.setAnimationLoop(null)
 }
-initPongObjs()
 initElements()
+initPongObjs()
 
 export { playGameV2, playGameV4, stopGame, playDemo }
