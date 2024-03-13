@@ -1,25 +1,11 @@
-"""
-URL configuration for transcendence project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-	https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-	1. Add an import:  from my_app import views
-	2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-	1. Add an import:  from other_app.views import Home
-	2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-	1. Import the include() function: from django.urls import include, path
-	2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from django.contrib import admin
 from custom_auth import views as custom_auth_views
 from base import views as base_views
 from custom_auth.views import login, register, logout, otp_view
+from user.views import settingsView
 from games_history.views import CreateGame, GameGetOne, GameGetAll, GameDelete, GameUpdate
 from pong.views import pong
 
@@ -40,6 +26,7 @@ urlpatterns = [
     path("verify-otp/", custom_auth_views.verify_otp, name="verify_otp"),
     path("admin/", admin.site.urls, name="admin"),
     path('user/', include('user.urls')),
+    path('settings/', settingsView, name='settings'),
     path("", base_views.index, name="index"),
     path("play/", base_views.play, name="play"),
     path("onevsone/", base_views.onevsone, name="onevsone"),
@@ -52,4 +39,4 @@ urlpatterns = [
     path("play/games/", GameGetAll.as_view(), name="games-all"),
     path("play/<int:game_id>/delete/", GameDelete.as_view(), name="game-delete"),
     path("play/<int:game_id>/update/", GameUpdate.as_view(), name="game-update"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

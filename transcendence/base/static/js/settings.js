@@ -1,32 +1,22 @@
-console.log("settings.js");
 document.addEventListener("DOMContentLoaded", function (e) {
   document.addEventListener("click", function (e) {
-    if (e.target && e.target.id === "settings-button") {
-      console.log("Settings");
-      handleSettings();
+    if (e.target && e.target.id === "view-settings-button") {
+      window.loadContent("settings/");
+    }
+    if (e.target && e.target.id === "view-profile-button") {
+      window.loadContent("profile/");
     }
     if (e.target && e.target.id === "enable-2fa-button") {
       handle2FA();
     }
   });
+  document.addEventListener("submit", function (e) {
+    if (e.target && e.target.id === "profile-update-form") {
+      e.preventDefault();
+      handleUpdateProfile();
+    }
+  });
 });
-
-function handleSettings() {
-  const profileContainer = document.querySelector(
-    ".edit-profile-container .profile-container"
-  );
-  const settingsContainer = document.querySelector(
-    ".edit-profile-container .settings-container"
-  );
-
-  if (profileContainer.style.display === "none") {
-    profileContainer.style.display = "block";
-    settingsContainer.style.display = "none";
-  } else {
-    profileContainer.style.display = "none";
-    settingsContainer.style.display = "block";
-  }
-}
 
 async function handle2FA() {
   window.apiHandler
@@ -45,4 +35,52 @@ async function handle2FA() {
       }
     })
     .catch((error) => console.error("ERROR TOGGLE 2FA", error));
+}
+
+async function handleUpdateProfile() {
+  const username = document.getElementById("username-update").value;
+  const avatarFile = document.getElementById("avatar-upload").files[0];
+  const email = document.getElementById("email-update").value;
+
+  if (!avatarFile && !username && !email) {
+    console.log("No changes detected. No update needed.");
+    return;
+  }
+  const formData = new FormData();
+
+  // Append the avatar file to formData only if a file has been uploaded
+  if (avatarFile) {
+    const avatarFileType = avatarFile.type;
+    if (!avatarFileType.startsWith("image")) {
+      handleUpdateProfileErrors("Invalid file type. Please upload an image.");
+      return;
+    }
+    formData.append("avatar", avatarFile);
+  }
+  if (email) {
+    formData.append("email", email);
+  }
+  // Append the username to formData only if it has been changed
+  if (username) {
+    formData.append("username", username);
+  }
+
+  try {
+    await window.apiHandler.post("users/update/", formData);
+  } catch (error) {
+    console.error("ERROR UPDATING PROFILE", error);
+    handleUpdateProfileErrors(error);
+  }
+  document.getElementById("profile-update-form").reset();
+}
+
+function handleUpdateProfileErrors(error) {
+  const errorMessage = document.querySelector(
+    ".settings-container #profile-update-errors"
+  );
+  errorMessage.innerHTML = error;
+  errorMessage.style.display = "block";
+  setTimeout(() => {
+    errorMessage.style.display = "none";
+  }, 3000);
 }
