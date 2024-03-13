@@ -27,10 +27,3 @@ class UserSerializer(serializers.ModelSerializer):
 		if User.objects.filter(email=value).exists():
 			raise serializers.ValidationError("Email already exists.")
 		return value
-
-# For API purpose :
-# {
-#     "username": "testuser",
-#     "password": "testpassword",
-#     "email": "test@example.com"
-# }

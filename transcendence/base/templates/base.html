@@ -39,12 +39,8 @@
           <div class="main-nav-links">
             <a href="#" onclick="loadContent(''); return false;">HOME</a>
             <a href="#" onclick="loadContent('play/'); return false;">PLAY</a>
-            <a href="#" onclick="loadContent('profile/'); return false;"
-              >PROFILE</a
-            >
-            <a href="#" onclick="loadContent('tournaments/'); return false;"
-              >TOURNAMENTS</a
-            >
+            <a href="#" onclick="loadContent('user/profile/'); return false;">PROFILE</a>
+            <a href="#" onclick="loadContent('tournaments/'); return false;">TOURNAMENTS</a>
           </div>
           <div id="logout-div">
             <a href="#">LOGOUT</a>
@@ -133,13 +129,10 @@
   {% load static %}
   <script src="{% static 'js/nav.js' %}" type="module" defer></script>
   <script src="{% static 'js/api.js' %}" type="module" defer></script>
+  <script src="{% static 'js/profile.js' %}" type="module" defer></script>
   <script src="{% static 'js/settings.js' %}" type="module" defer></script>
   <script src="{% static 'js/auth.js' %}" type="module" defer></script>
-  <script
-    src="{% static 'js/pong/pong_light.js' %}"
-    type="module"
-    defer
-  ></script>
+  <script src="{% static 'js/pong/pong_light.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_obj.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pongvs4.js' %}" type="module" defer></script>

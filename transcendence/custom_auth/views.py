@@ -157,6 +157,7 @@ def verify_otp(request):
             else:
                 tokens = get_tokens_for_user(user)
                 otp_session.delete()
+                change_user_status(user, "ON")
                 return JsonResponse({"token": tokens, "success": "User is logged in."}, status=200)
         else:
             return JsonResponse({"error": "Invalid session or session expired."}, status=401)
@@ -181,7 +182,6 @@ def register(request):
 
         if username and password and email:
             user = User.objects.create_user(email, username, password)
-            user.avatar = 'static/avatars/default_avatar.jpg'
             user.save()
             if user:
                 change_user_status(user, "ON")

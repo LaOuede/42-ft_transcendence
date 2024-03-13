@@ -30,7 +30,7 @@ function handleSettings() {
 
 async function handle2FA() {
   window.apiHandler
-    .post("users/toggle-2fa/")
+    .post('user/toggle-2fa/')
     .then((data) => {
       if (data.twoFA !== undefined) {
         console.log("2FA", data.twoFA);

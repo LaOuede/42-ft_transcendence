@@ -71,20 +71,42 @@ class UserUpdate(APIView):
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+def get_activity_display(self):
+	for code, label in activity_enum:
+		if code == self.activity:
+			return label
+	return 'Unknown'
+
+@api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 def UserProfile(request):
 	if is_ajax(request):
 		user = get_user_from_token(request)
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
+
+		activity_display = user.get_activity_display()
 		serializer = UserSerializer(user)
-		return render(request, 'profile.html', {"user": serializer.data})
+		user_data = serializer.data
+		user_data['activity'] = activity_display
+		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
-def toggle2FA(request):
+def UserDelete(request):
+	if request.method == "POST":
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		user.delete()
+		return JsonResponse({"success": "Account suppressed successfully"}, status=200)
+	else:
+		return JsonResponse({"error": "Invalid request"}, status=400)
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+def UserToggle2FA(request):
 	if request.method == "POST":
 		user = get_user_from_token(request)
 		if user is None:
