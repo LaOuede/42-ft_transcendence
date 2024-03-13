@@ -1,4 +1,4 @@
-console.log("settings.js");
+
 document.addEventListener("DOMContentLoaded", function (e) {
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "settings-button") {

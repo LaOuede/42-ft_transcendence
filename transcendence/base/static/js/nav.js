@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const token = localStorage.getItem("accessToken");
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
-  console.log(token);
   if (!token) {
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
