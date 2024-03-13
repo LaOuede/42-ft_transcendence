@@ -14,18 +14,6 @@ export function initPongObjs(gameInfo, tags){
 		paddles: [undefined, undefined, undefined, undefined],
 		lights: [undefined, undefined, undefined, undefined],
 	}
-	
-	// const canvas = document.querySelector("#game");
-	// pongObjs.renderer = new THREE.WebGLRenderer({ canvas });
-	// pongObjs.renderer.shadowMap.enabled = true;
-
-	// pongObjs.renderer.setSize(masterWidth - 20, canvasHeight - 20);////////////
-
-	// pongObjs.camera = new THREE.PerspectiveCamera(45, (masterWidth - 20 ) / (canvasHeight - 20), 0.1, 500000);/////////
-	// pongObjs.camera.position.set(0, -350, 700);
-	// pongObjs.orbit = new OrbitControls(pongObjs.camera, pongObjs.renderer.domElement);
-	// pongObjs.orbit.enablePan = false
-	// pongObjs.orbit.update();
 
 	//RENDERER
 	const canvas = tags.canvas
