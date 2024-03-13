@@ -1,0 +1,24 @@
+{% load static %}
+<div class="edit-profile-container">
+  <button id="view-profile-button" type="button" class="btn btn-primary">
+    View Profile
+  </button>
+  <div class="settings-container">
+    <h1>Settings</h1>
+    <button id="enable-2fa-button" type="button" class="btn btn-primary">
+      {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
+    </button>
+    <div class="">
+      <form id="profile-update-form" enctype="multipart/form-data">
+        <label for="avatar-upload">Upload Avatar:</label>
+        <input type="file" id="avatar-upload" name="avatar" />
+        <label for="username">Username: </label>
+        <input type="text" id="username-update" name="username-update" />
+        <label for="email">Email: </label>
+        <input type="text" id="email-update" name="email-update" />
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </form>
+      <p id="profile-update-errors"></p>
+    </div>
+  </div>
+</div>

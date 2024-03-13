@@ -162,5 +162,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),  # Access token expiration time in days'
     "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
 }
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = "user.User"

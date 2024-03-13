@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
   });
 });
 
-console.log(window);
-
 // login function
 function handleLogin(e) {
   e.preventDefault();
@@ -55,6 +53,10 @@ function handleLogin(e) {
         loader.style.display = "none";
         return;
       }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      loader.style.display = "none";
     });
 }
 
@@ -125,7 +127,9 @@ function handleWrongCredentials(error) {
   console.log("Error:", error);
 
   let formInputs = document.querySelectorAll(".signup-form .input-group input");
-  let loginErrorMessage = document.querySelector(".signup-form .login-error-message");
+  let loginErrorMessage = document.querySelector(
+    ".signup-form .login-error-message"
+  );
   let errorContainer = document.querySelector(".signup-form .error-container");
 
   // Réinitialisez tous les styles d'entrée d'abord
@@ -243,7 +247,9 @@ function handleSignup(e) {
 
 function handleSignupError(data) {
   // Reset all input styles first
-  const formInputs = document.querySelectorAll(".signup-form .input-group input");
+  const formInputs = document.querySelectorAll(
+    ".signup-form .input-group input"
+  );
   formInputs.forEach((input) => {
     input.style.borderColor = "";
   });
@@ -259,13 +265,19 @@ function handleSignupError(data) {
 
     // Highlight the corresponding input based on the error type
     if (data.error.includes("Username")) {
-      const usernameInput = document.querySelector(".signup-form input[name='username']");
+      const usernameInput = document.querySelector(
+        ".signup-form input[name='username']"
+      );
       highlightErrorInput(usernameInput);
     } else if (data.error.includes("Email")) {
-      const emailInput = document.querySelector(".signup-form input[name='email']");
+      const emailInput = document.querySelector(
+        ".signup-form input[name='email']"
+      );
       highlightErrorInput(emailInput);
     } else if (data.error.includes("password")) {
-      const passwordInputs = document.querySelectorAll(".signup-form input[type='password']");
+      const passwordInputs = document.querySelectorAll(
+        ".signup-form input[type='password']"
+      );
       passwordInputs.forEach((input) => highlightErrorInput(input));
     } // You can add more conditions here for other fields if necessary
 

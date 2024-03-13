@@ -404,6 +404,8 @@ h5 {
 .profile-infos {
 	color: #00FAFA;
 	display: flex;
+.profile-container-content {
+	color: #fff;
 }
 
 .onevsone-container {
@@ -424,6 +426,8 @@ h5 {
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
+
+
 
 .onevsone-container-black {
 	display: flex;
@@ -803,6 +807,18 @@ h5 {
     justify-content: center;
 }
 
+#profile-container-avatar {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+}
+
+#profile-update-errors {
+	color: red;
+	font-size: 0.875rem;
+	opacity:  0.9;
+}
+
 .settings-container {
     display: flex;
 	flex-direction: column;
@@ -822,6 +838,38 @@ h5 {
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
 
+.avatar-upload-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  
+.avatar-upload-btn {
+cursor: pointer;
+background-color: #f0f0f0; /* Light grey background, you can change it */
+border: 2px dashed #dcdcdc; /* Dashed border, you can change it */
+border-radius: 50%; /* This makes it round */
+width: 100px; /* Diameter of the circle */
+height: 100px; /* Diameter of the circle */
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+position: relative;
+}
+
+.avatar-upload-btn::after {
+content: '+';
+font-size: 24px; /* Adjust the size of the plus icon */
+color: #888; /* Color of the plus icon */
+}
+
+/* Optional: Style to change the appearance when hovering over the button */
+.avatar-upload-btn:hover {
+background-color: #e0e0e0; /* Slightly darker background on hover */
+}
+  
 
 /* ---------------------------------------------------------------------- */
 /* ----------------------------------- LOBBY ----------------------------------- */
@@ -923,3 +971,4 @@ select {
   option[value="purple"] { background-color: purple; }
   option[value="black"] { background-color: black; }
   option[value="white"] { background-color: white; color: black; }
+}
