@@ -65,11 +65,13 @@ function demoLights(){
 	if(!pongObjs.scene.add(pongObjs.lights[0])){
 		pongObjs.scene.add(pongObjs.lights[0])
 		pongObjs.lights[0].distance = 800
+		pongObjs.lights[0].color = 0x00ff00
+
 	}
 	if(!pongObjs.scene.add(pongObjs.lights[1])){
 		pongObjs.scene.add(pongObjs.lights[1])
 		pongObjs.lights[1].distance = 800
-
+		pongObjs.lights[1].color = 0xffffFF
 	}
 
 }
@@ -106,13 +108,13 @@ function resetGameOver(){
 			if(!pongObjs.scene.add(pongObjs.paddles[i]))
 				pongObjs.scene.add(pongObjs.paddles[i])
 			if(!pongObjs.scene.add(pongObjs.lights[i])){
-				pongObjs.lights[i].color = gameInfo.colors[i]
 				pongObjs.scene.add(pongObjs.lights[i])
 			}
+			pongObjs.lights[i].color.set(gameInfo.colors[i])
 			pongObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
 			tags.cards[i].style.display = "block"
-			tags.cards[i].style.backgroundColor = "#" + gameInfo.colors[i]
+			tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
 			tags.scores[i].textContent = gameInfo.player_lives[i]
 		} else {
 			pongObjs.scene.remove(pongObjs.paddles[i])

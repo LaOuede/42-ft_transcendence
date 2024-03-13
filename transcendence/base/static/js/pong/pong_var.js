@@ -16,7 +16,7 @@ let gameInfo = {
 	view: 0,
 	level: 3,
 	level_inc: 0.5,
-	colors: [0x0000ff, 0xffff00, 0xffff00, 0x00ffff]
+	colors: ["#ff0000", "#ff00ff", "#00ff00", "#ffff00"]
 };
 
 export {gameInfo}
