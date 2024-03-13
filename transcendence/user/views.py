@@ -113,6 +113,7 @@ def update_profile(request):
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserDelete(request):
+	print("request: ", request.method)
 	if request.method == "POST":
 		user = get_user_from_token(request)
 		if user is None:
