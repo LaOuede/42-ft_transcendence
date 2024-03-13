@@ -94,7 +94,19 @@ def UserProfile(request):
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
-def toggle2FA(request):
+def UserDelete(request):
+	if request.method == "POST":
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		user.delete()
+		return JsonResponse({"success": "Account suppressed successfully"}, status=200)
+	else:
+		return JsonResponse({"error": "Invalid request"}, status=400)
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+def UserToggle2FA(request):
 	if request.method == "POST":
 		user = get_user_from_token(request)
 		if user is None:
