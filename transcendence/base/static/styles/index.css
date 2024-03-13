@@ -401,6 +401,10 @@ h5 {
 	width: 100%; /* Adjust the width as needed */
 }
 
+.profile-container-content {
+	color: #fff;
+}
+
 .onevsone-container {
 	display: flex;
 	flex-direction: column;
@@ -419,6 +423,8 @@ h5 {
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 }
+
+
 
 .onevsone-container-black {
 	display: flex;

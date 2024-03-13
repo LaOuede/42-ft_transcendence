@@ -6,7 +6,7 @@ const apiHandler = {
     const refreshToken = localStorage.getItem("refreshToken");
 
     const headers = {
-      "Content-Type": type === '' ? "application/json" : type,
+      "Content-Type": "application/json",
       "X-CSRFToken": getCookie("csrftoken"),
       ...options.headers,
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),

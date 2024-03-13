@@ -79,6 +79,7 @@ def UserProfile(request):
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		serializer = UserSerializer(user)
+		print(serializer.data)
 		return render(request, 'profile.html', {"user": serializer.data})
 	return render(request, "base.html", {"content": "login.html"})
 
