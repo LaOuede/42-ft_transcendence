@@ -23,29 +23,26 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
 
 	objects = UserManager()
-	
+
 	def natural_key(self):
 		return (self.username,)
 	
-	ONLINE = 'ON'
-	IN_GAME = 'IG'
-	OFFLINE = 'OF'
-	UNAVAILABLE = 'UN'
-
-	ACTIVITY_CHOICES = [
-		(ONLINE, 'En ligne'),
-		(IN_GAME, 'En partie'),
-		(OFFLINE, 'Hors ligne'),
-		(UNAVAILABLE, 'Indisponible')
+	activity_enum = [
+		('ON', 'En ligne 🟢'),
+		('IG', 'En partie 🟣'),
+		('OF', 'Hors ligne 🔴'),
+		('UN', 'Indisponible 🟡')
 	]
 
 	username = models.CharField(max_length=30, unique=True)
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=100, default='pass')
-	avatar = models.ImageField(upload_to='avatars/', blank=True, null=True) #blank=True need to be removed because an avatar is always required
-	activity = models.CharField(max_length=2, choices=ACTIVITY_CHOICES, default=OFFLINE)
+	activity = models.CharField(max_length=2, choices=activity_enum, default='OF')
+	avatar = models.ImageField(upload_to='avatars/', default='static/avatars/default_avatar.jpg', blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
+	otp = models.CharField(max_length=6, blank=True, null=True)
+	otp_expiry_time = models.DateTimeField(blank=True, null=True)
 
 	# Fields that we may need :
 	# nickname = models.CharField(max_length=30, unique=True)
@@ -73,4 +70,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 	REQUIRED_FIELDS = ['password', 'email']
 
 	def __str__(self):
-		return self.user.username + ' User'	
+		return self.username + ' User'

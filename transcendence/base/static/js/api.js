@@ -1,12 +1,16 @@
 const apiHandler = {
   baseUrl: "/",
 
-  async fetchWithAuth(url, options = {}) {
+  async fetchWithAuth(url, options = {}, type) {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 
+    // Check if the body is FormData, to handle file uploads
+    const isFormData = options.body instanceof FormData;
+
     const headers = {
-      "Content-Type": "application/json",
+      // Set 'Content-Type' to 'application/json' only if the body is not FormData
+      ...(!isFormData && { "Content-Type": "application/json" }),
       "X-CSRFToken": getCookie("csrftoken"),
       ...options.headers,
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
@@ -15,21 +19,24 @@ const apiHandler = {
     const fullUrl = `${this.baseUrl}${url}`;
 
     try {
-      let response = await fetch(fullUrl, { ...options, headers });
-
+      let response = await fetch(fullUrl, {
+        ...options,
+        headers: headers,
+        // When body is FormData, let the browser set the Content-Type header
+        // This is necessary for the boundary parameter to be set correctly in multipart/form-data
+        body: isFormData ? options.body : JSON.stringify(options.body),
+      });
+      const data = await response.json();
       if (!response.ok || response.status === 401) {
-        console.log('crisse');
-        localStorage.removeItem("accessToken");
+        /* localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        redirectToLogin();
+        redirectToLogin(); */
         throw new Error(data.detail || "Something went wrong");
       }
 
-      const data = await response.json();
-
       return data;
     } catch (error) {
-      console.error("API request error:", error);
+      console.error("ERROR UPDATING PROFILE", error);
       throw error;
     }
   },
@@ -38,17 +45,19 @@ const apiHandler = {
     return this.fetchWithAuth(url);
   },
 
-  post(url, body) {
+  post(url, body, options = {}) {
     return this.fetchWithAuth(url, {
       method: "POST",
-      body: JSON.stringify(body),
+      body: body,
+      ...options,
     });
   },
 
-  put(url, body) {
+  put(url, body, options = {}) {
     return this.fetchWithAuth(url, {
       method: "PUT",
-      body: JSON.stringify(body),
+      body: body,
+      ...options,
     });
   },
 
@@ -104,4 +113,3 @@ function getCookie(name) {
 }
 
 window.apiHandler = apiHandler;
-

@@ -289,7 +289,7 @@ function goalDetection() {
 		// tournament()
 	}
 }
-  
+
 function sideRebound() {
 	if (pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
 		gameInfo.ball_att.dirX = 1;
