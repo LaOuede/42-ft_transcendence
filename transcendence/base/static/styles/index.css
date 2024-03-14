@@ -404,6 +404,8 @@ h5 {
 .profile-infos {
 	color: #00FAFA;
 	display: flex;
+}
+
 .profile-container-content {
 	color: #fff;
 }
@@ -971,4 +973,3 @@ select {
   option[value="purple"] { background-color: purple; }
   option[value="black"] { background-color: black; }
   option[value="white"] { background-color: white; color: black; }
-}

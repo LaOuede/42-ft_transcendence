@@ -1,14 +1,12 @@
 /*PONG*/
 #pong {
 	/* border:  solid greenyellow; */
-	position: relative;
-	width: 100%;
-	height: 100%;
-	/* display: none; */
+	/* position: absolute; */
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 0;
-	top: 65px;
+	margin-top: 3%;
+	/* top: 65px; */
 }
 
 #pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4 {
@@ -30,29 +28,29 @@
 
 #pong #playerInfo1 {
 	display: none;
-	bottom: 0;
-	left: 5%;
+	bottom: 3%;
+	left: 2%;
 	background-color: #69327A66;
 }
 
 #pong #playerInfo2 {
 	display: none;
-	top: 0;
-	right: 5%;
+	top: 7%;
+	right: 2%;
 	background-color: #249DC666;
 }
 
 #pong #playerInfo3 {
 	display: none;
-	top: 0;
-	left: 5%;
+	top: 7%;
+	left: 2%;
 	background-color: #ffff0066;
 }
 
 #pong #playerInfo4 {
 	display: none;
-	bottom: 0;
-	right: 5%;
+	bottom: 3%;
+	right: 2%;
 	background-color: #00ffff66;
 }
 
