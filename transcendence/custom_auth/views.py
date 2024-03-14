@@ -262,7 +262,7 @@ def callback(request):
     return handleOAuthLogin(user_json)
 
 def handleOAuthLogin(user_data):
-    user = User.objects.filter(username=user_data.get('login')).first()
+    user = User.objects.filter(username=user_data.get('login'), is_oauth=True).first()
     if user is None:
         # Create a new user
         user = User.objects.create_user(username=user_data.get('login'), email=user_data.get('email'))
