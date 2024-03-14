@@ -1,4 +1,6 @@
-import { playGameV4, playDemo, playGameV2 } from "./pong/pongvs4.js";
+import {playGameV2, playGameV4, stopGame, playDemo} from "../js/pong/pongvs4.js";
+import {tournament} from "../js/pong/tournament.js";
+
 // function to load the appropriate content on the base page
 function loadContent(path) {
   let accessToken = localStorage.getItem("accessToken");
@@ -20,13 +22,14 @@ function loadContent(path) {
       if (path === "playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        playGameV2();
+        // playGameV2();
       } else if (path === "playrumble/") {
-        playGameV4();
+      tournament()
+        // playGameV4();
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
       } else {
-        playDemo();
+          playDemo();
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
