@@ -38,7 +38,6 @@ class UserSerializer(serializers.ModelSerializer):
 			instance.avatar = validated_data.get('avatar', instance.avatar)
 		instance.username = validated_data.get('username', instance.username)
 		instance.email = validated_data.get('email', instance.email)
-		# Handle other fields as necessary
 
 		instance.save()
 		return instance
