@@ -59,7 +59,21 @@ window.onpopstate = function (event) {
 };
 
 // initial function on page load for checking token and pages history
-document.addEventListener("DOMContentLoaded", function () {
+
+async function handleOAuthCallback() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  const accessToken = urlParams.get("access_token");
+  const refreshToken = urlParams.get("refresh_token");
+
+  if (accessToken && refreshToken) {
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("accessToken", accessToken);
+  }
+}
+
+async function checkToken() {
   const token = localStorage.getItem("accessToken");
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
@@ -76,32 +90,17 @@ document.addEventListener("DOMContentLoaded", function () {
       loadContent("");
     }
   }
-});
-
-function handleOAuthCallback() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-
-  const accessToken = urlParams.get("access_token");
-  const refreshToken = urlParams.get("refresh_token");
-
-  if (accessToken && refreshToken) {
-    localStorage.setItem("refreshToken", refreshToken);
-    localStorage.setItem("accessToken", accessToken);
-  }
 }
 
 // Add an "active" class to the current page's link
-document.addEventListener("DOMContentLoaded", function () {
-  // Get the current path of the URL
+document.addEventListener("DOMContentLoaded", async function () {
   const currentPath = window.location.pathname;
-  handleOAuthCallback();
-
+  await handleOAuthCallback();
+  await checkToken();
   // Get all navigation links
   const navLinks = document.querySelectorAll(
     ".main-nav-links a, .is-signed-in a, .not-signed-in a"
   );
-
   // Loop through each link and add the "active" class if the href matches the current path
   navLinks.forEach((link) => {
     if (link.getAttribute("href") === currentPath) {

@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
       handleLogin(e);
     } else if (e.target && e.target.id === "otp-form") {
       verifyOTP(e);
+    } else if (e.target && e.target.id === "signup-form") {
+      handleSignup(e);
     }
   });
   document.body.addEventListener("click", function (e) {
@@ -186,28 +188,20 @@ logoutButton.addEventListener("click", function (e) {
   e.preventDefault();
   window.apiHandler
     .post("auth/logout/")
-    .then((data) => {
-      console.log("Logged out", data);
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-
-      document.querySelector(".is-signed-in").style.display = "none";
-      document.querySelector(".not-signed-in").style.display = "flex";
-      window.loadContent("auth/login/");
+    .then(async (data) => {
+      await logout();
     })
     .catch((error) => console.error("ERROR LOGOUT", error));
 });
 
-// ---------------------------------------- //
-// SIGNUP
-// ---------------------------------------- //
-document.addEventListener("DOMContentLoaded", function () {
-  document.body.addEventListener("submit", function (e) {
-    if (e.target && e.target.id === "signup-form") {
-      handleSignup(e);
-    }
-  });
-});
+async function logout() {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+
+  document.querySelector(".is-signed-in").style.display = "none";
+  document.querySelector(".not-signed-in").style.display = "flex";
+  window.loadContent("auth/login/");
+}
 
 function handleSignup(e) {
   e.preventDefault();
@@ -311,7 +305,7 @@ function highlightErrorInput(input) {
 
 function handleOAuthLogin(e) {
   e.preventDefault();
-  const url = '/auth/start'
+  const url = "/auth/start";
   fetch(url, {
     method: "GET",
     headers: {
