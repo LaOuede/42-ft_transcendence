@@ -93,22 +93,22 @@ def UserProfile(request):
 
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
-def settingsView(request):
+def UserSettings(request):
 	if is_ajax(request):
 		return render(request, 'settings.html', {"content": "settings.html"})
 	return render(request, "base.html", {"content": "login.html"})
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
-def update_profile(request):
-    user = get_user_from_token(request)
-    if user is None:
-        return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
-    serializer = UserSerializer(user, data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
-    return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+def UserUpdate(request):
+	user = get_user_from_token(request)
+	if user is None:
+		return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
+	serializer = UserSerializer(user, data=request.data, partial=True)
+	if serializer.is_valid():
+		serializer.save()
+		return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+	return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
