@@ -20,7 +20,7 @@ function handleLogin(e) {
   const formData = new FormData(e.target);
   const user = formData.get("user");
   const password = formData.get("password");
-  fetch("/login/", {
+  fetch("/auth/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function handleLogin(e) {
         return;
       } else if (data?.session_token && data?.session_token !== "") {
         localStorage.setItem("sessionToken", data.session_token);
-        window.loadContent("otp/");
+        window.loadContent("auth/otp/");
         loader.style.display = "none";
         return;
       } else {
@@ -68,7 +68,7 @@ function verifyOTP(e) {
   const loader = document.querySelector(".lds-default");
   loader.style.display = "inline-block";
 
-  fetch("/verify-otp/", {
+  fetch("/auth/verify-otp/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -115,10 +115,10 @@ function handleWrongOtp(data) {
     otpErrorMessage.innerHTML = "OTP expired. Please login again.";
     handleWrongOTPStyle(otpErrorMessage);
     localStorage.removeItem("sessionToken");
-    loadContent("login/");
+    loadContent("auth/login/");
   } else {
     localStorage.removeItem("sessionToken");
-    loadContent("login/");
+    loadContent("auth/login/");
   }
   loader.style.display = "none";
 }
@@ -179,7 +179,7 @@ let logoutButton = document.querySelector("#logout-div");
 logoutButton.addEventListener("click", function (e) {
   e.preventDefault();
   window.apiHandler
-    .post("logout/")
+    .post("auth/logout/")
     .then((data) => {
       console.log("Logged out", data);
       localStorage.removeItem("accessToken");
@@ -187,7 +187,7 @@ logoutButton.addEventListener("click", function (e) {
 
       document.querySelector(".is-signed-in").style.display = "none";
       document.querySelector(".not-signed-in").style.display = "flex";
-      window.loadContent("login/");
+      window.loadContent("auth/login/");
     })
     .catch((error) => console.error("ERROR LOGOUT", error));
 });
@@ -210,7 +210,7 @@ function handleSignup(e) {
   const email = formData.get("email");
   const password = formData.get("password");
   const password2 = formData.get("password2");
-  fetch("/register/", {
+  fetch("/auth/register/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
