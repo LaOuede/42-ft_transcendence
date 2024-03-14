@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
 	def create_superuser(self, email, username, password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
-		extra_fields.setdefault('avatar', "static/default_avatar.jpg")
+		extra_fields.setdefault('avatar', "static/avatars/default_avatar.jpg")
 
 		return self.create_user(email, username, password, **extra_fields)
 	def get_by_natural_key(self, username):
