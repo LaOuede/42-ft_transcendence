@@ -87,4 +87,8 @@ delete_migrations:
 pop:
 	@docker compose exec backend python3 transcendence/manage.py populate_db
 
+# Delete all users
+depop:
+	@docker compose exec backend python3 transcendence/manage.py clear_users
+
 .PHONY: up down reup rm_images pop psql prisma seed shell-% logs logs-% check_docker_status check_env help clean fclean
