@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (e) {
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "view-settings-button") {
-      window.loadContent("settings/");
+      window.loadContent("user/settings/");
     }
     if (e.target && e.target.id === "view-profile-button") {
       window.loadContent("user/profile/");

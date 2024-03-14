@@ -17,11 +17,11 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
-      if (path === "playonevsone/") {
+      if (path === "pong/playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
         playGameV2();
-      } else if (path === "playrumble/") {
+      } else if (path === "pong/playrumble/") {
         playGameV4();
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
@@ -39,7 +39,7 @@ function loadContent(path) {
 }
 // Function to handle redirection to the login page
 export function redirectToLogin() {
-  loadContent("login/");
+  loadContent("auth/login/");
   /* localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken"); */
   document.querySelector(".is-signed-in").style.display = "none";
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!token) {
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
-    loadContent("login/");
+    loadContent("auth/login/");
   } else {
     notSignedInNavbar.style.display = "none";
     signedInNavbar.style.display = "flex";

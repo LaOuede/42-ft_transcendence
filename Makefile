@@ -81,7 +81,14 @@ fclean: check_docker_status clean	## Stop the containers and remove the volumes 
 #-@docker rmi -f $$(docker compose images -q)
 	-@docker rmi -f postgres:13  > /dev/null
 
+delete_migrations:
+	-@find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+
 pop:
 	@docker compose exec backend python3 transcendence/manage.py populate_db
+
+# Delete all users
+depop:
+	@docker compose exec backend python3 transcendence/manage.py clear_users
 
 .PHONY: up down reup rm_images pop psql prisma seed shell-% logs logs-% check_docker_status check_env help clean fclean
