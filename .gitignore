@@ -19,7 +19,7 @@ staticfiles/
 *.bak
 
 # Ignore media files
-media/
+# media/
 
 # Ignore secret key
 *.key

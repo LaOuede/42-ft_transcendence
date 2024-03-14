@@ -20,7 +20,7 @@ function loadContent(path) {
       if (path === "pong/playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        playGameV2();
+        // playGameV2();
       } else if (path === "pong/playrumble/") {
         playGameV4();
         // document.querySelector("#pong").style.display = "none"
