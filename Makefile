@@ -78,6 +78,7 @@ clean: check_docker_status ## Stop the containers and remove the volumes
 
 fclean: check_docker_status clean	## Stop the containers and remove the volumes and images
 	-@docker compose down --rmi local -v
+	-@find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 #-@docker rmi -f $$(docker compose images -q)
 	-@docker rmi -f postgres:13  > /dev/null
 
