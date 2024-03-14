@@ -1,10 +1,15 @@
 from django.http import HttpResponse, JsonResponse
 from datetime import timedelta
+from django.core.files.base import ContentFile
+from django.core.files.temp import NamedTemporaryFile
+import requests, os
+from urllib.parse import urlencode
+from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import random, string, uuid, time, jwt, json
 from user.models import User
 from .models import OTPSession
@@ -217,3 +222,62 @@ def logout(request):
         return JsonResponse({"success": "Logged out successfully"}, status=200)
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
+
+def start_auth(request):
+    OAUTH_CLIENT_ID = os.getenv('OAUTH_CLIENT_ID')
+    OAUTH_REDIRECT_URI = os.getenv('OAUTH_REDIRECT_URI')
+
+    if (OAUTH_CLIENT_ID is None or OAUTH_REDIRECT_URI is None):
+        return JsonResponse({"error": "Missing OAUTH_CLIENT_ID or OAUTH_REDIRECT_URI in environment variables"}, status=500)
+    auth_url = f"https://api.intra.42.fr/oauth/authorize?client_id={OAUTH_CLIENT_ID}&redirect_uri={OAUTH_REDIRECT_URI}&response_type=code"
+    return JsonResponse({"url": auth_url}, status=200)
+
+def callback(request):
+    code = request.GET.get('code')
+    
+    OAUTH_CLIENT_ID = os.getenv('OAUTH_CLIENT_ID')
+    OAUTH_SECRET_KEY = os.getenv('OAUTH_SECRET_KEY')
+    OAUTH_REDIRECT_URI = os.getenv('OAUTH_REDIRECT_URI')
+    # Exchange the code for a token
+    token_url = 'https://api.intra.42.fr/oauth/token'
+    token_data = {
+        'grant_type': 'authorization_code',
+        'client_id': OAUTH_CLIENT_ID,
+        'client_secret': OAUTH_SECRET_KEY,
+        'code': code,
+        'redirect_uri': OAUTH_REDIRECT_URI,
+    }
+    token_r = requests.post(token_url, data=token_data)
+    token_json = token_r.json()
+    
+    if 'error' in token_json:
+        return JsonResponse({'error': token_json.get('error_description', 'Unknown error')}, status=400)
+
+    # Use the token to access user's information as an example
+    user_url = 'https://api.intra.42.fr/v2/me'
+    headers = {'Authorization': f'Bearer {token_json["access_token"]}'}
+    user_r = requests.get(user_url, headers=headers)
+    user_json = user_r.json()
+
+    return handleOAuthLogin(user_json)
+
+def handleOAuthLogin(user_data):
+    user = User.objects.filter(username=user_data.get('login')).first()
+    if user is None:
+        # Create a new user
+        user = User.objects.create_user(username=user_data.get('login'), email=user_data.get('email'))
+        user.is_oauth = True
+        user.password = "42OAuth"
+        # Download the user's image from the OAuth provider
+        image_url = user_data.get('image', {}).get('link')
+        if image_url:
+            response = requests.get(image_url)
+            if response.status_code == 200:
+                user.avatar.save(f"avatar_{user.username}.jpg", ContentFile(response.content))
+        user.save()
+        
+    change_user_status(user, "ON")
+    tokens = get_tokens_for_user(user)
+    params = urlencode({'access_token': tokens['access'], 'refresh_token': tokens['refresh']})
+    frontend_url = 'http://localhost:8000/' 
+    return redirect(f'{frontend_url}?{params}')

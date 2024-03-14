@@ -78,10 +78,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+function handleOAuthCallback() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  const accessToken = urlParams.get("access_token");
+  const refreshToken = urlParams.get("refresh_token");
+
+  if (accessToken && refreshToken) {
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("accessToken", accessToken);
+  }
+}
+
 // Add an "active" class to the current page's link
 document.addEventListener("DOMContentLoaded", function () {
   // Get the current path of the URL
   const currentPath = window.location.pathname;
+  handleOAuthCallback();
 
   // Get all navigation links
   const navLinks = document.querySelectorAll(

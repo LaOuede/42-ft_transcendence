@@ -162,6 +162,12 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),  # Access token expiration time in days'
     "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
 }
+
+OAUTH2_PROVIDER = {
+    'CLIENT_ID': os.environ.get('42OAUTH_CLIENT_ID'),
+    'CLIENT_SECRET': os.environ.get('42OAUTH_SECRET_KEY'),
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 

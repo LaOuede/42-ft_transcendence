@@ -10,3 +10,4 @@ Pillow==10.2.0
 django_otp
 django-two-factor-auth
 phonenumbers
+django-oauth-toolkit

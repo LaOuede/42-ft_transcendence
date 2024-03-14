@@ -88,7 +88,6 @@ def UserProfile(request):
 		serializer = UserSerializer(user)
 		user_data = serializer.data
 		user_data['activity'] = activity_display
-		print("user_data: ", user_data)
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
