@@ -527,10 +527,10 @@ function playGameV2(){
 
 function playGameV4(){	
 	gameInfo.controls.enabled = true
-	gameInfo.gameover = false
-	gameInfo.player_lives = [4, 4, 4, 4]
-	resetGameOver()
 	gameInfo.demoCam.enabled = false
+	gameInfo.gameover = false
+	gameInfo.player_lives = [1, 1, 1, 1]
+	resetGameOver()
 	gameInfo.countDownDone = false
 	pongObjs.renderer.setAnimationLoop(animate);
 }
@@ -552,5 +552,4 @@ function stopGame(){
 }
 initElements(gameInfo)
 initPongObjs(gameInfo, tags)
-
 export { playGameV2, playGameV4, stopGame, playDemo }

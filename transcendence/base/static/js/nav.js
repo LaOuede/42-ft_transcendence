@@ -22,13 +22,14 @@ function loadContent(path) {
       if (path === "playonevsone/") {
         // document.querySelector("#pong").style.display = "block"
         // playGameV4()// peut aller sur un bouton pour demarrer la joute
-        playGameV2();
+        // playGameV2();
       } else if (path === "playrumble/") {
-        playGameV4();
+      tournament()
+        // playGameV4();
         // document.querySelector("#pong").style.display = "none"
         // stopGame()
       } else {
-        playDemo();
+          playDemo();
       }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
