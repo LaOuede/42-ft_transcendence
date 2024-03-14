@@ -35,7 +35,7 @@ export function initPongObjs(gameInfo, tags){
 	
 	//SKY
 	const skyGeometry = new THREE.SphereGeometry(100000, 64, 64);
-	const texture = new THREE.TextureLoader().load("../static/js/pong/nebuleuse.jpeg");
+	const texture = new THREE.TextureLoader().load("../../../../media/nebuleuse.jpeg");
 	const skyMaterial = new THREE.MeshBasicMaterial({ map: texture, side:THREE.BackSide});
 	const sky = new THREE.Mesh(skyGeometry, skyMaterial);
 	sky.rotateY(Math.PI * -0.5)
