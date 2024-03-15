@@ -217,8 +217,7 @@ def logout(request):
         user = get_user_from_token(request)
         if user is None:
             return JsonResponse({"error": "Invalid token"}, status=401)
-        if change_user_status(user, "OF") == False:
-            return JsonResponse({"error": "You are already logged out."}, status=500)
+        change_user_status(user, "OF")
         return JsonResponse({"success": "Logged out successfully"}, status=200)
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
