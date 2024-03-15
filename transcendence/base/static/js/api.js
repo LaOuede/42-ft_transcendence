@@ -3,7 +3,6 @@ const apiHandler = {
 
   async fetchWithAuth(url, options = {}, type) {
     const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
 
     // Check if the body is FormData, to handle file uploads
     const isFormData = options.body instanceof FormData;

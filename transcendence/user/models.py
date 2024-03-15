@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
 	def create_superuser(self, email, username, password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
-		extra_fields.setdefault('avatar', "static/avatars/default_avatar.jpg")
+		extra_fields.setdefault('avatar', 'avatars/default_avatar.jpg')
 
 		return self.create_user(email, username, password, **extra_fields)
 	def get_by_natural_key(self, username):
@@ -38,11 +38,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=100, default='pass')
 	activity = models.CharField(max_length=2, choices=activity_enum, default='OF')
-	avatar = models.ImageField(upload_to='avatars/', default='static/avatars/default_avatar.jpg', blank=True, null=True)
+	avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.jpg', blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 	otp = models.CharField(max_length=6, blank=True, null=True)
 	otp_expiry_time = models.DateTimeField(blank=True, null=True)
+	is_oauth = models.BooleanField(default=False)
 
 	# Fields that we may need :
 	# nickname = models.CharField(max_length=30, unique=True)

@@ -4,10 +4,18 @@
 
 document.addEventListener("DOMContentLoaded", function (e) {
   document.body.addEventListener("submit", function (e) {
+    e.preventDefault();
     if (e.target && e.target.id === "login-form") {
       handleLogin(e);
     } else if (e.target && e.target.id === "otp-form") {
       verifyOTP(e);
+    } else if (e.target && e.target.id === "signup-form") {
+      handleSignup(e);
+    }
+  });
+  document.body.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "oauth-login") {
+      handleOAuthLogin(e);
     }
   });
 });
@@ -180,28 +188,20 @@ logoutButton.addEventListener("click", function (e) {
   e.preventDefault();
   window.apiHandler
     .post("auth/logout/")
-    .then((data) => {
-      console.log("Logged out", data);
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-
-      document.querySelector(".is-signed-in").style.display = "none";
-      document.querySelector(".not-signed-in").style.display = "flex";
-      window.loadContent("auth/login/");
+    .then(async (data) => {
+      await logout();
     })
     .catch((error) => console.error("ERROR LOGOUT", error));
 });
 
-// ---------------------------------------- //
-// SIGNUP
-// ---------------------------------------- //
-document.addEventListener("DOMContentLoaded", function () {
-  document.body.addEventListener("submit", function (e) {
-    if (e.target && e.target.id === "signup-form") {
-      handleSignup(e);
-    }
-  });
-});
+async function logout() {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+
+  document.querySelector(".is-signed-in").style.display = "none";
+  document.querySelector(".not-signed-in").style.display = "flex";
+  window.loadContent("auth/login/");
+}
 
 function handleSignup(e) {
   e.preventDefault();
@@ -300,15 +300,26 @@ function highlightErrorInput(input) {
 }
 
 // ------------------------------
-// 2FA
+// OAUTH
 // ------------------------------
-document.addEventListener("DOMContentLoaded", function (e) {
-  document.addEventListener("click", function (e) {
-    if (e.target && e.target.id === "login-2fa") {
-      handle2FA();
-    }
-  });
-});
-function handle2FA() {
-  console.log("2FA");
+
+function handleOAuthLogin(e) {
+  e.preventDefault();
+  const url = "/auth/start";
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    credentials: "include",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // the backend redirects to the oauth provider. The frontend should not do anything with the response
+      window.location.href = data.url;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }

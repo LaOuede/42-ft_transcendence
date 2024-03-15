@@ -5,9 +5,11 @@
   </button>
   <div class="settings-container">
     <h1>Settings</h1>
+    {% if user.is_oauth is False%}
     <button id="enable-2fa-button" type="button" class="btn btn-primary">
       {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
     </button>
+    {% endif %}
     <div class="">
       <form id="profile-update-form" enctype="multipart/form-data">
         <label for="avatar-upload">Upload Avatar:</label>
