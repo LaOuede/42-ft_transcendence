@@ -1,5 +1,6 @@
 export function initGameInfo(){
 	let gameInfo = {
+		tournements: false,
 		window: {width: 500, height: 500},
 		demoCam: {enabled: false, DirX: 1, DirY: 1},
 		ball_att: { dirX: 1, dirY: 1, speedX: 1, speedY: 0, reboundx: true, reboundy: true },
