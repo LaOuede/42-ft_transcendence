@@ -1,40 +1,69 @@
 {% load static %}
-<div class="edit-profile-container">
-  <button id="view-settings-button" type="button" class="btn btn-primary">
-    Profile Settings
-  </button>
-  <div class="profile-container">
-    <div class="profile-container-black">
-      <div class="profile-container-login">
-        {% csrf_token %} {% load static %}
-        <div class="signup-header">
-          <h2 class="header-title">PROFILE</h2>
-          {% if user_data %}
-          <img src="{{ user_data.avatar }}" alt="User Avatar" width="150" />
+<div class="profile-container">
+	<div class="profile-container-black">
+		<div class="profile-container-login">
+			<div class="signup-header">
+				<h2 class="header-title">MY PROFILE</h2>
+				{% if user_data %}
+				
+				<div class="profile-grid-container">
+					<!-- Grid item 1: Personnal informations -->
+					<div class="perso-grid-item">
+						<img src="{{ user_data.avatar }}" alt="User Avatar" width="100" />
+						<div class="profile-text-container">
+							<h3>MY INFOS:</h3>
+								<div class="profile-informations">
+									<p>{{ user_data.username }}</p>
+									<p>{{ user_data.email }}</p>
+									<p>{{ user_data.activity }}</p>
+								</div>
+						</div>
+					</div>
 
-          <!-- CSS à faire :) -->
-          <p style="color: white">
-            <strong>Username:</strong> {{ user_data.username }}
-          </p>
-          <p style="color: white">
-            <strong>Email:</strong> {{ user_data.email }}
-          </p>
-          <p style="color: white">
-            <strong>Status:</strong> {{ user_data.activity }}
-          </p>
-          <p style="color: white"><strong>Statistics:</strong></p>
-          <p style="color: white"><strong>Game history:</strong></p>
+					<!-- Grid item 2: Games stats -->
+					<div class="stats-grid-item">
+						<h3>STATS:</h3>
+						<div class="profile-informations">
+							<p>Played games: 5</p>
+							<p>Won games: 3</p>
+							<p>Lost games: 2</p>
+							<p>Wins rate: 60%</p>
+						</div>
+					</div>
 
-          <div id="delete">
-            <button id="button-delete-user" type="button">
-              Delete my account
-            </button>
-          </div>
-          {% else %}
-          <p>No user data available.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
+					<!-- Grid item 3: Friends list -->
+					<div class="friends-grid-item">
+						<h3>FRIENDS LIST:</h3>
+						<div class="profile-informations">
+							<p>Bill [Online 🟢]</p>
+							<p>Pol [Offline 🔴]</p>
+							<p>John [Offline 🔴]</p>
+						</div>
+					</div>
+
+					<!-- Grid item 4: Game history -->
+					<div class="historic-grid-item">
+						<h3>GAMES HISTORY:</h3>
+						<div class="profile-informations">
+							<p><strong>Victory</strong> vs. Bill  [2024-03-12]</p>
+							<p><strong>Victory</strong> vs. John  [2024-03-11]</p>
+							<p><i>Defeat</i> vs. John  [2024-03-11]</p>
+							<p><i>Defeat</i> vs. Pol  [2024-03-11]</p>
+							<p><strong>Victory</strong> vs. Pol	[2024-03-11]</p>
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+			<div class="button-settings-container">
+				<button class="button-settings" id="view-settings-button" type="button">SETTINGS</button>
+			</div>
+
+				{% else %}
+				<p>No user data available.</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </div>
