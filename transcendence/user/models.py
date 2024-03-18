@@ -28,10 +28,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 		return (self.username,)
 	
 	activity_enum = [
-		('ON', 'En ligne 🟢'),
-		('IG', 'En partie 🟣'),
-		('OF', 'Hors ligne 🔴'),
-		('UN', 'Indisponible 🟡')
+		('ON', 'Online 🟢'),
+		('IG', 'In game 🟣'),
+		('OF', 'Offline 🔴'),
+		('UN', 'Unavailable 🟡')
 	]
 
 	username = models.CharField(max_length=30, unique=True)
