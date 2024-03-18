@@ -1,7 +1,7 @@
 import {initPongObjs} from "./pong_objs.js"
 
 import {initGameInfo} from "./pong_var.js"
-// import {tournament, giveTournPoints } from "./tournament.js"
+import {tournament, giveTournPoints, updateScores, showScores } from "./tournament.js"
 
 let gameInfo = initGameInfo()
 let tags = initElements(gameInfo)
@@ -87,7 +87,6 @@ function setDistanceLight(){
 
 function resetGameOver(){
 	tags = initElements(gameInfo)
-	gameInfo.countDownDone = false
 	defaultPosition()
 	countPlayers()
 	for(let i = 0; i < 4; i++){
@@ -100,14 +99,18 @@ function resetGameOver(){
 			pongObjs.lights[i].color.set(gameInfo.colors[i])
 			pongObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
-			tags.cards[i].style.display = "block"
-			tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
-			tags.scores[i].textContent = gameInfo.player_lives[i]
+			if(tags.cards[i]){
+				tags.cards[i].style.display = "block"
+				tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
+				tags.scores[i].textContent = gameInfo.player_lives[i]
+			}
+			
 		} else {
 			pongObjs.scene.remove(pongObjs.paddles[i])
 			pongObjs.scene.remove(pongObjs.lights[i])
 			gameInfo.paddle_limit_list[i] = 0
-			tags.cards[i].style.display = "none"
+			if(tags.cards[i])
+				tags.cards[i].style.display = "none"
 		}
 	}
 	
@@ -120,6 +123,7 @@ function resetGameOver(){
 
 function resetGameDemo(){
 	gameInfo.countDownDone = false
+	gameInfo.gameover = false
 	defaultPosition()
 	if(pongObjs.scene.children.includes(pongObjs.paddles[0])) {pongObjs.scene.remove(pongObjs.paddles[0])};
 	if(pongObjs.scene.children.includes(pongObjs.paddles[1])) {pongObjs.scene.remove(pongObjs.paddles[1])};
@@ -216,7 +220,8 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[0] = 0
 				pongObjs.scene.remove(pongObjs.paddles[0]);
 			gameInfo.player_count--
-			// giveTournPoints(0)
+			if(gameInfo.tournements)
+				giveTournPoints(0)
 
 		}
 		gameInfo.countDownDone = false
@@ -231,7 +236,8 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[1] = 0
 			pongObjs.scene.remove(pongObjs.paddles[1]);
 			gameInfo.player_count--
-			// giveTournPoints(1)
+			if(gameInfo.tournements)
+				giveTournPoints(1)
 
 		}
 		gameInfo.countDownDone = false
@@ -246,7 +252,8 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[2] = 0
 			pongObjs.scene.remove(pongObjs.paddles[2]);
 			gameInfo.player_count--
-			// giveTournPoints(2)
+			if(gameInfo.tournements)
+				giveTournPoints(2)
 
 		}
 		gameInfo.countDownDone = false
@@ -262,21 +269,23 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[3] = 0
 			pongObjs.scene.remove(pongObjs.paddles[3]);
 			gameInfo.player_count--
-			// giveTournPoints(3)
+			if(gameInfo.tournements)
+				giveTournPoints(3)
 		}
 		gameInfo.countDownDone = false
 		defaultPosition();
 	}
 	if(gameInfo.player_count === 1){
+		gameInfo.gameover = true
 		gameInfo.player_count--;
 		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
 		for(let i = 0; i < tempPaddle.length; i++){
-			// if(tempPaddle[i] > 0){
-			// 	giveTournPoints(i)
-			// }
+			if(tempPaddle[i] > 0 && gameInfo.tournements){
+				giveTournPoints(i)
+				updateScores()
+				showScores()
+			}
 		}
-		gameInfo.gameover = true
-		// tournament()
 	}
 }
 
@@ -420,9 +429,9 @@ document.addEventListener("keypress", (event) => {
 		if (event.key === "l") {
 			playDemo()
 		}
-		if(event.key === "1"){
-			lightColorSwitch(3, "#ff55ff")
-		}
+		// if(event.key === "1"){
+		// 	lightColorSwitch(3, "#ff55ff")
+		// }
 	}
 		
 });
@@ -498,7 +507,7 @@ function camLimiter(){
 
 function animate() {
 	//vs2 et vs4
-	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {
+	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {		
 		controlDetection();
 		ballPhysic();
 	}
@@ -535,6 +544,16 @@ function playGameV4(){
 	pongObjs.renderer.setAnimationLoop(animate);
 }
 
+function playGame(startLives){	
+	gameInfo.controls.enabled = true
+	gameInfo.player_lives = startLives
+	gameInfo.countDownDone = false
+	gameInfo.gameover = false
+	gameInfo.demoCam.enabled = false
+	resetGameOver()
+	pongObjs.renderer.setAnimationLoop(animate);
+}
+
 function playDemo(){
 	if(gameInfo.demoCam.enabled === false){
 		gameInfo.controls.enabled = false
@@ -543,6 +562,7 @@ function playDemo(){
 		resetGameDemo()
 		demoLights()
 		pongObjs.renderer.setAnimationLoop(animate);
+		gameInfo.tournements = false
 	}
 }
 
@@ -553,4 +573,4 @@ function stopGame(){
 initElements(gameInfo)
 initPongObjs(gameInfo, tags)
 
-export { playGameV2, playGameV4, stopGame, playDemo }
+export { gameInfo, playGameV2, playGameV4, stopGame, playDemo, playGame }
