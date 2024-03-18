@@ -100,14 +100,18 @@ function resetGameOver(){
 			pongObjs.lights[i].color.set(gameInfo.colors[i])
 			pongObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
-			tags.cards[i].style.display = "block"
-			tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
-			tags.scores[i].textContent = gameInfo.player_lives[i]
+			if(tags.cards[i]){
+				tags.cards[i].style.display = "block"
+				tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
+				tags.scores[i].textContent = gameInfo.player_lives[i]
+			}
+			
 		} else {
 			pongObjs.scene.remove(pongObjs.paddles[i])
 			pongObjs.scene.remove(pongObjs.lights[i])
 			gameInfo.paddle_limit_list[i] = 0
-			tags.cards[i].style.display = "none"
+			if(tags.cards[i])
+				tags.cards[i].style.display = "none"
 		}
 	}
 	
