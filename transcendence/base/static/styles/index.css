@@ -8,7 +8,6 @@
 	--main-blue-color: #249DC6;
 	--main-soft-blue-color: #00FAFA;
 	font-family: 'Courier';
-	
 }
 
 .gradient {
@@ -20,10 +19,11 @@ h1 {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: 32px;
+	font-size: calc(1.2vw + 10px);
 	margin-left: 30px;
 	margin-top: -15px;
 	padding: 1em;
+	cursor: pointer;
 }
 
 h2 {
@@ -31,13 +31,12 @@ h2 {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: 30px;
+	font-size: 1.5vw;
 	margin-top: -15px;
-	/* padding: 1em; */
 }
 
+
 body {
-/*   font-family: 'Courier'; */
 	height: 100vh;
 	width: 100vw;
 	margin: 0;
@@ -82,6 +81,7 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
+	font-size: calc(.5vw + 10px);
 }
 
 .main-nav-links a ,
@@ -90,17 +90,40 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
+	font-size: calc(.5vw + 10px);
+}
+
+@media (max-width: 768px) {
+	h1 {
+		font-size: 4vw; /* Taille de police plus grande pour les écrans plus petits */
+	}
+	h2 {
+		font-size: 3vw;
+	}
+	.main-nav-links a, .is-signed-in a, .not-signed-in a {
+		font-size: 1.7vw;
+	}
+}
+
+@media (max-width: 480px) {
+	h1 {
+		font-size: 6vw; /* Taille de police encore plus grande pour les très petits écrans */
+	}
+	h2 {
+		font-size: 5vw;
+	}
+	.main-nav-links a, .is-signed-in a, .not-signed-in a {
+		font-size: 3vw;
+	}
 }
 
 .main-nav-links a:hover,
 .is-signed-in a:hover {
 	color: #249DC6; /* Change the color when hovering */
-	/* background-color: #3089A8; Change the background color when hovering */
 }
 
 .not-signed-in a:hover {
 	color: #249DC6; /* Change the color when hovering */
-	/* background-color: #3089A8; Change the background color when hovering */
 }
 
 .main-nav-links a.active,
@@ -185,7 +208,7 @@ h5 {
 	justify-content: space-between;
 }
 
-.signup-container {
+.login-container, .signup-container {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
@@ -195,33 +218,32 @@ h5 {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 500px; /* Ajoutez la valeur minimale en pixels */
-	min-height: 700px; 
+	min-width: 20%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 55%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
 }
 
-.signup-container-black {
+.login-container-black , .signup-container-black {
 	position: fixed;
 	width: 87%;
 	height: 92%;
-	z-index: 11;
 	background: black;
 	border-radius: 20px;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	opacity: 85%;
+
 }
 
-.signup-container-login {
+.login-container-login, .signup-container-login {
 	position: absolute;
 	align-items: center;
 	justify-content: center;
-	z-index: 12;
-	max-height: 700px;
 	background: transparent;
 	border-radius: 20px;
 	overflow-y: auto;
@@ -229,61 +251,10 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
-	max-height: 700px;
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
-}
-
-.login-container {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 10;
-	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
-	border-radius: 20px;
-	min-width: 500px; /* Ajoutez la valeur minimale en pixels */
-	min-height: 600px; 
-	overflow: hidden;
-	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
-}
-
-.login-container-black {
-	position: fixed;
-	width: 87%;
-	height: 92%;
-	z-index: 11;
-	background: black;
-	border-radius: 20px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.login-container-login {
-	position: absolute;
-	align-items: center;
-	justify-content: center;
-	z-index: 12;
-	max-height: 900px;
-	background: transparent;
-	border-radius: 20px;
-	overflow-y: auto;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
-	max-height: 600px;
-	overflow: auto;
-	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
-	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
+	max-height: 90%;
 	width: 80%; 
 }
 
@@ -300,10 +271,11 @@ h5 {
 	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 60%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 35%; /* Ajoutez la valeur minimale en pixels */
 	min-height: 50%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
 }
 
 .pong-container-black {
@@ -316,6 +288,7 @@ h5 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	opacity: 85%;
 }
 
 .pong-container-login {
@@ -323,7 +296,7 @@ h5 {
 	align-items: center;
 	justify-content: center;
 	z-index: 12;
-	max-height: 900px;
+	max-height: 70%;
 	background: transparent;
 	border-radius: 20px;
 	overflow-y: auto;
@@ -331,7 +304,6 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
-	max-height: 500px;
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
@@ -340,7 +312,6 @@ h5 {
 
 .pong-container-login .buttons-container {
 	display: flex;
-	justify-content: space-between; /* You can use 'space-around' or 'space-evenly' depending on your preference */
 	width: 100%; /* Adjust the width as needed */
 }
 
@@ -354,33 +325,31 @@ h5 {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 60%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 50%; 
+	min-width: 50%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 60%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
 }
 
 .profile-container-black {
 	position: fixed;
 	width: 90%;
 	height: 90%;
-	z-index: 11;
 	background: black;
 	border-radius: 20px;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	opacity: 85%;
 }
 
 .profile-container-login {
 	position: absolute;
 	align-items: center;
 	justify-content: center;
-	z-index: 12;
-	max-height: 900px;
 	background: transparent;
 	border-radius: 20px;
 	overflow-y: auto;
@@ -388,7 +357,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
-	max-height: 500px;
+	max-height: 90%;
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
@@ -420,13 +389,13 @@ h5 {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 10;
 	background: linear-gradient(270deg, #69327A 0%, #3089A8 100%);
 	border-radius: 20px;
-	min-width: 950px; /* Ajoutez la valeur minimale en pixels */
-	min-height: 800px; 
+	min-width: 40%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
 }
 
 .onevsone-container-black {
@@ -444,14 +413,14 @@ h5 {
 	border-radius: 20px;
 	padding: 20px; /* Ajoutez du padding selon vos besoins */
 	box-sizing: border-box;
-	z-index: 11;
+	opacity: 85%;
 }
 
 .players-container {
 	display: flex;
 	justify-content: space-around; /* Ajustez l'espacement entre les joueurs */
 	width: 100%; /* Assurez-vous que le conteneur prend toute la largeur possible */
-	padding: 20px 0; /* Ajoutez du padding selon vos besoins */
+	overflow: auto;
 }
 
 .player1-container, .player2-container {
@@ -491,16 +460,15 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	width: 100%;
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.8rem;
+	font-size: 1.4vw;
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
 	cursor: pointer;
 	transition: background-color 0.2s;
-	margin: 40px 40px 0px 20px;
+	margin: 1vw 1vw 0px .5vw;
 }
 
 .button3 {
@@ -513,10 +481,9 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	width: 100%;
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.8rem;
+	font-size: 1.5vw;
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -535,10 +502,9 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	width: 100%;
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.8rem;
+	font-size: 1.5vw;
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -549,34 +515,33 @@ h5 {
 
 .signup-header {
 	text-align: center;
-	margin-bottom: 1.5rem;
+	margin-bottom: .5vw;
 }
 
 .signup-header-onevsone {
 	text-align: center;
-	margin-top: 1.5rem;
+	margin-top: 1.5vw;
 }
 
 .header-title {
 	color: #00FAFA;
 	/* padding: 10px; */
-	margin-left: 50px;
-	margin-right: 50px;
-	font-size: 3rem;
+	font-size: 2.3vw;
 }
 
 .onevsone-title {
 	color: #00FAFA;
-	font-size: 4rem;
+	font-size: 2.3vw;
 }
 
 .onevsone-player-title {
 	color: #00FAFA;
-	font-size: 2.5rem;
+	font-size: 1.5vw;
 }
 
 .signup-description {
 	color: #00FAFA;
+	font-size: .7vw;
 }
 
 .signup-form .input-row {
@@ -643,7 +608,7 @@ h5 {
 	border: 1px solid #000000;
 	border-radius: 20px;
 	background-color: #5B5B5B;
-	font-size: 0.875rem;
+	font-size: .8vw;
 	flex-grow: 1;
 }
 
@@ -661,7 +626,7 @@ h5 {
 	width: 100%;
 	height: 2.5rem;
 	font-family:'Courier';
-	font-size: 1.5rem;
+	font-size: 1.1vw;
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -672,7 +637,7 @@ h5 {
 
 .signup-title {
 	color: #00FAFA;
-	font-size: 20px;
+	font-size: .8vw;
 	margin-top: 10px;
 	margin-bottom: 2px;
 }
@@ -706,12 +671,6 @@ h5 {
     color: red;
     opacity:  0.9;
 }
-
-/* #root #content #pong {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 
 .edit-profile-container {
     max-width: 32rem;
@@ -877,6 +836,7 @@ select {
 	padding: 10px;
 	margin: 10px;
 	border: 2px solid #000;
+	font-size: .6vw;
   }
   
   option[value="red"] { background-color: red; }
