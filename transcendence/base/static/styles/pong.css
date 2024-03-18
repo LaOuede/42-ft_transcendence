@@ -1,15 +1,8 @@
 /*PONG*/
-/* #pong {
-	border:  solid greenyellow;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	margin-top: 6%;
-	top: -10px;
-} */
+
+#game {
+	margin-top: 60px;
+}
 
 #pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4 {
 	text-align: center;
