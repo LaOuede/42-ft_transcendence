@@ -3,8 +3,7 @@
 #game {
 	margin-top: 60px;
 }
-
-#pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4 {
+#playerInfo1, #playerInfo2, #playerInfo3, #playerInfo4 {
 	text-align: center;
 	width: 200px;
 	height: 275px;
@@ -21,35 +20,35 @@
 	align-items: center;
 }
 
- #playerInfo1 {
+#playerInfo1 {
 	display: none;
 	bottom: 3%;
 	left: 2%;
 	background-color: #69327A66;
 }
 
- #playerInfo2 {
+#playerInfo2 {
 	display: none;
 	top: 7%;
 	right: 2%;
 	background-color: #249DC666;
 }
 
- #playerInfo3 {
+#playerInfo3 {
 	display: none;
 	top: 7%;
 	left: 2%;
 	background-color: #ffff0066;
 }
 
- #playerInfo4 {
+#playerInfo4 {
 	display: none;
 	bottom: 3%;
 	right: 2%;
 	background-color: #00ffff66;
 }
 
- #player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
+#player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
 	border-radius: 20px;
 	border: solid 5px;
 	width: 150px;
@@ -59,11 +58,11 @@
 	margin-bottom: -15px;
 }
 
- #player1name,  #player2name,  #player3name,  #player4name {
+#player1name,  #player2name,  #player3name,  #player4name {
 	font-size: 20px;
 }
 
- #p1Score,  #p2Score,  #p3Score,  #p4Score {
+#p1Score,  #p2Score,  #p3Score,  #p4Score {
 	border-radius: 20px;
 	border: solid 5px;
 	width: 75px;

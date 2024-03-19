@@ -51,15 +51,12 @@ function resetTourn(){
 function updateScores(){
 	for(let i = 0; i < tournScores.length; i++){
 		tournScores[i].textContent = playersScores[i]
-		console.log(playersScores[i])
 	}
 }
 
 function giveTournPoints(player){
 	const tournPoint = [10, 5, 3, 0]
 	playersScores[player] += tournPoint[gameInfo.player_count]
-	for(let i = 0; i < playersScores.length; i++)
-		console.log(playersScores)
 }
 
 function tieBreak(){
@@ -121,14 +118,13 @@ function tournament(){
 	if(btStartTourn){
 		btStartTourn.addEventListener("click", function (e) {
 			game_count = inputTournLength.value
-			if(game_count > 0){
+			if(game_count > 0 && game_count < 10){
 				resetLives()
 				document.getElementById("start").style.display = "none"
 				resetTourn()
 				gameInfo.countDownDone = false
 				gameInfo.gameover = false
 				game_count--
-				console.log(gameInfo)
 				playGame(gameInfo.player_lives)
 			}
 		})
@@ -139,7 +135,6 @@ function tournament(){
 				gameInfo.countDownDone = false
 				gameInfo.gameover = false
 				game_count--
-				console.log(gameInfo)
 				playGame(gameInfo.player_lives)
 				document.getElementById("next").style.display = "none"
 			} else {
