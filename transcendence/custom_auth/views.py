@@ -167,7 +167,6 @@ def verify_otp(request):
         else:
             return JsonResponse({"error": "Invalid session or session expired."}, status=401)
 
-
 def register(request):
     if request.method == "POST":
         data = json.loads(request.body)
