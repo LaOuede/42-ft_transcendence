@@ -1,21 +1,72 @@
 <div id="root">
-	<div id="pong">
-	<div id="playerInfo1">
-		<div id="p1Score">0</div>
-		<div id="player1avatar">
-			W S<br><br><br>
-			touche special<br>
-			J K O 1 V
-			<img src="" alt="">
+	<div id="ui">
+		<div id="tournInfo">
+			<div id="start">
+				<label for="defaultLives">Lives :</label>
+				<input name="defaultLives" id=defaultLives type="text" value="0">
+				<form>
+					<p>View</p>
+					<input type="radio" id="option1" name="view" value="0">
+					<label for="option1">Top</label><br>
+				  
+					<input type="radio" id="option2" name="view" value="1" checked>
+					<label for="option2">Side</label><br>
+				  </form>
+				  <form>
+					<p>Paddles</p>
+					<input type="radio" id="option1" name="paddlesSize" value="150">
+					<label for="option1">Larger</label><br>
+				  
+					<input type="radio" id="option2" name="paddlesSize" value="75" checked>
+					<label for="option2">Normal</label><br>
+				  
+					<input type="radio" id="option3" name="paddlesSize" value="50">
+					<label for="option3">Smaller</label><br>
+				  </form>
+				<button id="btPlayVs2">Play</button>
+			</div>	
+			<div id="next">
+				<div>Player 1 Score: <span id="p1TournScore">0</span></div>
+				<div>Player 2 Score: <span id="p2TournScore">0</span></div>
+				<div>Player 3 Score: <span id="p3TournScore">0</span></div>
+				<div>Player 4 Score: <span id="p4TournScore">0</span></div>
+				<button id="startNext">Next</button>
+				<p id="tournEnd">Final score !</p>
+			</div>
 		</div>
-		<p id="player1name">player 1 name</p>
-	</div>
-	<div id="playerInfo2">
-		<div id="p2Score">0</div>
-		<div id="player2avatar">
-			FLECHE HAUT et BAS
-			<img src="" alt="">
+		<div id="playerInfo1">
+			<div id="p1Score">0</div>
+			<div id="player1avatar">
+				W S<br><br><br>
+				touche special<br>
+				J K O 1 V
+				<img src="" alt="">
+			</div>
+			<p id="player1name">player 1 name</p>
 		</div>
-		<p id="player2name">player 2 name</p>
+		<div id="playerInfo2">
+			<div id="p2Score">0</div>
+			<div id="player2avatar">
+				FLECHE HAUT et BAS
+				<img src="" alt="">
+			</div>
+			<p id="player2name">player 2 name</p>
+		</div>
+		<div id="playerInfo3">
+			<div id="p3Score">0</div>
+			<div id="player3avatar">
+				G H
+				<img src="" alt="">
+			</div>
+			<p id="player3name">player 3 name</p>
+		</div>
+		<div id="playerInfo4">
+			<div id="p4Score">0</div>
+			<div id="player4avatar">
+				NUMPAD 8 9
+				<img src="" alt="">
+			</div>
+			<p id="player4name">player 4 name</p>
+		</div>
 	</div>
 </div>

@@ -19,8 +19,10 @@ function loadContent(path) {
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
       if (path === "pong/playonevsone/") {
-        playGame([4, 4, 0, 0]);
+        // playGame([1, 1, 0, 0]);
       } else if (path === "pong/playrumble/") {
+        // playGame([1, 1, 1, 1]);
+      } else if (path === "pong/tournaments/") {
         tournament()
       } else {
         playDemo();

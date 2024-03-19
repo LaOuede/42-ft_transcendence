@@ -24,28 +24,28 @@
 	display: none;
 	bottom: 3%;
 	left: 2%;
-	background-color: #69327A66;
+	/* background-color: #69327A66; */
 }
 
 #playerInfo2 {
 	display: none;
 	top: 7%;
 	right: 2%;
-	background-color: #249DC666;
+	/* background-color: #249DC666; */
 }
 
 #playerInfo3 {
 	display: none;
 	top: 7%;
 	left: 2%;
-	background-color: #ffff0066;
+	/* background-color: #ffff0066; */
 }
 
 #playerInfo4 {
 	display: none;
 	bottom: 3%;
 	right: 2%;
-	background-color: #00ffff66;
+	/* background-color: #00ffff66; */
 }
 
 #player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {

@@ -4,6 +4,8 @@ import { gameInfo } from "../pong/pongvs4.js"
 let btStartTourn = document.querySelector("#startTourn")
 let btStartNext = document.querySelector("#startNext")
 let inputTournLength = document.querySelector("#tournLength")
+let inputDefaultLives = document.getElementById("defaultLives")
+
 
 
 const playersScores = [0, 0, 0, 0]
@@ -18,6 +20,8 @@ let tournScores = [p1TournScore,
 	p3TournScore,
 	p4TournScore]
 
+let nickName = [undefined, undefined, undefined, undefined]
+
 function initElements() {
 	if (document.getElementById("p1TournScore")) {
 		tournScores[0] = document.getElementById("p1TournScore")
@@ -31,11 +35,14 @@ function initElements() {
 	if (document.getElementById("p4TournScore")) {
 		tournScores[3] = document.getElementById("p4TournScore") 
 	}
-	if (document.getElementById("startTourn")) {
+	if (document.getElementById("btPlay")) {
 		btStartTourn = document.getElementById("startTourn") 
 	}
 	if (document.getElementById("tournLength")) {
 		inputTournLength = document.getElementById("tournLength") 
+	}
+	if (document.getElementById("defaultLives")) {
+		inputDefaultLives = document.getElementById("defaultLives") 
 	}
 	if (document.getElementById("startNext")) {
 		btStartNext = document.getElementById("startNext") 
@@ -115,34 +122,27 @@ function showScores(){
 function tournament(){
 	gameInfo.tournements = true
 	initElements()
-	if(btStartTourn){
-		btStartTourn.addEventListener("click", function (e) {
-			game_count = inputTournLength.value
-			if(game_count > 0 && game_count < 10){
-				resetLives()
-				document.getElementById("start").style.display = "none"
-				resetTourn()
-				gameInfo.countDownDone = false
-				gameInfo.gameover = false
-				game_count--
-				playGame(gameInfo.player_lives)
-			}
-		})
-	}
+	game_count = inputTournLength.value
+	gameInfo.default_lives = inputDefaultLives.value
+	if(game_count > 0 && game_count < 10){
+		resetLives()
+		document.getElementById("start").style.display = "none"
+		resetTourn()
+		gameInfo.countDownDone = false
+		gameInfo.gameover = false
+		game_count--
+		playGame(gameInfo.player_lives)
+		}
 	if(btStartNext){
-		btStartNext.addEventListener("click", function (e) {
-			if(game_count > 0){
-				gameInfo.countDownDone = false
-				gameInfo.gameover = false
-				game_count--
-				playGame(gameInfo.player_lives)
-				document.getElementById("next").style.display = "none"
-			} else {
-
-			}
-			
-
-		})
+		// btStartNext.addEventListener("click", function (e) {
+		// 	if(game_count > 0){
+		// 		gameInfo.countDownDone = false
+		// 		gameInfo.gameover = false
+		// 		game_count--
+		// 		playGame(gameInfo.player_lives)
+		// 		document.getElementById("next").style.display = "none"
+		// 	}
+		// })
 	}
 	updateScores()
 

@@ -2,51 +2,55 @@
 	<div class="onevsone-container-black">
 		{% csrf_token %}
 		<div class="signup-header-onevsone">
-			<h2 class="onevsone-title">1 VS 1</h2>
+			<h2 class="onevsone-title">RUMBLE</h2>
 		</div>
 		<div class="players-container">
 			<div class="input-group player1-container">
 				<p class="onevsone-player-title">PLAYER 1</p>
 				<div>
 					<form>
-						<select id="colorSelect">
+						<select id="p1colorSelect">
 						  <option value="red">Rouge</option>
 						  <option value="blue">Bleu</option>
 						  <option value="green">Vert</option>
 						  <option value="yellow">Jaune</option>
 						  <option value="orange">Orange</option>
-						  <option value="purple">Violet</option>
-						  <option value="black">Noir</option>
-						  <option value="white">Blanc</option>
+						  <option value="purple" selected>Violet</option>
 						</select>
 					  </form>
 				</div>
+			</div>
+			<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+				<input
+				id="player1nick"
+				placeholder="Player 1"
+				required=""
+				type="text"
+				name="player1"
+				/>
 			</div>
 			<div class="input-group player2-container">
 				<p class="onevsone-player-title">PLAYER 2:</p>
 				<div>
 					<form>
-						<select id="colorSelect">
+						<select id="p2colorSelect">
 						  <option value="red">Rouge</option>
-						  <option value="blue">Bleu</option>
+						  <option value="blue" selected>Bleu</option>
 						  <option value="green">Vert</option>
 						  <option value="yellow">Jaune</option>
 						  <option value="orange">Orange</option>
 						  <option value="purple">Violet</option>
-						  <option value="black">Noir</option>
-						  <option value="white">Blanc</option>
 						</select>
 					  </form>
 				</div>
 				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
 					<input
-					id="player2"
+					id="player2nick"
 					placeholder="Player 2"
 					required=""
 					type="text"
 					name="player2"
 					/>
-					<button class="button3" onclick="loadContent('pong/play/'); return false;" type="submit">OK</button>
 				</div>
 			</div>
 		</div>
@@ -55,59 +59,54 @@
 					<p class="onevsone-player-title">PLAYER 3:</p>
 					<div>
 						<form>
-							<select id="colorSelect">
+							<select id="p3colorSelect">
 							  <option value="red">Rouge</option>
 							  <option value="blue">Bleu</option>
 							  <option value="green">Vert</option>
-							  <option value="yellow">Jaune</option>
+							  <option value="yellow" selected>Jaune</option>
 							  <option value="orange">Orange</option>
 							  <option value="purple">Violet</option>
-							  <option value="black">Noir</option>
-							  <option value="white">Blanc</option>
 							</select>
 						  </form>
 					</div>
 					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
 						<input
-						id="player3"
+						id="player3nick"
 						placeholder="Player 3"
 						required=""
 						type="text"
 						name="player3"
 						/>
-						<button class="button3" onclick="loadContent('pong/play/'); return false;" type="submit">OK</button>
 					</div>
 				</div>
 				<div class="input-group player2-container">
 					<p class="onevsone-player-title">PLAYER 4:</p>
 					<div>
 						<form>
-							<select id="colorSelect">
+							<select id="p4colorSelect">
 							  <option value="red">Rouge</option>
 							  <option value="blue">Bleu</option>
 							  <option value="green">Vert</option>
 							  <option value="yellow">Jaune</option>
-							  <option value="orange">Orange</option>
+							  <option value="orange" selected>Orange</option>
 							  <option value="purple">Violet</option>
-							  <option value="black">Noir</option>
-							  <option value="white">Blanc</option>
 							</select>
 						  </form>
 					</div>
 					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
 						<input
-						id="player4"
+						id="player4nick"
 						placeholder="Player 4"
 						required=""
 						type="text"
 						name="player4"
 						/>
-						<button class="button3" onclick="loadContent('pong/play/'); return false;" type="submit">OK</button>
 					</div>
 				</div>
 			</div>
 		<div class="button3-container">
-			<button class="button4" onclick="loadContent('pong/playrumble/'); return false;" type="submit">LET'S FIGHT!!!</button>
+			<button class="button4" id="btFight" onclick="loadContent('pong/playrumble/'); return false;" type="submit">LET'S FIGHT!!!</button>
+			
 		</div>
 	</div>
 </div>

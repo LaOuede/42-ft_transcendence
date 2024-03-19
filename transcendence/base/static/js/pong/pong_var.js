@@ -9,7 +9,7 @@ export function initGameInfo(){
 					paddle2key : [false, false],
 					paddle3key : [false, false],
 					paddle4key : [false, false]},
-		board_size: { size: 500, thickness: 10, paddleLenght: 75},
+		board_size: { size: 500, thickness: 10, paddleLength: 75},
 		paddle_limit_list: [2.5, 2.5, 2.5, 2.5],
 		default_lives: 1,
 		player_lives: [1, 1, 1, 1],
@@ -19,7 +19,8 @@ export function initGameInfo(){
 		view: 0,
 		level: 3,
 		level_inc: 0.5,
-		colors: ["#ff0000", "#ff00ff", "#00ff00", "#ffff00"]
+		colors: ["#9D2406", "#249DC6", "#88AD40", "#F2D811"],
+		nicks: ["player1", "player2", "player3", "player4"]
 	}
 	return gameInfo
 }

@@ -133,7 +133,7 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.lights[3].position.set(0, gameInfo.board_size.size / -3, 100);
 
 	//PADDLE1
-	const paddle1geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
+	const paddle1geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLength, gameInfo.board_size.thickness);
 	const paddle1material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000,});
 	pongObjs.paddles[0] = new THREE.Mesh(paddle1geometry, paddle1material);
 	pongObjs.paddles[0].position.set(-gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
@@ -141,7 +141,7 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.paddles[0].receiveShadow = true;
 
 	//PADDLE2
-	const paddle2geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness);
+	const paddle2geometry = new THREE.BoxGeometry(gameInfo.board_size.thickness, gameInfo.board_size.paddleLength, gameInfo.board_size.thickness);
 	const paddle2material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
 	pongObjs.paddles[1] = new THREE.Mesh(paddle2geometry, paddle2material);
 	pongObjs.paddles[1].position.set(gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness);
@@ -149,7 +149,7 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.paddles[1].receiveShadow = true;
 
 	//PADDLE3
-	const paddle3geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
+	const paddle3geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLength, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
 	const paddle3material = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 2000 });
 	pongObjs.paddles[2] = new THREE.Mesh(paddle3geometry, paddle3material);
 	pongObjs.paddles[2].position.set(0, gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
@@ -157,7 +157,7 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.paddles[2].receiveShadow = true;
 
 	//PADDLE4
-	const paddle4geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLenght, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
+	const paddle4geometry = new THREE.BoxGeometry(gameInfo.board_size.paddleLength, gameInfo.board_size.thickness, gameInfo.board_size.thickness);
 	const paddle4material = new THREE.MeshPhongMaterial({color: 0xcccccc, shininess: 2000});
 	pongObjs.paddles[3] = new THREE.Mesh(paddle4geometry, paddle4material);
 	pongObjs.paddles[3].position.set(0, -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
