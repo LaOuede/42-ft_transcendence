@@ -298,8 +298,6 @@ h5 {
 	border-radius: 20px;
 	min-width: 70%;
 	min-height: 70%; 
-	min-width: 70%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -310,12 +308,19 @@ h5 {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	justify-content: space-between;
+	align-items: center;
 	width: 90%;
 	height: 90%;
+	position: fixed;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	background: var(--dark-color);
+	border-radius: 20px;
+	padding: 20px;
+	box-sizing: border-box;
 	background: var(--dark-color);
 	border-radius: 20px;
 	padding: 20px;
