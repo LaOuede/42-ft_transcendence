@@ -56,7 +56,7 @@ function updateScores(){
 }
 
 function giveTournPoints(player){
-	const tournPoint = [10, 10, 10, 0]/// pas oublier de remettre des vrai score
+	const tournPoint = [10, 5, 3, 0]
 	playersScores[player] += tournPoint[gameInfo.player_count]
 	for(let i = 0; i < playersScores.length; i++)
 		console.log(playersScores)
@@ -64,43 +64,51 @@ function giveTournPoints(player){
 
 function tieBreak(){
 	let bestScore = findBestScore()
-	let startLives = [0, 0, 0, 0]
 	for(let i = 0; i < tournScores.length; i++)
-		if(tournScores[i] === bestScore)
-			startLives[i] = 1
-	playGame(startLives)
+		if(playersScores[i] === bestScore)
+			gameInfo.player_lives[i] = 1
 }
 
 function findBestScore(){
 	let bestScore = 0
-	for(let i = 0; i < tournScores.length; i++)
-		if(bestScore < tournScores[i])
-			bestScore == tournScores[i]
+	for(let i = 0; i < playersScores.length; i++){
+		if(bestScore < playersScores[i])
+			bestScore = playersScores[i]
+	}
 	return bestScore
 }
 
 function isTie(){
 	let bestScore = findBestScore()
-	for(let i = 0; i < tournScores.length; i++)
-		if(bestScore < tournScores[i])
-			bestScore == tournScores[i]
+	for(let i = 0; i < playersScores.length; i++)
+		if(bestScore < playersScores[i])
+			bestScore == playersScores[i]
 	let bestScorePlayerCount = 0
-	for(let i = 0; i < tournScores.length; i++)
-		if(tournScores[i] === bestScore)
+	for(let i = 0; i < playersScores.length; i++)
+		if(playersScores[i] === bestScore)
 			bestScorePlayerCount++
 	if(bestScorePlayerCount > 1)
 		return true;
 	return false
 }
 
+function resetLives(){
+	for(let i = 0; i < gameInfo.player_lives.length; i++)
+		gameInfo.player_lives[i] = gameInfo.default_lives
+}
+
 function showScores(){
 	document.getElementById("next").style.display = "block"
+	if(game_count <= 0 && isTie() === true){
+		game_count++
+		tieBreak()
+	} else {
+		resetLives()
+	}
 	if(game_count > 0){
 		document.getElementById("startNext").style.display = "inline"
 		document.getElementById("tournEnd").style.display = "none"
 	} else {
-		if(isTie() === true)
-			tieBreak()
 		document.getElementById("startNext").style.display = "none"
 		document.getElementById("tournEnd").style.display = "inline"
 	}
@@ -114,13 +122,14 @@ function tournament(){
 		btStartTourn.addEventListener("click", function (e) {
 			game_count = inputTournLength.value
 			if(game_count > 0){
+				resetLives()
 				document.getElementById("start").style.display = "none"
 				resetTourn()
 				gameInfo.countDownDone = false
 				gameInfo.gameover = false
 				game_count--
 				console.log(gameInfo)
-				playGame([1, 1, 1, 1])
+				playGame(gameInfo.player_lives)
 			}
 		})
 	}
@@ -131,7 +140,7 @@ function tournament(){
 				gameInfo.gameover = false
 				game_count--
 				console.log(gameInfo)
-				playGame([1, 1, 1, 1])
+				playGame(gameInfo.player_lives)
 				document.getElementById("next").style.display = "none"
 			} else {
 

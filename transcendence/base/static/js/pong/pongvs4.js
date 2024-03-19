@@ -429,9 +429,9 @@ document.addEventListener("keypress", (event) => {
 		if (event.key === "l") {
 			playDemo()
 		}
-		if(event.key === "1"){
-			lightColorSwitch(3, "#ff55ff")
-		}
+		// if(event.key === "1"){
+		// 	lightColorSwitch(3, "#ff55ff")
+		// }
 	}
 		
 });
@@ -562,6 +562,7 @@ function playDemo(){
 		resetGameDemo()
 		demoLights()
 		pongObjs.renderer.setAnimationLoop(animate);
+		gameInfo.tournements = false
 	}
 }
 
