@@ -17,14 +17,12 @@
 }
 
 h1 {
-	background: linear-gradient(90deg, #CA78E5 0%, #1e1023 100%);
+	background: linear-gradient(90deg, #CA78E5 0%, #1e1023 120%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: calc(1.2vw + 10px);
-	margin-left: 30px;
-	margin-top: -15px;
-	padding: 1em;
+	font-size: calc(20px + 0.390625vw);
+	margin-left: 5px;
 	cursor: pointer;
 }
 
@@ -33,7 +31,7 @@ h2 {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 	margin-top: -15px;
 }
 
@@ -41,7 +39,6 @@ h2 {
 body {
 	height: 100vh;
 	width: 100vw;
-	margin: 0;
 	padding: 40px;
 	box-sizing: border-box;
 }
@@ -65,9 +62,8 @@ body {
 	align-items: center; /* Center items vertically in the middle */
 	position: absolute;
 	text-align: right;
-	width: 100%;
-	top: 5px;
-	right: 30px;
+	width: 98%;
+	top: 20px;
 }
 
 .is-signed-in {
@@ -82,7 +78,7 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
-	font-size: calc(.5vw + 10px);
+	font-size: calc(12px + 0.390625vw);
 }
 
 .main-nav-links a ,
@@ -91,32 +87,9 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
-	font-size: calc(.5vw + 10px);
+	font-size: calc(12px + 0.390625vw);
 }
 
-@media (max-width: 768px) {
-	h1 {
-		font-size: 4vw; /* Taille de police plus grande pour les écrans plus petits */
-	}
-	h2 {
-		font-size: 3vw;
-	}
-	.main-nav-links a, .is-signed-in a, .not-signed-in a {
-		font-size: 1.7vw;
-	}
-}
-
-@media (max-width: 480px) {
-	h1 {
-		font-size: 6vw; /* Taille de police encore plus grande pour les très petits écrans */
-	}
-	h2 {
-		font-size: 5vw;
-	}
-	.main-nav-links a, .is-signed-in a, .not-signed-in a {
-		font-size: 3vw;
-	}
-}
 
 .main-nav-links a:hover,
 .is-signed-in a:hover, .not-signed-in a:hover {
@@ -152,11 +125,7 @@ body {
 
 h5 {
 	color: var(--blue-color);
-	font-size: 14px;
-}
-
-.fa-brands {
-	padding-left: 10px;
+	font-size: calc(7px + 0.390625vw);
 }
 
 .footer-links {
@@ -171,7 +140,8 @@ h5 {
 
 .github-link {
 	text-decoration: none;
-	color: var(--purple-color)
+	color: var(--purple-color);
+	font-size: calc(6px + 0.390625vw);
 }
 
 .github-link:hover,
@@ -217,8 +187,8 @@ h5 {
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 20%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 55%; 
+	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -234,7 +204,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	opacity: 85%;
-
+	
 }
 
 .login-container-login, .signup-container-login {
@@ -250,7 +220,7 @@ h5 {
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
-	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
+	padding: 10px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
 	max-height: 90%;
 	width: 80%; 
 }
@@ -268,8 +238,9 @@ h5 {
 	z-index: 10;
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 35%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 50%; 
+	width: 35%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 500px;
+	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -309,6 +280,7 @@ h5 {
 
 .pong-container-login .buttons-container {
 	display: flex;
+	justify-content: space-between; /* You can use 'space-around' or 'space-evenly' depending on your preference */
 	width: 100%; /* Adjust the width as needed */
 }
 
@@ -332,6 +304,10 @@ h5 {
 }
 
 .profile-container-black {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Cela poussera le contenu en haut et en bas respectivement */
+	align-items: center; 
 	position: fixed;
 	width: 90%;
 	height: 90%;
@@ -388,8 +364,9 @@ h5 {
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 40%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 70%; 
+	width: 40%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 500px;
+	min-height: 80%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -444,7 +421,8 @@ h5 {
 }
 
 .button1, .button2 {
-	width: 48%; /* Adjust the width of the buttons based on your design */
+	width: 43%; /* Adjust the width of the buttons based on your design */
+	min-width: 125px;
 	margin-top: 30px;
 	background-color: #2D2D2D;
 	color:var(--soft-blue-color);
@@ -452,16 +430,16 @@ h5 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1.5rem;
+	padding: calc(15px + 0.390625vw);
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.4vw;
+	font-size: calc(20px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
 	cursor: pointer;
 	transition: background-color 0.2s;
-	margin: 1vw 1vw 0px .5vw;
+
 }
 
 .button3, .button4 {
@@ -472,10 +450,10 @@ h5 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1.5rem;
+	padding: calc(15px + 0.390625vw);
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -485,6 +463,7 @@ h5 {
 
 .button4 {
 	margin-bottom: 40px;
+	min-width: 125px;
 }
 
 .signup-header {
@@ -499,17 +478,17 @@ h5 {
 
 .header-title, .onevsone-title {
 	color: var(--soft-blue-color);
-	font-size: 2.3vw;
+	font-size: calc(40px + 0.390625vw);
 }
 
 .onevsone-player-title {
 	color: var(--soft-blue-color);
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 }
 
 .signup-description {
 	color: var(--soft-blue-color);
-	font-size: .7vw;
+	font-size: calc(10px + 0.390625vw);
 }
 
 .signup-form .input-row {
@@ -519,19 +498,15 @@ h5 {
 	overflow: hidden;
 }
 
-.visible {
-	display: block !important; /* Utilisez !important pour vous assurer qu'elle prend le dessus sur d'autres styles */
-}
-
 .error-container {
-	height: 1vw;
+	height: calc(15px + 0.390625vw);
 	overflow: hidden;
 	transition: height 0.3s ease-in-out;
 	box-sizing: border-box; /* Inclure les marges et les paddings dans la hauteur totale */
 }
 
 .login-error-message {
-	font-size: 0.875rem;
+	font-size: calc(10px + 0.390625vw);
 	color: var(--error-color);
 	visibility: hidden; /* Cachez initialement le message */
 	white-space: nowrap;
@@ -540,7 +515,7 @@ h5 {
 }
 
 .error-container.show-error {
-	height: 1vw; /* Ajustez la hauteur lorsque le message est visible */
+	height: calc(15px + 0.390625vw); /* Ajustez la hauteur lorsque le message est visible */
 }
 
 .error-container.show-error .login-error-message {
@@ -554,7 +529,7 @@ h5 {
 }
 
 .signup-error {
-	font-size: 0.875rem;
+	font-size: calc(10px + 0.390625vw);
 	color: var(--error-color);
 	opacity:  1;
 }
@@ -570,17 +545,18 @@ h5 {
 }
 
 .input-group input {
-	height: 1vw;
+	height: calc(15px + 0.390625vw);
 	padding: 0.5rem;
 	border: 1px solid var(--dark-color);
 	border-radius: 20px;
 	background-color: #5B5B5B;
-	font-size: .8vw;
+	font-size: calc(10px + 0.390625vw);
 	flex-grow: 1;
 }
 
 #player2, #player3, #player4 {
-	width: 4vw;
+	width: 5vw;
+	font-size: calc(7px + 0.390625vw);
 }
 
 .input-group input:focus {
@@ -597,7 +573,7 @@ h5 {
 	width: 100%;
 	height: 2.5rem;
 	font-family:'Courier';
-	font-size: 1.1vw;
+	font-size: calc(15px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -608,7 +584,7 @@ h5 {
 
 .signup-title {
 	color: var(--soft-blue-color);
-	font-size: .8vw;
+	font-size: calc(10px + 0.390625vw);
 	margin-top: 10px;
 	margin-bottom: 2px;
 }
@@ -628,7 +604,7 @@ h5 {
 /* ----------------------------------- OTP ----------------------------------- */
 /* ---------------------------------------------------------------------- */
 #otp-form .otp-error {
-	font-size: 0.875rem;
+	font-size: calc(10px + 0.390625vw);
 	color: var(--error-color);
 	opacity:  0.9;
 }
@@ -651,7 +627,7 @@ h5 {
 
 #profile-update-errors {
 	color: var(--error-color);
-	font-size: 0.875rem;
+	font-size: calc(10px + 0.390625vw);
 	opacity:  0.9;
 }
 
@@ -710,7 +686,7 @@ select {
 	padding: 10px;
 	margin: 10px;
 	border: 2px solid var(--dark-color);
-	font-size: .6vw;
+	font-size: calc(7px + 0.390625vw);
 }
 
 option[value="red"] { background-color: red; }
@@ -721,3 +697,15 @@ option[value="orange"] { background-color: orange; }
 option[value="purple"] { background-color: purple; }
 option[value="black"] { background-color: black; }
 option[value="white"] { background-color: white; color: black; }
+
+@media (max-width: 768px) {
+	.login-container, .signup-container, .profile-container, .onevsone-container, .settings-container, .pong-container {
+		min-width: 80%; /* Augmente la largeur minimale pour les écrans moyens */
+	}
+}
+
+@media (max-width: 480px) {
+	.login-container, .signup-container, .profile-container, .onevsone-container, .settings-container, .pong-container {
+		min-width: 90%; /* Augmente la largeur minimale pour les petits écrans */
+	}
+}
