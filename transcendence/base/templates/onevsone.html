@@ -9,13 +9,14 @@
 				<p class="onevsone-player-title">PLAYER 1</p>
 				<div>
 					<form>
-						<select id="colorSelect">
+						<select id="p1colorSelect">
 						  <option value="red">Rouge</option>
 						  <option value="blue">Bleu</option>
 						  <option value="green">Vert</option>
 						  <option value="yellow">Jaune</option>
 						  <option value="orange">Orange</option>
-						  <option value="purple">Violet</option>
+						  <option value="purple" selected>Violet</option>
+
 						</select>
 					  </form>
 				</div>
@@ -24,9 +25,9 @@
 				<p class="onevsone-player-title">PLAYER 2:</p>
 				<div>
 					<form>
-						<select id="colorSelect">
+						<select id="p2colorSelect">
 						  <option value="red">Rouge</option>
-						  <option value="blue">Bleu</option>
+						  <option value="blue" selected>Bleu</option>
 						  <option value="green">Vert</option>
 						  <option value="yellow">Jaune</option>
 						  <option value="orange">Orange</option>
@@ -47,7 +48,7 @@
 			</div>
 		</div>
 		<div class="button3-container">
-			<button class="button4" onclick="loadContent('pong/playonevsone/'); return false;" type="submit">LET'S FIGHT!!!</button>
+			<button class="button4" id="btFight" onclick="loadContent('pong/playonevsone/'); return false;" type="submit">LET'S FIGHT!!!</button>
 		</div>
 	</div>
 </div>
