@@ -89,11 +89,11 @@ WSGI_APPLICATION = "transcendence.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "transcendance_db",
-        "USER": "ponguser",
-        "PASSWORD": "pongpassword",
-        "HOST": "postgres",
-        "PORT": "5432",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST", "postgres"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
 

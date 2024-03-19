@@ -3,8 +3,7 @@
 #game {
 	margin-top: 50px;
 }
-
-#pong #playerInfo1, #pong #playerInfo2, #pong #playerInfo3, #pong #playerInfo4 {
+#playerInfo1, #playerInfo2, #playerInfo3, #playerInfo4 {
 	text-align: center;
 	width: 200px;
 	height: 275px;
@@ -21,35 +20,35 @@
 	align-items: center;
 }
 
-#pong #playerInfo1 {
+#playerInfo1 {
 	display: none;
 	bottom: 3%;
 	left: 2%;
 	background-color: #69327A66;
 }
 
-#pong #playerInfo2 {
+#playerInfo2 {
 	display: none;
 	top: 7%;
 	right: 2%;
 	background-color: #249DC666;
 }
 
-#pong #playerInfo3 {
+#playerInfo3 {
 	display: none;
 	top: 7%;
 	left: 2%;
 	background-color: #ffff0066;
 }
 
-#pong #playerInfo4 {
+#playerInfo4 {
 	display: none;
 	bottom: 3%;
 	right: 2%;
 	background-color: #00ffff66;
 }
 
-#pong #player1avatar, #pong #player2avatar, #pong #player3avatar, #pong #player4avatar {
+#player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
 	border-radius: 20px;
 	border: solid 5px;
 	width: 150px;
@@ -59,11 +58,11 @@
 	margin-bottom: -15px;
 }
 
-#pong #player1name, #pong #player2name, #pong #player3name, #pong #player4name {
+#player1name,  #player2name,  #player3name,  #player4name {
 	font-size: 20px;
 }
 
-#pong #p1Score, #pong #p2Score, #pong #p3Score, #pong #p4Score {
+#p1Score,  #p2Score,  #p3Score,  #p4Score {
 	border-radius: 20px;
 	border: solid 5px;
 	width: 75px;
@@ -72,4 +71,25 @@
 	margin-top: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 45px;
+}
+
+#tournInfo{
+	height: 500;
+	width: 500;
+	background-color: black;
+	position: absolute;
+	color: white;
+	display: flex;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	left: 40%;
+}
+
+#tournInfo #start{
+	display: block;
+}
+
+#tournInfo #next{
+	display: none;
 }
