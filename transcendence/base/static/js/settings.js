@@ -41,8 +41,9 @@ async function handleUpdateProfile() {
   const username = document.getElementById("username-update").value;
   const avatarFile = document.getElementById("avatar-upload").files[0];
   const email = document.getElementById("email-update").value;
+  const activity = document.getElementById("select-status").value;
 
-  if (!avatarFile && !username && !email) {
+  if (!avatarFile && !username && !email && !activity) {
     console.log("No changes detected. No update needed.");
     return;
   }
@@ -65,8 +66,16 @@ async function handleUpdateProfile() {
     formData.append("username", username);
   }
 
+  if (activity) {
+    formData.append("activity", activity);
+  }
+
   try {
     await window.apiHandler.post("user/update/", formData);
+    document.getElementById("profile-update-alert").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("profile-update-alert").style.display = "none";
+    }, 7000);
   } catch (error) {
     console.error("ERROR UPDATING PROFILE", error);
     handleUpdateProfileErrors(error);
