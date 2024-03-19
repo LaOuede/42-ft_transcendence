@@ -35,7 +35,6 @@ h2 {
 	margin-top: -15px;
 }
 
-
 body {
 	height: 100vh;
 	width: 100vw;
@@ -89,7 +88,6 @@ body {
 	text-decoration: none;
 	font-size: calc(12px + 0.390625vw);
 }
-
 
 .main-nav-links a:hover,
 .is-signed-in a:hover, .not-signed-in a:hover {
@@ -148,7 +146,6 @@ h5 {
 .github-link:hover .fa-brands {
 	color: #ddd; /* Color on hover */
 }
-
 
 #github-links {
 	text-decoration: none;
@@ -706,6 +703,14 @@ option[value="white"] { background-color: white; color: black; }
 
 @media (max-width: 480px) {
 	.login-container, .signup-container, .profile-container, .onevsone-container, .settings-container, .pong-container {
-		min-width: 90%; /* Augmente la largeur minimale pour les petits écrans */
+		min-width: 70%; /* Augmente la largeur minimale pour les petits écrans */
+		min-height: 60%;
+	}
+	.h2 {
+		font-size: 8px;
+	}
+
+	.buttons-container {
+		flex-direction: column; /* Change the direction of the buttons to stack them vertically */
 	}
 }
