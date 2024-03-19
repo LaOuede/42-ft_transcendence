@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 		('ON', 'Online 🟢'),
 		('IG', 'In game 🟣'),
 		('OF', 'Offline 🔴'),
-		('UN', 'Unavailable 🟡')
+		('UN', 'Unavailable 🟡'),
 	]
 
 	def random_avatar_path():
