@@ -3,7 +3,7 @@
 	<div class="profile-container-black">
 		<div class="profile-container-login">
 			<div class="signup-header">
-				<h2 class="header-title">MY PROFILE</h2>
+				<h2 class="profile-title">MY PROFILE</h2>
 				{% if user_data %}
 				
 				<div class="profile-grid-container">
@@ -11,7 +11,7 @@
 					<div class="perso-grid-item">
 						<img src="{{ user_data.avatar }}" alt="User Avatar" width="100" />
 						<div class="profile-text-container">
-							<h3>MY INFOS:</h3>
+							<h3 class="title-profile-item">MY INFOS:</h3>
 								<div class="profile-informations">
 									<p>{{ user_data.username }}</p>
 									<p>{{ user_data.email }}</p>
@@ -22,28 +22,28 @@
 
 					<!-- Grid item 2: Games stats -->
 					<div class="stats-grid-item">
-						<h3>STATS:</h3>
+						<h3 class="title-profile-item">STATS:</h3>
 						<div class="profile-informations">
-							<p>Played games: 5</p>
-							<p>Won games: 3</p>
-							<p>Lost games: 2</p>
-							<p>Wins rate: 60%</p>
+							<p>Played games:  <strong>5</strong></p>
+							<p>Won games:  <strong>3</strong></p>
+							<p>Lost games:  <strong>2</strong></p>
+							<p>Wins rate:  <strong>60%</strong></p>
 						</div>
 					</div>
 
 					<!-- Grid item 3: Friends list -->
 					<div class="friends-grid-item">
-						<h3>FRIENDS LIST:</h3>
+						<h3 class="title-profile-item">FRIENDS LIST:</h3>
 						<div class="profile-informations">
 							<p>Bill [Online 🟢]</p>
 							<p>Pol [Offline 🔴]</p>
-							<p>John [Offline 🔴]</p>
+							<p>John [Unavailable 🟡]</p>
 						</div>
 					</div>
 
 					<!-- Grid item 4: Game history -->
 					<div class="historic-grid-item">
-						<h3>GAMES HISTORY:</h3>
+						<h3 class="title-profile-item">GAMES HISTORY:</h3>
 						<div class="profile-informations">
 							<p><strong>Victory</strong> vs. Bill  [2024-03-12]</p>
 							<p><strong>Victory</strong> vs. John  [2024-03-11]</p>
@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="button-settings-container">
-				<button class="button-settings" id="view-settings-button" type="button">SETTINGS</button>
+				<button class="button3" id="view-settings-button" type="button">SETTINGS</button>
 			</div>
 
 				{% else %}
