@@ -324,7 +324,7 @@ h5 {
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 70%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 70%;
 	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
@@ -332,14 +332,20 @@ h5 {
 }
 
 .profile-container-black {
-	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 	width: 90%;
 	height: 90%;
-	background: var(--dark-color);
-	border-radius: 20px;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	background: var(--dark-color);
+	border-radius: 20px;
+	padding: 20px;
+	box-sizing: border-box;
 	opacity: 85%;
 }
 
@@ -634,16 +640,6 @@ h5 {
 	opacity:  0.9;
 }
 
-.edit-profile-container {
-	max-width: 32rem;
-	margin: auto;
-	padding: 1.5rem;
-	height: '100%';
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
 #profile-container-avatar {
 	width: 2rem;
 	height: 2rem;
@@ -656,31 +652,12 @@ h5 {
 	opacity:  0.9;
 }
 
-.settings-container {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 10;
-	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
-	border-radius: 20px;
-	min-width: 60%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 50%; 
-	overflow: hidden;
-	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
-}
-
-.avatar-upload-container {
+/* .avatar-upload-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px; /* Adjust the margin as needed */
-}
+	margin-bottom: 20px;
+} */
 
 .avatar-upload-btn {
 	cursor: pointer;
@@ -724,11 +701,9 @@ option[value="black"] { background-color: black; }
 option[value="white"] { background-color: white; color: black; }
 
 
-/*
-*****************************
-*          PROFILE          *
-*****************************
-*/
+/* ---------------------------------------------------------------------- */
+/* ------------------------------- PROFILE ------------------------------ */
+/* ---------------------------------------------------------------------- */
 .profile-grid-container {
 	display: grid;
 	gap: 20px;
@@ -802,26 +777,12 @@ option[value="white"] { background-color: white; color: black; }
 	margin-top: 50px;
 }
 
-.button-settings {
-	background-color: #2D2D2D;
-	color: #00FAFA;
-	border: 1px solid #00FAFA;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1.5rem;
-	height: 70%;
-	font-family:'Courier';
-	font-size: 1.2rem;
-	font-weight: medium;
-	text-align: center;
-	border-radius: 20px;
-	cursor: pointer;
-	transition: background-color 0.2s;
+#view-settings-button {
+	width: 25%;
 }
 
-h3 {
-	background: linear-gradient(90deg, var(--main-purple-color) 0%, var(--main-blue-color) 100%);
+.title-profile-item {
+	background: linear-gradient(90deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
@@ -830,4 +791,168 @@ h3 {
 
 .profile-informations {
 	color: #00FAFA;
+}
+
+.profile-title {
+	color: var(--soft-blue-color);
+	font-size: 2.3vw;
+	background: linear-gradient(90deg, var(--purple-color) 30%, var(--blue-color) 70%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ------------------------------- SETTINGS ----------------------------- */
+/* ---------------------------------------------------------------------- */
+.settings-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
+	border-radius: 20px;
+	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 80%; 
+	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
+}
+
+.settings-container-black {
+	position: fixed;
+	width: 87%;
+	height: 95%;
+	background: black;
+	border-radius: 20px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 85%;
+}
+
+.settings-container-login {
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	max-height: 900px;
+	background: transparent;
+	border-radius: 20px;
+	overflow-y: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
+	max-height: 90%;
+	max-width: 85%;
+	overflow: auto;
+	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
+	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
+	width: 80%; 
+}
+
+.button-settings, #update-avatar {
+	background-color: #2D2D2D;
+	color: #00FAFA;
+	border: 1px solid #00FAFA;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: .75rem;
+	width: 100%;
+	height: 25%;
+	font-family:'Courier';
+	font-size: 1.2rem;
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	margin-bottom: 1.5rem;
+}
+
+#update-avatar {
+	width: 88%;
+}
+
+#button-delete-user {
+	color: red;
+	border: 1px solid red;
+	margin-top: 2rem;
+	margin-bottom: 5rem;
+}
+
+.update-profile {
+	color: var(--soft-blue-color);
+	font-size: .8vw;
+	margin-top: 10px;
+	margin-bottom: 2px;
+}
+
+#enable-2fa-button {
+	margin-top: 25px;
+}
+
+#update-profile-button {
+	background-color: #00FAFA;
+	color: black;
+}
+
+#update-username, #update-email {
+	font-family:'Courier';
+	font-size: 1rem;
+	text-align: left;
+	margin-top: 10px;
+}
+
+.file-input {
+	display: none; /* Hide the actual file input */
+}
+
+#update-avatar {
+	cursor: pointer;
+	/* Add styles to match your other form elements, e.g., buttons */
+	background-color: #2D2D2D;
+	color: #00FAFA;
+	border: 1px solid #00FAFA;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.75rem;
+	width: auto; /* Adjust width as needed */
+	height: auto; /* Adjust height as needed */
+	font-family: 'Courier';
+	font-size: 1.2rem;
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	transition: background-color 0.2s;
+	margin-bottom: 1.5rem;
+  }
+
+#update-avatar:hover, .button-settings:hover, #view-settings-button:hover {
+	background-color: #5B5B5B;
+}
+
+#update-profile-button:hover {
+	background-color: #249DC6;
+}
+
+#settings-input-group {
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+#settings-input-group > * {
+	width: 94%;
+}
+
+#select-status {
+	width: 100%;
+	margin-bottom: 2rem;
 }

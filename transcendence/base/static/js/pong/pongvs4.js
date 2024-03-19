@@ -120,6 +120,7 @@ function resetGameOver(){
 
 function resetGameDemo(){
 	gameInfo.countDownDone = false
+	gameInfo.gameover = false
 	defaultPosition()
 	if(pongObjs.scene.children.includes(pongObjs.paddles[0])) {pongObjs.scene.remove(pongObjs.paddles[0])};
 	if(pongObjs.scene.children.includes(pongObjs.paddles[1])) {pongObjs.scene.remove(pongObjs.paddles[1])};
