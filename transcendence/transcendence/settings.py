@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "base",
     "custom_auth",
     "games_history",
+    "history",
     "user",
     "rest_framework",
     "rest_framework.authtoken",
