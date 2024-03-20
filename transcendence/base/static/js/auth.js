@@ -49,7 +49,7 @@ function handleLogin(e) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data?.success) {
+      if (data?.success && !data?.session_token) {
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
@@ -95,9 +95,6 @@ function verifyOTP(e) {
     .then((response) => response.json())
     .then((data) => {
       if (data?.token?.access && data?.token?.refresh) {
-        localStorage.setItem("refreshToken", data.token.refresh);
-        localStorage.setItem("accessToken", data.token.access);
-        localStorage.removeItem("sessionToken");
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
 
@@ -121,6 +118,7 @@ function handleWrongOTPStyle(otpErrorMessage) {
 }
 
 function handleWrongOtp(data) {
+  let loader = document.querySelector(".lds-default");
   if (data?.error === "Invalid OTP.") {
     let otpErrorMessage = document.querySelector("#otp-form .otp-error");
     otpErrorMessage.innerHTML = "Invalid OTP. Please try again.";
@@ -129,10 +127,8 @@ function handleWrongOtp(data) {
     let otpErrorMessage = document.querySelector("#otp-form .otp-error");
     otpErrorMessage.innerHTML = "OTP expired. Please login again.";
     handleWrongOTPStyle(otpErrorMessage);
-    localStorage.removeItem("sessionToken");
     loadContent("auth/login/");
   } else {
-    localStorage.removeItem("sessionToken");
     loadContent("auth/login/");
   }
   loader.style.display = "none";

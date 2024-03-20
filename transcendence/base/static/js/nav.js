@@ -80,6 +80,7 @@ async function checkToken() {
     if (response.ok) {
       const data = await response.json();
       if (data.isAuthenticated) {
+        console.log("Authenticated");
         signedInNavbar.style.display = "flex";
         notSignedInNavbar.style.display = "none";
         if (history.state && history.state.path) {
