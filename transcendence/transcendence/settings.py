@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,7 +48,6 @@ INSTALLED_APPS = [
     "user",
     "rest_framework",
     "rest_framework.authtoken",
-    "channels",
     "django_otp",
     "django_otp.plugins.otp_totp",
     "django_otp.plugins.otp_static",
@@ -86,6 +87,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "transcendence.wsgi.application"
 
+ASGI_APPLICATION = "transcendence.asgi.application"
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -107,7 +110,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Get the EMAIL_HOST_USER from environment
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 
