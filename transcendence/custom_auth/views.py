@@ -143,6 +143,7 @@ def login(request):
         return render(request, "login.html")
     return render(request, "base.html", {"content": "login.html"})
 
+@api_view(['GET', 'POST'])
 def verify_otp(request):
     time.sleep(2)
     if request.method == "POST":
@@ -167,6 +168,7 @@ def verify_otp(request):
         else:
             return JsonResponse({"error": "Invalid session or session expired."}, status=401)
 
+@api_view(['GET', 'POST'])
 def register(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -210,6 +212,7 @@ def otp_view(request):
         return render(request, "otp.html")
     return render(request, "base.html", {"content": "login.html"})
 
+@api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def logout(request):
     if request.method == "POST":

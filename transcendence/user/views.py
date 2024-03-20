@@ -71,6 +71,8 @@ class UserUpdate(APIView):
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 def get_activity_display(self):
 	for code, label in activity_enum:
 		if code == self.activity:

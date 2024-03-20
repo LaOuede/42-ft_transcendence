@@ -9,9 +9,9 @@ function loadContent(path) {
   };
 
   fetch("/" + path, { headers })
-    .then((response) => {
+    .then(async (response) => {
       if (!response.ok && response.status === 401) {
-        redirectToLogin();
+        await redirectToLogin();
         alert("Your session has expired. Please log in again.");
       }
       return response.text();
@@ -21,7 +21,7 @@ function loadContent(path) {
       if (path === "pong/playonevsone/") {
         playGame([4, 4, 0, 0]);
       } else if (path === "pong/playrumble/") {
-        tournament()
+        tournament();
       } else {
         playDemo();
       }
@@ -35,7 +35,7 @@ function loadContent(path) {
     });
 }
 // Function to handle redirection to the login page
-export function redirectToLogin() {
+export async function redirectToLogin() {
   loadContent("auth/login/");
   /* localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken"); */
