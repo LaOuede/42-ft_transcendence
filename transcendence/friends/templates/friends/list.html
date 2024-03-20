@@ -17,24 +17,12 @@
 			{{ user.username }} -
 			<span
 				style="height: 10px; width: 10px; background-color: {% if user.activity == 'ON' %}green{% elif user.activity == 'OF' %}red{% else %}yellow{% endif %}; border-radius: 50%; display: inline-block;"></span>
-			{% if user.activity == 'ON' %}
-			Enligne
-			{% elif user.activity == 'OF' %}
-			Hors Ligne
-			{% else %}
-			Absent
-			{% endif %}
 		</li>
 		{% endfor %}
 	</ul>
-
 	{% else %}
 	<p>No Friends are available</p>
 	{% endif %}
-
-	<h1 id="randint">INTEGER</h1>
-	<input id="login" class="logbutton" type="button" value="Login" style="background-color: lightgreen">
-	<input id="logout" class="logbutton" type="button" value="Logout" style="background-color: pink">
 
 	<script>
 		const socket = new WebSocket(
@@ -53,12 +41,12 @@
 				return span.parentNode.textContent.includes(username);
 			});
 
-			if (data.message.action === "login")
+			if (data.message.status === "ON")
 			{
 				console.log(username + " Is logging in. 🟢")
 				target_span.style.backgroundColor = 'green';
 			}
-			else if (data.message.action === "logout")
+			else if (data.message.status === "OF")
 			{
 				console.log(username + " Is logging out.🔻")
 				target_span.style.backgroundColor = 'red';
@@ -76,7 +64,7 @@
 				JSON.stringify({
 					"message": {
 						"username": username,
-						"action": "login"
+						"status": "ON"
 					}
 				})
 			)
@@ -88,7 +76,7 @@
 				JSON.stringify({
 					"message": {
 						"username": username,
-						"action": "logout"
+						"status": "OF"
 					}
 				})
 			)

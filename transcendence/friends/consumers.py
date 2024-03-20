@@ -38,10 +38,10 @@ class WSConsumer(WebsocketConsumer):
         print(GREEN, "Received text_data: ", text_data, RESET)
 
         async_to_sync(self.channel_layer.group_send)(
-            self.user_activity_group, {"type": "chat.message", "message": message}
+            self.user_activity_group, {"type": "change.status", "message": message}
         )
 
-    def chat_message(self, event):
+    def change_status(self, event):
         message = event["message"]
 
         print(GREEN, "Received Group chat message: ", message, RESET)
