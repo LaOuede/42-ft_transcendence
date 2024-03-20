@@ -45,6 +45,24 @@
 
 		socket.onmessage = function (e) {
 			console.log("Get message " + e.data + " from websocket")
+
+			let data = JSON.parse(e.data);
+			let username = data.message.username;
+			let spans = document.querySelectorAll("ul > li > span");
+			let target_span = Array.from(spans).find(span => {
+				return span.parentNode.textContent.includes(username);
+			});
+
+			if (data.message.action === "login")
+			{
+				console.log(username + " Is logging in. 🟢")
+				target_span.style.backgroundColor = 'green';
+			}
+			else if (data.message.action === "logout")
+			{
+				console.log(username + " Is logging out.🔻")
+				target_span.style.backgroundColor = 'red';
+			}
 		}
 
 
@@ -54,17 +72,25 @@
 
 		loginBtn.onclick = function (e) {
 			let username = "Chet"
-			console.log(username + " Is logging in. 🟢")
 			socket.send(
-				JSON.stringify({ "username": username, "action": "login" })
+				JSON.stringify({
+					"message": {
+						"username": username,
+						"action": "login"
+					}
+				})
 			)
 		}
 
 		logoutBtn.onclick = function (e) {
 			let username = "Chet"
-			console.log(username + " Is logging out.🔻")
 			socket.send(
-				JSON.stringify({ "username": username, "action": "logout" })
+				JSON.stringify({
+					"message": {
+						"username": username,
+						"action": "logout"
+					}
+				})
 			)
 		}
 

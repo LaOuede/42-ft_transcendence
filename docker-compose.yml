@@ -23,6 +23,7 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+      - redis
     environment:
       DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
       DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
@@ -36,7 +37,7 @@ services:
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
       OAUTH_SECRET_KEY: ${OAUTH_SECRET_KEY}
       OAUTH_REDIRECT_URI: ${OAUTH_REDIRECT_URI}
-  
+
   nginx:
     build: ./nginx
     ports:
@@ -48,6 +49,11 @@ services:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/conf.d:/etc/nginx/conf.d
       - static_volume:/backend/base/static
+
+  redis:
+    image: redis:7
+    ports:
+      - 6379:6379
 
 volumes:
   postgres_data:
