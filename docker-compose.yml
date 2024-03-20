@@ -15,9 +15,10 @@ services:
   backend:
     build: ./transcendence
     entrypoint: ./transcendence/tools/entrypoint.sh
-    #command: python transcendence/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/backend
+      - static_volume:/backend/base/static
+      - static_volume:/backend/base/media
     ports:
       - "8000:8000"
     depends_on:
@@ -40,8 +41,14 @@ services:
     build: ./nginx
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - backend
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/backend/base/static
 
 volumes:
   postgres_data:
+  static_volume:
