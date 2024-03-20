@@ -1,26 +1,48 @@
 {% load static %}
-<div class="edit-profile-container">
-  <button id="view-profile-button" type="button" class="btn btn-primary">
-    View Profile
-  </button>
-  <div class="settings-container">
-    <h1>Settings</h1>
-    {% if user.is_oauth is False%}
-    <button id="enable-2fa-button" type="button" class="btn btn-primary">
-      {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
-    </button>
-    {% endif %}
-    <div class="">
-      <form id="profile-update-form" enctype="multipart/form-data">
-        <label for="avatar-upload">Upload Avatar:</label>
-        <input type="file" id="avatar-upload" name="avatar" />
-        <label for="username">Username: </label>
-        <input type="text" id="username-update" name="username-update" />
-        <label for="email">Email: </label>
-        <input type="text" id="email-update" name="email-update" />
-        <button type="submit" class="btn btn-primary">Update Profile</button>
-      </form>
-      <p id="profile-update-errors"></p>
+<div class="settings-container">
+  <div class="settings-container-black">
+    <div class="settings-container-login">
+      <div class="signup-header">
+        <h2 class="profile-title">SETTINGS</h2>
+        <div class="update-profile">
+          <form id="profile-update-form" enctype="multipart/form-data">
+            <div class="input-group">
+              <div id="settings-input-group">
+                <select name="activity" class="button-settings" id="select-status">
+                  <option value="" disabled selected>Select status</option>
+                  <option value="ON">Online 🟢</option>
+                  <option value="UN">Unavailable 🟡</option>
+                  <option value="OF">Offline 🔴</option>
+                </select>
+                <label for="avatar-upload" id="update-avatar" class="button-settings">Upload Avatar</label>
+                <input type="file" id="avatar-upload" name="avatar" class="file-input"/>
+                <label for="username" id="update-username">USERNAME: </label>
+                <input type="text" id="username-update" name="username-update" />
+                <label for="email" id="update-email">EMAIL: </label>
+                <input type="text" id="email-update" name="email-update" />
+              </div>
+            </div>
+            <div button-settings-container>
+              {% if user.is_oauth is False%}
+              <div button-settings-container>
+                <button class="button-settings" id="enable-2fa-button" type="button">
+                  {% if user.twoFA is False%} Enable 2FA {% else %} Disable 2FA {% endif %}
+                </button>
+              </div>
+              {% endif %}
+              <div id="profile-update-alert" class="alert alert-success" role="alert" style="display:none;">
+                Your profile has been updated successfully!
+              </div>
+              <button type="submit" class="button-settings" id="update-profile-button">SAVE CHANGES</button>
+            </div>
+          </form>
+          <p id="profile-update-errors"></p>
+        </div>
+        <button class="button-settings" id="button-delete-user" type="button">DELETE ACCOUNT</button>
+        <div button-settings-container>
+          <button class="button-settings" id="view-profile-button" type="button">BACK TO PROFILE</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
