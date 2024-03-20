@@ -8,8 +8,8 @@
 
 #playerInfo1, #playerInfo2, #playerInfo3, #playerInfo4 {
 	text-align: center;
-	width: 200px;
-	height: 200px;
+	width: calc(140px + 4.390625vw);
+	height: calc(140px + 4.390625vw);
 	border-radius: 20px;
 	color: white;
 	font-size: 1.3em;
@@ -25,6 +25,10 @@
 	display: none;
 	bottom: 3%;
 	left: 2%;
+	background-image: url(../../media/avatars/Corbeau.jpg);
+	background-size: contain; /* Assure que l'image entière est visible, peut laisser un espace vide */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; 
 	color: #249DC6;
 	border: solid #249DC6 5px;
 	box-shadow: #249DC6 0px 0px 10px;
@@ -34,6 +38,10 @@
 	display: none;
 	top: 7%;
 	right: 2%;
+	background-image: url(../../media/avatars/Chevreuil.jpg);
+	background-size: contain; /* Assure que l'image entière est visible, peut laisser un espace vide */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; 
 	color: #69327A;
 	border: solid #69327A 5px;
 	box-shadow: #69327A 0px 0px 10px;
@@ -43,6 +51,10 @@
 	display: none;
 	top: 7%;
 	left: 2%;
+	background-image: url(../../media/avatars/Ours.jpg);
+	background-size: contain; /* Assure que l'image entière est visible, peut laisser un espace vide */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; 
 	color: #F2D811;
 	border: solid #F2D811 5px;
 	box-shadow: #F2D811 0px 0px 10px;
@@ -52,6 +64,10 @@
 	display: none;
 	bottom: 3%;
 	right: 2%;
+	background-image: url(../../media/avatars/Renard.jpg);
+	background-size: contain; /* Assure que l'image entière est visible, peut laisser un espace vide */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; 
 	color: #E68A2B;
 	border: solid #E68A2B 5px;
 	box-shadow: #E68A2B 0px 0px 10px;
@@ -67,22 +83,33 @@
 	margin-bottom: -15px;
 } */
 
-#player1name,  #player2name,  #player3name,  #player4name {
-	font-size: 20px;
-}
 
-#p1Score,  #p2Score,  #p3Score,  #p4Score {
+.playerScore {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
 	border-radius: 20px;
 	border: solid 5px;
 	padding: 10px;
-	width: 172px;
-	height: 30px;
-	background-color: #2D2D2D;
-	opacity: 80%;
+	width: 90%;
+	height: calc(15px + 0.390625vw);
+	background-color: #000000;
 	margin: 0 auto;
-	margin-top: 148px;
 	font-family: 'Courier';
-	font-size: 30px;
+	font-size: calc(15px + 0.390625vw);
+	position: absolute; /* Positionnement absolu par rapport au conteneur parent */
+    bottom: -2px; /* Aligné au bas du conteneur parent */
+    left: -4px; /* Aligné à gauche du conteneur parent */
+}
+
+#player1name,  #player2name,  #player3name,  #player4name {
+	flex: 2;
+	text-align: left;
+}
+
+#p1Score,  #p2Score,  #p3Score,  #p4Score {
+	flex: 1;
 	text-align: right;
 }
 
