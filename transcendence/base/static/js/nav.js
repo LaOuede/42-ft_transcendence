@@ -2,15 +2,14 @@ import { playGameV4, playDemo, playGameV2, playGame } from "./pong/pongvs4.js";
 import { tournament } from "./pong/tournament.js";
 // function to load the appropriate content on the base page
 function loadContent(path) {
-  let accessToken = localStorage.getItem("accessToken");
   const headers = {
     "X-Requested-With": "XMLHttpRequest",
-    Authorization: `Bearer ${accessToken}`,
   };
 
-  fetch("/" + path, { headers })
+  fetch("/" + path, { headers, credentials: "include" })
     .then((response) => {
       if (!response.ok && response.status === 401) {
+        console.log(response.status, response.statusText);
         redirectToLogin();
         alert("Your session has expired. Please log in again.");
       }
@@ -21,7 +20,7 @@ function loadContent(path) {
       if (path === "pong/playonevsone/") {
         playGame([4, 4, 0, 0]);
       } else if (path === "pong/playrumble/") {
-        tournament()
+        tournament();
       } else {
         playDemo();
       }
@@ -71,21 +70,38 @@ async function handleOAuthCallback() {
 }
 
 async function checkToken() {
-  const token = localStorage.getItem("accessToken");
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
-  if (!token) {
+
+  try {
+    const response = await fetch("/auth/check-session/", {
+      credentials: "include",
+    });
+    if (response.ok) {
+      const data = await response.json();
+      if (data.isAuthenticated) {
+        signedInNavbar.style.display = "flex";
+        notSignedInNavbar.style.display = "none";
+        if (history.state && history.state.path) {
+          loadContent(history.state.path);
+        } else {
+          loadContent("");
+        }
+      } else {
+        throw new Error("Not authenticated");
+      }
+    } else {
+      throw new Error(
+        "Failed to validate session",
+        response.status,
+        response.statusText
+      );
+    }
+  } catch (error) {
+    console.error("Authentication check failed:", error);
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
     loadContent("auth/login/");
-  } else {
-    notSignedInNavbar.style.display = "none";
-    signedInNavbar.style.display = "flex";
-    if (history.state && history.state.path) {
-      loadContent(history.state.path);
-    } else {
-      loadContent("");
-    }
   }
 }
 

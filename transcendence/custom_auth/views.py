@@ -1,4 +1,5 @@
-from django.http import HttpResponse, JsonResponse
+from datetime import datetime
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from datetime import timedelta
 from django.core.files.base import ContentFile
 from django.core.files.temp import NamedTemporaryFile
@@ -10,11 +11,13 @@ from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
+from django.utils.http import http_date
 import random, string, uuid, time, jwt, json
 from user.models import User
 from .models import OTPSession
 
-from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -25,6 +28,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 def is_ajax(request):
     return request.headers.get("X-Requested-With") == "XMLHttpRequest"
+
+@api_view(['GET'])
+def check_session(request):
+    if request.user.is_authenticated:
+        return JsonResponse({"isAuthenticated": True})
+    else:
+        return JsonResponse({"isAuthenticated": False}, status=401)
 
 def generate_random_otp(n=6):
     return "".join(random.choices(string.digits, k=n))
@@ -105,6 +115,35 @@ def generate_otp_user(user):
         return False
     return session_token
 
+def setCookies(response, tokens):
+    # Set the access token as a cookie in the response
+    max_age_access = 3600  # Example: Access token expiry (in seconds)
+    expires_access = http_date(datetime.now().timestamp() + max_age_access)
+    response.set_cookie(
+        'access_token',
+        tokens['access'],
+        max_age=max_age_access,
+        expires=expires_access,
+        httponly=True,
+        secure=True,  # Recommend using secure cookies in production
+        samesite=None
+    )
+
+    # Set the refresh token as a cookie in the response, if you have a refresh token
+    max_age_refresh = 24 * 3600 * 14  # Example: Refresh token expiry (in seconds, e.g., 14 days)
+    expires_refresh = http_date(datetime.now().timestamp() + max_age_refresh)
+    response.set_cookie(
+        'refresh_token',
+        tokens['refresh'],
+        max_age=max_age_refresh,
+        expires=expires_refresh,
+        httponly=True,
+        secure=True,  # Recommend using secure cookies in production
+        samesite=None
+    )
+
+    return response
+
 def login(request):
     if request.method == "POST":
         time.sleep(2)
@@ -117,9 +156,9 @@ def login(request):
             if (user and user.twoFA == False):
                 change_user_status(user, "ON")
                 tokens = get_tokens_for_user(user)
-                return JsonResponse(
-                    { "token": tokens, "success": "User is logged in."}, status=200
-                )
+                response = JsonResponse({"success": "User logged in successfully"})
+                return setCookies(response, tokens)
+                
             session_token = generate_otp_user(user)   
             if (session_token != False):
                 return JsonResponse(
@@ -161,9 +200,10 @@ def verify_otp(request):
                 return JsonResponse({"error": "Invalid OTP."}, status=401)
             else:
                 tokens = get_tokens_for_user(user)
+                response = JsonResponse({"success": "User logged in successfully"})
                 otp_session.delete()
                 change_user_status(user, "ON")
-                return JsonResponse({"token": tokens, "success": "User is logged in."}, status=200)
+                return setCookies(response, tokens)
         else:
             return JsonResponse({"error": "Invalid session or session expired."}, status=401)
 
@@ -190,6 +230,9 @@ def register(request):
             if user:
                 change_user_status(user, "ON")
                 tokens = get_tokens_for_user(user)
+                response = JsonResponse({"success": "User registered successfully"})
+                return setCookies(response, tokens)
+
             return JsonResponse(
                 {"success": "User registered successfully", "tokens": tokens},
                 status=201,
@@ -210,14 +253,17 @@ def otp_view(request):
         return render(request, "otp.html")
     return render(request, "base.html", {"content": "login.html"})
 
+@api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def logout(request):
-    if request.method == "POST":
-        user = get_user_from_token(request)
-        if user is None:
-            return JsonResponse({"error": "Invalid token"}, status=401)
+    user = request.user
+    print(user)
+    if user:
         change_user_status(user, "OF")
-        return JsonResponse({"success": "Logged out successfully"}, status=200)
+        response = JsonResponse({"success": "Logged out successfully"}, status=200)
+        response.delete_cookie('access_token')  # Optional: Clear the authentication cookie
+        response.delete_cookie('refresh_token')  # Optional: Clear the refresh token if you use one
+        return response
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
 
@@ -276,6 +322,6 @@ def handleOAuthLogin(user_data):
         
     change_user_status(user, "ON")
     tokens = get_tokens_for_user(user)
-    params = urlencode({'access_token': tokens['access'], 'refresh_token': tokens['refresh']})
-    frontend_url = 'http://localhost:8000/' 
-    return redirect(f'{frontend_url}?{params}')
+    response = HttpResponseRedirect('/')
+    return setCookies(response, tokens)
+    

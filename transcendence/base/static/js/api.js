@@ -1,10 +1,7 @@
 const apiHandler = {
   baseUrl: "/",
 
-  async fetchWithAuth(url, options = {}, type) {
-    const accessToken = localStorage.getItem("accessToken");
-
-    // Check if the body is FormData, to handle file uploads
+  async fetchWithAuth(url, options = {}) {
     const isFormData = options.body instanceof FormData;
 
     const headers = {
@@ -12,7 +9,6 @@ const apiHandler = {
       ...(!isFormData && { "Content-Type": "application/json" }),
       "X-CSRFToken": getCookie("csrftoken"),
       ...options.headers,
-      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
     };
 
     const fullUrl = `${this.baseUrl}${url}`;
@@ -21,8 +17,7 @@ const apiHandler = {
       let response = await fetch(fullUrl, {
         ...options,
         headers: headers,
-        // When body is FormData, let the browser set the Content-Type header
-        // This is necessary for the boundary parameter to be set correctly in multipart/form-data
+        credentials: "include",
         body: isFormData ? options.body : JSON.stringify(options.body),
       });
       const data = await response.json();

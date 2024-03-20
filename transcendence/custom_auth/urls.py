@@ -1,5 +1,5 @@
 from django.urls import path
-from custom_auth.views import login, register, logout, otp_view, verify_otp, start_auth, callback
+from custom_auth.views import login, register, logout, otp_view, verify_otp, start_auth, callback, check_session
 
 from rest_framework_simplejwt.views import (
 	TokenObtainPairView,
@@ -12,6 +12,7 @@ urlpatterns = [
 	path("otp/", otp_view, name="otp"),
 	path("register/", register, name="create_profile"),
 	path("verify-otp/", verify_otp, name="verify_otp"),
+	path("check-session/", check_session, name="check_session"),
 
 	path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
 	path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

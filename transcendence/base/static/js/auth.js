@@ -20,6 +20,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
   });
 });
 
+function setCookie(name, value, days) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
 // login function
 function handleLogin(e) {
   e.preventDefault();
@@ -39,10 +49,7 @@ function handleLogin(e) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data?.token?.access && data?.token?.refresh) {
-        localStorage.setItem("refreshToken", data.token.refresh);
-        localStorage.setItem("accessToken", data.token.access);
-
+      if (data?.success) {
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
@@ -189,15 +196,12 @@ logoutButton.addEventListener("click", function (e) {
   window.apiHandler
     .post("auth/logout/")
     .then(async (data) => {
-      await logout();
+      await logout(data);
     })
     .catch((error) => console.error("ERROR LOGOUT", error));
 });
 
-async function logout() {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-
+async function logout(data) {
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";
   window.loadContent("auth/login/");
@@ -226,10 +230,7 @@ function handleSignup(e) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data?.tokens?.access && data?.tokens?.refresh) {
-        localStorage.setItem("refreshToken", data.tokens.refresh);
-        localStorage.setItem("accessToken", data.tokens.access);
-
+      if (data?.success) {
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
