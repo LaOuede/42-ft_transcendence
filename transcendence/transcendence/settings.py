@@ -87,6 +87,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "transcendence.wsgi.application"
 
+
 ASGI_APPLICATION = "transcendence.asgi.application"
 CHANNEL_LAYERS = {
     "default": {
