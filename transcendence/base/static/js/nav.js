@@ -12,7 +12,7 @@ function loadContent(path) {
     .then((response) => {
       if (!response.ok && response.status === 401) {
         redirectToLogin();
-        throw new Error("Unauthorized access, please log in.");
+        alert("Your session has expired. Please log in again.");
       }
       return response.text();
     })
