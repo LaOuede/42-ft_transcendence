@@ -4,11 +4,14 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import api_view, authentication_classes
 from .models import Game
 from user.models import User
 from .serializers import GameSerializer, UserSerializer
 
 class CreateGame(APIView):
+    @authentication_classes([JWTAuthentication])
     def post(self, request):
         player1_id = request.data.get('player1_id')
         player2_id = request.data.get('player2_id')
@@ -28,6 +31,7 @@ class CreateGame(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class GameDelete(APIView):
+    @authentication_classes([JWTAuthentication])
     def get_game(self, game_id):
         return get_object_or_404(Game, id=game_id)
 
@@ -46,6 +50,7 @@ class GameDelete(APIView):
 
 
 class GameGetOne(APIView):
+    @authentication_classes([JWTAuthentication])
     def get(self, request, game_id):
         try:
             game = Game.objects.get(id=game_id)
@@ -55,6 +60,7 @@ class GameGetOne(APIView):
             return Response({"detail": "Game not found."}, status=status.HTTP_404_NOT_FOUND)
 
 class GameGetAll(APIView):
+    @authentication_classes([JWTAuthentication])
     def get(self, request):
         games = Game.objects.all()
         if not games:
@@ -63,14 +69,16 @@ class GameGetAll(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class GameUpdate(APIView):
+    @authentication_classes([JWTAuthentication])
     def get_game(self, game_id):
         return get_object_or_404(Game, id=game_id)
 
+    @authentication_classes([JWTAuthentication])
     def get(self, request, game_id):
         game = self.get_game(game_id)
         serializer = GameSerializer(game)
         return Response(serializer.data)
-
+    @authentication_classes([JWTAuthentication])
     def patch(self, request, game_id):
         game = self.get_game(game_id)
         serializer = GameSerializer(game, data=request.data, partial=True)

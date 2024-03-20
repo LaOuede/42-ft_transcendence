@@ -16,5 +16,8 @@ RUN pip install --upgrade pip && \
 # Copy project
 COPY . /backend/
 
+COPY ./tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Pour garder le container en vie quand on veut trouver un bug
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
