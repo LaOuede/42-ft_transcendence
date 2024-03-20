@@ -15,13 +15,14 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        self.add_users()
+        self.delete_normal_users()
 
-    def is_populated(self):
-        print(f"{Color.BOLD}Checking if the database is populated...{Color.RESET}")
-        return User.objects.exists()
+    def is_admin(self, user):
+        return user.is_staff
 
-    def add_users(self):
+    def delete_normal_users(self):
         for user in User.objects.all():
+            if self.is_admin(user):
+                continue
             user.delete()
             print(f"User {user.username} deleted successfully.")
