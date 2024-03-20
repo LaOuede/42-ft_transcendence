@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<h1>Friend List</h1>
+	{% if friends_list %}
+
+	<ul>
+		{% for user in friends_list %}
+		<li>
+			{{ user.username }} -
+			<span
+				style="height: 10px; width: 10px; background-color: {% if user.activity == 'ON' %}green{% elif user.activity == 'OF' %}red{% else %}yellow{% endif %}; border-radius: 50%; display: inline-block;"></span>
+			{% if user.activity == 'ON' %}
+			Enligne
+			{% elif user.activity == 'OF' %}
+			Hors Ligne
+			{% else %}
+			Absent
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+
+	{% else %}
+	<p>No Friends are available</p>
+	{% endif %}
+
+
+</body>
+
+</html>
