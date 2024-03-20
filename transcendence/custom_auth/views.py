@@ -19,6 +19,10 @@ from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+from friends.consumers import WSConsumer
+
 
 
 # Create your views here.
@@ -52,7 +56,7 @@ def find_user(username, password):
         if user.username == username and user.password == password:
             return user
     return False
-    
+
 def get_user_from_token(request):
     token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
     decoded_payload = decode_jwt(token)
@@ -62,14 +66,30 @@ def get_user_from_token(request):
             return user
     return None
 
+def broadcast_status_update(user, status):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        WSConsumer.user_activity_group,
+        {
+            "type": "change.status",
+            "message": {
+                "username": user.username,
+                "status": status
+            }
+        }
+    )
+
 def change_user_status(user, status):
     if user is not None and user.activity != status:
         user.activity = status  # Corrected this line
         user.save()
+
+        # Broadcast in websocket
+        broadcast_status_update(user, status)
         return True
     else:
         return False
-    
+
 def decode_jwt(token):
     try:
         decoded = jwt.decode(token, api_settings.SIGNING_KEY, algorithms=[api_settings.ALGORITHM])
@@ -92,12 +112,12 @@ def sendingEmail(otp, user):
         return False
     return True
 
-def generate_otp_user(user): 
+def generate_otp_user(user):
     otp = generate_random_otp()
     user.otp = otp
     user.otp_expiry_time = timezone.now() + timedelta(minutes=10)
     user.save()
-    
+
     session_token = generate_session_token()
     # Store the session token and user association
     OTPSession.objects.create(user=user, session_token=session_token)
@@ -120,7 +140,7 @@ def login(request):
                 return JsonResponse(
                     { "token": tokens, "success": "User is logged in."}, status=200
                 )
-            session_token = generate_otp_user(user)   
+            session_token = generate_otp_user(user)
             if (session_token != False):
                 return JsonResponse(
                     { "session_token": session_token, "success": "OTP Validation."}, status=200
@@ -232,7 +252,7 @@ def start_auth(request):
 
 def callback(request):
     code = request.GET.get('code')
-    
+
     OAUTH_CLIENT_ID = os.getenv('OAUTH_CLIENT_ID')
     OAUTH_SECRET_KEY = os.getenv('OAUTH_SECRET_KEY')
     OAUTH_REDIRECT_URI = os.getenv('OAUTH_REDIRECT_URI')
@@ -247,7 +267,7 @@ def callback(request):
     }
     token_r = requests.post(token_url, data=token_data)
     token_json = token_r.json()
-    
+
     if 'error' in token_json:
         return JsonResponse({'error': token_json.get('error_description', 'Unknown error')}, status=400)
 
@@ -273,9 +293,9 @@ def handleOAuthLogin(user_data):
             if response.status_code == 200:
                 user.avatar.save(f"avatar_{user.username}.jpg", ContentFile(response.content))
         user.save()
-        
+
     change_user_status(user, "ON")
     tokens = get_tokens_for_user(user)
     params = urlencode({'access_token': tokens['access'], 'refresh_token': tokens['refresh']})
-    frontend_url = 'http://localhost:8000/' 
+    frontend_url = 'http://localhost:8000/'
     return redirect(f'{frontend_url}?{params}')
