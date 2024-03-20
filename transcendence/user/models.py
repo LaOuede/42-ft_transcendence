@@ -1,5 +1,25 @@
+import random
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
+
+VALID_AVATARS = [
+	'avatars/Blaireau.jpg',
+	'avatars/Chevreuil.jpg',
+	'avatars/Corbeau.jpg',
+	'avatars/Ecureuil.jpg',
+	'avatars/Grenouille.jpg',
+	'avatars/Hiboux.jpg',
+	'avatars/Loup.jpg',
+	'avatars/Lynx.jpg',
+	'avatars/Oiseau.jpg',
+	'avatars/Oiseau2.jpg',
+	'avatars/Orignal.jpg',
+	'avatars/Ours.jpg',
+	'avatars/Ourson.jpg',
+	'avatars/Raton-Laveur.jpg',
+	'avatars/Renard.jpg',
+	'avatars/Renard2.jpg'
+]
 
 class UserManager(BaseUserManager):
 	def create_user(self, email, username, password=None, **extra_fields):
@@ -28,28 +48,26 @@ class User(AbstractBaseUser, PermissionsMixin):
 		return (self.username,)
 	
 	activity_enum = [
-		('ON', 'En ligne 🟢'),
-		('IG', 'En partie 🟣'),
-		('OF', 'Hors ligne 🔴'),
-		('UN', 'Indisponible 🟡')
+		('ON', 'Online 🟢'),
+		('IG', 'In game 🟣'),
+		('OF', 'Offline 🔴'),
+		('UN', 'Unavailable 🟡'),
 	]
+
+	def random_avatar_path():
+		return random.choice(VALID_AVATARS)
 
 	username = models.CharField(max_length=30, unique=True)
 	email = models.EmailField(max_length=100)
 	password = models.CharField(max_length=100, default='pass')
 	activity = models.CharField(max_length=2, choices=activity_enum, default='OF')
-	avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.jpg', blank=True, null=True)
+	avatar = models.ImageField(upload_to='avatars/', default=random_avatar_path, blank=True, null=True)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 	otp = models.CharField(max_length=6, blank=True, null=True)
 	otp_expiry_time = models.DateTimeField(blank=True, null=True)
 	is_oauth = models.BooleanField(default=False)
-
-	# Fields that we may need :
-	# nickname = models.CharField(max_length=30, unique=True)
-	# isadmin = models.BooleanField(default=False)
 	twoFA = models.BooleanField(default=False)
-
 
 	# en ce moment les users ont tous les accès. à revoir - Relier à PermissionsMixin
 	groups = models.ManyToManyField(

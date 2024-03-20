@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.core.validators import RegexValidator, EmailValidator
 from django.core.files.storage import default_storage
-from .models import User
+from .models import User, VALID_AVATARS
 
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -33,13 +33,14 @@ class UserSerializer(serializers.ModelSerializer):
 		if 'avatar' in validated_data:
 			if instance.avatar:
 				avatar_path = instance.avatar.path
-				if default_storage.exists(avatar_path):
-					default_storage.delete(avatar_path)
+				if not any(avatar_path.endswith(valid_avatar) for valid_avatar in VALID_AVATARS):
+					if default_storage.exists(avatar_path):
+						default_storage.delete(avatar_path)
 			instance.avatar = validated_data.get('avatar', instance.avatar)
+
 		instance.username = validated_data.get('username', instance.username)
 		instance.email = validated_data.get('email', instance.email)
+		instance.activity = validated_data.get('activity', instance.activity)
 
 		instance.save()
 		return instance
-
-
