@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django_otp",
     "django_otp.plugins.otp_totp",
     "django_otp.plugins.otp_static",
+    "friends",
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,8 @@ ROOT_URLCONF = "transcendence.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "transcendence/templates"],
+        # "DIRS": [BASE_DIR / "transcendence/templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
