@@ -1,0 +1,36 @@
+/* ---------------------------------------------------------------------- */
+/* ------------------------------ MEDIAS -------------------------------- */
+/* ---------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+	.login-container,
+	.signup-container,
+	.profile-container,
+	.onevsone-container,
+	.settings-container,
+	.pong-container {
+		min-width: 80%; /* Augmente la largeur minimale pour les écrans moyens */
+	}
+	.custom-length-container {
+		min-width: 40%; /* Augmente la largeur minimale pour les écrans moyens */
+	}
+}
+
+@media (max-width: 480px) {
+	.login-container,
+	.signup-container,
+	.profile-container,
+	.onevsone-container,
+	.settings-container,
+	.pong-container {
+		min-width: 70%; /* Augmente la largeur minimale pour les petits écrans */
+		min-height: 60%;
+	}
+	.h2 {
+		font-size: 8px;
+	}
+
+	.buttons-container {
+		flex-direction: column; /* Change the direction of the buttons to stack them vertically */
+	}
+}
