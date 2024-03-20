@@ -28,6 +28,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
+
+# Create your views here.
+
 def is_ajax(request):
     return request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
