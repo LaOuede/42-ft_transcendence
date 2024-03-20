@@ -9,12 +9,10 @@
 #playerInfo1, #playerInfo2, #playerInfo3, #playerInfo4 {
 	text-align: center;
 	width: 200px;
-	height: 275px;
+	height: 200px;
 	border-radius: 20px;
 	color: white;
 	font-size: 1.3em;
-	border: solid white 5px;
-	box-shadow: white 5px 5px 20px;
 	margin: 10px;
 	position: absolute;
 	display: flex;
@@ -27,31 +25,39 @@
 	display: none;
 	bottom: 3%;
 	left: 2%;
-	background-color: #69327A66;
+	color: #249DC6;
+	border: solid #249DC6 5px;
+	box-shadow: #249DC6 0px 0px 10px;
 }
 
 #playerInfo2 {
 	display: none;
 	top: 7%;
 	right: 2%;
-	background-color: #249DC666;
+	color: #69327A;
+	border: solid #69327A 5px;
+	box-shadow: #69327A 0px 0px 10px;
 }
 
 #playerInfo3 {
 	display: none;
 	top: 7%;
 	left: 2%;
-	background-color: #ffff0066;
+	color: #F2D811;
+	border: solid #F2D811 5px;
+	box-shadow: #F2D811 0px 0px 10px;
 }
 
 #playerInfo4 {
 	display: none;
 	bottom: 3%;
 	right: 2%;
-	background-color: #00ffff66;
+	color: #E68A2B;
+	border: solid #E68A2B 5px;
+	box-shadow: #E68A2B 0px 0px 10px;
 }
 
-#player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
+/* #player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
 	border-radius: 20px;
 	border: solid 5px;
 	width: 150px;
@@ -59,7 +65,7 @@
 	margin: 0 auto;
 	margin-top: 10px;
 	margin-bottom: -15px;
-}
+} */
 
 #player1name,  #player2name,  #player3name,  #player4name {
 	font-size: 20px;
@@ -68,12 +74,16 @@
 #p1Score,  #p2Score,  #p3Score,  #p4Score {
 	border-radius: 20px;
 	border: solid 5px;
-	width: 75px;
-	height: 50px;
+	padding: 10px;
+	width: 172px;
+	height: 30px;
+	background-color: #2D2D2D;
+	opacity: 80%;
 	margin: 0 auto;
-	margin-top: 10px;
+	margin-top: 148px;
 	font-family: 'Courier';
-	font-size: 45px;
+	font-size: 30px;
+	text-align: right;
 }
 
 #tournInfo{
