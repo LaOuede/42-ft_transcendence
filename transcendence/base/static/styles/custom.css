@@ -1,0 +1,178 @@
+/* ---------------------------------------------------------------------- */
+/* ----------------------------- LENGTH --------------------------------- */
+/* ---------------------------------------------------------------------- */
+
+.custom-length-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
+	border-radius: 20px;
+	width: 15%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 220px;
+	min-height: 35%; 
+	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
+}
+
+.custom-length-container-black {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* Cela poussera le contenu en haut et en bas respectivement */
+	align-items: center; /* Cela centrera les enfants horizontalement */
+	width: 90%;
+	height: 90%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: var(--dark-color);
+	border-radius: 20px;
+	padding: 20px; /* Ajoutez du padding selon vos besoins */
+	box-sizing: border-box;
+	opacity: 85%;
+	overflow: auto;
+}
+
+.custom-length-container, .custom-length-container-black {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre les enfants verticalement */
+    align-items: center; /* Centre les enfants horizontalement */
+    /* Autres propriétés inchangées */
+}
+
+.custom-title {
+	color: var(--soft-blue-color);
+	font-size: calc(25px + 0.390625vw);
+}
+
+.input-group input.player-custom {
+    width: 40%; /* Largeur relative au conteneur */
+    margin-top: 30px;
+    background-color: #2D2D2D;
+    color: var(--soft-blue-color);
+    border: 1px solid var(--soft-blue-color);
+    padding: calc(15px + 0.390625vw);
+    font-family: 'Courier';
+    font-size: calc(20px + 0.390625vw);
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.player-custom {
+	
+	max-width: 15%;
+	max-height: 15%;
+}
+
+.button5 {
+	width: 20%; /* Adjust the width of the buttons based on your design */
+	min-width: 125px;
+	margin-top: 30px;
+	background-color: #2D2D2D;
+	color:var(--soft-blue-color);
+	border: 1px solid var(--soft-blue-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: calc(15px + 0.390625vw);
+	height: 25%;
+	font-family:'Courier';
+	font-size: calc(20px + 0.390625vw);
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ------------------------------ SCORE --------------------------------- */
+/* ---------------------------------------------------------------------- */
+
+.custom-score-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
+	border-radius: 20px;
+	width: 15%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 220px;
+	min-height: 25%; 
+	overflow: hidden;
+	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
+	opacity: 85%;
+}
+
+.custom-score-container-black {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* Cela poussera le contenu en haut et en bas respectivement */
+	align-items: center; /* Cela centrera les enfants horizontalement */
+	width: 90%;
+	height: 90%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: var(--dark-color);
+	border-radius: 20px;
+	padding: 20px; /* Ajoutez du padding selon vos besoins */
+	box-sizing: border-box;
+	opacity: 85%;
+	overflow: auto;
+}
+
+.signup-header-custom {
+	text-align: center;
+	margin-top: .5vw;
+	margin-bottom: .5vw;
+}
+
+.custom-player-title {
+	color: var(--soft-blue-color);
+	font-size: calc(10px + 0.390625vw);
+}
+
+.button6 {
+	width: 20%; /* Adjust the width of the buttons based on your design */
+	min-width: 125px;
+	margin-top: 30px;
+	background-color: #2D2D2D;
+	color:var(--soft-blue-color);
+	border: 1px solid var(--soft-blue-color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	height: 25%;
+	font-family:'Courier';
+	font-size: calc(20px + 0.390625vw);
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.custom-player-final {
+	margin-top: .5vw;
+	color: var(--soft-blue-color);
+	font-size: calc(20px + 0.390625vw);
+}

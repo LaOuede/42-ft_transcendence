@@ -8,7 +8,10 @@
 	--purple-color: #69327A;
 	--blue-color: #249DC6;
 	--soft-blue-color: #00FAFA;
-	--error-color: #9D2406;
+	--red-color: #9D2406;
+	--green-color: #88AD40;
+	--yellow-color: #F2D811;
+	--orange-color: #E68A2B;
 	font-family: 'Courier';
 }
 
@@ -107,9 +110,9 @@ body {
 	align-items: center; /* Center the content horizontally */
 }
 
-/* ------------------------------------------------ */
-/* FOOTER */
-/* ------------------------------------------------ */
+/* ---------------------------------------------------------------------- */
+/* ----------------------------- FOOTER --------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 .footer {
 	display: flex;
@@ -152,9 +155,9 @@ h5 {
 	color: #ddd;
 }
 
-/* ------------------------------------------------ */
-/* AUTH */
-/* ------------------------------------------------ */
+/* ---------------------------------------------------------------------- */
+/* ------------------------------ AUTH ---------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 .is-signed-in {
 	width: '100%';
@@ -240,7 +243,7 @@ h5 {
 	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
-	opacity: 85%;
+	opacity: 75%;
 }
 
 .pong-container-black {
@@ -253,7 +256,7 @@ h5 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	opacity: 85%;
+	opacity: 75%;
 }
 
 .pong-container-login {
@@ -436,7 +439,6 @@ h5 {
 	border-radius: 20px;
 	cursor: pointer;
 	transition: background-color 0.2s;
-
 }
 
 .button3, .button4 {
@@ -490,6 +492,7 @@ h5 {
 
 .signup-form .input-row {
 	display: flex;
+	flex-direction: column;
 	gap: 1rem;
 	margin-bottom: 1rem;
 	overflow: hidden;
@@ -504,7 +507,7 @@ h5 {
 
 .login-error-message {
 	font-size: calc(10px + 0.390625vw);
-	color: var(--error-color);
+	color: var(--red-color);
 	visibility: hidden; /* Cachez initialement le message */
 	white-space: nowrap;
 	overflow: hidden;
@@ -520,14 +523,22 @@ h5 {
 }
 
 .signup-form .input-group input.error {
-	outline: 2px solid var(--error-color); /* Bordure rouge lorsqu'il y a une erreur */
+	outline: 2px solid var(--red-color); /* Bordure rouge lorsqu'il y a une erreur */
 	border-color: transparent; /* Vous pouvez ajuster cela en fonction de vos préférences */
 	opacity:  0.9;
 }
 
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+}
+
 .signup-error {
 	font-size: calc(10px + 0.390625vw);
-	color: var(--error-color);
+	color: var(--red-color);
 	opacity:  1;
 }
 
@@ -535,10 +546,13 @@ h5 {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
+	width: 100%; /* Prend toute la largeur du conteneur pour permettre un centrage horizontal */
+	justify-content: center; /* Centre l'input horizontalement dans .input-group */
+	align-items: center; /* Centre l'input verticalement si nécessaire */
 }
 
 .input-group input.login-is-invalid {
-	border-color: var(--error-color);
+	border-color: var(--red-color);
 }
 
 .input-group input {
@@ -567,7 +581,7 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	width: 100%;
+	width: 50%;
 	height: 2.5rem;
 	font-family:'Courier';
 	font-size: calc(15px + 0.390625vw);
@@ -598,11 +612,12 @@ h5 {
 }
 
 /* ---------------------------------------------------------------------- */
-/* ----------------------------------- OTP ----------------------------------- */
+/* ------------------------------ OTP ----------------------------------- */
 /* ---------------------------------------------------------------------- */
+
 #otp-form .otp-error {
 	font-size: calc(10px + 0.390625vw);
-	color: var(--error-color);
+	color: var(--red-color);
 	opacity:  0.9;
 }
 
@@ -623,7 +638,7 @@ h5 {
 }
 
 #profile-update-errors {
-	color: var(--error-color);
+	color: var(--red-color);
 	font-size: calc(10px + 0.390625vw);
 	opacity:  0.9;
 }
@@ -686,31 +701,10 @@ select {
 	font-size: calc(7px + 0.390625vw);
 }
 
-option[value="red"] { background-color: red; }
-option[value="blue"] { background-color: blue; }
-option[value="green"] { background-color: green; }
-option[value="yellow"] { background-color: yellow; }
-option[value="orange"] { background-color: orange; }
-option[value="purple"] { background-color: purple; }
-option[value="black"] { background-color: black; }
-option[value="white"] { background-color: white; color: black; }
+option[value="red"] { background-color: #9D2406; }
+option[value="blue"] { background-color: #249DC6; }
+option[value="green"] { background-color: #88AD40; }
+option[value="yellow"] { background-color: #F2D811; }
+option[value="orange"] { background-color: #E68A2B; }
+option[value="purple"] { background-color: #69327A; }
 
-@media (max-width: 768px) {
-	.login-container, .signup-container, .profile-container, .onevsone-container, .settings-container, .pong-container {
-		min-width: 80%; /* Augmente la largeur minimale pour les écrans moyens */
-	}
-}
-
-@media (max-width: 480px) {
-	.login-container, .signup-container, .profile-container, .onevsone-container, .settings-container, .pong-container {
-		min-width: 70%; /* Augmente la largeur minimale pour les petits écrans */
-		min-height: 60%;
-	}
-	.h2 {
-		font-size: 8px;
-	}
-
-	.buttons-container {
-		flex-direction: column; /* Change the direction of the buttons to stack them vertically */
-	}
-}
