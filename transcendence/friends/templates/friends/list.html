@@ -32,6 +32,43 @@
 	<p>No Friends are available</p>
 	{% endif %}
 
+	<h1 id="randint">INTEGER</h1>
+	<input id="login" class="logbutton" type="button" value="Login" style="background-color: lightgreen">
+	<input id="logout" class="logbutton" type="button" value="Logout" style="background-color: pink">
+
+	<script>
+		const socket = new WebSocket(
+			'ws://'
+			+ window.location.host
+			+ "/ws/some_url/"
+		);
+
+		socket.onmessage = function (e) {
+			console.log("Get message " + e.data + " from websocket")
+		}
+
+
+		const loginBtn = document.getElementById("login")
+		const logoutBtn = document.getElementById("logout")
+		document.querySelector(".logbutton")
+
+		loginBtn.onclick = function (e) {
+			let username = "Chet"
+			console.log(username + " Is logging in. 🟢")
+			socket.send(
+				JSON.stringify({ "username": username, "action": "login" })
+			)
+		}
+
+		logoutBtn.onclick = function (e) {
+			let username = "Chet"
+			console.log(username + " Is logging out.🔻")
+			socket.send(
+				JSON.stringify({ "username": username, "action": "logout" })
+			)
+		}
+
+	</script>
 
 </body>
 
