@@ -8,7 +8,10 @@
 	--purple-color: #69327A;
 	--blue-color: #249DC6;
 	--soft-blue-color: #00FAFA;
-	--error-color: #9D2406;
+	--red-color: #9D2406;
+	--green-color: #88AD40;
+	--yellow-color: #F2D811;
+	--orange-color: #E68A2B;
 	font-family: 'Courier';
 }
 
@@ -17,14 +20,12 @@
 }
 
 h1 {
-	background: linear-gradient(90deg, #CA78E5 0%, #1e1023 100%);
+	background: linear-gradient(90deg, #CA78E5 0%, #1e1023 120%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: calc(1.2vw + 10px);
-	margin-left: 30px;
-	margin-top: -15px;
-	padding: 1em;
+	font-size: calc(20px + 0.390625vw);
+	margin-left: 5px;
 	cursor: pointer;
 }
 
@@ -33,15 +34,13 @@ h2 {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 	margin-top: -15px;
 }
-
 
 body {
 	height: 100vh;
 	width: 100vw;
-	margin: 0;
 	padding: 40px;
 	box-sizing: border-box;
 }
@@ -65,9 +64,8 @@ body {
 	align-items: center; /* Center items vertically in the middle */
 	position: absolute;
 	text-align: right;
-	width: 100%;
-	top: 5px;
-	right: 30px;
+	width: 98%;
+	top: 20px;
 }
 
 .is-signed-in {
@@ -82,7 +80,7 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
-	font-size: calc(.5vw + 10px);
+	font-size: calc(12px + 0.390625vw);
 }
 
 .main-nav-links a ,
@@ -91,31 +89,7 @@ body {
 	text-align: right;
 	padding: 10px;
 	text-decoration: none;
-	font-size: calc(.5vw + 10px);
-}
-
-@media (max-width: 768px) {
-	h1 {
-		font-size: 4vw; /* Taille de police plus grande pour les écrans plus petits */
-	}
-	h2 {
-		font-size: 3vw;
-	}
-	.main-nav-links a, .is-signed-in a, .not-signed-in a {
-		font-size: 1.7vw;
-	}
-}
-
-@media (max-width: 480px) {
-	h1 {
-		font-size: 6vw; /* Taille de police encore plus grande pour les très petits écrans */
-	}
-	h2 {
-		font-size: 5vw;
-	}
-	.main-nav-links a, .is-signed-in a, .not-signed-in a {
-		font-size: 3vw;
-	}
+	font-size: calc(12px + 0.390625vw);
 }
 
 .main-nav-links a:hover,
@@ -136,9 +110,9 @@ body {
 	align-items: center; /* Center the content horizontally */
 }
 
-/* ------------------------------------------------ */
-/* FOOTER */
-/* ------------------------------------------------ */
+/* ---------------------------------------------------------------------- */
+/* ----------------------------- FOOTER --------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 .footer {
 	display: flex;
@@ -152,11 +126,7 @@ body {
 
 h5 {
 	color: var(--blue-color);
-	font-size: 14px;
-}
-
-.fa-brands {
-	padding-left: 10px;
+	font-size: calc(7px + 0.390625vw);
 }
 
 .footer-links {
@@ -171,7 +141,8 @@ h5 {
 
 .github-link {
 	text-decoration: none;
-	color: var(--purple-color)
+	color: var(--purple-color);
+	font-size: calc(6px + 0.390625vw);
 }
 
 .github-link:hover,
@@ -179,15 +150,14 @@ h5 {
 	color: #ddd; /* Color on hover */
 }
 
-
 #github-links {
 	text-decoration: none;
 	color: #ddd;
 }
 
-/* ------------------------------------------------ */
-/* AUTH */
-/* ------------------------------------------------ */
+/* ---------------------------------------------------------------------- */
+/* ------------------------------ AUTH ---------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 .is-signed-in {
 	width: '100%';
@@ -217,8 +187,8 @@ h5 {
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 20%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 55%; 
+	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
+	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -234,7 +204,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	opacity: 85%;
-
+	
 }
 
 .login-container-login, .signup-container-login {
@@ -250,7 +220,7 @@ h5 {
 	padding-bottom: 20px; /* Ajoutez cet espace pour le message d'erreur */
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
-	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
+	padding: 10px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
 	max-height: 90%;
 	width: 80%; 
 }
@@ -268,11 +238,12 @@ h5 {
 	z-index: 10;
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 35%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 50%; 
+	width: 35%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 500px;
+	min-height: 70%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
-	opacity: 85%;
+	opacity: 75%;
 }
 
 .pong-container-black {
@@ -285,7 +256,7 @@ h5 {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	opacity: 85%;
+	opacity: 75%;
 }
 
 .pong-container-login {
@@ -309,6 +280,7 @@ h5 {
 
 .pong-container-login .buttons-container {
 	display: flex;
+	justify-content: space-between; /* You can use 'space-around' or 'space-evenly' depending on your preference */
 	width: 100%; /* Adjust the width as needed */
 }
 
@@ -332,6 +304,10 @@ h5 {
 }
 
 .profile-container-black {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Cela poussera le contenu en haut et en bas respectivement */
+	align-items: center; 
 	position: fixed;
 	width: 90%;
 	height: 90%;
@@ -388,8 +364,9 @@ h5 {
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	min-width: 40%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 70%; 
+	width: 40%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 500px;
+	min-height: 80%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -444,7 +421,8 @@ h5 {
 }
 
 .button1, .button2 {
-	width: 48%; /* Adjust the width of the buttons based on your design */
+	width: 43%; /* Adjust the width of the buttons based on your design */
+	min-width: 125px;
 	margin-top: 30px;
 	background-color: #2D2D2D;
 	color:var(--soft-blue-color);
@@ -452,16 +430,15 @@ h5 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1.5rem;
+	padding: calc(15px + 0.390625vw);
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.4vw;
+	font-size: calc(20px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
 	cursor: pointer;
 	transition: background-color 0.2s;
-	margin: 1vw 1vw 0px .5vw;
 }
 
 .button3, .button4 {
@@ -472,10 +449,10 @@ h5 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1.5rem;
+	padding: calc(15px + 0.390625vw);
 	height: 70%;
 	font-family:'Courier';
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -485,6 +462,7 @@ h5 {
 
 .button4 {
 	margin-bottom: 40px;
+	min-width: 125px;
 }
 
 .signup-header {
@@ -499,40 +477,37 @@ h5 {
 
 .header-title, .onevsone-title {
 	color: var(--soft-blue-color);
-	font-size: 2.3vw;
+	font-size: calc(40px + 0.390625vw);
 }
 
 .onevsone-player-title {
 	color: var(--soft-blue-color);
-	font-size: 1.5vw;
+	font-size: calc(20px + 0.390625vw);
 }
 
 .signup-description {
 	color: var(--soft-blue-color);
-	font-size: .7vw;
+	font-size: calc(10px + 0.390625vw);
 }
 
 .signup-form .input-row {
 	display: flex;
+	flex-direction: column;
 	gap: 1rem;
 	margin-bottom: 1rem;
 	overflow: hidden;
 }
 
-.visible {
-	display: block !important; /* Utilisez !important pour vous assurer qu'elle prend le dessus sur d'autres styles */
-}
-
 .error-container {
-	height: 1vw;
+	height: calc(15px + 0.390625vw);
 	overflow: hidden;
 	transition: height 0.3s ease-in-out;
 	box-sizing: border-box; /* Inclure les marges et les paddings dans la hauteur totale */
 }
 
 .login-error-message {
-	font-size: 0.875rem;
-	color: var(--error-color);
+	font-size: calc(10px + 0.390625vw);
+	color: var(--red-color);
 	visibility: hidden; /* Cachez initialement le message */
 	white-space: nowrap;
 	overflow: hidden;
@@ -540,7 +515,7 @@ h5 {
 }
 
 .error-container.show-error {
-	height: 1vw; /* Ajustez la hauteur lorsque le message est visible */
+	height: calc(15px + 0.390625vw); /* Ajustez la hauteur lorsque le message est visible */
 }
 
 .error-container.show-error .login-error-message {
@@ -548,14 +523,22 @@ h5 {
 }
 
 .signup-form .input-group input.error {
-	outline: 2px solid var(--error-color); /* Bordure rouge lorsqu'il y a une erreur */
+	outline: 2px solid var(--red-color); /* Bordure rouge lorsqu'il y a une erreur */
 	border-color: transparent; /* Vous pouvez ajuster cela en fonction de vos préférences */
 	opacity:  0.9;
 }
 
+.signup-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+}
+
 .signup-error {
-	font-size: 0.875rem;
-	color: var(--error-color);
+	font-size: calc(10px + 0.390625vw);
+	color: var(--red-color);
 	opacity:  1;
 }
 
@@ -563,24 +546,28 @@ h5 {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
+	width: 100%; /* Prend toute la largeur du conteneur pour permettre un centrage horizontal */
+	justify-content: center; /* Centre l'input horizontalement dans .input-group */
+	align-items: center; /* Centre l'input verticalement si nécessaire */
 }
 
 .input-group input.login-is-invalid {
-	border-color: var(--error-color);
+	border-color: var(--red-color);
 }
 
 .input-group input {
-	height: 1vw;
+	height: calc(15px + 0.390625vw);
 	padding: 0.5rem;
 	border: 1px solid var(--dark-color);
 	border-radius: 20px;
 	background-color: #5B5B5B;
-	font-size: .8vw;
+	font-size: calc(10px + 0.390625vw);
 	flex-grow: 1;
 }
 
 #player2, #player3, #player4 {
-	width: 4vw;
+	width: 5vw;
+	font-size: calc(7px + 0.390625vw);
 }
 
 .input-group input:focus {
@@ -594,10 +581,10 @@ h5 {
 	justify-content: center;
 	align-items: center;
 	padding: 1.5rem;
-	width: 100%;
+	width: 50%;
 	height: 2.5rem;
 	font-family:'Courier';
-	font-size: 1.1vw;
+	font-size: calc(15px + 0.390625vw);
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -608,7 +595,7 @@ h5 {
 
 .signup-title {
 	color: var(--soft-blue-color);
-	font-size: .8vw;
+	font-size: calc(10px + 0.390625vw);
 	margin-top: 10px;
 	margin-bottom: 2px;
 }
@@ -625,11 +612,12 @@ h5 {
 }
 
 /* ---------------------------------------------------------------------- */
-/* ----------------------------------- OTP ----------------------------------- */
+/* ------------------------------ OTP ----------------------------------- */
 /* ---------------------------------------------------------------------- */
+
 #otp-form .otp-error {
-	font-size: 0.875rem;
-	color: var(--error-color);
+	font-size: calc(10px + 0.390625vw);
+	color: var(--red-color);
 	opacity:  0.9;
 }
 
@@ -650,8 +638,8 @@ h5 {
 }
 
 #profile-update-errors {
-	color: var(--error-color);
-	font-size: 0.875rem;
+	color: var(--red-color);
+	font-size: calc(10px + 0.390625vw);
 	opacity:  0.9;
 }
 
@@ -710,14 +698,13 @@ select {
 	padding: 10px;
 	margin: 10px;
 	border: 2px solid var(--dark-color);
-	font-size: .6vw;
+	font-size: calc(7px + 0.390625vw);
 }
 
-option[value="red"] { background-color: red; }
-option[value="blue"] { background-color: blue; }
-option[value="green"] { background-color: green; }
-option[value="yellow"] { background-color: yellow; }
-option[value="orange"] { background-color: orange; }
-option[value="purple"] { background-color: purple; }
-option[value="black"] { background-color: black; }
-option[value="white"] { background-color: white; color: black; }
+option[value="red"] { background-color: #9D2406; }
+option[value="blue"] { background-color: #249DC6; }
+option[value="green"] { background-color: #88AD40; }
+option[value="yellow"] { background-color: #F2D811; }
+option[value="orange"] { background-color: #E68A2B; }
+option[value="purple"] { background-color: #69327A; }
+

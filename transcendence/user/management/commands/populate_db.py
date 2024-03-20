@@ -1,12 +1,14 @@
 from user.models import User
 from django.core.management.base import BaseCommand
 
+
 class Color:
     RESET = "\033[0m"
     BOLD = "\033[1m"
     RED = "\033[91m"
     GREEN = "\033[92m"
     YELLOW = "\033[93m"
+
 
 USERS = [
     {"username": "Alex", "email": "alex@example.com", "password": "pass"},
@@ -29,11 +31,13 @@ class Command(BaseCommand):
 
     def is_populated(self):
         print(f"{Color.BOLD}Checking if the database is populated...{Color.RESET}")
-        return User.objects.exists()
+        return User.objects.filter(is_staff=False).exists()
 
     def add_users(self):
         if self.is_populated():
-            print(f"{Color.YELLOW}[WARNING]{Color.RESET} Database is already populated.")
+            print(
+                f"{Color.YELLOW}[WARNING]{Color.RESET} Database is already populated."
+            )
             return
         for user_info in USERS:
             user = User.objects.create_user(
