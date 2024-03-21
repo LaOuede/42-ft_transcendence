@@ -1,12 +1,4 @@
-import { playGameV2, playGameV4, stopGame, playDemo, playGame} from "../pong/pongvs4.js"
-import { gameInfo } from "../pong/pongvs4.js"
-
-let btStartTourn = document.querySelector("#startTourn")
-let btStartNext = document.querySelector("#startNext")
-let inputTournLength = document.querySelector("#tournLength")
-let inputDefaultLives = document.getElementById("defaultLives")
-
-
+import { gameInfo, playGame } from "../pong/pong.js"
 
 const playersScores = [0, 0, 0, 0]
 
@@ -18,8 +10,6 @@ let tournScores = [p1TournScore,
 	p2TournScore,
 	p3TournScore,
 	p4TournScore]
-
-let nickName = [undefined, undefined, undefined, undefined]
 
 function initElements() {
 	if (document.getElementById("p1TournScore")) {
@@ -34,20 +24,8 @@ function initElements() {
 	if (document.getElementById("p4TournScore")) {
 		tournScores[3] = document.getElementById("p4TournScore") 
 	}
-	if (document.getElementById("btPlay")) {
-		btStartTourn = document.getElementById("startTourn") 
-	}
-	if (document.getElementById("tournLength")) {
-		inputTournLength = document.getElementById("tournLength") 
-	}
-	if (document.getElementById("defaultLives")) {
-		inputDefaultLives = document.getElementById("defaultLives") 
-	}
-	if (document.getElementById("startNext")) {
-		btStartNext = document.getElementById("startNext") 
-	}
 }
-	
+
 function resetTourn(){
 	for(let i = 0; i < playersScores.length; i++){
 		playersScores[i] = 0
@@ -118,16 +96,12 @@ function showScores(){
 		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("winner").style.display = "inline"
 		document.getElementById("winner").textContent = gameInfo.winner + " win !"
-
 	}
-		
 }
 
 function tournament(){
 	gameInfo.tournaments.enabled = true
 	initElements()
-	gameInfo.tournaments.game_count = inputTournLength.value
-	// gameInfo.default_lives = inputDefaultLives.value
 	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
 		resetLives()
 		document.getElementById("gameSettings").style.display = "none"
@@ -136,7 +110,7 @@ function tournament(){
 		gameInfo.gameover = false
 		gameInfo.tournaments.game_count--
 		playGame(gameInfo.player_lives)
-		}
+	}
 	updateScores()
 }
 

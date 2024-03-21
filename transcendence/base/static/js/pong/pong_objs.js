@@ -97,19 +97,19 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.scene.add(pongObjs.ballplight)
 
 	//BACKLIGHTS
-	const backLight1 = new THREE.PointLight(0x704478, 0.9, 2000)
+	const backLight1 = new THREE.PointLight("#69327A", 0.9, 2000)
 	backLight1.position.set(500, 500, -200)
 	pongObjs.scene.add(backLight1)
 	
-	const backLight2 = new THREE.PointLight(0x704478, 0.9, 2000)
+	const backLight2 = new THREE.PointLight("#69327A", 0.9, 2000)
 	backLight2.position.set(-500, 500, -200)
 	pongObjs.scene.add(backLight2)
 	
-	const backLight3 = new THREE.PointLight(0x704478, 0.9, 2000)
+	const backLight3 = new THREE.PointLight("#69327A", 0.9, 2000)
 	backLight3.position.set(-500, -500, -200)
 	pongObjs.scene.add(backLight3)
 	
-	const backLight4 = new THREE.PointLight(0x704478, 0.9, 2000)
+	const backLight4 = new THREE.PointLight("#69327A", 0.9, 2000)
 	backLight4.position.set(500, -500, -200)
 	pongObjs.scene.add(backLight4)
 

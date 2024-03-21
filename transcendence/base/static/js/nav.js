@@ -1,5 +1,4 @@
-import { playGameV4, playDemo, playGameV2, playGame } from "./pong/pongvs4.js";
-import { tournament } from "./pong/tournament.js";
+import { playDemo } from "./pong/pong.js";
 // function to load the appropriate content on the base page
 function loadContent(path) {
   const headers = {
@@ -17,15 +16,8 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
-      if (path === "pong/playonevsone/") {
-        // playGame([1, 1, 0, 0]);
-      } else if (path === "pong/playrumble/") {
-        // playGame([1, 1, 1, 1]);
-      } else if (path === "pong/tournaments/") {
-        // tournament()
-      } else {
+      if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
         playDemo();
-      }
       if (window.location.pathname !== "/" + path) {
         history.pushState({ path: path }, "", "/" + path);
       }
