@@ -1,5 +1,6 @@
 export function initGameInfo(){
 	let gameInfo = {
+		winner: undefined,
 		tournaments: {enabled: false, game_count: 1},
 		window: {width: 500, height: 500},
 		demoCam: {enabled: false, DirX: 1, DirY: 1},
