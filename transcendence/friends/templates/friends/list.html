@@ -7,16 +7,28 @@
 	<title>Document</title>
 </head>
 
-<body>
+<style>
+	body{
+		background: rgb(64,0,96);
+background: linear-gradient(90deg, rgba(64,0,96,1) 0%, rgba(9,89,121,1) 100%);
+
+		color:white;
+	}
+</style>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/index.css' %}">
+
+<body style="background-color: darkgray;">
 	<h1>Friend List</h1>
 	{% if friends_list %}
 
-	<ul>
-		{% for user in friends_list %}
-		<li>
-			{{ user.username }} -
-			<span id="user-led-{{user.id}}"
-				style="height: 10px; width: 10px; background-color: {% if user.activity == 'ON' %}green{% elif user.activity == 'OF' %}red{% else %}yellow{% endif %}; border-radius: 50%; display: inline-block;"></span>
+	<ul style="width: 100px">
+		{% for friend in friends_list %}
+		<li class="user-status-entry">
+			<span class="username">{{friend.username}}</span>
+			<span class="user-status-circle"
+				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
 		</li>
 		{% endfor %}
 	</ul>
