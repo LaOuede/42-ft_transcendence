@@ -9,7 +9,6 @@ let inputDefaultLives = document.getElementById("defaultLives")
 
 
 const playersScores = [0, 0, 0, 0]
-let game_count
 
 let p1TournScore
 let p2TournScore
@@ -103,34 +102,34 @@ function resetLives(){
 
 function showScores(){
 	document.getElementById("next").style.display = "block"
-	if(game_count <= 0 && isTie() === true){
-		game_count++
+	if(gameInfo.tournaments.game_count <= 0 && isTie() === true){
+		gameInfo.tournaments.game_count++
 		tieBreak()
 	} else {
 		resetLives()
 	}
-	if(game_count > 0){
-		document.getElementById("startNext").style.display = "inline"
+	if(gameInfo.tournaments.game_count > 0){
+		document.getElementById("btNextRound").style.display = "inline"
 		document.getElementById("tournEnd").style.display = "none"
 	} else {
-		document.getElementById("startNext").style.display = "none"
+		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("tournEnd").style.display = "inline"
 	}
 		
 }
 
 function tournament(){
-	gameInfo.tournements = true
+	gameInfo.tournaments.enabled = true
 	initElements()
-	game_count = inputTournLength.value
-	gameInfo.default_lives = inputDefaultLives.value
-	if(game_count > 0 && game_count < 10){
+	gameInfo.tournaments.game_count = inputTournLength.value
+	// gameInfo.default_lives = inputDefaultLives.value
+	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
 		resetLives()
 		document.getElementById("start").style.display = "none"
 		resetTourn()
 		gameInfo.countDownDone = false
 		gameInfo.gameover = false
-		game_count--
+		gameInfo.tournaments.game_count--
 		playGame(gameInfo.player_lives)
 		}
 	if(btStartNext){
@@ -167,4 +166,4 @@ function tournament(){
 // 	}
 // });
 
-export { playersScores, game_count, tournament, giveTournPoints, updateScores, showScores}
+export { playersScores, tournament, giveTournPoints, updateScores, showScores}

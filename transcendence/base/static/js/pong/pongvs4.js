@@ -236,7 +236,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[0] = 0
 				pongObjs.scene.remove(pongObjs.paddles[0]);
 			gameInfo.player_count--
-			if(gameInfo.tournements)
+			if(gameInfo.tournaments.enabled)
 				giveTournPoints(0)
 
 		}
@@ -252,7 +252,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[1] = 0
 			pongObjs.scene.remove(pongObjs.paddles[1]);
 			gameInfo.player_count--
-			if(gameInfo.tournements)
+			if(gameInfo.tournaments.enabled)
 				giveTournPoints(1)
 
 		}
@@ -268,7 +268,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[2] = 0
 			pongObjs.scene.remove(pongObjs.paddles[2]);
 			gameInfo.player_count--
-			if(gameInfo.tournements)
+			if(gameInfo.tournaments.enabled)
 				giveTournPoints(2)
 
 		}
@@ -285,7 +285,7 @@ function goalDetection() {
 			gameInfo.paddle_limit_list[3] = 0
 			pongObjs.scene.remove(pongObjs.paddles[3]);
 			gameInfo.player_count--
-			if(gameInfo.tournements)
+			if(gameInfo.tournaments.enabled)
 				giveTournPoints(3)
 		}
 		gameInfo.countDownDone = false
@@ -296,7 +296,7 @@ function goalDetection() {
 		gameInfo.player_count--;
 		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
 		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle[i] > 0 && gameInfo.tournements){
+			if(tempPaddle[i] > 0 && gameInfo.tournaments.enabled){
 				giveTournPoints(i)
 				updateScores()
 				showScores()
@@ -588,7 +588,7 @@ function playDemo(){
 		gameInfo.player_lives = [0, 0, 0, 0]
 		resetGameDemo()
 		pongObjs.renderer.setAnimationLoop(animate);
-		gameInfo.tournements = false
+		gameInfo.tournaments.enabled = false
 	}
 }
 
@@ -620,12 +620,16 @@ function getUserParam(){
 
 	gameInfo.colors[0] = selectColor(document.querySelector('#p1colorSelect option:checked').value)
 	gameInfo.colors[1] = selectColor(document.querySelector('#p2colorSelect option:checked').value)
-	gameInfo.colors[2] = selectColor(document.querySelector('#p3colorSelect option:checked').value)
-	gameInfo.colors[3] = selectColor(document.querySelector('#p4colorSelect option:checked').value)
+	if(selectColor(document.querySelector('#p3colorSelect option:checked'))){
+		gameInfo.colors[2] = selectColor(document.querySelector('#p3colorSelect option:checked').value)
+		gameInfo.colors[3] = selectColor(document.querySelector('#p4colorSelect option:checked').value)
+	}
 	gameInfo.nicks[0] = document.querySelector('#player1nick').value;
 	gameInfo.nicks[1] = document.querySelector('#player2nick').value;
-	gameInfo.nicks[2] = document.querySelector('#player3nick').value;
-	gameInfo.nicks[3] = document.querySelector('#player4nick').value;
+	if(document.querySelector('#player3nick')){
+		gameInfo.nicks[2] = document.querySelector('#player3nick').value;
+		gameInfo.nicks[3] = document.querySelector('#player4nick').value;
+	}
 }
 
 function getGameParam(){
@@ -654,9 +658,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		if (e.target && e.target.id === "btPlayVs2") {
 			getGameParam()
 			resetLives(2)
-			gameInfo.tournements
-			if(gameInfo.default_lives > 0)
+			gameInfo.tournaments.enabled = false
+			if(gameInfo.default_lives > 0){
+				document.getElementById("start").style.display = "none"
 				playGame(gameInfo.player_lives)
+			}
 		}
 	})
 	document.addEventListener("click", function (e) {
@@ -664,9 +670,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			e.preventDefault();
 			getGameParam()
 			resetLives(4)
-			gameInfo.tournements
-			if(gameInfo.default_lives > 0)
+			gameInfo.tournaments.enabled = false
+			if(gameInfo.default_lives > 0){
+				document.getElementById("start").style.display = "none"
 				playGame(gameInfo.player_lives)
+			}
 		}
 	})
 	document.addEventListener("click", function (e) {
@@ -676,8 +684,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			tournament()
 		}
 	})
+	document.addEventListener("click", function (e) {
+		if (e.target && e.target.id === "btNextRound") {
+			e.preventDefault();
+			gameInfo.gameover = false
+			gameInfo.tournaments.game_count--
+			playGame(gameInfo.player_lives)
+			document.getElementById("next").style.display = "none"
+		}
+	})
 })
 initElements(gameInfo)
 initPongObjs(gameInfo, tags)
 
 export { gameInfo, playGameV2, playGameV4, stopGame, playDemo, playGame }
+
+
+// gameInfo.countDownDone = false
+		// 		gameInfo.gameover = false
+		// 		game_count--
+		// 		playGame(gameInfo.player_lives)
+		// 		document.getElementById("next").style.display = "none"
