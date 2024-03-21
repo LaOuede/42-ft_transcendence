@@ -15,7 +15,7 @@
 		{% for user in friends_list %}
 		<li>
 			{{ user.username }} -
-			<span
+			<span id="user-led-{{user.id}}"
 				style="height: 10px; width: 10px; background-color: {% if user.activity == 'ON' %}green{% elif user.activity == 'OF' %}red{% else %}yellow{% endif %}; border-radius: 50%; display: inline-block;"></span>
 		</li>
 		{% endfor %}
@@ -23,66 +23,9 @@
 	{% else %}
 	<p>No Friends are available</p>
 	{% endif %}
-
-	<script>
-		const socket = new WebSocket(
-			'ws://'
-			+ window.location.host
-			+ "/ws/some_url/"
-		);
-
-		socket.onmessage = function (e) {
-			console.log("Get message " + e.data + " from websocket")
-
-			let data = JSON.parse(e.data);
-			let username = data.message.username;
-			let spans = document.querySelectorAll("ul > li > span");
-			let target_span = Array.from(spans).find(span => {
-				return span.parentNode.textContent.includes(username);
-			});
-
-			if (data.message.status === "ON")
-			{
-				console.log(username + " Is logging in. 🟢")
-				target_span.style.backgroundColor = 'green';
-			}
-			else if (data.message.status === "OF")
-			{
-				console.log(username + " Is logging out.🔻")
-				target_span.style.backgroundColor = 'red';
-			}
-		}
-
-
-		const loginBtn = document.getElementById("login")
-		const logoutBtn = document.getElementById("logout")
-		document.querySelector(".logbutton")
-
-		loginBtn.onclick = function (e) {
-			let username = "Chet"
-			socket.send(
-				JSON.stringify({
-					"message": {
-						"username": username,
-						"status": "ON"
-					}
-				})
-			)
-		}
-
-		logoutBtn.onclick = function (e) {
-			let username = "Chet"
-			socket.send(
-				JSON.stringify({
-					"message": {
-						"username": username,
-						"status": "OF"
-					}
-				})
-			)
-		}
-
-	</script>
+	{% load static %}
+	<script src="{% static 'js/websocket.js' %}" type="module" defer></script>
+	<script src="{% static 'js/friends.js' %}" type="module" defer></script>
 
 </body>
 

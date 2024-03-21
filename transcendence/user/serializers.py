@@ -3,6 +3,10 @@ from django.core.validators import RegexValidator, EmailValidator
 from django.core.files.storage import default_storage
 from .models import User, VALID_AVATARS
 
+from custom_auth.views import broadcast_status_update
+
+
+
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
@@ -41,6 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
 		instance.username = validated_data.get('username', instance.username)
 		instance.email = validated_data.get('email', instance.email)
 		instance.activity = validated_data.get('activity', instance.activity)
+		broadcast_status_update(instance, instance.activity)
 
 		instance.save()
 		return instance
