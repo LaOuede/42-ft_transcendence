@@ -100,7 +100,7 @@ body {
 .main-nav-links a.active,
 .is-signed-in a.active, .not-signed-in a.active{
 	color: #fff; /* Change the color for the active link */
-} 
+}
 
 .content {
 	display: flex;
@@ -188,7 +188,7 @@ h5 {
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -204,7 +204,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	opacity: 85%;
-	
+
 }
 
 .login-container-login, .signup-container-login {
@@ -222,7 +222,7 @@ h5 {
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 10px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
 	max-height: 90%;
-	width: 80%; 
+	width: 80%;
 }
 
 .pong-container {
@@ -240,7 +240,7 @@ h5 {
 	border-radius: 20px;
 	width: 35%; /* Ajoutez la valeur minimale en pixels */
 	min-width: 500px;
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -275,7 +275,7 @@ h5 {
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .pong-container-login .buttons-container {
@@ -297,7 +297,7 @@ h5 {
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 70%;
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -337,7 +337,7 @@ h5 {
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .profile-container-login .buttons-container {
@@ -369,7 +369,7 @@ h5 {
 	border-radius: 20px;
 	width: 40%; /* Ajoutez la valeur minimale en pixels */
 	min-width: 500px;
-	min-height: 80%; 
+	min-height: 80%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -395,10 +395,10 @@ h5 {
 
 .players-container {
 	display: flex;
-	justify-content: space-around; /* Ajustez l'espacement entre les joueurs */
-	width: 100%; /* Assurez-vous que le conteneur prend toute la largeur possible */
-	overflow: auto;
-}
+	justify-content: center;
+	flex-wrap: wrap; /* Allow wrapping on smaller screens */
+	gap: 20px; /* Adjust gap as needed */
+  }
 
 .players-container > * { /* Sélectionne tous les enfants directs du players-container */
 	flex: 1;  /* Cela permet à chaque enfant de prendre une part égale de l'espace disponible */
@@ -571,6 +571,7 @@ h5 {
 #player2, #player3, #player4 {
 	width: 5vw;
 	font-size: calc(7px + 0.390625vw);
+	border: none;
 }
 
 .input-group input:focus {
@@ -675,18 +676,18 @@ select {
 	font-size: calc(7px + 0.390625vw);
 }
 
-option[value="red"] { background-color: red; }
-option[value="blue"] { background-color: blue; }
-option[value="green"] { background-color: green; }
-option[value="yellow"] { background-color: yellow; }
-option[value="orange"] { background-color: orange; }
-option[value="purple"] { background-color: purple; }
+option[value="red"] { background-color: #9D2406; }
+option[value="blue"] { background-color: #249DC6; }
+option[value="green"] { background-color: #88AD40; }
+option[value="yellow"] { background-color: #F2D811; }
+option[value="orange"] { background-color: #E68A2B; }
+option[value="purple"] { background-color: #69327A; }
 
 
 /* ---------------------------------------------------------------------- */
 /* ------------------------------- PROFILE ------------------------------ */
 /* ---------------------------------------------------------------------- */
-.profile-grid-container {
+.profile-grid-container, .rumble-grid-container {
 	display: grid;
 	gap: 20px;
 	margin-top: 20px;
@@ -723,24 +724,24 @@ option[value="purple"] { background-color: purple; }
 	justify-content: flex-start;
 }
 
-.perso-grid-item, .friends-grid-item {
+.perso-grid-item, .friends-grid-item, .player1-grid-item {
 	border: 5px solid #69327A;
 	background-color: #69327A66;
 }
 
-.historic-grid-item, .stats-grid-item {
+.historic-grid-item, .stats-grid-item, .player2-grid-item {
 	border: 5px solid #3089A8;
 	background-color: #3089A866;
 }
 
 @media (min-width: 900px) {
-	.profile-grid-container {
+	.profile-grid-container, .rumble-grid-container {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (max-width: 899px) {
-	.profile-grid-container {
+	.profile-grid-container, .rumble-grid-container {
 		grid-template-columns: 1fr;
 	}
 }
@@ -800,7 +801,7 @@ option[value="purple"] { background-color: purple; }
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 80%; 
+	min-height: 80%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -835,7 +836,7 @@ option[value="purple"] { background-color: purple; }
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .button-settings, #update-avatar {
@@ -934,4 +935,29 @@ option[value="purple"] { background-color: purple; }
 	align-items: center;
 	margin-bottom: 2rem;
 	margin-top: 2rem;
+}
+
+/* TESTS */
+
+#colorSelect {
+	width: 80%;
+	align-items: center;
+}
+
+.onevsone-grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-top: 20px;
+	justify-content: center;
+}
+
+.player1-grid-item, .player2-grid-item {
+	padding: 20px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: relative;
 }
