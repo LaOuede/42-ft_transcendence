@@ -5,53 +5,58 @@
 			<h2 class="onevsone-title">1 VS 1</h2>
 		</div>
 		<div class="players-container">
-			<div class="input-group player1-container">
-				<p class="onevsone-player-title">PLAYER 1</p>
-				<div>
-					<form>
-						<select id="p1colorSelect">
-						  <option value="red">Rouge</option>
-						  <option value="blue">Bleu</option>
-						  <option value="green">Vert</option>
-						  <option value="yellow">Jaune</option>
-						  <option value="orange">Orange</option>
-						  <option value="purple" selected>Violet</option>
-
-						</select>
-					  </form>
+			<div class="onevsone-grid-container">
+				<div class="player1-grid-item">
+					<div class="input-group player1-container">
+						<p class="onevsone-player-title">PLAYER 1</p>
+						<div>
+							<form>
+								<select id="p1colorSelect" class="button-settings">
+									<option value="red">Rouge</option>
+									<option value="blue">Bleu</option>
+									<option value="green">Vert</option>
+									<option value="yellow">Jaune</option>
+									<option value="orange">Orange</option>
+									<option value="purple" selected>Violet</option>
+								</select>
+							</form>
+						</div>
+						<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+							<input
+								id="player1nick"
+								placeholder="Player 1"
+								required=""
+								type="text"
+								name="player1"
+							/>
+						</div>
+					</div>
 				</div>
-				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
-					<input
-					id="player1nick"
-					placeholder="Player 1"
-					required=""
-					type="text"
-					name="player1"
-					/>
-				</div>
-			</div>
-			<div class="input-group player2-container">
-				<p class="onevsone-player-title">PLAYER 2:</p>
-				<div>
-					<form>
-						<select id="p2colorSelect">
-						  <option value="red">Rouge</option>
-						  <option value="blue" selected>Bleu</option>
-						  <option value="green">Vert</option>
-						  <option value="yellow">Jaune</option>
-						  <option value="orange">Orange</option>
-						  <option value="purple">Violet</option>
-						</select>
-					  </form>
-				</div>
-				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
-					<input
-					id="player2nick"
-					placeholder="Player 2"
-					required=""
-					type="text"
-					name="player2"
-					/>
+				<div class="input-group player2-container">
+					<div class="player2-grid-item">
+						<p class="onevsone-player-title">PLAYER 2</p>
+						<div>
+							<form>
+								<select id="p2colorSelect" class="button-settings">
+									<option value="red">Rouge</option>
+									<option value="blue" selected>Bleu</option>
+									<option value="green">Vert</option>
+									<option value="yellow">Jaune</option>
+									<option value="orange">Orange</option>
+									<option value="purple">Violet</option>
+								</select>
+							</form>
+						</div>
+						<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+							<input
+								id="player2nick"
+								placeholder="Player 2"
+								required=""
+								type="text"
+								name="player2"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
