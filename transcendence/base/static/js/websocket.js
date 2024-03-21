@@ -11,6 +11,7 @@ export class userStatusWebSocket {
             + window.location.host
             + "/ws/some_url/"
         );
+        this.websocket.onopen = e => {console.log("[ JS ] WebSocket connection successful!")}
         this.websocket.onmessage = this.onmessage;
     }
 
@@ -23,10 +24,13 @@ export class userStatusWebSocket {
 
         let data = JSON.parse(e.data);
         let username = data.message.username;
-        let spans = document.querySelectorAll("ul > li > span");
-        let target_span = Array.from(spans).find(span => {
-            return span.parentNode.textContent.includes(username);
+        let userStatusEntries = document.querySelectorAll(".user-status-entry");
+        let target_entry = Array.from(userStatusEntries).find(e => {
+            return e.querySelector(".username").textContent.includes(username);
         });
+
+        console.log("target_entry: ", target_entry);
+        let target_span = target_entry.querySelector(".user-status-circle")
 
         switch(data.message.status) {
             case "ON":
@@ -40,7 +44,6 @@ export class userStatusWebSocket {
               break;
             case "IG":
                 target_span.style.backgroundColor = 'purple';
-                console.log(username + " Is logging out.🔴")
               break;
           } 
     }
@@ -57,3 +60,4 @@ export class userStatusWebSocket {
     }
 }
 
+let socket = new userStatusWebSocket()

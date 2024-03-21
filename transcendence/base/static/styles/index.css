@@ -1030,3 +1030,38 @@ option[value="purple"] { background-color: #69327A; }
 	background-color: #5B5B5B;
 }
 
+
+
+.user-status-circle {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	background-color: gray;
+	display: inline-block;
+}
+
+.user-status-entry > span {
+	margin: 3px;
+}
+
+.user-status-entry {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	margin: 6px 0px ;
+	padding: 7px;
+	transition: .3s;
+}
+
+.user-status-entry:hover {
+	
+	background-color: rgba(255, 255, 255, 0.3);
+}
+user-status-entry:hover
+
+/* .friends-list {
+	outline: 4px solid hotpink;
+} */

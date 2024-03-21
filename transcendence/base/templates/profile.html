@@ -36,9 +36,17 @@
 					<div class="friends-grid-item">
 						<h3 class="title-profile-item" data-translate="profile.friends"></h3>
 						<div class="profile-informations">
-							<p>Bill [Online 🟢]</p>
-							<p>Pol [Offline 🔴]</p>
-							<p>John [Unavailable 🟡]</p>
+							<ul class="friends-list">
+								{% for friend in user_data.friends %}
+								<li class="user-status-entry">
+									<span class="username">{{friend.username}}</span>
+									
+									<span class="user-status-circle"
+										style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
+								</li>
+								{% endfor %}
+							</ul>
+							
 						</div>
 					</div>
 

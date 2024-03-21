@@ -96,6 +96,7 @@ def UserProfile(request):
 		user_data = serializer.data
 		user_data['activity'] = activity_display
 		user_data['language'] = language_display
+		user_data['friends'] = User.objects.all()
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
