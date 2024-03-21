@@ -113,7 +113,7 @@ function showScores(){
 	}
 	if(gameInfo.tournaments.game_count > 0){
 		document.getElementById("btNextRound").style.display = "inline"
-		document.getElementById("tournWinner").style.display = "none"
+		document.getElementById("winner").style.display = "none"
 	} else {
 		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("winner").style.display = "inline"

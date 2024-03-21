@@ -57,3 +57,10 @@ def tournaments(request):
 	if is_ajax(request):
 		return render(request, "tournaments.html")
 	return render(request, "base.html", {"content": "tournaments.html"})
+
+@authentication_classes([JWTAuthentication])
+def playtournaments(request):
+	# Serve tournaments content for AJAX, full SPA for direct access
+	if is_ajax(request):
+		return render(request, "playtournaments.html")
+	return render(request, "base.html", {"content": "playtournaments.html"})
