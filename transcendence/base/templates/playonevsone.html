@@ -1,17 +1,62 @@
 <div id="root">
-	<div id="pong">
-	<div id="playerInfo1">
-		<div class="playerScore">
-			<p id="player1name">player 1</p>
-			<p id="p1Score">0</p>
-			<img id="player1avatar" src="" alt="">
+	<div id="ui">
+		<div id="tournInfo">
+			<div id="start">
+				<div class="custom-length-container">
+					<div class="custom-length-container-black">
+						<label for="defaultLives">Lives :</label>
+						<input name="defaultLives" id=defaultLives type="text" value="0">
+						<form>
+							<p>View</p>
+							<input type="radio" id="option1" name="view" value="0">
+							<label for="option1">Top</label><br>
+						
+							<input type="radio" id="option2" name="view" value="1" checked>
+							<label for="option2">Side</label><br>
+						</form>
+						<form>
+							<p>Paddles</p>
+							<input type="radio" id="option1" name="paddlesSize" value="150">
+							<label for="option1">Larger</label><br>
+						
+							<input type="radio" id="option2" name="paddlesSize" value="75" checked>
+							<label for="option2">Normal</label><br>
+						
+							<input type="radio" id="option3" name="paddlesSize" value="50">
+							<label for="option3">Smaller</label><br>
+						</form>
+						<button class="button5" id="btPlayVs2">PLAY</button>
+					</div>
+				</div>
+			</div>	
 		</div>
-	</div>
-	<div id="playerInfo2">
-		<div class="playerScore">
-			<p id="player2name">player 2</p>
-			<p id="p2Score">0</p>
-			<img id="player2avatar" src="" alt="">
+		<div id="playerInfo1">
+			<div class="playerScore">
+				<p id="player1name">player 1</p>
+				<p id="p1Score">0</p>
+				<img id="player1avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo2">
+			<div class="playerScore">
+				<p id="player2name">player 2</p>
+				<p id="p2Score">0</p>
+				<img id="player2avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo3">
+			<div class="playerScore">
+				<p id="player3name">player 3</p>
+				<div id="p3Score">0</div>
+				<img id="player3avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo4">
+			<div class="playerScore">
+				<p id="player4name">player 4</p>
+				<div id="p4Score">0</div>
+				<img id="player4avatar" src="" alt="">
+			</div>
 		</div>
 	</div>
 </div>
