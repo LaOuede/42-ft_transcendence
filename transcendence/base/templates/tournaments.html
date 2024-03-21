@@ -1,4 +1,83 @@
 <div id="root">
-  <!-- <h1>Tournaments</h1> -->
-  <!-- Specific content for the 'Play' page goes here -->
+	<div id="ui">
+		<div id="tournInfo">
+			<div id="start">
+				<div class="custom-length-container">
+					<div class="custom-length-container-black">
+						<div class="signup-header-onevsone">
+							<h2 class="custom-title">TOURNAMENT LENGTH</h2>
+						</div>
+						<div class="input-group">
+							<input class="player-custom" name="tournLength" id=tournLength type="text" value="0">
+						</div>
+						<label for="defaultLives">Lives :</label>
+						<input name="defaultLives" id=defaultLives type="text" value="0">
+						<form>
+							<p>View</p>
+							<input type="radio" id="option1" name="view" value="0">
+							<label for="option1">Top</label><br>
+						
+							<input type="radio" id="option2" name="view" value="1" checked>
+							<label for="option2">Side</label><br>
+						</form>
+						<form>
+							<p>Paddles</p>
+							<input type="radio" id="option1" name="paddlesSize" value="150">
+							<label for="option1">Larger</label><br>
+						
+							<input type="radio" id="option2" name="paddlesSize" value="75" checked>
+							<label for="option2">Normal</label><br>
+						
+							<input type="radio" id="option3" name="paddlesSize" value="50">
+							<label for="option3">Smaller</label><br>
+						</form>
+						<button class="button5" id="btPlayTourn">PLAY</button>
+					</div>
+				</div>
+			</div>	
+			<div id="next">
+				<div class="custom-score-container">
+					<div class="custom-score-container-black">
+						<div class="signup-header-custom">
+							<h2 class="custom-title">GAME SCORE</h2>
+						</div>
+						<div class="custom-player-title">Player 1 Score: <span id="p1TournScore">0</span></div>
+						<div class="custom-player-title">Player 2 Score: <span id="p2TournScore">0</span></div>
+						<div class="custom-player-title">Player 3 Score: <span id="p3TournScore">0</span></div>
+						<div class="custom-player-title">Player 4 Score: <span id="p4TournScore">0</span></div>
+						<button class="button6" id="btNextRound">NEXT</button>
+						<p  class="custom-player-final" id="tournEnd">FINAL SCORE!</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div id="playerInfo1">
+			<div class="playerScore">
+				<p id="player1name">player 1</p>
+				<p id="p1Score">0</p>
+				<img id="player1avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo2">
+			<div class="playerScore">
+				<p id="player2name">player 2</p>
+				<p id="p2Score">0</p>
+				<img id="player2avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo3">
+			<div class="playerScore">
+				<p id="player3name">player 3</p>
+				<div id="p3Score">0</div>
+				<img id="player3avatar" src="" alt="">
+			</div>
+		</div>
+		<div id="playerInfo4">
+			<div class="playerScore">
+				<p id="player4name">player 4</p>
+				<div id="p4Score">0</div>
+				<img id="player4avatar" src="" alt="">
+			</div>
+		</div>
+	</div>
 </div>

@@ -4,10 +4,11 @@ import { gameInfo } from "../pong/pongvs4.js"
 let btStartTourn = document.querySelector("#startTourn")
 let btStartNext = document.querySelector("#startNext")
 let inputTournLength = document.querySelector("#tournLength")
+let inputDefaultLives = document.getElementById("defaultLives")
+
 
 
 const playersScores = [0, 0, 0, 0]
-let game_count
 
 let p1TournScore
 let p2TournScore
@@ -17,6 +18,8 @@ let tournScores = [p1TournScore,
 	p2TournScore,
 	p3TournScore,
 	p4TournScore]
+
+let nickName = [undefined, undefined, undefined, undefined]
 
 function initElements() {
 	if (document.getElementById("p1TournScore")) {
@@ -31,11 +34,14 @@ function initElements() {
 	if (document.getElementById("p4TournScore")) {
 		tournScores[3] = document.getElementById("p4TournScore") 
 	}
-	if (document.getElementById("startTourn")) {
+	if (document.getElementById("btPlay")) {
 		btStartTourn = document.getElementById("startTourn") 
 	}
 	if (document.getElementById("tournLength")) {
 		inputTournLength = document.getElementById("tournLength") 
+	}
+	if (document.getElementById("defaultLives")) {
+		inputDefaultLives = document.getElementById("defaultLives") 
 	}
 	if (document.getElementById("startNext")) {
 		btStartNext = document.getElementById("startNext") 
@@ -96,53 +102,46 @@ function resetLives(){
 
 function showScores(){
 	document.getElementById("next").style.display = "block"
-	if(game_count <= 0 && isTie() === true){
-		game_count++
+	if(gameInfo.tournaments.game_count <= 0 && isTie() === true){
+		gameInfo.tournaments.game_count++
 		tieBreak()
 	} else {
 		resetLives()
 	}
-	if(game_count > 0){
-		document.getElementById("startNext").style.display = "inline"
+	if(gameInfo.tournaments.game_count > 0){
+		document.getElementById("btNextRound").style.display = "inline"
 		document.getElementById("tournEnd").style.display = "none"
 	} else {
-		document.getElementById("startNext").style.display = "none"
+		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("tournEnd").style.display = "inline"
 	}
 		
 }
 
 function tournament(){
-	gameInfo.tournements = true
+	gameInfo.tournaments.enabled = true
 	initElements()
-	if(btStartTourn){
-		btStartTourn.addEventListener("click", function (e) {
-			game_count = inputTournLength.value
-			if(game_count > 0 && game_count < 10){
-				resetLives()
-				document.getElementById("start").style.display = "none"
-				resetTourn()
-				gameInfo.countDownDone = false
-				gameInfo.gameover = false
-				game_count--
-				playGame(gameInfo.player_lives)
-			}
-		})
-	}
+	gameInfo.tournaments.game_count = inputTournLength.value
+	// gameInfo.default_lives = inputDefaultLives.value
+	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
+		resetLives()
+		document.getElementById("start").style.display = "none"
+		resetTourn()
+		gameInfo.countDownDone = false
+		gameInfo.gameover = false
+		gameInfo.tournaments.game_count--
+		playGame(gameInfo.player_lives)
+		}
 	if(btStartNext){
-		btStartNext.addEventListener("click", function (e) {
-			if(game_count > 0){
-				gameInfo.countDownDone = false
-				gameInfo.gameover = false
-				game_count--
-				playGame(gameInfo.player_lives)
-				document.getElementById("next").style.display = "none"
-			} else {
-
-			}
-			
-
-		})
+		// btStartNext.addEventListener("click", function (e) {
+		// 	if(game_count > 0){
+		// 		gameInfo.countDownDone = false
+		// 		gameInfo.gameover = false
+		// 		game_count--
+		// 		playGame(gameInfo.player_lives)
+		// 		document.getElementById("next").style.display = "none"
+		// 	}
+		// })
 	}
 	updateScores()
 
@@ -167,4 +166,4 @@ function tournament(){
 // 	}
 // });
 
-export { playersScores, game_count, tournament, giveTournPoints, updateScores, showScores}
+export { playersScores, tournament, giveTournPoints, updateScores, showScores}
