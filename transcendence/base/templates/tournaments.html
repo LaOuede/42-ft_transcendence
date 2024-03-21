@@ -1,83 +1,112 @@
-<div id="root">
-	<div id="ui">
-		<div id="gameWindows">
-			<div id="gameSettings">
-				<div class="custom-length-container">
-					<div class="custom-length-container-black">
-						<div class="signup-header-onevsone">
-							<h2 class="custom-title">TOURNAMENT LENGTH</h2>
-						</div>
-						<div class="input-group">
-							<input class="player-custom" name="tournLength" id=tournLength type="text" value="2">
-						</div>
-						<label for="defaultLives">Lives :</label>
-						<input name="defaultLives" id=defaultLives type="text" value="1">
+<div class="onevsone-container">
+	<div class="onevsone-container-black">
+		{% csrf_token %}
+		<div class="signup-header-onevsone">
+			<h2 class="onevsone-title">RUMBLE</h2>
+		</div>
+		<div class="players-container">
+			<div class="input-group player1-container">
+				<p class="onevsone-player-title">PLAYER 1</p>
+				<div>
+					<form>
+						<select id="p1colorSelect">
+						  <option value="red">Rouge</option>
+						  <option value="blue">Bleu</option>
+						  <option value="green">Vert</option>
+						  <option value="yellow">Jaune</option>
+						  <option value="orange">Orange</option>
+						  <option value="purple" selected>Violet</option>
+						</select>
+					  </form>
+				</div>
+				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+					<input
+					id="player1nick"
+					placeholder="Player 1"
+					required=""
+					type="text"
+					name="player1"
+					/>
+				</div>
+			</div>
+			<div class="input-group player2-container">
+				<p class="onevsone-player-title">PLAYER 2:</p>
+				<div>
+					<form>
+						<select id="p2colorSelect">
+						  <option value="red">Rouge</option>
+						  <option value="blue" selected>Bleu</option>
+						  <option value="green">Vert</option>
+						  <option value="yellow">Jaune</option>
+						  <option value="orange">Orange</option>
+						  <option value="purple">Violet</option>
+						</select>
+					  </form>
+				</div>
+				<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+					<input
+					id="player2nick"
+					placeholder="Player 2"
+					required=""
+					type="text"
+					name="player2"
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="players-container">
+				<div class="input-group player2-container">
+					<p class="onevsone-player-title">PLAYER 3:</p>
+					<div>
 						<form>
-							<p>View</p>
-							<input type="radio" id="option1" name="view" value="0">
-							<label for="option1">Top</label><br>
-						
-							<input type="radio" id="option2" name="view" value="1" checked>
-							<label for="option2">Side</label><br>
-						</form>
-						<form>
-							<p>Paddles</p>
-							<input type="radio" id="option1" name="paddlesSize" value="150">
-							<label for="option1">Larger</label><br>
-						
-							<input type="radio" id="option2" name="paddlesSize" value="75" checked>
-							<label for="option2">Normal</label><br>
-						
-							<input type="radio" id="option3" name="paddlesSize" value="50">
-							<label for="option3">Smaller</label><br>
-						</form>
-						<button class="button5" id="btPlayTourn">PLAY</button>
+							<select id="p3colorSelect">
+							  <option value="red">Rouge</option>
+							  <option value="blue">Bleu</option>
+							  <option value="green">Vert</option>
+							  <option value="yellow" selected>Jaune</option>
+							  <option value="orange">Orange</option>
+							  <option value="purple">Violet</option>
+							</select>
+						  </form>
+					</div>
+					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+						<input
+						id="player3nick"
+						placeholder="Player 3"
+						required=""
+						type="text"
+						name="player3"
+						/>
 					</div>
 				</div>
-			</div>	
-			<div id="scoreBoard">
-				<div class="custom-score-container">
-					<div class="custom-score-container-black">
-						<div class="signup-header-custom">
-							<h2 class="custom-title">GAME SCORE</h2>
-						</div>
-						<div class="custom-player-title">Player 1 Score: <span id="p1TournScore">0</span></div>
-						<div class="custom-player-title">Player 2 Score: <span id="p2TournScore">0</span></div>
-						<div class="custom-player-title">Player 3 Score: <span id="p3TournScore">0</span></div>
-						<div class="custom-player-title">Player 4 Score: <span id="p4TournScore">0</span></div>
-						<button class="button6" id="btNextRound">NEXT</button>
-						<p  class="custom-player-final" id="winner"></p>
+				<div class="input-group player2-container">
+					<p class="onevsone-player-title">PLAYER 4:</p>
+					<div>
+						<form>
+							<select id="p4colorSelect">
+							  <option value="red">Rouge</option>
+							  <option value="blue">Bleu</option>
+							  <option value="green">Vert</option>
+							  <option value="yellow">Jaune</option>
+							  <option value="orange" selected>Orange</option>
+							  <option value="purple">Violet</option>
+							</select>
+						  </form>
 					</div>
-				</div>	
+					<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
+						<input
+						id="player4nick"
+						placeholder="Player 4"
+						required=""
+						type="text"
+						name="player4"
+						/>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div id="playerInfo1">
-			<div class="playerScore">
-				<p id="player1name">player 1</p>
-				<p id="p1Score">0</p>
-				<img id="player1avatar" src="" alt="">
-			</div>
-		</div>
-		<div id="playerInfo2">
-			<div class="playerScore">
-				<p id="player2name">player 2</p>
-				<p id="p2Score">0</p>
-				<img id="player2avatar" src="" alt="">
-			</div>
-		</div>
-		<div id="playerInfo3">
-			<div class="playerScore">
-				<p id="player3name">player 3</p>
-				<div id="p3Score">0</div>
-				<img id="player3avatar" src="" alt="">
-			</div>
-		</div>
-		<div id="playerInfo4">
-			<div class="playerScore">
-				<p id="player4name">player 4</p>
-				<div id="p4Score">0</div>
-				<img id="player4avatar" src="" alt="">
-			</div>
+		<div class="button3-container">
+			<button class="button4" id="btFight" onclick="loadContent('pong/playtournaments/'); return false;" type="submit">LET'S FIGHT!!!</button>
+			
 		</div>
 	</div>
 </div>
