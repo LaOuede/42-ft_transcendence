@@ -113,7 +113,11 @@ function resetGameOver(){
 			gameInfo.paddle_limit_list[i] = 2.75
 			if(tags.cards[i]){
 				tags.cards[i].style.display = "block"
-				tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
+				tags.cards[i].style.border = gameInfo.colors[i] + " solid 5px"
+				tags.cards[i].style.color = gameInfo.colors[i]
+				tags.cards[i].style.boxShadow = gameInfo.colors[i] + " 0px 0px 20px"
+				if(gameInfo.nicks[i] == "")
+					gameInfo.nicks[i] = "Player " + (i + 1)
 				tags.names[i].textContent = gameInfo.nicks[i]
 				tags.scores[i].textContent = gameInfo.player_lives[i]
 			}
@@ -294,14 +298,21 @@ function goalDetection() {
 	if(gameInfo.player_count === 1){
 		gameInfo.gameover = true
 		gameInfo.player_count--;
-		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
-		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle[i] > 0 && gameInfo.tournaments.enabled){
-				giveTournPoints(i)
-				updateScores()
-				showScores()
+		for(let i = 0; i < gameInfo.player_lives.length; i++){
+			if(gameInfo.player_lives[i] > 0){
+				if(gameInfo.tournaments.enabled){
+					giveTournPoints(i)
+					updateScores()
+				} else {
+					gameInfo.winner = gameInfo.nicks[i]
+					document.getElementById("scoreBoard").style.display = "block"
+					document.getElementById("winner").textContent = gameInfo.nicks[i]
+				}
+				
 			}
 		}
+		if(gameInfo.tournaments.enabled)
+			showScores()
 	}
 }
 
@@ -492,8 +503,8 @@ window.addEventListener("resize", () => {
 	const masterWidth = document.querySelector('.master').offsetWidth;
   const canvasHeight = masterHeight - navHeight;
 
-	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 20)
-	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
+	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 40)
+	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 40)
 	pongObjs.camera.updateProjectionMatrix()
 });
 
@@ -660,7 +671,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			resetLives(2)
 			gameInfo.tournaments.enabled = false
 			if(gameInfo.default_lives > 0){
-				document.getElementById("start").style.display = "none"
+				document.getElementById("gameSettings").style.display = "none"
 				playGame(gameInfo.player_lives)
 			}
 		}
@@ -672,7 +683,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			resetLives(4)
 			gameInfo.tournaments.enabled = false
 			if(gameInfo.default_lives > 0){
-				document.getElementById("start").style.display = "none"
+				document.getElementById("gameSettings").style.display = "none"
 				playGame(gameInfo.player_lives)
 			}
 		}
@@ -690,7 +701,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			gameInfo.gameover = false
 			gameInfo.tournaments.game_count--
 			playGame(gameInfo.player_lives)
-			document.getElementById("next").style.display = "none"
+			document.getElementById("scoreBoard").style.display = "none"
 		}
 	})
 })

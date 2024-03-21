@@ -31,7 +31,7 @@
     background-repeat: no-repeat; 
 	color: #249DC6;
 	border: solid #249DC6 5px;
-	box-shadow: #249DC6 0px 0px 10px;
+	box-shadow: #249DC6 0px 0px 20px;
 }
 
 #playerInfo2 {
@@ -44,7 +44,7 @@
     background-repeat: no-repeat; 
 	color: #69327A;
 	border: solid #69327A 5px;
-	box-shadow: #69327A 0px 0px 10px;
+	box-shadow: #69327A 0px 0px 20px;
 }
 
 #playerInfo3 {
@@ -57,7 +57,7 @@
     background-repeat: no-repeat; 
 	color: #F2D811;
 	border: solid #F2D811 5px;
-	box-shadow: #F2D811 0px 0px 10px;
+	box-shadow: #F2D811 0px 0px 20px;
 }
 
 #playerInfo4 {
@@ -70,7 +70,7 @@
     background-repeat: no-repeat; 
 	color: #E68A2B;
 	border: solid #E68A2B 5px;
-	box-shadow: #E68A2B 0px 0px 10px;
+	box-shadow: #E68A2B 0px 0px 20px;
 }
 
 /* #player1avatar,  #player2avatar,  #player3avatar,  #player4avatar {
@@ -113,7 +113,7 @@
 	text-align: right;
 }
 
-#tournInfo{
+#gameWindows {
 	height: 500;
 	width: 500;
 	background-color: black;
@@ -126,10 +126,10 @@
 	left: 40%;
 }
 
-#tournInfo #start{
+#gameWindows #gameSettings{
 	display: block;
 }
 
-#tournInfo #next{
+#gameWindows #scoreBoard{
 	display: none;
 }

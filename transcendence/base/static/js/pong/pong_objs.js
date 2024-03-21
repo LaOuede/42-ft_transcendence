@@ -19,10 +19,10 @@ export function initPongObjs(gameInfo, tags){
 	const canvas = tags.canvas
 	pongObjs.renderer = new THREE.WebGLRenderer( { canvas } )
 	pongObjs.renderer.shadowMap.enabled = true;
-	pongObjs.renderer.setSize(gameInfo.window.width - 20, gameInfo.window.height - 20);
+	pongObjs.renderer.setSize(gameInfo.window.width - 20, gameInfo.window.height - 40);
 
 	//CAMERA
-	pongObjs.camera = new THREE.PerspectiveCamera(45, (gameInfo.window.width - 20 ) / (gameInfo.window.height - 20), 0.1, 500000);
+	pongObjs.camera = new THREE.PerspectiveCamera(45, (gameInfo.window.width - 20 ) / (gameInfo.window.height - 40), 0.1, 500000);
 	pongObjs.camera.position.set(0, -350, 700);
 
 	//ORBIT

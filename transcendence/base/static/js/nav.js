@@ -22,7 +22,7 @@ function loadContent(path) {
       } else if (path === "pong/playrumble/") {
         // playGame([1, 1, 1, 1]);
       } else if (path === "pong/tournaments/") {
-        tournament()
+        // tournament()
       } else {
         playDemo();
       }

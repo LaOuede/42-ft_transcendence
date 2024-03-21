@@ -55,6 +55,7 @@ function resetTourn(){
 }
 
 function updateScores(){
+
 	for(let i = 0; i < tournScores.length; i++){
 		tournScores[i].textContent = playersScores[i]
 	}
@@ -75,8 +76,10 @@ function tieBreak(){
 function findBestScore(){
 	let bestScore = 0
 	for(let i = 0; i < playersScores.length; i++){
-		if(bestScore < playersScores[i])
+		if(bestScore < playersScores[i]){
 			bestScore = playersScores[i]
+			gameInfo.winner = gameInfo.nicks[i]
+		}
 	}
 	return bestScore
 }
@@ -101,7 +104,7 @@ function resetLives(){
 }
 
 function showScores(){
-	document.getElementById("next").style.display = "block"
+	document.getElementById("scoreBoard").style.display = "block"
 	if(gameInfo.tournaments.game_count <= 0 && isTie() === true){
 		gameInfo.tournaments.game_count++
 		tieBreak()
@@ -110,10 +113,12 @@ function showScores(){
 	}
 	if(gameInfo.tournaments.game_count > 0){
 		document.getElementById("btNextRound").style.display = "inline"
-		document.getElementById("tournEnd").style.display = "none"
+		document.getElementById("tournWinner").style.display = "none"
 	} else {
 		document.getElementById("btNextRound").style.display = "none"
-		document.getElementById("tournEnd").style.display = "inline"
+		document.getElementById("winner").style.display = "inline"
+		document.getElementById("winner").textContent = gameInfo.winner + " win !"
+
 	}
 		
 }
@@ -125,45 +130,14 @@ function tournament(){
 	// gameInfo.default_lives = inputDefaultLives.value
 	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
 		resetLives()
-		document.getElementById("start").style.display = "none"
+		document.getElementById("gameSettings").style.display = "none"
 		resetTourn()
 		gameInfo.countDownDone = false
 		gameInfo.gameover = false
 		gameInfo.tournaments.game_count--
 		playGame(gameInfo.player_lives)
 		}
-	if(btStartNext){
-		// btStartNext.addEventListener("click", function (e) {
-		// 	if(game_count > 0){
-		// 		gameInfo.countDownDone = false
-		// 		gameInfo.gameover = false
-		// 		game_count--
-		// 		playGame(gameInfo.player_lives)
-		// 		document.getElementById("next").style.display = "none"
-		// 	}
-		// })
-	}
 	updateScores()
-
 }
-
-// btStartTourn.addEventListener("click", () => {
-// 	game_count = inputTournLength.value
-// 	resetTourn()
-// 	gameInfo.gameover = true
-// 	tournament()
-// })
-
-// document.addEventListener("DOMContentLoaded", function (e) {
-// 	if(btStartTourn){
-// 		btStartTourn.addEventListener("click", function (e) {
-// 			game_count = inputTournLength.value
-// 			resetTourn()
-// 			gameInfo.gameover = true
-// 			tournament()
-// 			console.log("SALUT")
-// 		});
-// 	}
-// });
 
 export { playersScores, tournament, giveTournPoints, updateScores, showScores}
