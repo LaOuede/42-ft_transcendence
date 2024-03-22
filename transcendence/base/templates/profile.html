@@ -37,6 +37,10 @@
 						<h3 class="title-profile-item" data-translate="profile.friends"></h3>
 						<div class="profile-informations">
 							<ul class="friends-list">
+								<div class="input-group embeded-intput-btn">
+									<input type="text" name="add-friend-intput" id="add-friend-input" placeholder="Add friend ...">
+									<button id="add-friend-btn">+</button>
+								</div>
 								{% for friend in user_data.friends %}
 								<li class="user-status-entry">
 									<span class="username">{{friend.username}}</span>

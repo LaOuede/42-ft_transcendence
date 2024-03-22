@@ -1060,8 +1060,26 @@ option[value="purple"] { background-color: #69327A; }
 	
 	background-color: rgba(255, 255, 255, 0.3);
 }
-user-status-entry:hover
 
-/* .friends-list {
-	outline: 4px solid hotpink;
-} */
+.embeded-intput-btn {
+	position: relative;
+	height: 2rem;
+}
+
+.embeded-intput-btn button {
+	position: absolute;
+	right: 0px;
+	height: 1.8rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+
+	margin: 0px 5px;
+	transition: .3s;
+}
+
+.embeded-intput-btn button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
