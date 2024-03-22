@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import FriendRequest, FriendsListView
 
 urlpatterns = [
-	path("", views.FriendsList, name="friends-list")
+	path("", FriendsListView, name="friends-list"),
+    path("request/", FriendRequest.as_view(), name="friends-request")
 ]
