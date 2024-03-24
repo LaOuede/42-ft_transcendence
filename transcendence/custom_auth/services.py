@@ -84,7 +84,7 @@ def find_user(username, password):
         if user.username == username and user.password == password:
             return user
     return False
-    
+
 
 def sendingEmail(otp, user):
     sent = send_mail(
@@ -98,12 +98,12 @@ def sendingEmail(otp, user):
         return False
     return True
 
-def generate_otp_user(user): 
+def generate_otp_user(user):
     otp = generate_random_otp()
     user.otp = otp
     user.otp_expiry_time = timezone.now() + timedelta(minutes=10)
     user.save()
-    
+
     session_token = generate_session_token()
     # Store the session token and user association
     OTPSession.objects.create(user=user, session_token=session_token)
@@ -125,13 +125,11 @@ def change_user_status(user, status):
     if user is not None and user.activity != status:
         user.activity = status  # Corrected this line
         user.save()
-        
-        # Broadcast in websocket
         broadcast_status_update(user, status)
         return True
     else:
         return False
-    
+
 def decode_jwt(token):
     try:
         decoded = jwt.decode(token, api_settings.SIGNING_KEY, algorithms=[api_settings.ALGORITHM])
@@ -148,7 +146,7 @@ def get_auth_url():
     OAUTH_REDIRECT_URI = os.getenv('OAUTH_REDIRECT_URI')
     if not OAUTH_CLIENT_ID or not OAUTH_REDIRECT_URI:
         return None, "Missing OAUTH_CLIENT_ID or OAUTH_REDIRECT_URI in environment variables"
-    
+
     auth_url = f"https://api.intra.42.fr/oauth/authorize?client_id={OAUTH_CLIENT_ID}&redirect_uri={OAUTH_REDIRECT_URI}&response_type=code"
     return auth_url, None
 
