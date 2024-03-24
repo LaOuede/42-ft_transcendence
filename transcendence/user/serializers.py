@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator, EmailValidator
 from django.core.files.storage import default_storage
 from .models import User, VALID_AVATARS
 
-from custom_auth.views import broadcast_status_update
+from friends.utils import broadcast_status_update
 
 
 
