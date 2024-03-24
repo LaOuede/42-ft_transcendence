@@ -30,7 +30,7 @@ def login(request):
     if request.method == "POST":
         time.sleep(2)
         data = json.loads(request.body)
-        username = data.get('username')
+        username = data.get('user')
         password = data.get('password')
 
         user = authenticate(username=username, password=password)
