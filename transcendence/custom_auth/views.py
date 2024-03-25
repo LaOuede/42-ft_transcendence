@@ -34,7 +34,7 @@ def login(request):
     if request.method == "POST":
         time.sleep(2)
         data = json.loads(request.body)
-        username = data.get('username')
+        username = data.get('user')
         password = data.get('password')
 
         user = authenticate(username=username, password=password)
@@ -108,7 +108,6 @@ def otp_view(request):
 @authentication_classes([JWTAuthentication])
 def logout(request):
     user = request.user
-    print(user)
     if user:
         change_user_status(user, "OF")
         response = JsonResponse({"success": "Logged out successfully"}, status=200)
@@ -135,4 +134,3 @@ def callback(request):
     user, tokens = handle_user_oauth(user_json)
     response = HttpResponseRedirect('/')
     return setCookies(response, tokens)
-

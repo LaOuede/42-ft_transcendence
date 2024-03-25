@@ -100,7 +100,7 @@ body {
 .main-nav-links a.active,
 .is-signed-in a.active, .not-signed-in a.active{
 	color: #fff; /* Change the color for the active link */
-} 
+}
 
 .content {
 	display: flex;
@@ -188,7 +188,7 @@ h5 {
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -204,7 +204,7 @@ h5 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	opacity: 85%;
-	
+
 }
 
 .login-container-login, .signup-container-login {
@@ -222,7 +222,7 @@ h5 {
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 10px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
 	max-height: 90%;
-	width: 80%; 
+	width: 80%;
 }
 
 .pong-container {
@@ -240,7 +240,7 @@ h5 {
 	border-radius: 20px;
 	width: 35%; /* Ajoutez la valeur minimale en pixels */
 	min-width: 500px;
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -275,7 +275,7 @@ h5 {
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .pong-container-login .buttons-container {
@@ -297,7 +297,7 @@ h5 {
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 70%;
-	min-height: 70%; 
+	min-height: 70%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -337,7 +337,7 @@ h5 {
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .profile-container-login .buttons-container {
@@ -369,7 +369,7 @@ h5 {
 	border-radius: 20px;
 	width: 40%; /* Ajoutez la valeur minimale en pixels */
 	min-width: 500px;
-	min-height: 80%; 
+	min-height: 80%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -800,7 +800,7 @@ option[value="purple"] { background-color: purple; }
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	min-width: 30%; /* Ajoutez la valeur minimale en pixels */
-	min-height: 80%; 
+	min-height: 80%;
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -835,7 +835,7 @@ option[value="purple"] { background-color: purple; }
 	overflow: auto;
 	box-sizing: border-box; /* Inclure le padding et la bordure dans la hauteur et la largeur */
 	padding: 20px; /* Ajouter un rembourrage pour éviter le débordement du contenu */
-	width: 80%; 
+	width: 80%;
 }
 
 .button-settings, #update-avatar {
@@ -961,7 +961,7 @@ option[value="purple"] { background-color: purple; }
 }
 
 .user-status-entry:hover {
-	
+
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -987,3 +987,54 @@ option[value="purple"] { background-color: purple; }
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
+.user-status-circle {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	background-color: gray;
+	display: inline-block;
+}
+
+.user-status-entry>span {
+	margin: 3px;
+}
+
+.user-status-entry {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	margin: 6px 0px;
+	padding: 7px;
+	transition: .3s;
+}
+
+.user-status-entry:hover {
+
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.embeded-intput-btn {
+	width: 200px;
+	position: relative;
+	height: 2rem;
+}
+
+.embeded-intput-btn button {
+	position: absolute;
+	right: 0px;
+	height: 1.8rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+
+	margin: 0px 5px;
+	transition: .3s;
+}
+
+.embeded-intput-btn button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}

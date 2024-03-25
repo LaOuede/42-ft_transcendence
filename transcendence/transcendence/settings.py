@@ -46,12 +46,12 @@ INSTALLED_APPS = [
     "custom_auth",
     "games_history",
     "user",
+    "friends",
     "rest_framework",
     "rest_framework.authtoken",
     "django_otp",
     "django_otp.plugins.otp_totp",
     "django_otp.plugins.otp_static",
-    "friends",
 ]
 
 MIDDLEWARE = [
