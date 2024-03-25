@@ -1057,7 +1057,7 @@ option[value="purple"] { background-color: #69327A; }
 }
 
 .user-status-entry:hover {
-	
+
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -1083,3 +1083,54 @@ option[value="purple"] { background-color: #69327A; }
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
+.user-status-circle {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	background-color: gray;
+	display: inline-block;
+}
+
+.user-status-entry>span {
+	margin: 3px;
+}
+
+.user-status-entry {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	margin: 6px 0px;
+	padding: 7px;
+	transition: .3s;
+}
+
+.user-status-entry:hover {
+
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.embeded-intput-btn {
+	width: 200px;
+	position: relative;
+	height: 2rem;
+}
+
+.embeded-intput-btn button {
+	position: absolute;
+	right: 0px;
+	height: 1.8rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+
+	margin: 0px 5px;
+	transition: .3s;
+}
+
+.embeded-intput-btn button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}

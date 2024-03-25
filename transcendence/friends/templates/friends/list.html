@@ -21,8 +21,12 @@ background: linear-gradient(90deg, rgba(64,0,96,1) 0%, rgba(9,89,121,1) 100%);
 
 <body style="background-color: darkgray;">
 	<h1>Friend List</h1>
+	<div class="input-group embeded-intput-btn">
+		<input type="text" name="add-friend-intput" id="add-friend-input"
+			placeholder="Add friend ...">
+		<button id="add-friend-btn">+</button>
+	</div>
 	{% if friends_list %}
-
 	<ul style="width: 100px">
 		{% for friend in friends_list %}
 		<li class="user-status-entry">
