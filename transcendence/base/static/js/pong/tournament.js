@@ -1,12 +1,4 @@
-import { playGameV2, playGameV4, stopGame, playDemo, playGame} from "../pong/pongvs4.js"
-import { gameInfo } from "../pong/pongvs4.js"
-
-let btStartTourn = document.querySelector("#startTourn")
-let btStartNext = document.querySelector("#startNext")
-let inputTournLength = document.querySelector("#tournLength")
-let inputDefaultLives = document.getElementById("defaultLives")
-
-
+import { gameInfo, playGame } from "../pong/pong.js"
 
 const playersScores = [0, 0, 0, 0]
 
@@ -18,8 +10,6 @@ let tournScores = [p1TournScore,
 	p2TournScore,
 	p3TournScore,
 	p4TournScore]
-
-let nickName = [undefined, undefined, undefined, undefined]
 
 function initElements() {
 	if (document.getElementById("p1TournScore")) {
@@ -34,20 +24,8 @@ function initElements() {
 	if (document.getElementById("p4TournScore")) {
 		tournScores[3] = document.getElementById("p4TournScore") 
 	}
-	if (document.getElementById("btPlay")) {
-		btStartTourn = document.getElementById("startTourn") 
-	}
-	if (document.getElementById("tournLength")) {
-		inputTournLength = document.getElementById("tournLength") 
-	}
-	if (document.getElementById("defaultLives")) {
-		inputDefaultLives = document.getElementById("defaultLives") 
-	}
-	if (document.getElementById("startNext")) {
-		btStartNext = document.getElementById("startNext") 
-	}
 }
-	
+
 function resetTourn(){
 	for(let i = 0; i < playersScores.length; i++){
 		playersScores[i] = 0
@@ -55,6 +33,7 @@ function resetTourn(){
 }
 
 function updateScores(){
+
 	for(let i = 0; i < tournScores.length; i++){
 		tournScores[i].textContent = playersScores[i]
 	}
@@ -75,8 +54,10 @@ function tieBreak(){
 function findBestScore(){
 	let bestScore = 0
 	for(let i = 0; i < playersScores.length; i++){
-		if(bestScore < playersScores[i])
+		if(bestScore < playersScores[i]){
 			bestScore = playersScores[i]
+			gameInfo.winner = gameInfo.nicks[i]
+		}
 	}
 	return bestScore
 }
@@ -101,7 +82,7 @@ function resetLives(){
 }
 
 function showScores(){
-	document.getElementById("next").style.display = "block"
+	document.getElementById("scoreBoard").style.display = "block"
 	if(gameInfo.tournaments.game_count <= 0 && isTie() === true){
 		gameInfo.tournaments.game_count++
 		tieBreak()
@@ -110,60 +91,27 @@ function showScores(){
 	}
 	if(gameInfo.tournaments.game_count > 0){
 		document.getElementById("btNextRound").style.display = "inline"
-		document.getElementById("tournEnd").style.display = "none"
+		document.getElementById("winner").style.display = "none"
 	} else {
 		document.getElementById("btNextRound").style.display = "none"
-		document.getElementById("tournEnd").style.display = "inline"
+		document.getElementById("winner").style.display = "inline"
+		document.getElementById("winner").textContent = gameInfo.winner + " win !"
 	}
-		
 }
 
 function tournament(){
 	gameInfo.tournaments.enabled = true
 	initElements()
-	gameInfo.tournaments.game_count = inputTournLength.value
-	// gameInfo.default_lives = inputDefaultLives.value
 	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
 		resetLives()
-		document.getElementById("start").style.display = "none"
+		document.getElementById("gameSettings").style.display = "none"
 		resetTourn()
 		gameInfo.countDownDone = false
 		gameInfo.gameover = false
 		gameInfo.tournaments.game_count--
 		playGame(gameInfo.player_lives)
-		}
-	if(btStartNext){
-		// btStartNext.addEventListener("click", function (e) {
-		// 	if(game_count > 0){
-		// 		gameInfo.countDownDone = false
-		// 		gameInfo.gameover = false
-		// 		game_count--
-		// 		playGame(gameInfo.player_lives)
-		// 		document.getElementById("next").style.display = "none"
-		// 	}
-		// })
 	}
 	updateScores()
-
 }
-
-// btStartTourn.addEventListener("click", () => {
-// 	game_count = inputTournLength.value
-// 	resetTourn()
-// 	gameInfo.gameover = true
-// 	tournament()
-// })
-
-// document.addEventListener("DOMContentLoaded", function (e) {
-// 	if(btStartTourn){
-// 		btStartTourn.addEventListener("click", function (e) {
-// 			game_count = inputTournLength.value
-// 			resetTourn()
-// 			gameInfo.gameover = true
-// 			tournament()
-// 			console.log("SALUT")
-// 		});
-// 	}
-// });
 
 export { playersScores, tournament, giveTournPoints, updateScores, showScores}

@@ -15,65 +15,36 @@ function initElements(gameInfo) {
 		cards: [undefined, undefined, undefined, undefined],
 		names: [undefined, undefined, undefined, undefined],
 	}
-	const tags_name = ["p1Score", "p2Score", "p3Score", "p4Score",
-		"playerInfo1", "playerInfo2", "playerInfo3", "playerInfo4"]
-	if (document.getElementById("p1Score")) {
+	if (document.getElementById("p1Score"))
 		tags.scores[0] = document.getElementById("p1Score")
-	}
-	if (document.getElementById("p2Score")) {
+	if (document.getElementById("p2Score"))
 		tags.scores[1]  = document.getElementById("p2Score") 
-	}
-	if (document.getElementById("p3Score")) {
+	if (document.getElementById("p3Score"))
 		tags.scores[2]  = document.getElementById("p3Score") 
-	}
-	if (document.getElementById("p4Score")) {
+	if (document.getElementById("p4Score"))
 		tags.scores[3]  = document.getElementById("p4Score") 
-	}
-	if (document.getElementById("playerInfo1")) {
+	if (document.getElementById("playerInfo1"))
 		tags.cards[0] = document.getElementById("playerInfo1")
-	}
-	if (document.getElementById("playerInfo2")) {
+	if (document.getElementById("playerInfo2"))
 		tags.cards[1] = document.getElementById("playerInfo2") 
-	}
-	if (document.getElementById("playerInfo3")) {
+	if (document.getElementById("playerInfo3"))
 		tags.cards[2] = document.getElementById("playerInfo3") 
-	}
-	if (document.getElementById("playerInfo4")) {
+	if (document.getElementById("playerInfo4"))
 		tags.cards[3] = document.getElementById("playerInfo4") 
-	}
-	if (document.getElementById("playerInfo4")) {
+	if (document.getElementById("playerInfo4"))
 		tags.names[0] = document.getElementById("player1name") 
-	}
-	if (document.getElementById("playerInfo4")) {
+	if (document.getElementById("playerInfo4"))
 		tags.names[1] = document.getElementById("player2name") 
-	}
-	if (document.getElementById("playerInfo4")) {
+	if (document.getElementById("playerInfo4"))
 		tags.names[2] = document.getElementById("player3name") 
-	}
-	if (document.getElementById("playerInfo4")) {
+	if (document.getElementById("playerInfo4"))
 		tags.names[3] = document.getElementById("player4name") 
-	}
 	gameInfo.window.width = document.querySelector('.master').offsetWidth
 	gameInfo.window.height = document.querySelector('.master').offsetHeight - document.querySelector('nav').offsetHeight
   
 	tags.canvas = document.querySelector("#game")
-
-
 	return tags
 }
-
-// function demoLights(){
-// 	if(!pongObjs.scene.add(pongObjs.lights[0])){
-// 		pongObjs.scene.add(pongObjs.lights[0])
-// 		pongObjs.lights[0].distance = 800
-
-// 	}
-// 	if(!pongObjs.scene.add(pongObjs.lights[1])){
-// 		pongObjs.scene.add(pongObjs.lights[1])
-// 		pongObjs.lights[1].distance = 800
-// 	}
-
-// }
 
 function countPlayers(){
 	gameInfo.player_count = 0
@@ -105,19 +76,21 @@ function resetGameOver(){
 		if(gameInfo.player_lives[i] > 0){
 			if(!pongObjs.scene.children.includes(pongObjs.paddles[i]))
 				pongObjs.scene.add(pongObjs.paddles[i])
-			if(!pongObjs.scene.children.includes(pongObjs.lights[i])){
+			if(!pongObjs.scene.children.includes(pongObjs.lights[i]))
 				pongObjs.scene.add(pongObjs.lights[i])
-			}
 			pongObjs.lights[i].color.set(gameInfo.colors[i])
 			pongObjs.lights[i].distance = setDistanceLight()
 			gameInfo.paddle_limit_list[i] = 2.75
 			if(tags.cards[i]){
 				tags.cards[i].style.display = "block"
-				tags.cards[i].style.backgroundColor = gameInfo.colors[i] + "66"
+				tags.cards[i].style.border = gameInfo.colors[i] + " solid 5px"
+				tags.cards[i].style.color = gameInfo.colors[i]
+				tags.cards[i].style.boxShadow = gameInfo.colors[i] + " 0px 0px 20px"
+				if(gameInfo.nicks[i] == "")
+					gameInfo.nicks[i] = "Player " + (i + 1)
 				tags.names[i].textContent = gameInfo.nicks[i]
 				tags.scores[i].textContent = gameInfo.player_lives[i]
 			}
-			
 		} else {
 			pongObjs.scene.remove(pongObjs.paddles[i])
 			pongObjs.scene.remove(pongObjs.lights[i])
@@ -127,9 +100,6 @@ function resetGameOver(){
 		}
 	}
 	changeView()
-
-	// pongObjs.orbit.enabled = true
-
 }
 
 function resetGameDemo(){
@@ -153,10 +123,9 @@ function resetGameDemo(){
 	gameInfo.player_lives[2] = 0
 	gameInfo.player_lives[3] = 0
 	gameInfo.player_count = 0
-	gameInfo.nicks = ["player1", "player2", "player3", "player4"]
+	gameInfo.nicks = ["", "", "", ""]
 	pongObjs.camera.position.set(0, 0, 750)
 	pongObjs.camera.lookAt(0, 0, 0)
-	// pongObjs.orbit.enabled = false
 }
 
 function defaultPosition() {
@@ -225,7 +194,6 @@ function moveBall() {
 }
 
 function goalDetection() {
-	//vs2 et vs4
 	if (
 		pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && 
 		gameInfo.player_lives[0] > 0
@@ -238,7 +206,6 @@ function goalDetection() {
 			gameInfo.player_count--
 			if(gameInfo.tournaments.enabled)
 				giveTournPoints(0)
-
 		}
 		gameInfo.countDownDone = false
 		defaultPosition();
@@ -294,30 +261,33 @@ function goalDetection() {
 	if(gameInfo.player_count === 1){
 		gameInfo.gameover = true
 		gameInfo.player_count--;
-		let tempPaddle = [gameInfo.player_lives[0], gameInfo.player_lives[1], gameInfo.player_lives[2], gameInfo.player_lives[3]]
-		for(let i = 0; i < tempPaddle.length; i++){
-			if(tempPaddle[i] > 0 && gameInfo.tournaments.enabled){
-				giveTournPoints(i)
-				updateScores()
-				showScores()
+		for(let i = 0; i < gameInfo.player_lives.length; i++){
+			if(gameInfo.player_lives[i] > 0){
+				if(gameInfo.tournaments.enabled){
+					giveTournPoints(i)
+					updateScores()
+				} else {
+					gameInfo.winner = gameInfo.nicks[i]
+					document.getElementById("scoreBoard").style.display = "block"
+					document.getElementById("winner").textContent = gameInfo.nicks[i]
+				}
+				
 			}
 		}
+		if(gameInfo.tournaments.enabled)
+			showScores()
 	}
 }
 
 function sideRebound() {
-	if (pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0) {
+	if (pongObjs.ball.position.x < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[0] === 0)
 		gameInfo.ball_att.dirX = 1;
-	}
-	if (pongObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0) {
+	if (pongObjs.ball.position.x > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[1] === 0)
 		gameInfo.ball_att.dirX = -1;
-	}
-	if (pongObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0) {
+	if (pongObjs.ball.position.y > gameInfo.board_size.size / 2 - gameInfo.board_size.thickness && gameInfo.player_lives[2] === 0)
 		gameInfo.ball_att.dirY = -1;
-	}
-	if (pongObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0) {
+	if (pongObjs.ball.position.y < -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness && gameInfo.player_lives[3] === 0)
 		gameInfo.ball_att.dirY = 1;
-	}
 }
 
 function paddleColision() {
@@ -329,16 +299,17 @@ function paddleColision() {
 		pongObjs.ball.position.y <= pongObjs.paddles[0].position.y + gameInfo.board_size.paddleLength / 2 &&
 		pongObjs.ball.position.y >= pongObjs.paddles[0].position.y - gameInfo.board_size.paddleLength / 2
 	) {
-	if(gameInfo.ball_att.reboundx === true){
-		changeAngle();
-		gameInfo.ball_att.dirX = 1;
-		if(gameInfo.level < maxlevel)
-			gameInfo.level += gameInfo.level_inc;
-		else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
-			gameInfo.level += gameInfo.level_inc / 5;
+		if(gameInfo.ball_att.reboundx === true){
+			changeAngle();
+			gameInfo.ball_att.dirX = 1;
+			if(gameInfo.level < maxlevel)
+				gameInfo.level += gameInfo.level_inc;
+			else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
+				gameInfo.level += gameInfo.level_inc / 5;
+			gameInfo.ball_att.reboundx = false
+		}
 	}
-	gameInfo.ball_att.reboundx = false
-	}
+
 	if (
 		gameInfo.player_lives[1] > 0 &&
 		pongObjs.ball.position.x + gameInfo.board_size.thickness >= pongObjs.paddles[1].position.x - gameInfo.board_size.thickness / 2 - 2 &&
@@ -346,16 +317,17 @@ function paddleColision() {
 		pongObjs.ball.position.y <= pongObjs.paddles[1].position.y + gameInfo.board_size.paddleLength / 2 &&
 		pongObjs.ball.position.y >= pongObjs.paddles[1].position.y - gameInfo.board_size.paddleLength / 2
 	) {
-	if(gameInfo.ball_att.reboundx === true){
-		changeAngle();
-		gameInfo.ball_att.dirX = -1;
-		if(gameInfo.level < maxlevel)
-			gameInfo.level += gameInfo.level_inc;
-		else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
-			gameInfo.level += gameInfo.level_inc / 5;
+		if(gameInfo.ball_att.reboundx === true){
+			changeAngle();
+			gameInfo.ball_att.dirX = -1;
+			if(gameInfo.level < maxlevel)
+				gameInfo.level += gameInfo.level_inc;
+			else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
+				gameInfo.level += gameInfo.level_inc / 5;
+			gameInfo.ball_att.reboundx = false
+		}
 	}
-	gameInfo.ball_att.reboundx = false
-	}
+	
 	if (
 		gameInfo.player_lives[2] > 0 &&
 		pongObjs.ball.position.y + gameInfo.board_size.thickness >= pongObjs.paddles[2].position.y - gameInfo.board_size.thickness / 2 - 2 &&
@@ -363,16 +335,17 @@ function paddleColision() {
 		pongObjs.ball.position.x <= pongObjs.paddles[2].position.x + gameInfo.board_size.paddleLength / 2 &&
 		pongObjs.ball.position.x >= pongObjs.paddles[2].position.x - gameInfo.board_size.paddleLength / 2
 	) {
-	if(gameInfo.ball_att.reboundy === true){
-		changeAngle();
-		gameInfo.ball_att.dirY = -1;
-		if(gameInfo.level < maxlevel)
-			gameInfo.level += gameInfo.level_inc;
-		else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
-			gameInfo.level += gameInfo.level_inc / 5;
+		if(gameInfo.ball_att.reboundy === true){
+			changeAngle();
+			gameInfo.ball_att.dirY = -1;
+			if(gameInfo.level < maxlevel)
+				gameInfo.level += gameInfo.level_inc;
+			else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
+				gameInfo.level += gameInfo.level_inc / 5;
+			gameInfo.ball_att.reboundy = false
+		}
 	}
-	gameInfo.ball_att.reboundy = false
-	}
+
 	if (
 		gameInfo.player_lives[3] > 0 &&
 		pongObjs.ball.position.y - gameInfo.board_size.thickness <= pongObjs.paddles[3].position.y + gameInfo.board_size.thickness / 2 + 2 &&
@@ -380,17 +353,18 @@ function paddleColision() {
 		pongObjs.ball.position.x <= pongObjs.paddles[3].position.x + gameInfo.board_size.paddleLength / 2 &&
 		pongObjs.ball.position.x >= pongObjs.paddles[3].position.x - gameInfo.board_size.paddleLength / 2
 	) {
-	if(gameInfo.ball_att.reboundy === true){
-		changeAngle();
-		gameInfo.ball_att.dirY = 1;
-		if(gameInfo.level < maxlevel)
-			gameInfo.level += gameInfo.level_inc;
-		else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
-			gameInfo.level += gameInfo.level_inc / 5;
-	}
+		if(gameInfo.ball_att.reboundy === true){
+			changeAngle();
+			gameInfo.ball_att.dirY = 1;
+			if(gameInfo.level < maxlevel)
+				gameInfo.level += gameInfo.level_inc;
+			else if (gameInfo.level >= maxlevel && gameInfo.level < 10)
+				gameInfo.level += gameInfo.level_inc / 5;
+			gameInfo.ball_att.reboundy = false
+		}
 	
-	gameInfo.ball_att.reboundy = false
 	}
+
 	if(pongObjs.ball.position.y <= 10 && pongObjs.ball.position.y >= -10)
 		gameInfo.ball_att.reboundy = true
 	if(pongObjs.ball.position.x <= 10 && pongObjs.ball.position.x >= -10)
@@ -399,7 +373,6 @@ function paddleColision() {
 }
 
 function controlDetection() {
-	//vs2 et vs4
 	const paddleSpeed = 6
 	if ( gameInfo.controls.paddle1key[0] === true && pongObjs.paddles[0].position.y <
 		gameInfo.board_size.size / 2 - gameInfo.board_size.paddleLength / 2 - (gameInfo.board_size.thickness * gameInfo.paddle_limit_list[2]))
@@ -435,32 +408,6 @@ function controlDetection() {
 
 }
 
-document.addEventListener("keypress", (event) => {
-	if(gameInfo.controls.enabled){
-		if (event.key === "v") changeView();
-		if (event.key === "k") {
-			stopGame()
-		}
-		if (event.key === "m") {
-			pongObjs.renderer.setAnimationLoop(animate);
-	
-		}
-		if (event.key === "j") {
-			playGameV4()
-		}
-		if (event.key === "o") {
-			playGameV2()
-		}
-		if (event.key === "l") {
-			playDemo()
-		}
-		// if(event.key === "1"){
-		// 	lightColorSwitch(3, "#ff55ff")
-		// }
-	}
-		
-});
-
 document.addEventListener("keydown", (event) => {
 	if(gameInfo.controls.enabled){
 		if (event.key === "w") gameInfo.controls.paddle1key[0] = true;
@@ -490,10 +437,10 @@ window.addEventListener("resize", () => {
 	const navHeight = document.querySelector('nav').offsetHeight;
 	const masterHeight = document.querySelector('.master').offsetHeight;
 	const masterWidth = document.querySelector('.master').offsetWidth;
-  const canvasHeight = masterHeight - navHeight;
+	const canvasHeight = masterHeight - navHeight;
 
-	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 20)
-	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 20)
+	pongObjs.renderer.setSize((masterWidth - 20), canvasHeight - 40)
+	pongObjs.camera.aspect = (masterWidth - 20) / (canvasHeight - 40)
 	pongObjs.camera.updateProjectionMatrix()
 });
 
@@ -532,8 +479,7 @@ function camLimiter(){
 }
 
 function animate() {
-	//vs2 et vs4
-	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {		
+	if (gameInfo.gameover === false && gameInfo.countDownDone === true) {
 		controlDetection();
 		ballPhysic();
 	}
@@ -542,32 +488,6 @@ function animate() {
 	if(gameInfo.demoCam.enabled === true)
 		demoCamPlay()
 	// console.log("running")
-}
-
-// function lightColorSwitch(player, color){
-// 	const lights = [pongObjs.lights[0], pongObjs.lights[1], pongObjs.lights[2], pongObjs.lights[3]]
-// 	const pInfos = [p1Info, p2Info, p3Info, p4Info]
-// 	lights[player - 1].color.set(color)
-// 	pInfos[player - 1].style.backgroundColor = color + "66"
-// }
-
-function playGameV2(){
-	gameInfo.gameover = false
-	gameInfo.player_lives = [4, 4, 0, 0]
-	resetGameOver()
-	gameInfo.demoCam.enabled = false
-	gameInfo.countDownDone = false
-	pongObjs.renderer.setAnimationLoop(animate);
-}
-
-function playGameV4(){	
-	gameInfo.controls.enabled = true
-	gameInfo.gameover = false
-	gameInfo.player_lives = [4, 4, 4, 4]
-	resetGameOver()
-	gameInfo.demoCam.enabled = false
-	gameInfo.countDownDone = false
-	pongObjs.renderer.setAnimationLoop(animate);
 }
 
 function playGame(startLives){	
@@ -592,11 +512,6 @@ function playDemo(){
 	}
 }
 
-function stopGame(){
-	gameInfo.demoCam.enabled = false
-	pongObjs.renderer.setAnimationLoop(null)
-}
-
 function selectColor(color){
 
 	switch (color) {
@@ -615,12 +530,11 @@ function selectColor(color){
 	}
 }
 
-
 function getUserParam(){
 
 	gameInfo.colors[0] = selectColor(document.querySelector('#p1colorSelect option:checked').value)
 	gameInfo.colors[1] = selectColor(document.querySelector('#p2colorSelect option:checked').value)
-	if(selectColor(document.querySelector('#p3colorSelect option:checked'))){
+	if(document.querySelector('#p3colorSelect')){
 		gameInfo.colors[2] = selectColor(document.querySelector('#p3colorSelect option:checked').value)
 		gameInfo.colors[3] = selectColor(document.querySelector('#p4colorSelect option:checked').value)
 	}
@@ -635,12 +549,14 @@ function getUserParam(){
 function getGameParam(){
 	const basesize = 75
 	gameInfo.board_size.paddleLength = document.querySelector('input[name="paddlesSize"]:checked').value;
-    pongObjs.paddles[0].scale.y = gameInfo.board_size.paddleLength / basesize
-    pongObjs.paddles[1].scale.y = gameInfo.board_size.paddleLength / basesize
-    pongObjs.paddles[2].scale.x = gameInfo.board_size.paddleLength / basesize
-    pongObjs.paddles[3].scale.x = gameInfo.board_size.paddleLength / basesize
+	pongObjs.paddles[0].scale.y = gameInfo.board_size.paddleLength / basesize
+	pongObjs.paddles[1].scale.y = gameInfo.board_size.paddleLength / basesize
+	pongObjs.paddles[2].scale.x = gameInfo.board_size.paddleLength / basesize
+	pongObjs.paddles[3].scale.x = gameInfo.board_size.paddleLength / basesize
 	gameInfo.view = document.querySelector('input[name="view"]:checked').value
 	gameInfo.default_lives = document.querySelector('input[name="defaultLives"]').value
+	if(document.querySelector('input[name="tournLength"]'))
+		gameInfo.tournaments.game_count = document.querySelector('input[name="tournLength"]').value
 }
 
 function resetLives(nb){
@@ -660,7 +576,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			resetLives(2)
 			gameInfo.tournaments.enabled = false
 			if(gameInfo.default_lives > 0){
-				document.getElementById("start").style.display = "none"
+				document.getElementById("gameSettings").style.display = "none"
 				playGame(gameInfo.player_lives)
 			}
 		}
@@ -672,7 +588,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			resetLives(4)
 			gameInfo.tournaments.enabled = false
 			if(gameInfo.default_lives > 0){
-				document.getElementById("start").style.display = "none"
+				document.getElementById("gameSettings").style.display = "none"
 				playGame(gameInfo.player_lives)
 			}
 		}
@@ -690,18 +606,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 			gameInfo.gameover = false
 			gameInfo.tournaments.game_count--
 			playGame(gameInfo.player_lives)
-			document.getElementById("next").style.display = "none"
+			document.getElementById("scoreBoard").style.display = "none"
 		}
 	})
 })
-initElements(gameInfo)
-initPongObjs(gameInfo, tags)
 
-export { gameInfo, playGameV2, playGameV4, stopGame, playDemo, playGame }
-
-
-// gameInfo.countDownDone = false
-		// 		gameInfo.gameover = false
-		// 		game_count--
-		// 		playGame(gameInfo.player_lives)
-		// 		document.getElementById("next").style.display = "none"
+export { gameInfo, playDemo, playGame }

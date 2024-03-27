@@ -1,11 +1,11 @@
 <div id="root">
 	<div id="ui">
-		<div id="tournInfo">
-			<div id="start">
+		<div id="gameWindows">
+			<div id="gameSettings">
 				<div class="custom-length-container">
 					<div class="custom-length-container-black">
 						<label for="defaultLives">Lives :</label>
-						<input name="defaultLives" id=defaultLives type="text" value="0">
+						<input name="defaultLives" id=defaultLives type="text" value="1">
 						<form>
 							<p>View</p>
 							<input type="radio" id="option1" name="view" value="0">
@@ -25,9 +25,19 @@
 							<input type="radio" id="option3" name="paddlesSize" value="50">
 							<label for="option3">Smaller</label><br>
 						</form>
-						<button class="button5" id="btPlayVs2">PLAY</button>
+						<button class="button5" id="btPlayVs2">LET'S FIGHT!!!</button>
 					</div>
 				</div>
+			</div>	
+			<div id="scoreBoard">
+				<div class="custom-score-container">
+					<div class="custom-score-container-black">
+						<div class="signup-header-custom">
+							<h2 class="custom-title">GAME WINNER</h2>
+						</div>
+						<p  class="custom-player-final" id="winner"></p>
+					</div>
+				</div>	
 			</div>	
 		</div>
 		<div id="playerInfo1">

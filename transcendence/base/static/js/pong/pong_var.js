@@ -1,5 +1,6 @@
 export function initGameInfo(){
 	let gameInfo = {
+		winner: "",
 		tournaments: {enabled: false, game_count: 1},
 		window: {width: 500, height: 500},
 		demoCam: {enabled: false, DirX: 1, DirY: 1},
@@ -19,8 +20,8 @@ export function initGameInfo(){
 		view: 0,
 		level: 3,
 		level_inc: 0.5,
-		colors: ["#9D2406", "#249DC6", "#88AD40", "#F2D811"],
-		nicks: ["player1", "player2", "player3", "player4"]
+		colors: ["", "", "", ""],
+		nicks: ["", "", "", ""]
 	}
 	return gameInfo
 }
