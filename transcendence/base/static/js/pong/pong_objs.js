@@ -13,6 +13,7 @@ export function initPongObjs(gameInfo, tags){
 		ballplight: undefined,
 		paddles: [undefined, undefined, undefined, undefined],
 		lights: [undefined, undefined, undefined, undefined],
+		teleports: [undefined, undefined, undefined, undefined],
 	}
 
 	//RENDERER
@@ -163,6 +164,38 @@ export function initPongObjs(gameInfo, tags){
 	pongObjs.paddles[3].position.set(0, -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness);
 	pongObjs.paddles[3].castShadow = true;
 	pongObjs.paddles[3].receiveShadow = true;
+
+	//TELEPORT READY LIGHT 1
+	const teleport1Geometry = new THREE.SphereGeometry(gameInfo.board_size.thickness / 3, 64, 64);
+	const teleport1Material = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
+	pongObjs.teleports[0] = new THREE.Mesh(teleport1Geometry, teleport1Material);
+	pongObjs.teleports[0].position.set(-gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness * 1.5);
+	pongObjs.teleports[0].castShadow = true;
+	pongObjs.teleports[0].receiveShadow = true;
+	
+	//TELEPORT READY LIGHT 2
+	const teleport2Geometry = new THREE.SphereGeometry(gameInfo.board_size.thickness / 3, 64, 64);
+	const teleport2Material = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
+	pongObjs.teleports[1] = new THREE.Mesh(teleport2Geometry, teleport2Material);
+	pongObjs.teleports[1].position.set(gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, 0, gameInfo.board_size.thickness * 1.5);
+	pongObjs.teleports[1].castShadow = true;
+	pongObjs.teleports[1].receiveShadow = true;
+	
+	//TELEPORT READY LIGHT 3
+	const teleport3Geometry = new THREE.SphereGeometry(gameInfo.board_size.thickness / 3, 64, 64);
+	const teleport3Material = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
+	pongObjs.teleports[2] = new THREE.Mesh(teleport3Geometry, teleport3Material);
+	pongObjs.teleports[2].position.set(0, gameInfo.board_size.size / 2 - gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness * 1.5);
+	pongObjs.teleports[2].castShadow = true;
+	pongObjs.teleports[2].receiveShadow = true;
+	
+	//TELEPORT READY LIGHT 4
+	const teleport4Geometry = new THREE.SphereGeometry(gameInfo.board_size.thickness / 3, 64, 64);
+	const teleport4Material = new THREE.MeshBasicMaterial({ color: 0xeeeeee });
+	pongObjs.teleports[3] = new THREE.Mesh(teleport4Geometry, teleport4Material);
+	pongObjs.teleports[3].position.set(0, -gameInfo.board_size.size / 2 + gameInfo.board_size.thickness * 2, gameInfo.board_size.thickness * 1.5);
+	pongObjs.teleports[3].castShadow = true;
+	pongObjs.teleports[3].receiveShadow = true;
 
 	return pongObjs
 }

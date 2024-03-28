@@ -1,5 +1,5 @@
 from django.urls import path
-from pong.views import pong, play, onevsone, rumble, playonevsone, playrumble, tournaments, playtournaments
+from pong.views import pong, play, onevsone, rumble, playonevsone, playrumble, tournaments, playtournaments, rules
 
 urlpatterns = [
 	path("play/", play, name="play"),
@@ -9,4 +9,5 @@ urlpatterns = [
 	path("playrumble/", playrumble, name="playrumble"),
 	path("tournaments/", tournaments, name="tournaments"),
 	path("playtournaments/", playtournaments, name="playtournaments"),
+	path("rules/", rules, name="rules"),
 ]
