@@ -95,7 +95,7 @@ function showScores(){
 	} else {
 		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("winner").style.display = "inline"
-		document.getElementById("winner").textContent = gameInfo.winner + " win !"
+		document.getElementById("winner").innerHTML = "<strong>" + gameInfo.winner + " wins!</strong>";
 	}
 }
 

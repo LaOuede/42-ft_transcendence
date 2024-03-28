@@ -4,34 +4,71 @@
 			<div id="gameSettings">
 				<div class="custom-length-container">
 					<div class="custom-length-container-black">
-						<div class="signup-header-onevsone">
-							<h2 class="custom-title">TOURNAMENT LENGTH</h2>
+						<div class="signup-header">
+							<h2 class="header-title">GAME SETTINGS</h2>
 						</div>
-						<div class="input-group">
-							<input class="player-custom" name="tournLength" id=tournLength type="text" value="2">
+						<div class="select-container">
+							<p class="settings-title">TOURNAMENT LENGHT</p>
+							<form>
+								<select id="defaultGames" class="button-settings">
+									<option value="2" selected>2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</form>
 						</div>
-						<label for="defaultLives">Lives :</label>
-						<input name="defaultLives" id=defaultLives type="text" value="1">
-						<form>
-							<p>View</p>
-							<input type="radio" id="option1" name="view" value="0">
-							<label for="option1">Top</label><br>
-						
-							<input type="radio" id="option2" name="view" value="1" checked>
-							<label for="option2">Side</label><br>
-						</form>
-						<form>
-							<p>Paddles</p>
-							<input type="radio" id="option1" name="paddlesSize" value="150">
-							<label for="option1">Larger</label><br>
-						
-							<input type="radio" id="option2" name="paddlesSize" value="75" checked>
-							<label for="option2">Normal</label><br>
-						
-							<input type="radio" id="option3" name="paddlesSize" value="50">
-							<label for="option3">Smaller</label><br>
-						</form>
-						<button class="button5" id="btPlayTourn">LET'S FIGHT!!!</button>
+						<div class="select-container">
+							<p class="settings-title">LIVES</p>
+							<form>
+								<select id="defaultLives" class="button-settings">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</form>
+						</div>
+						<div class="select-container">
+							<p class="settings-title">VIEW</p>
+							<form>
+								<select id="defaultView" class="button-settings">
+									<option value="0">Top</option>
+									<option value="1" selected>Side</option>
+								</select>
+							</form>
+						</div>
+						<div class="select-container">
+							<p class="settings-title">PADDLES</p>
+							<form>
+								<select id="defaultPaddle" class="button-settings">
+									<option value="150">Larger</option>
+									<option value="75" selected>Normal</option>
+									<option value="50">Smaller</option>
+								</select>
+							</form>
+						</div>
+						<div class="select-container">
+							<p class="settings-title">POWER UP</p>
+							<form>
+								<select id="defaultPowerUp" class="button-settings">
+									<option value="0">Enable</option>
+									<option value="1" selected>Disable</option>
+								</select>
+							</form>
+						</div>
+						<button class="button-settings" id="btPlayTourn">LET'S FIGHT!!!</button>
 					</div>
 				</div>
 			</div>	
@@ -39,16 +76,34 @@
 				<div class="custom-score-container">
 					<div class="custom-score-container-black">
 						<div class="signup-header-custom">
-							<h2 class="custom-title">GAME SCORE</h2>
+							<h2 class="custom-title">SCORE BOARD</h2>
 						</div>
-						<div class="custom-player-title">Player 1 Score: <span id="p1TournScore">0</span></div>
-						<div class="custom-player-title">Player 2 Score: <span id="p2TournScore">0</span></div>
-						<div class="custom-player-title">Player 3 Score: <span id="p3TournScore">0</span></div>
-						<div class="custom-player-title">Player 4 Score: <span id="p4TournScore">0</span></div>
-						<button class="button6" id="btNextRound">NEXT</button>
-						<p  class="custom-player-final" id="winner"></p>
+						<table class="score-table">
+							<tr>
+								<th>PLAYERS</th>
+								<th>SCORE</th>
+							</tr>
+							<tr>
+								<td>Player 1</td>
+								<td><span id="p1TournScore">0</span></td>
+							</tr>
+							<tr>
+								<td>Player 2</td>
+								<td><span id="p2TournScore">0</span></td>
+							</tr>
+							<tr>
+								<td>Player 3</td>
+								<td><span id="p3TournScore">0</span></td>
+							</tr>
+							<tr>
+								<td>Player 4</td>
+								<td><span id="p4TournScore">0</span></td>
+							</tr>
+						</table>
+						<button class="button6" id="btNextRound">NEXT ROUND</button>
+						<p class="custom-player-final" id="winner"></p>
 					</div>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<div id="playerInfo1">

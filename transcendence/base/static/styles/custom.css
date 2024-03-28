@@ -14,9 +14,9 @@
 	transform: translate(-50%, -50%);
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
-	width: 15%; /* Ajoutez la valeur minimale en pixels */
-	min-width: 220px;
-	min-height: 35%; 
+	width: 35%; /* Ajoutez la valeur minimale en pixels */
+	min-width: 50%;
+	min-height: 60%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -69,7 +69,6 @@
 }
 
 .player-custom {
-	
 	max-width: 15%;
 	max-height: 15%;
 }
@@ -112,8 +111,8 @@
 	background: linear-gradient(270deg, var(--purple-color) 0%, var(--blue-color) 100%);
 	border-radius: 20px;
 	width: 15%; /* Ajoutez la valeur minimale en pixels */
-	min-width: 220px;
-	min-height: 25%; 
+	min-width: 30%;
+	min-height: 45%; 
 	overflow: hidden;
 	box-shadow: 0 0 30px 7px rgba(255, 255, 255, 0.2);
 	opacity: 85%;
@@ -170,8 +169,41 @@
 	transition: background-color 0.2s;
 }
 
+.button5:hover, .button6:hover {
+	background-color: #5B5B5B;
+}
+
+@keyframes flashing {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
 .custom-player-final {
-	margin-top: .5vw;
+	animation: flashing 1s infinite;
+	margin-top: 2vw;
 	color: var(--soft-blue-color);
 	font-size: calc(20px + 0.390625vw);
+}
+
+.score-table {
+	margin-top: 10px;;
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 300px;
+	border: 1px solid #69327A;
+}
+
+.score-table th, .score-table td {
+	padding: 8px;
+	text-align: center;
+	color: #00FAFA;
+}
+
+.score-table th {
+	background-color: rgba(105, 50, 122, 0.5); /* RGBA color with opacity for header background */
+}
+
+.score-table tr {
+	border: 1px solid #69327A;
 }

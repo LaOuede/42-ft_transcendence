@@ -4,15 +4,19 @@
 
 .lds-default {
 	display: none;
-	position: relative;
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 80px;
 	height: 80px;
 }
+
 .lds-default div {
 	position: absolute;
 	width: 6px;
 	height: 6px;
-	background: blue;
+	background:#00FAFA;
 	border-radius: 50%;
 	animation: lds-default 1.2s linear infinite;
 }

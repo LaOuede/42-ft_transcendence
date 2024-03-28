@@ -548,15 +548,17 @@ function getUserParam(){
 
 function getGameParam(){
 	const basesize = 75
-	gameInfo.board_size.paddleLength = document.querySelector('input[name="paddlesSize"]:checked').value;
+	gameInfo.board_size.paddleLength = document.querySelector('#defaultPaddle').value;
 	pongObjs.paddles[0].scale.y = gameInfo.board_size.paddleLength / basesize
 	pongObjs.paddles[1].scale.y = gameInfo.board_size.paddleLength / basesize
 	pongObjs.paddles[2].scale.x = gameInfo.board_size.paddleLength / basesize
 	pongObjs.paddles[3].scale.x = gameInfo.board_size.paddleLength / basesize
-	gameInfo.view = document.querySelector('input[name="view"]:checked').value
-	gameInfo.default_lives = document.querySelector('input[name="defaultLives"]').value
-	if(document.querySelector('input[name="tournLength"]'))
-		gameInfo.tournaments.game_count = document.querySelector('input[name="tournLength"]').value
+	gameInfo.view = document.querySelector('#defaultView').value;
+	gameInfo.default_lives = document.querySelector('#defaultLives').value;
+	// gameInfo.powerup = document.querySelector('#defaultPowerUp').value;
+	if(document.querySelector('#defaultGames'))
+		gameInfo.tournaments.game_count = document.querySelector('#defaultGames').value;
+		console.log(gameInfo.tournaments.game_count)
 }
 
 function resetLives(nb){
