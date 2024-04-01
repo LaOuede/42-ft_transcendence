@@ -733,6 +733,16 @@ option[value="purple"] { background-color: #69327A; }
 	background-color: #3089A866;
 }
 
+.player3-grid-item {
+	border: 5px solid #9D2406;
+	background-color: #9D240666;
+}
+
+.player4-grid-item {
+	border: 5px solid #F2D811;
+	background-color: #F2D81166;
+}
+
 @media (min-width: 900px) {
 	.profile-grid-container, .rumble-grid-container {
 		grid-template-columns: repeat(2, 1fr);
