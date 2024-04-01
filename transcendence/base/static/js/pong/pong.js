@@ -7,7 +7,6 @@ let gameInfo = initGameInfo()
 let tags = initElements(gameInfo)
 const pongObjs = initPongObjs(gameInfo, tags)
 
-
 function initElements(gameInfo) {
 	const tags = {
 		canvas: undefined,
