@@ -133,3 +133,29 @@
 #gameWindows #scoreBoard{
 	display: none;
 }
+
+.settings-title {
+	color: var(--soft-blue-color);
+	font-size: calc(10px + 0.390625vw);
+	margin-top: 10px;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+.select-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#btPlayVs2, #btPlayRumble, #btPlayTourn {
+	background-color: #00FAFA;
+	color: black;
+	font-weight: bold;
+	width: 50%;
+	margin-top: 10px;
+}
+
+#btPlayVs2:hover, #btPlayRumble:hover, #btPlayTourn:hover {
+	background-color: #249DC6;
+}

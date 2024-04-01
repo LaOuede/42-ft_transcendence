@@ -4,28 +4,55 @@
 			<div id="gameSettings">
 				<div class="custom-length-container">
 					<div class="custom-length-container-black">
-						<label for="defaultLives">Lives :</label>
-						<input name="defaultLives" id=defaultLives type="text" value="1">
-						<form>
-							<p>View</p>
-							<input type="radio" id="option1" name="view" value="0">
-							<label for="option1">Top</label><br>
-						
-							<input type="radio" id="option2" name="view" value="1" checked>
-							<label for="option2">Side</label><br>
-						</form>
-						<form>
-							<p>Paddles</p>
-							<input type="radio" id="option1" name="paddlesSize" value="150">
-							<label for="option1">Larger</label><br>
-						
-							<input type="radio" id="option2" name="paddlesSize" value="75" checked>
-							<label for="option2">Normal</label><br>
-						
-							<input type="radio" id="option3" name="paddlesSize" value="50">
-							<label for="option3">Smaller</label><br>
-						</form>
-						<button class="button5" id="btPlayRumble">LET'S FIGHT!!!</button>
+							<div class="signup-header">
+								<h2 class="header-title">GAME<br>SETTINGS</h2>
+							</div>
+							<div class="select-container">
+							<p class="settings-title">LIVES</p>
+							<form>
+								<select id="defaultLives" class="button-settings">
+									<option value="1" selected>1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+								</select>
+							</form>
+							</div>
+							<div class="select-container">
+								<p class="settings-title">VIEW</p>
+								<form>
+									<select id="defaultView" class="button-settings">
+										<option value="0">Top</option>
+										<option value="1" selected>Side</option>
+									</select>
+								</form>
+							</div>
+							<div class="select-container">
+								<p class="settings-title">PADDLES</p>
+								<form>
+									<select id="defaultPaddle" class="button-settings">
+										<option value="150">Larger</option>
+										<option value="75" selected>Normal</option>
+										<option value="50">Smaller</option>
+									</select>
+								</form>
+							</div>
+							<div class="select-container">
+								<p class="settings-title">POWER UP</p>
+								<form>
+									<select id="defaultPowerUp" class="button-settings">
+										<option value="0">Enable</option>
+										<option value="1" selected>Disable</option>
+									</select>
+								</form>
+							</div>
+							<button class="button-settings" id="btPlayRumble">LET'S FIGHT!!!</button>
 					</div>
 				</div>
 			</div>
