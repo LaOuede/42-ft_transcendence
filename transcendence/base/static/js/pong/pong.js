@@ -689,9 +689,7 @@ function getGameParam(){
 	pongObjs.paddles[3].scale.x = gameInfo.board_size.paddleLength / basesize
 	gameInfo.view = document.querySelector('#defaultView').value;
 	gameInfo.default_lives = document.querySelector('#defaultLives').value;
-	gameInfo.power_enabled = document.querySelector('input[name="powerup"]:checked').value
-
-	// gameInfo.powerup = document.querySelector('#defaultPowerUp').value;
+	gameInfo.power_enabled = document.querySelector('#defaultPowerUp').value;
 	if(document.querySelector('#defaultGames'))
 		gameInfo.tournaments.game_count = document.querySelector('#defaultGames').value;
 		console.log(gameInfo.tournaments.game_count)
