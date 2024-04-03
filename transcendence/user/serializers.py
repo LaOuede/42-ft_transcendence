@@ -6,7 +6,7 @@ from .models import User, VALID_AVATARS
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ['id', 'username', 'email', 'activity', 'avatar', 'twoFA', 'is_active']
+		fields = ['id', 'username', 'email', 'activity', 'language', 'avatar', 'twoFA', 'is_active']
 		extra_kwargs = {
 			'username': {
 				'required': True,
@@ -41,6 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
 		instance.username = validated_data.get('username', instance.username)
 		instance.email = validated_data.get('email', instance.email)
 		instance.activity = validated_data.get('activity', instance.activity)
+		instance.language = validated_data.get('language', instance.language)
 
 		instance.save()
 		return instance

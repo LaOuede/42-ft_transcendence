@@ -1,4 +1,5 @@
 import { gameInfo, playGame } from "../pong/pong.js"
+import { translate } from "../translation/translate.js";
 
 const playersScores = [0, 0, 0, 0]
 
@@ -95,7 +96,8 @@ function showScores(){
 	} else {
 		document.getElementById("btNextRound").style.display = "none"
 		document.getElementById("winner").style.display = "inline"
-		document.getElementById("winner").innerHTML = "<strong>" + gameInfo.winner + " wins!</strong>";
+		let translatedMessage = translate("wins").replace("{winner}", gameInfo.winner);
+		document.getElementById("winner").innerHTML = `<strong>${translatedMessage}</strong>`;
 	}
 }
 

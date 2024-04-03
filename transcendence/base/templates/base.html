@@ -33,20 +33,21 @@
         <div class="is-signed-in">
           <div class="main-nav-links">
             <!-- <a href="#" onclick="loadContent(''); return false;">HOME</a> -->
-            <a href="#" onclick="loadContent('pong/play/'); return false;">PLAY</a>
-            <a href="#" onclick="loadContent('pong/rules/'); return false;">RULES</a>
-            <a href="#" onclick="loadContent('user/profile/'); return false;">PROFILE</a>
-            <a href="#" onclick="loadContent('pong/tournaments/'); return false;">TOURNAMENTS</a>
-            <a id="logout-div" href="#">LOGOUT</a>
-          </div>
-         
-      
+            <a href="#" onclick="loadContent('pong/play/'); return false;" data-translate="nav.play"></a>
+            <a href="#" onclick="loadContent('pong/rules/'); return false;" data-translate="nav.rules"></a>
+            <a href="#" onclick="loadContent('user/profile/'); return false;" data-translate="nav.profile"></a>
+            <a id="logout-div" href="#" data-translate="nav.logout"></a>
+            <select id="language-select">
+              <option value="" disabled selected>Languages</option>
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="es">Español</option>
+            </select>
         </div>
         <div class="not-signed-in">
           <div class="main-nav-links">
-            <a href="#" onclick="loadContent('auth/login/'); return false;">LOGIN</a>
-            <a href="#" onclick="loadContent('auth/register/'); return false;"
-              >SIGNUP</a
+            <a href="#" onclick="loadContent('auth/login/'); return false;" data-translate="nav.login"></a>
+            <a href="#" onclick="loadContent('auth/register/'); return false;"  data-translate="nav.signup"></a
             >
           </div>
         </div>
@@ -76,4 +77,8 @@
   <script src="{% static 'js/pong/pong_var.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong_objs.js' %}" type="module" defer></script>
   <script src="{% static 'js/pong/pong.js' %}" type="module" defer></script>
+  <script src="{% static 'js/translation/translate.js' %}" type="module" defer></script>
+  <script src="{% static 'js/translation/dictionnary.js' %}" type="module" defer></script>
+  <script src="{% static 'js/translation/chooseLanguage.js' %}" type="module" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.3.0/dist/purify.min.js"  type="module" defer></script>
 </html>

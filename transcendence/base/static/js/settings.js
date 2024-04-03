@@ -42,8 +42,9 @@ async function handleUpdateProfile() {
   const avatarFile = document.getElementById("avatar-upload").files[0];
   const email = document.getElementById("email-update").value;
   const activity = document.getElementById("select-status").value;
+  const language = document.getElementById("select-language").value;
 
-  if (!avatarFile && !username && !email && !activity) {
+  if (!avatarFile && !username && !email && !activity && !language) {
     console.log("No changes detected. No update needed.");
     return;
   }
@@ -68,6 +69,11 @@ async function handleUpdateProfile() {
 
   if (activity) {
     formData.append("activity", activity);
+  }
+
+  if (language) {
+    formData.append("language", language);
+    localStorage.setItem('currentLanguage', language);
   }
 
   try {
