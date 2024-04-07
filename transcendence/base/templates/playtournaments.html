@@ -5,10 +5,10 @@
 				<div class="custom-length-container">
 					<div class="custom-length-container-black">
 						<div class="signup-header">
-							<h2 class="header-title">GAME SETTINGS</h2>
+							<h2 class="header-title" data-translate="play1vs1.title"></h2>
 						</div>
 						<div class="select-container">
-							<p class="settings-title">TOURNAMENT LENGHT</p>
+							<p class="settings-title" data-translate="playtournaments.length"></p>
 							<form>
 								<select id="defaultGames" class="button-settings">
 									<option value="2" selected>2</option>
@@ -24,7 +24,7 @@
 							</form>
 						</div>
 						<div class="select-container">
-							<p class="settings-title">LIVES</p>
+							<p class="settings-title" data-translate="play1vs1.lives"></p>
 							<form>
 								<select id="defaultLives" class="button-settings">
 									<option value="1" selected>1</option>
@@ -41,34 +41,34 @@
 							</form>
 						</div>
 						<div class="select-container">
-							<p class="settings-title">VIEW</p>
+							<p class="settings-title" data-translate="play1vs1.view"></p>
 							<form>
 								<select id="defaultView" class="button-settings">
-									<option value="0">Top</option>
-									<option value="1" selected>Side</option>
+									<option value="0" data-translate="play1vs1.top"></option>
+									<option value="1" data-translate="play1vs1.side" selected></option>
 								</select>
 							</form>
 						</div>
 						<div class="select-container">
-							<p class="settings-title">PADDLES</p>
+							<p class="settings-title" data-translate="play1vs1.paddles"></p>
 							<form>
 								<select id="defaultPaddle" class="button-settings">
-									<option value="150">Larger</option>
-									<option value="75" selected>Normal</option>
-									<option value="50">Smaller</option>
+									<option value="150" data-translate="play1vs1.larger"></option>
+									<option value="75" data-translate="play1vs1.normal" selected></option>
+									<option value="50" data-translate="play1vs1.smaller"></option>
 								</select>
 							</form>
 						</div>
 						<div class="select-container">
-							<p class="settings-title">POWER UP</p>
+							<p class="settings-title" data-translate="play1vs1.powerup"></p>
 							<form>
 								<select id="defaultPowerUp" class="button-settings">
-									<option value="1">Enable</option>
-									<option value="0" selected>Disable</option>
+									<option value="1" data-translate="play1vs1.enable"></option>
+									<option value="0" data-translate="play1vs1.disable" selected></option>
 								</select>
 							</form>
 						</div>
-						<button class="button-settings" id="btPlayTourn">LET'S FIGHT!!!</button>
+						<button class="button-settings" id="btPlayTourn" data-translate="play1vs1.letsfight"></button>
 					</div>
 				</div>
 			</div>	
@@ -76,12 +76,12 @@
 				<div class="custom-score-container">
 					<div class="custom-score-container-black">
 						<div class="signup-header-custom">
-							<h2 class="custom-title">SCORE BOARD</h2>
+							<h2 class="custom-title" data-translate="playtournaments.scoreboard"></h2>
 						</div>
 						<table class="score-table">
 							<tr>
-								<th>PLAYERS</th>
-								<th>SCORE</th>
+								<th data-translate="playtournaments.players"></th>
+								<th data-translate="playtournaments.score"></th>
 							</tr>
 							<tr>
 								<td>Player 1</td>
@@ -100,7 +100,7 @@
 								<td><span id="p4TournScore">0</span></td>
 							</tr>
 						</table>
-						<button class="button6" id="btNextRound">NEXT ROUND</button>
+						<button class="button6" id="btNextRound" data-translate="playtournaments.nextround"></button>
 						<p class="custom-player-final" id="winner"></p>
 					</div>
 				</div>
@@ -108,28 +108,28 @@
 		</div>
 		<div id="playerInfo1">
 			<div class="playerScore">
-				<p id="player1name">player 1</p>
+				<p id="player1name"></p>
 				<p id="p1Score">0</p>
 				<img id="player1avatar" src="" alt="">
 			</div>
 		</div>
 		<div id="playerInfo2">
 			<div class="playerScore">
-				<p id="player2name">player 2</p>
+				<p id="player2name"></p>
 				<p id="p2Score">0</p>
 				<img id="player2avatar" src="" alt="">
 			</div>
 		</div>
 		<div id="playerInfo3">
 			<div class="playerScore">
-				<p id="player3name">player 3</p>
+				<p id="player3name"></p>
 				<div id="p3Score">0</div>
 				<img id="player3avatar" src="" alt="">
 			</div>
 		</div>
 		<div id="playerInfo4">
 			<div class="playerScore">
-				<p id="player4name">player 4</p>
+				<p id="player4name"></p>
 				<div id="p4Score">0</div>
 				<img id="player4avatar" src="" alt="">
 			</div>

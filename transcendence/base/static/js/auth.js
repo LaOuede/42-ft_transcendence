@@ -50,6 +50,7 @@ function handleLogin(e) {
     .then((response) => response.json())
     .then((data) => {
       if (data?.success && !data?.session_token) {
+        localStorage.setItem('currentLanguage', data.language);
         // to switch navbar
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
@@ -198,6 +199,7 @@ logoutButton.addEventListener("click", function (e) {
 });
 
 async function logout(data) {
+  localStorage.setItem('currentLanguage', 'en');
   document.querySelector(".is-signed-in").style.display = "none";
   document.querySelector(".not-signed-in").style.display = "flex";
   window.loadContent("auth/login/");

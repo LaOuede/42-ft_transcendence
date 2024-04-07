@@ -54,6 +54,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 		('UN', 'Unavailable 🟡'),
 	]
 
+	language_enum = [
+		('en', '🇬🇧'),
+		('fr', '🇫🇷'),
+		('es', '🇪🇸'),
+	]
+
 	def random_avatar_path():
 		return random.choice(VALID_AVATARS)
 
@@ -68,6 +74,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	otp_expiry_time = models.DateTimeField(blank=True, null=True)
 	is_oauth = models.BooleanField(default=False)
 	twoFA = models.BooleanField(default=False)
+	language = models.CharField(max_length=2, choices=language_enum, default='en')
 
 	# en ce moment les users ont tous les accès. à revoir - Relier à PermissionsMixin
 	groups = models.ManyToManyField(

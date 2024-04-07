@@ -77,6 +77,12 @@ def get_activity_display(self):
 			return label
 	return 'Unknown'
 
+def get_language_display(self):
+	for code, label in language_enum:
+		if code == self.language:
+			return label
+	return 'Unknown'
+
 @api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 def UserProfile(request):
@@ -85,9 +91,11 @@ def UserProfile(request):
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		activity_display = user.get_activity_display()
+		language_display = user.get_language_display()
 		serializer = UserSerializer(user)
 		user_data = serializer.data
 		user_data['activity'] = activity_display
+		user_data['language'] = language_display
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 

@@ -1,4 +1,6 @@
 import { playDemo } from "./pong/pong.js";
+import { translatePage, translatePlaceholder } from "./translation/translate.js";
+
 // function to load the appropriate content on the base page
 function loadContent(path) {
   const headers = {
@@ -16,6 +18,8 @@ function loadContent(path) {
     })
     .then((html) => {
       document.querySelector(".main").innerHTML = html;
+      translatePage();
+      translatePlaceholder();
       if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
         playDemo();
       if (window.location.pathname !== "/" + path) {

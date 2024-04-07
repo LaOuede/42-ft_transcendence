@@ -3,10 +3,10 @@
 		<div class="pong-container-login">
 			{% csrf_token %}
 			<div class="signup-header">
-				<h2 class="header-title">WHAT KIND OF GAME YOU WANNA PLAY?</h2>
+				<h2 class="header-title" data-translate="play.title"></h2>
 				<div class="buttons-container">
 					<button class="button1" onclick="loadContent('pong/onevsone/'); return false;" type="submit">1 VS 1</button>
-					<button class="button2" onclick="loadContent('pong/rumble'); return false;" type="submit">RUMBLE</button>
+					<button class="button2" onclick="loadContent('pong/rumble'); return false;" type="submit" data-translate="play.rumble"></button>
 				</div>
 			</div>
 		</div>
