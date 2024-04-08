@@ -3,56 +3,56 @@
 		<div class="pong-container-login">
 			{% csrf_token %}
 			<div class="signup-header">
-				<h2 class="header-title">RULES OF PONG GAME!</h2>
+				<h2 class="header-title" data-translate="rules.title"></h2>
 				<div id="rules">
-					<h3>Welcome to Pong Transcendence!</h1>
-						<h4>Game Modes:</h2>
+					<h3 data-translate="rules.welcome"></h1>
+						<h4 data-translate="rules.gameModes"></h2>
 							<ul>
-								<li><strong>Solo:</strong> Play classic Pong, but each point is represented by a life.</li>
-								<li><strong>Rumble:</strong> A four-player experience where each player is eliminated when they lose all their lives. The game continues until only one player remains.</li>
-								<li><strong>Tournaments:</strong> The Rumble mode is played with a defined number of games. Players earn points after each game:
+								<li data-translate="rules.soloDescription"></li>
+								<li data-translate="rules.rumbleDescription"></li>
+								<li data-translate="rules.tournamentsDescription1"></li>
 									<ul>
-										<li>1st place: 10 points</li>
-										<li>2nd place: 5 points</li>
-										<li>3rd place: 3 points</li>
+										<li data-translate="rules.tournamentsDescription2"></li>
+										<li data-translate="rules.tournamentsDescription3"></li>
+										<li data-translate="rules.tournamentsDescription4"></li>
 									</ul>
-									The winner is the player with the highest cumulative score. In case of a tie, an additional game is played.
+									<p data-translate="rules.tournamentsDescription5"></p>
 								</li>
 							</ul>
-							<p><strong>For a better experience in Rumble, use two keyboards.</strong></p>
-					<h4>Gameplay Options:</h2>
+							<p data-translate="rules.advice"></p>
+					<h4 data-translate="rules.gameplayOptions"></h2>
 						<ul>
-							<li>Number of lives for players</li>
-							<li>View:
+							<li data-translate="rules.gameplayLives"></li>
+							<li data-translate="rules.gameplayView">
 						<ul>
-							<li>Top: classic top-down view</li>
-							<li>Side: side view with enhanced 3D effects</li>
+							<li data-translate="rules.gameplayTop"></li>
+							<li data-translate="rules.gameplaySide"></li>
 						</ul>
 						</li>
-						<li>Paddle width</li>
-						<li>Power-up: after three bounces, the green light indicates that the power-up is ready. When activated, the paddle teleports in front of the ball and follows it.</li>
+						<li data-translate="rules.gameplayPaddle"></li>
+						<li data-translate="rules.gameplayPowerup"></li>
 					</ul>
-					<h4>Player controls:</h2>
+					<h4 data-translate="rules.gameplayPlayerControls"></h2>
 					<ul>
-						<li>Player 1:<li>
+						<li data-translate="rules.player1"><li>
+							<ul>
+								<li data-translate="rules.player1Movement"></li>
+								<li data-translate="rules.player1Powerup"></li>
+							</ul>
+							<li data-translate="rules.player2"><li>
+								<ul>
+								<li data-translate="rules.player2Movement"></li>
+								<li data-translate="rules.player2Powerup"></li>
+							</ul>
+						<li data-translate="rules.player3"><li>
+							<ul>
+								<li data-translate="rules.player3Movement"></li>
+								<li data-translate="rules.player3Powerup"></li>
+							</ul>
+						<li data-translate="rules.player4"><li>
 						<ul>
-							<li>Movement: <span>W, S</span></li>
-							<li>Power-up: <span>Q</span></li>
-						</ul>
-						<li>Player 2:<li>
-						<ul>
-							<li>Movement: <span>Arrow UP, Arrow DOWN</span></li>
-							<li>Power-up: <span>Arrow RIGHT</span></li>
-						</ul>
-						<li>Player 3:<li>
-						<ul>
-							<li>Movement: <span>H, J</span></li>
-							<li>Power-up: <span>G</span></li>
-						</ul>
-						<li>Player 4:<li>
-						<ul>
-							<li>Movement: <span>7, 8</span></li>
-							<li>Power-up: <span>9</span></li>
+							<li data-translate="rules.player4Movement"></li>
+							<li data-translate="rules.player4Powerup"></li>
 						</ul>
 					</ul>
 				</div>

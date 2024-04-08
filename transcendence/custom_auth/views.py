@@ -59,7 +59,10 @@ def login(request):
             if user and user.twoFA == False:
                 change_user_status(user, "ON")
                 tokens = get_tokens_for_user(user)
-                response = JsonResponse({"success": "User logged in successfully"})
+                response = JsonResponse({
+                    "success": "User logged in successfully",
+                    "language": user.language
+                })
                 return setCookies(response, tokens)
 
             session_token = generate_otp_user(user)

@@ -4,19 +4,18 @@
       <form id="login-form" method="post">
         {% csrf_token %}
         <div class="signup-header">
-          <h2 class="header-title">LOGIN</h2>
+          <h2 class="header-title" data-translate="nav.login"></h2>
           <a
             onclick="loadContent('auth/login/'); return false; "
             class="signup-description"
             style="cursor: pointer"
-          >
-            WELCOME!
-          </a>
-        </div>
-        <div class="signup-form">
-          <div class="input-group">
-            <div>
-              <p class="signup-title">USERNAME:</p>
+            data-translate="login.welcome"
+            ></a>
+          </div>
+          <div class="signup-form">
+            <div class="input-group">
+              <div>
+                <p class="signup-title" data-translate="login.username"></p>
             </div>
             <input
               id="user"
@@ -24,18 +23,18 @@
               required=""
               type="text"
               name="user"
-            />
+              />
           </div>
           <div class="input-group">
             <div>
-              <p class="signup-title">PASSWORD:</p>
+              <p class="signup-title" data-translate="login.password"></p>
             </div>
             <input id="password" name="password" required="" type="password" />
           </div>
           <div class="error-container">
             <p class="login-error-message"></p>
           </div>
-          <button id="login-button" class="signup-btn" type="submit">LOGIN</button>
+          <button id="login-button" class="signup-btn" type="submit"  data-translate="nav.login">LOGIN</button>
           <button id="oauth-login" class="signup-btn" type="button">OAUTH</button>
           <div class="lds-default">
             <div></div>

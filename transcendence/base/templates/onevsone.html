@@ -8,23 +8,23 @@
 			<div class="onevsone-grid-container">
 				<div class="player1-grid-item">
 					<div class="input-group player1-container">
-						<p class="onevsone-player-title">PLAYER 1</p>
+						<p class="onevsone-player-title" data-translate="1vs1.player1"></p>
 						<div>
 							<form>
 								<select id="p1colorSelect" class="button-settings">
-									<option value="red">Rouge</option>
-									<option value="blue">Bleu</option>
-									<option value="green">Vert</option>
-									<option value="yellow">Jaune</option>
-									<option value="orange">Orange</option>
-									<option value="purple" selected>Violet</option>
+									<option value="red" data-translate="1vs1.red"></option>
+									<option value="blue" data-translate="1vs1.blue"></option>
+									<option value="green" data-translate="1vs1.green"></option>
+									<option value="yellow" data-translate="1vs1.yellow"></option>
+									<option value="orange" data-translate="1vs1.orange"></option>
+									<option value="purple" data-translate="1vs1.purple" selected></option>
 								</select>
 							</form>
 						</div>
 						<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
 							<input
 								id="player1nick"
-								placeholder="Player 1"
+								data-translate-placeholder="placeholder.player1"
 								required=""
 								type="text"
 								name="player1"
@@ -34,23 +34,23 @@
 				</div>
 				<div class="input-group player2-container">
 					<div class="player2-grid-item">
-						<p class="onevsone-player-title">PLAYER 2</p>
+						<p class="onevsone-player-title" data-translate="1vs1.player2"></p>
 						<div>
 							<form>
 								<select id="p2colorSelect" class="button-settings">
-									<option value="red">Rouge</option>
-									<option value="blue" selected>Bleu</option>
-									<option value="green">Vert</option>
-									<option value="yellow">Jaune</option>
-									<option value="orange">Orange</option>
-									<option value="purple">Violet</option>
+									<option value="red" data-translate="1vs1.red"></option>
+									<option value="blue" data-translate="1vs1.blue" selected></option>
+									<option value="green" data-translate="1vs1.green"></option>
+									<option value="yellow" data-translate="1vs1.yellow"></option>
+									<option value="orange" data-translate="1vs1.orange"></option>
+									<option value="purple" data-translate="1vs1.purple"></option>
 								</select>
 							</form>
 						</div>
 						<div class="player2-input-ok-container"> <!-- Nouveau conteneur pour aligner input et bouton -->
 							<input
 								id="player2nick"
-								placeholder="Player 2"
+								data-translate-placeholder="placeholder.player2"
 								required=""
 								type="text"
 								name="player2"
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<div class="button3-container">
-			<button class="button4" id="btFight" onclick="loadContent('pong/playonevsone/'); return false;" type="submit">NEXT</button>
+			<button class="button4" id="btFight" onclick="loadContent('pong/playonevsone/'); return false;" type="submit" data-translate="1vs1.next"></button>
 		</div>
 	</div>
 </div>

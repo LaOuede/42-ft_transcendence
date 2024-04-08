@@ -1,17 +1,18 @@
 <div class="signup-container">
-  <div class="signup-container-black">
+  <div class="signup-container-black">  
     <div class="signup-container-login">
       <form id="signup-form" method="post">
         {% csrf_token %}
         <div class="signup-header">
-          <h2 class="header-title">SIGN UP</h2>
+          <h2 class="header-title" data-translate="nav.signup"></h2>
           <a
             onclick="loadContent('auth/login/'); return false;"
             class="signup-description"
             style="cursor: pointer"
           >
-            Already have an
-            <span style="text-decoration: underline">account</span> ?
+            <span data-translate="register.check1">Already have an</span>
+            <span style="text-decoration: underline" data-translate="register.check2">account</span>
+            <span data-translate="register.check3">?</span>
           </a>
         </div>
         <div class="signup-form">
@@ -19,7 +20,7 @@
           <div class="input-group">
             <div>
               <!--write username text -->
-              <p class="signup-title">USERNAME:</p>
+              <p class="signup-title" data-translate="login.username"></p>
             </div>
             <!-- <label for="username">Username</label> -->
             <input
@@ -47,7 +48,7 @@
           <div class="input-group">
             <div>
               <!--write username text -->
-              <p class="signup-title">PASSWORD:</p>
+              <p class="signup-title" data-translate="login.password"></p>
             </div>
             <!-- <label for="password">Password</label> -->
             <input
@@ -60,7 +61,7 @@
           <div class="input-group">
             <div>
               <!--write username text -->
-              <p class="signup-title">CONFIRM PASSWORD:</p>
+              <p class="signup-title" data-translate="register.password"></p>
             </div>
             <!-- <label for="confirm-password">Confirm Password</label> -->
             <input
@@ -71,7 +72,7 @@
             />
           </div>
           <p class="signup-error"></p>
-          <button class="signup-btn" type="submit">SIGN UP</button>
+          <button class="signup-btn" type="submit" data-translate="register.validation"></button>
         </div>
       </form>
     </div>
