@@ -20,7 +20,7 @@ function setCurrentLanguage(langCode) {
 
 export function getCurrentLanguage() {
 	if (localStorage.getItem('currentLanguage')) {
-		console.log("Current language: " + langCode);
+		console.log("Current language: " + localStorage.getItem('currentLanguage'));
 		return localStorage.getItem('currentLanguage');
 	} else {
 		console.log("Current language: en");
