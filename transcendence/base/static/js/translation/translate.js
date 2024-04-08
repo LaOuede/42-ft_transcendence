@@ -27,7 +27,6 @@ export function translatePlaceholder() {
 
 export function translate(key) {
 	if (translations.hasOwnProperty(key)) {
-		console.log("Current language = " + getCurrentLanguage())
 		const translation = translations[key][getCurrentLanguage()];
 		return translation || key;
 	}

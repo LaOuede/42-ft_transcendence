@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('language-select').addEventListener('change', function(e) {
 		e.preventDefault();
 		let selectedLanguage = this.value;
-		console.log(this.value);
 		setCurrentLanguage(selectedLanguage);
 		updateLanguage();
 	});
@@ -20,10 +19,8 @@ function setCurrentLanguage(langCode) {
 
 export function getCurrentLanguage() {
 	if (localStorage.getItem('currentLanguage')) {
-		console.log("Current language: " + localStorage.getItem('currentLanguage'));
 		return localStorage.getItem('currentLanguage');
 	} else {
-		console.log("Current language: en");
 		return 'en';
 	}
 }
