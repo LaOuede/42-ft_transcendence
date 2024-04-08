@@ -267,39 +267,37 @@ function handleSignupError(data) {
     input.style.borderColor = "";
   });
 
-  // Target the element for displaying the error message
+  // Target the element for displaying the error messages
   const errorElement = document.querySelector(".signup-error");
   errorElement.innerHTML = ""; // Clear previous errors
 
-  if (data.error) {
-    // Display the error message
-    errorElement.innerHTML = data.error;
-    errorElement.style.display = "block";
+  if (data.errors) {
+    // Loop through each field with an error
+    Object.keys(data.errors).forEach((field) => {
+      // For each error message in the field, append it to the errorElement
+      data.errors[field].forEach((error) => {
+        const errorMessage = document.createElement("p");
+        errorMessage.textContent = `${field}: ${error.message}`;
+        errorElement.appendChild(errorMessage);
+      });
 
-    // Highlight the corresponding input based on the error type
-    if (data.error.includes("Username")) {
-      const usernameInput = document.querySelector(
-        ".signup-form input[name='username']"
+      // Highlight the input field with an error
+      const input = document.querySelector(
+        `.signup-form input[name='${field}']`
       );
-      highlightErrorInput(usernameInput);
-    } else if (data.error.includes("Email")) {
-      const emailInput = document.querySelector(
-        ".signup-form input[name='email']"
-      );
-      highlightErrorInput(emailInput);
-    } else if (data.error.includes("password")) {
-      const passwordInputs = document.querySelectorAll(
-        ".signup-form input[type='password']"
-      );
-      passwordInputs.forEach((input) => highlightErrorInput(input));
-    } // You can add more conditions here for other fields if necessary
+      if (input) {
+        highlightErrorInput(input);
+      }
+    });
 
-    // Hide the error message after a delay
+    errorElement.style.display = "block"; // Make sure the error element is visible
+
+    // Optionally, hide the error messages after a delay
     setTimeout(() => {
       errorElement.innerHTML = "";
       errorElement.style.display = "none";
       formInputs.forEach((input) => {
-        input.style.borderColor = "";
+        input.style.borderColor = ""; // Reset the border color
       });
     }, 3000);
   }

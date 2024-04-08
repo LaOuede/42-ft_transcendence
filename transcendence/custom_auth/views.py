@@ -114,7 +114,8 @@ def register(request):
             response = JsonResponse({"success": "User registered successfully"})
             return setCookies(response, tokens)
         else:
-            return JsonResponse({"errors": form.errors}, status=400)
+            errors = {field: error.get_json_data() for field, error in form.errors.items()}
+            return JsonResponse({"errors": errors}, status=400)
 
     if request.is_ajax():
         if request.user.is_authenticated:

@@ -15,7 +15,7 @@ def index(request):
     if is_ajax(request) and request.user.is_authenticated:
         return render(request, "index.html")
     else:
-        if not request.user.is_authenticated:
+        if request.user.is_authenticated == False:
             return render(request, "base.html", {"content": "login.html"})
         else:
             return render(request, "base.html", {"content": "index.html"})
