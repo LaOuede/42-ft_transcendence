@@ -19,12 +19,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
 });
 
 async function handle2FA() {
+  const twoFA = document.querySelector("#enable-2fa-button");
+  twoFA.disabled = true;
   window.apiHandler
-    .post('user/toggle-2fa/')
+    .post("user/toggle-2fa/")
     .then((data) => {
       if (data.twoFA !== undefined) {
         /* console.log("2FA", data.twoFA); */
-        const twoFA = document.querySelector("#enable-2fa-button");
         if (data.twoFA) {
           twoFA.innerHTML = "Disable 2FA";
         } else {
@@ -34,7 +35,10 @@ async function handle2FA() {
         console.error("ERROR 2FA", data);
       }
     })
-    .catch((error) => console.log("ERROR TOGGLE 2FA"));
+    .catch((error) => console.log("ERROR TOGGLE 2FA"))
+    .finally(() => {
+      twoFA.disabled = false;
+    });
 }
 
 async function handleUpdateProfile() {
@@ -42,6 +46,9 @@ async function handleUpdateProfile() {
   const avatarFile = document.getElementById("avatar-upload").files[0];
   const email = document.getElementById("email-update").value;
   const activity = document.getElementById("select-status").value;
+
+  const updateFormButton = document.getElementById("profile-update-form");
+  updateFormButton.disabled = true;
 
   if (!avatarFile && !username && !email && !activity) {
     console.log("No changes detected. No update needed.");
@@ -79,8 +86,10 @@ async function handleUpdateProfile() {
   } catch (error) {
     console.log("ERROR UPDATING PROFILE");
     handleUpdateProfileErrors(error);
+  } finally {
+    updateFormButton.disabled = false;
+    document.getElementById("profile-update-form").reset();
   }
-  document.getElementById("profile-update-form").reset();
 }
 
 function handleUpdateProfileErrors(error) {

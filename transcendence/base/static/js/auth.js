@@ -60,12 +60,10 @@ function handleLogin(e) {
         document.querySelector(".not-signed-in").style.display = "none";
 
         window.loadContent("");
-        loader.style.display = "none";
         return;
       } else if (data?.session_token && data?.session_token !== "") {
         localStorage.setItem("sessionToken", data.session_token);
         window.loadContent("auth/otp/");
-        loader.style.display = "none";
         return;
       } else {
         handleWrongCredentials(data.error);
@@ -105,11 +103,9 @@ function verifyOTP(e) {
     .then((response) => response.json())
     .then(async (data) => {
       if (data?.success) {
-        console.log("OTP verified successfully!");
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
-        loader.style.display = "none";
-        loadContent("/");
+        loadContent("");
       } else {
         handleWrongOtp(data);
       }
@@ -252,7 +248,6 @@ function handleSignup(e) {
         window.loadContent("");
       } else {
         handleSignupError(data);
-        console.log("FAILED TO READ DATA");
       }
     })
     .catch((error) => {
