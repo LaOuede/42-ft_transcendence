@@ -44,9 +44,16 @@ def login(request):
     if request.method == "POST":
         time.sleep(2)
         data = json.loads(request.body)
-        username = data.get("user")
-        password = data.get("password")
+        form = LoginForm(data)
 
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+        else:
+            errors = {
+                field: error.get_json_data() for field, error in form.errors.items()
+            }
+            return JsonResponse({"errors": errors}, status=400)
         user = authenticate(username=username, password=password)
         if user is not None:
             if user and user.twoFA == False:
@@ -114,7 +121,9 @@ def register(request):
             response = JsonResponse({"success": "User registered successfully"})
             return setCookies(response, tokens)
         else:
-            errors = {field: error.get_json_data() for field, error in form.errors.items()}
+            errors = {
+                field: error.get_json_data() for field, error in form.errors.items()
+            }
             return JsonResponse({"errors": errors}, status=400)
 
     if request.is_ajax():

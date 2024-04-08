@@ -43,13 +43,14 @@ function handleLogin(e) {
   const loginButton = document.querySelector("#login-form button");
   loginButton.disabled = true;
 
+
   fetch("/auth/login/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-CSRFToken": getCookie("csrftoken"),
     },
-    body: JSON.stringify({ user: user, password: password }),
+    body: JSON.stringify({ username: user, password: password }),
     credentials: "include",
   })
     .then((response) => response.json())
@@ -66,7 +67,8 @@ function handleLogin(e) {
         window.loadContent("auth/otp/");
         return;
       } else {
-        handleWrongCredentials(data.error);
+        console.log(data);
+        handleWrongCredentials("Invalid username or password.");
         /* console.log("FAILED TO READ DATA", data); */
         return;
       }
