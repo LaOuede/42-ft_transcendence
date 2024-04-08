@@ -51,12 +51,15 @@ def login(request):
         else:
             return JsonResponse({"error": "Invalid user or password."}, status=401)
     if is_ajax(request):
-        return render(request, "login.html")
+        if request.user.is_authenticated:
+            return render(request, "index.html")
+        else:
+            return render(request, "login.html")
     return render(request, "base.html", {"content": "login.html"})
 
 def verify_otp(request):
     time.sleep(2)
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated == False:
         data = json.loads(request.body)
         form = OTPVerificationForm(data)
         
@@ -67,11 +70,12 @@ def verify_otp(request):
                 tokens = get_tokens_for_user(user)
                 response = JsonResponse({"success": "User logged in successfully"})
                 change_user_status(user, "ON")
-                return setCookies(response, tokens)  # Ensure setCookies is properly implemented
+                return setCookies(response, tokens)
             else:
                 return JsonResponse({"error": message}, status=401)
         else:
             return JsonResponse({"error": "Invalid data."}, status=400)
+    return render(request, "index.html")
 
 def register(request):
     if request.method == "POST":

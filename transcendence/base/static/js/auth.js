@@ -1,3 +1,4 @@
+import { checkToken } from "./nav.js";
 // -------------------------------------------------//
 // LOGIN
 // -------------------------------------------------//
@@ -38,6 +39,10 @@ function handleLogin(e) {
   const formData = new FormData(e.target);
   const user = formData.get("user");
   const password = formData.get("password");
+
+  const loginButton = document.querySelector("#login-form button");
+  loginButton.disabled = true;
+
   fetch("/auth/login/", {
     method: "POST",
     headers: {
@@ -64,13 +69,15 @@ function handleLogin(e) {
         return;
       } else {
         handleWrongCredentials(data.error);
-        console.log("FAILED TO READ DATA", data);
-        loader.style.display = "none";
+        /* console.log("FAILED TO READ DATA", data); */
         return;
       }
     })
     .catch((error) => {
-      console.error("Error:", error);
+      /* console.error("Error:", error); */
+    })
+    .finally(() => {
+      loginButton.disabled = false;
       loader.style.display = "none";
     });
 }
@@ -83,6 +90,9 @@ function verifyOTP(e) {
   const loader = document.querySelector(".lds-default");
   loader.style.display = "inline-block";
 
+  const otpButton = document.querySelector("#otp-form button");
+  otpButton.disabled = true;
+
   fetch("/auth/verify-otp/", {
     method: "POST",
     headers: {
@@ -93,16 +103,20 @@ function verifyOTP(e) {
     credentials: "include",
   })
     .then((response) => response.json())
-    .then((data) => {
-      if (data?.token?.access && data?.token?.refresh) {
+    .then(async (data) => {
+      if (data?.success) {
+        console.log("OTP verified successfully!");
         document.querySelector(".is-signed-in").style.display = "flex";
         document.querySelector(".not-signed-in").style.display = "none";
-
-        window.loadContent("");
         loader.style.display = "none";
+        loadContent("/");
       } else {
         handleWrongOtp(data);
       }
+    })
+    .finally(() => {
+      document.querySelector("#otp-form button").disabled = false;
+      loader.style.display = "none";
     });
 }
 
@@ -135,7 +149,7 @@ function handleWrongOtp(data) {
 }
 
 function handleWrongCredentials(error) {
-  console.log("Error:", error);
+  /* console.log("Error:", error); */
 
   let formInputs = document.querySelectorAll(".signup-form .input-group input");
   let loginErrorMessage = document.querySelector(
@@ -194,7 +208,7 @@ logoutButton.addEventListener("click", function (e) {
     .then(async (data) => {
       await logout(data);
     })
-    .catch((error) => console.error("ERROR LOGOUT", error));
+    .catch((error) => console.log("ERROR LOGOUT"));
 });
 
 async function logout(data) {
@@ -210,6 +224,10 @@ function handleSignup(e) {
   const email = formData.get("email");
   const password = formData.get("password");
   const password2 = formData.get("password2");
+
+  const signupButton = document.querySelector("#signup-form button");
+  signupButton.disabled = true;
+
   fetch("/auth/register/", {
     method: "POST",
     headers: {
@@ -234,11 +252,14 @@ function handleSignup(e) {
         window.loadContent("");
       } else {
         handleSignupError(data);
-        console.log("FAILED TO READ DATA", data);
+        console.log("FAILED TO READ DATA");
       }
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.log("Error signing up!");
+    })
+    .finally(() => {
+      signupButton.disabled = false;
     });
 }
 
@@ -303,6 +324,9 @@ function highlightErrorInput(input) {
 function handleOAuthLogin(e) {
   e.preventDefault();
   const url = "/auth/start";
+
+  const oauthButton = document.querySelector("#oauth-login button");
+
   fetch(url, {
     method: "GET",
     headers: {
@@ -317,6 +341,9 @@ function handleOAuthLogin(e) {
       window.location.href = data.url;
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.log("ERROR OAUTH LOGIN!");
+    })
+    .finally(() => {
+      oauthButton.disabled = false;
     });
 }

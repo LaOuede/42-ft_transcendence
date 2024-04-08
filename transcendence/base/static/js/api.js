@@ -30,7 +30,7 @@ const apiHandler = {
 
       return data;
     } catch (error) {
-      console.error("ERROR UPDATING PROFILE", error);
+      /* console.error("ERROR UPDATING PROFILE", error); */
       throw error;
     }
   },

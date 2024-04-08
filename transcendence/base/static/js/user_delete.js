@@ -17,10 +17,9 @@ function deleteAccount() {
 	window.apiHandler
 		.post("user/delete/")
 		.then((data) => {
-			console.log("Account suppressed", data);
 			document.querySelector(".is-signed-in").style.display = "none";
 			document.querySelector(".not-signed-in").style.display = "flex";
 			window.loadContent("auth/login/");
 		})
-		.catch((error) => console.error("Error during deletion process:", error));
+		.catch((error) => console.log("Error during deletion process"));
 }

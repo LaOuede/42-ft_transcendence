@@ -23,7 +23,7 @@ async function handle2FA() {
     .post('user/toggle-2fa/')
     .then((data) => {
       if (data.twoFA !== undefined) {
-        console.log("2FA", data.twoFA);
+        /* console.log("2FA", data.twoFA); */
         const twoFA = document.querySelector("#enable-2fa-button");
         if (data.twoFA) {
           twoFA.innerHTML = "Disable 2FA";
@@ -34,7 +34,7 @@ async function handle2FA() {
         console.error("ERROR 2FA", data);
       }
     })
-    .catch((error) => console.error("ERROR TOGGLE 2FA", error));
+    .catch((error) => console.log("ERROR TOGGLE 2FA"));
 }
 
 async function handleUpdateProfile() {
@@ -77,7 +77,7 @@ async function handleUpdateProfile() {
       document.getElementById("profile-update-alert").style.display = "none";
     }, 7000);
   } catch (error) {
-    console.error("ERROR UPDATING PROFILE", error);
+    console.log("ERROR UPDATING PROFILE");
     handleUpdateProfileErrors(error);
   }
   document.getElementById("profile-update-form").reset();
