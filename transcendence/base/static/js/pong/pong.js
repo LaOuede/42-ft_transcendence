@@ -692,7 +692,7 @@ function getGameParam(){
 	gameInfo.power_enabled = document.querySelector('#defaultPowerUp').value;
 	if(document.querySelector('#defaultGames'))
 		gameInfo.tournaments.game_count = document.querySelector('#defaultGames').value;
-		console.log(gameInfo.tournaments.game_count)
+		/* console.log(gameInfo.tournaments.game_count) */
 }
 
 function resetLives(nb){

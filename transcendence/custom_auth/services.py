@@ -40,7 +40,7 @@ def setCookies(response, tokens):
     )
 
     # Set the refresh token as a cookie in the response, if you have a refresh token
-    max_age_refresh = 24 * 3600 * 14  # Example: Refresh token expiry (in seconds, e.g., 14 days)
+    max_age_refresh = 24 * 3600 * 14
     expires_refresh = http_date(datetime.now().timestamp() + max_age_refresh)
     response.set_cookie(
         'refresh_token',
@@ -48,7 +48,7 @@ def setCookies(response, tokens):
         max_age=max_age_refresh,
         expires=expires_refresh,
         httponly=True,
-        secure=True,  # Recommend using secure cookies in production
+        secure=True,
         samesite=None
     )
 

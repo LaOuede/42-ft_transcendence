@@ -10,7 +10,6 @@ function loadContent(path) {
   fetch("/" + path, { headers, credentials: "include" })
     .then((response) => {
       if (!response.ok && response.status === 401) {
-        console.log(response.status, response.statusText);
         redirectToLogin();
         alert("Your session has expired. Please log in again.");
       }
@@ -27,7 +26,6 @@ function loadContent(path) {
       }
     })
     .catch((error) => {
-      console.error("Error loading content:", error);
       redirectToLogin();
     });
 }
@@ -67,7 +65,7 @@ async function handleOAuthCallback() {
   }
 }
 
-async function checkToken() {
+export async function checkToken() {
   let signedInNavbar = document.querySelector(".is-signed-in");
   let notSignedInNavbar = document.querySelector(".not-signed-in");
 
@@ -78,7 +76,6 @@ async function checkToken() {
     if (response.ok) {
       const data = await response.json();
       if (data.isAuthenticated) {
-        console.log("Authenticated");
         signedInNavbar.style.display = "flex";
         notSignedInNavbar.style.display = "none";
         if (history.state && history.state.path) {
@@ -97,7 +94,7 @@ async function checkToken() {
       );
     }
   } catch (error) {
-    console.error("Authentication check failed:", error);
+    /* console.error("Authentication check failed:", error); */
     signedInNavbar.style.display = "none";
     notSignedInNavbar.style.display = "flex";
     loadContent("auth/login/");
