@@ -11,6 +11,7 @@ let tournScores = [p1TournScore,
 	p2TournScore,
 	p3TournScore,
 	p4TournScore]
+let tournName = [undefined, undefined, undefined, undefined]
 
 function initElements() {
 	if (document.getElementById("p1TournScore")) {
@@ -24,6 +25,18 @@ function initElements() {
 	}
 	if (document.getElementById("p4TournScore")) {
 		tournScores[3] = document.getElementById("p4TournScore") 
+	}
+	if (document.getElementById("p1TournName")) {
+		tournName[0] = document.getElementById("p1TournName")
+	}
+	if (document.getElementById("p2TournName")) {
+		tournName[1] = document.getElementById("p2TournName")
+	}
+	if (document.getElementById("p3TournName")) {
+		tournName[2] = document.getElementById("p3TournName")
+	}
+	if (document.getElementById("p4TournName")) {
+		tournName[3] = document.getElementById("p4TournName")
 	}
 }
 
@@ -101,10 +114,20 @@ function showScores(){
 	}
 }
 
+function setTournName(){
+	for(let i = 0; i < 4; i++){
+		if(gameInfo.nicks[i] == "")
+			tournName[i].textContent = "Player " + (i + 1)
+		else
+			tournName[i].textContent = gameInfo.nicks[i]
+	}
+}
+
 function tournament(){
 	gameInfo.tournaments.enabled = true
 	initElements()
 	if(gameInfo.tournaments.game_count > 0 && gameInfo.tournaments.game_count < 10){
+		setTournName()
 		resetLives()
 		document.getElementById("gameSettings").style.display = "none"
 		resetTourn()
