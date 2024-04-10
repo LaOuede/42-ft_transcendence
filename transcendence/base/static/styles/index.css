@@ -20,14 +20,14 @@
 }
 
 h1 {
-    background: linear-gradient(90deg, #CA78E5 0%, #1e1023 120%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: calc(20px + 0.390625vw);
-    margin-left: 15px; /* Ensure it sticks to the very left */
-    cursor: pointer;
-    text-align: left;
+	background: linear-gradient(90deg, #CA78E5 0%, #1e1023 120%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	font-size: calc(20px + 0.390625vw);
+	margin-left: 15px; /* Ensure it sticks to the very left */
+	cursor: pointer;
+	text-align: left;
 }
 
 h2 {
@@ -60,53 +60,61 @@ body {
 }
 
 .nav {
-    display: flex;
-    justify-content: space-between; /* Spread child elements to the far edges */
-    align-items: center;
-    position: absolute;
-    left: 0;
-    right: 0; /* Ensures the nav bar stretches across the entire top */
-    top: 0;
+	display: flex;
+	justify-content: space-between; /* Spread child elements to the far edges */
+	align-items: center;
+	position: absolute;
+	left: 0;
+	right: 0; /* Ensures the nav bar stretches across the entire top */
+	top: 0;
 	margin-top: 10px;
 	width: 99%;
 }
 
-.nav > h1 {
-    background: linear-gradient(90deg, #CA78E5 0%, #1e1023 120%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: calc(20px + 0.390625vw);
-    margin-left: 5px; /* Ensure it sticks to the very left */
-    cursor: pointer;
-    text-align: left;
-}
-
 .is-signed-in,
 .not-signed-in {
-    display: flex;
-    justify-content: flex-end; /* Align items to the right */
-    align-items: center;
-    flex-grow: 1; /* Take up the remaining space to push to the right */
+	display: flex;
+	justify-content: flex-end; /* Align items to the right */
+	align-items: center;
+	flex-grow: 1; /* Take up the remaining space to push to the right */
 }
 
 .main-nav-links {
-    display: flex;
+	display: flex;
 }
 
 .main-nav-links a {
-    color: var(--soft-blue-color);
-    padding: 10px;
-    text-decoration: none;
-    font-size: calc(12px + 0.390625vw);
+	color: var(--soft-blue-color);
+	padding: 10px;
+	text-decoration: none;
+	font-size: calc(12px + 0.390625vw);
 }
 
 .main-nav-links a:hover {
-    color: #249DC6;
+	color: #249DC6;
 }
 
 .main-nav-links a.active {
-    color: #fff;
+	color: #fff;
+}
+
+.button-settings-languages {
+	background-color: #2D2D2D;
+	color: #00FAFA;
+	border: 1px solid #00FAFA;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: .3rem;
+	width: 100%;
+	font-family:'Courier';
+	font-size: 1.2rem;
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	margin: 0;
 }
 
 .content {
