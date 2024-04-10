@@ -1,9 +1,11 @@
 <div>
   <form id="otp-form" method="post">
     {% csrf_token %}
-    <div class="signup-container">
+    <div class="login-container">
+      <div class="login-container-black">
+      <div class="login-container-login">
       <div class="signup-header">
-        <h1 class="signup-title" data-translate="otp.title"></h1>
+        <h2 class="header-title" data-translate="otp.title"></h2>
       </div>
       <div class="signup-form">
         <div class="input-group">
@@ -17,7 +19,7 @@
           />
         </div>
         <p class="otp-error"></p>
-        <button id="otp-button" class="otp-btn" type="submit" data-translate="otp.verif"></button>
+        <button id="otp-button" class="signup-btn" type="submit" data-translate="otp.verif"></button>
       </div>
       <div class="lds-default">
         <div></div>
@@ -32,6 +34,8 @@
         <div></div>
         <div></div>
         <div></div>
+      </div>
+      </div>
       </div>
     </div>
   </form>
