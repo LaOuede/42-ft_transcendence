@@ -468,15 +468,9 @@ export const translations = {
 	},
 
 	"rules.gameplayView": {
-		"en": "Views:",
-		"fr": "Vue:",
-		"es": "Ver:",
-	},
-
-	"rules.gameplayTop": {
-		"en": "A classic top-down view or a side view with enhanced 3D effects,",
-		"fr": "Une vue classique de haut en bas ou une vue latérale avec des effets 3D améliorés,",
-		"es": "A vista clásica de arriba hacia abajo o una vista lateral con efectos 3D mejorados,",
+		"en": "Views: A classic top-down view or a side view with enhanced 3D effects,",
+		"fr": "Vue: Une vue classique de haut en bas ou une vue latérale avec des effets 3D améliorés,",
+		"es": "Ver: A vista clásica de arriba hacia abajo o una vista lateral con efectos 3D mejorados,",
 	},
 
 	"rules.gameplayPaddle": {
@@ -498,9 +492,9 @@ export const translations = {
 	},
 
 	"rules.player1": {
-		"en": "Player 1:",
-		"fr": "Joueur 1:",
-		"es": "Jugador 1:"
+		"en": "<strong>Player 1:</strong>",
+		"fr": "<strong>Joueur 1:</strong>",
+		"es": "<strong>Jugador 1:</strong>"
 	},
 
 	"rules.player1Movement": {
@@ -516,9 +510,9 @@ export const translations = {
 	},
 
 	"rules.player2": {
-		"en": "Player 2:",
-		"fr": "Joueur 2:",
-		"es": "Jugador 2:"
+		"en": "<strong>Player 2:</strong>",
+		"fr": "<strong>Joueur 2:</strong>",
+		"es": "<strong>Jugador 2:</strong>"
 	},
 
 	"rules.player2Movement": {
@@ -534,9 +528,9 @@ export const translations = {
 	},
 
 	"rules.player3": {
-		"en": "Player 3:",
-		"fr": "Joueur 3:",
-		"es": "Jugador 3:"
+		"en": "<strong>Player 3:</strong>",
+		"fr": "<strong>Joueur 3:</strong>",
+		"es": "<strong>Jugador 3:</strong>"
 	},
 
 	"rules.player3Movement": {
@@ -552,9 +546,9 @@ export const translations = {
 	},
 
 	"rules.player4": {
-		"en": "Player 4:",
-		"fr": "Joueur 4:",
-		"es": "Jugador 4:"
+		"en": "<strong>Player 4:</strong>",
+		"fr": "<strong>Joueur 4:</strong>",
+		"es": "<strong>Jugador 4:</strong>"
 	},
 
 	"rules.player4Movement": {

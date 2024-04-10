@@ -986,3 +986,7 @@ option[value="purple"] { background-color: #69327A; }
 	justify-content: center;
 	position: relative;
 }
+
+.no-bullets {
+    list-style-type: none; /* Supprime les bullet points */
+}
