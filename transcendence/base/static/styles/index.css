@@ -25,8 +25,9 @@ h1 {
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	font-size: calc(20px + 0.390625vw);
-	margin-left: 5px;
+	margin-left: 15px; /* Ensure it sticks to the very left */
 	cursor: pointer;
+	text-align: left;
 }
 
 h2 {
@@ -60,46 +61,60 @@ body {
 
 .nav {
 	display: flex;
-	justify-content: space-between; /* Align items at both ends */
-	align-items: center; /* Center items vertically in the middle */
+	justify-content: space-between; /* Spread child elements to the far edges */
+	align-items: center;
 	position: absolute;
-	text-align: right;
-	width: 98%;
-	top: 20px;
+	left: 0;
+	right: 0; /* Ensures the nav bar stretches across the entire top */
+	top: 0;
+	margin-top: 10px;
+	width: 99%;
 }
 
-.is-signed-in {
-	width: '100%';
+.is-signed-in,
+.not-signed-in {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end; /* Align items to the right */
+	align-items: center;
+	flex-grow: 1; /* Take up the remaining space to push to the right */
 }
 
-.main-nav-links a ,
-.is-signed-in a {
+.main-nav-links {
+	display: flex;
+}
+
+.main-nav-links a {
 	color: var(--soft-blue-color);
-	text-align: right;
 	padding: 10px;
 	text-decoration: none;
 	font-size: calc(12px + 0.390625vw);
 }
 
-.main-nav-links a ,
-.not-signed-in a {
-	color: var(--soft-blue-color);
-	text-align: right;
-	padding: 10px;
-	text-decoration: none;
-	font-size: calc(12px + 0.390625vw);
+.main-nav-links a:hover {
+	color: #249DC6;
 }
 
-.main-nav-links a:hover,
-.is-signed-in a:hover, .not-signed-in a:hover {
-	color: #249DC6; /* Change the color when hovering */
+.main-nav-links a.active {
+	color: #fff;
 }
 
-.main-nav-links a.active,
-.is-signed-in a.active, .not-signed-in a.active{
-	color: #fff; /* Change the color for the active link */
+.button-settings-languages {
+	background-color: #2D2D2D;
+	color: #00FAFA;
+	border: 1px solid #00FAFA;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: .3rem;
+	width: 100%;
+	font-family:'Courier';
+	font-size: 1.2rem;
+	font-weight: medium;
+	text-align: center;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	margin: 0;
 }
 
 .content {
@@ -970,4 +985,8 @@ option[value="purple"] { background-color: #69327A; }
 	align-items: center;
 	justify-content: center;
 	position: relative;
+}
+
+.no-bullets {
+    list-style-type: none; /* Supprime les bullet points */
 }

@@ -27,7 +27,7 @@ export const translations = {
 	"nav.logout": {
 		"en": "LOGOUT",
 		"fr": "DÉCONNEXION",
-		"es": "CERRAR SESIÓN"
+		"es": "DESCONEXIÓN"
 	},
 
 	"nav.login": {
@@ -414,9 +414,9 @@ export const translations = {
 	},
 
 	"rules.rumbleDescription": {
-		"en": "<strong>Rumble: </strong> The Rumble mode is played with a defined number of games. Players earn points after each game:",
-		"fr": "<strong>Castagne :</strong> Le mode Castagne se joue avec un nombre défini de parties. Les joueurs gagnent des points après chaque partie :",
-		"es": "<strong>Reyarta :</strong> El modo Reyarta se juega con un número definido de partidas. Los jugadores ganan puntos después de cada partida:",
+		"en": "<strong>Rumble: </strong> The Rumble mode is played with a defined number of games. Players earn points after each game.",
+		"fr": "<strong>Castagne :</strong> Le mode Castagne se joue avec un nombre défini de parties. Les joueurs gagnent des points après chaque partie.",
+		"es": "<strong>Reyarta :</strong> El modo Reyarta se juega con un número definido de partidas. Los jugadores ganan puntos después de cada partida.",
 	},
 
 	"rules.tournamentsDescription1": {
@@ -445,14 +445,14 @@ export const translations = {
 
 	"rules.tournamentsDescription5": {
 		"en": "The winner is the player with the highest cumulative score. In case of a tie, an additional game is played.",
-		"fr": "Le gagnant est le joueur qui a le score cumulatif le plus élevé. En cas d’égalité, une partie supplémentaire est jouée.",
+		"fr": "Le gagnant est le joueur qui a le pointage cumulatif le plus élevé. En cas d’égalité, une partie supplémentaire est jouée.",
 		"es": "El ganador es el jugador con la puntuación acumulada más alta. En caso de empate, se juega un juego adicional.",
 	},
 
 	"rules.advice": {
-		"en": "<strong>For a better experience in Rumble and Tournaments, use two keyboards.</strong>",
-		"fr": "<strong>Pour une meilleure expérience de Castagne et Tournois, utilisez deux claviers. </",
-		"es": "<strong>Para una mejor experiencia en Reyerta y Torneos, usa dos teclados. </strong>",
+		"en": "<i>For a better experience in Rumble and Tournaments, use two keyboards.</i>",
+		"fr": "<i>Pour une meilleure expérience de Castagne et Tournois, utilisez deux claviers. </i>",
+		"es": "<i>Para una mejor experiencia en Reyerta y Torneos, usa dos teclados. </i>",
 	},
 
 	"rules.gameplayOptions": {
@@ -462,39 +462,27 @@ export const translations = {
 	},
 
 	"rules.gameplayLives": {
-		"en": "Number of lives for players",
-		"fr": "Nombre de vies pour les joueurs",
-		"es": "Número de vidas para los jugadores",
+		"en": "Number of lives for players,",
+		"fr": "Nombre de vies pour les joueurs,",
+		"es": "Número de vidas para los jugadores,",
 	},
 
 	"rules.gameplayView": {
-		"en": "View:",
-		"fr": "Vue:",
-		"es": "Ver:",
-	},
-
-	"rules.gameplayTop": {
-		"en": "Top: classic top-down view",
-		"fr": "Dessus: vue classique de haut en bas",
-		"es": "Superior: vista clásica de arriba hacia abajo",
-	},
-
-	"rules.gameplaySide": {
-		"en": "Side: side view with enhanced 3D effects",
-		"fr": "Côté: vue de côté avec effets 3D",
-		"es": "Lado: vista lateral con efectos 3D mejorados",
+		"en": "Views: A classic top-down view or a side view with enhanced 3D effects,",
+		"fr": "Vue: Une vue classique de haut en bas ou une vue latérale avec des effets 3D améliorés,",
+		"es": "Ver: A vista clásica de arriba hacia abajo o una vista lateral con efectos 3D mejorados,",
 	},
 
 	"rules.gameplayPaddle": {
-		"en": "Paddle width",
-		"fr": "Taille des raquettes",
-		"es": "Tamaño de las raquetas",
+		"en": "Paddle width,",
+		"fr": "Taille des raquettes,",
+		"es": "Tamaño de las raquetas,",
 	},
 
 	"rules.gameplayPowerup": {
 		"en": "Power-up: after three bounces, the green light indicates that the power-up is ready. When activated, the paddle teleports in front of the ball and follows it.",
 		"fr": "Super pouvoir: après trois rebonds, le voyant vert indique que le super pouvoir est prêt. Lorsqu’il est activé, la raquette se téléporte devant la balle et la suit.",
-		"es": "Super póder: después de tres rebotes, la luz verde indica que el super pódere está listo. Cuando se activa, la raqueta se teletransporta frente al balón y lo sigue.",
+		"es": "Super póder: después de tres rebotes, la luz verde indica que el super pódere está listo. Cuando se activa, la raqueta se teletransporta frente al balón y lo sigue."
 	},
 
 	"rules.gameplayPlayerControls": {
@@ -504,9 +492,9 @@ export const translations = {
 	},
 
 	"rules.player1": {
-		"en": "Player 1:",
-		"fr": "Joueur 1:",
-		"es": "Jugador 1:"
+		"en": "<strong>Player 1:</strong>",
+		"fr": "<strong>Joueur 1:</strong>",
+		"es": "<strong>Jugador 1:</strong>"
 	},
 
 	"rules.player1Movement": {
@@ -522,9 +510,9 @@ export const translations = {
 	},
 
 	"rules.player2": {
-		"en": "Player 2:",
-		"fr": "Joueur 2:",
-		"es": "Jugador 2:"
+		"en": "<strong>Player 2:</strong>",
+		"fr": "<strong>Joueur 2:</strong>",
+		"es": "<strong>Jugador 2:</strong>"
 	},
 
 	"rules.player2Movement": {
@@ -540,9 +528,9 @@ export const translations = {
 	},
 
 	"rules.player3": {
-		"en": "Player 3:",
-		"fr": "Joueur 3:",
-		"es": "Jugador 3:"
+		"en": "<strong>Player 3:</strong>",
+		"fr": "<strong>Joueur 3:</strong>",
+		"es": "<strong>Jugador 3:</strong>"
 	},
 
 	"rules.player3Movement": {
@@ -558,9 +546,9 @@ export const translations = {
 	},
 
 	"rules.player4": {
-		"en": "Player 4:",
-		"fr": "Joueur 4:",
-		"es": "Jugador 4:"
+		"en": "<strong>Player 4:</strong>",
+		"fr": "<strong>Joueur 4:</strong>",
+		"es": "<strong>Jugador 4:</strong>"
 	},
 
 	"rules.player4Movement": {

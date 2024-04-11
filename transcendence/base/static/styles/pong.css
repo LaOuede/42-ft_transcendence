@@ -115,6 +115,8 @@
 #p1Score,  #p2Score,  #p3Score,  #p4Score {
 	flex: 1;
 	text-align: right;
+	color: #00FAFA;
+	font-size: calc(25px + 0.390625vw);
 }
 
 #gameWindows {
@@ -153,13 +155,8 @@
 }
 
 #btPlayVs2, #btPlayRumble, #btPlayTourn {
-	background-color: #00FAFA;
-	color: black;
-	font-weight: bold;
-	width: 50%;
-	margin-top: 10px;
-}
-
-#btPlayVs2:hover, #btPlayRumble:hover, #btPlayTourn:hover {
-	background-color: #249DC6;
+	width: 20%;
+	height: 15%;
+	margin-top: 20px;
+	font-size: calc(15px + 0.390625vw);
 }
