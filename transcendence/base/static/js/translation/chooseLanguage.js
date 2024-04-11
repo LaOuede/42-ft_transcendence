@@ -1,13 +1,31 @@
 import { translatePage, translatePlaceholder } from "./translate.js";
 
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('language-select').addEventListener('change', function(e) {
+	const icon = document.getElementById('language-icon');
+	const languageList = document.getElementById('language-list');
+
+	icon.addEventListener('click', function(e) {
 		e.preventDefault();
-		let selectedLanguage = this.value;
-		setCurrentLanguage(selectedLanguage);
-		updateLanguage();
+		e.stopPropagation();
+		languageList.style.display = languageList.style.display === 'none' ? 'block' : 'none';
 	});
-});
+
+	languageList.querySelectorAll('li').forEach(function(item) {
+		item.addEventListener('click', function() {
+			const selectedLanguage = this.getAttribute('data-lang');
+			console.log('Selected language:', selectedLanguage);
+			setCurrentLanguage(selectedLanguage);
+			updateLanguage();
+			languageList.style.display = 'none';
+		});
+	});
+
+	document.addEventListener('click', function() {
+		if (languageList.style.display === 'block') {
+			languageList.style.display = 'none';
+		}
+	});
+  });
 
 function setCurrentLanguage(langCode) {
 	if (langCode) {
