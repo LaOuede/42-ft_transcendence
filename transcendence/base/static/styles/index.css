@@ -108,7 +108,7 @@ body {
 	padding: .3rem;
 	width: 100%;
 	font-family:'Courier';
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-weight: medium;
 	text-align: center;
 	border-radius: 20px;
@@ -988,5 +988,45 @@ option[value="purple"] { background-color: #69327A; }
 }
 
 .no-bullets {
-    list-style-type: none; /* Supprime les bullet points */
+	list-style-type: none; /* Supprime les bullet points */
 }
+
+/* ---------------------------------------------------------------------- */
+/* ----------------------------- TRANSLATION ---------------------------- */
+/* ---------------------------------------------------------------------- */
+.language-selector {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+#language-icon {
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+
+#language-list {
+	position: absolute;
+	top: 100%;
+	display: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0;
+	background: #2D2D2D;
+	border: 1px solid #00FAFA;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	width: auto;
+}
+
+
+#language-list li {
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+#language-list li:hover {
+	border-radius: 20px;
+	background-color: #5B5B5B;
+}
+
