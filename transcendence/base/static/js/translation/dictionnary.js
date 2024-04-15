@@ -414,15 +414,15 @@ export const translations = {
 	},
 
 	"rules.rumbleDescription": {
-		"en": "<strong>Rumble: </strong> The Rumble mode is played with a defined number of games. Players earn points after each game.",
-		"fr": "<strong>Castagne :</strong> Le mode Castagne se joue avec un nombre défini de parties. Les joueurs gagnent des points après chaque partie.",
-		"es": "<strong>Reyarta :</strong> El modo Reyarta se juega con un número definido de partidas. Los jugadores ganan puntos después de cada partida.",
+		"en": "<strong>Rumble: </strong> A four-player experience where each player is eliminated when they lose all their lives. The game continues until only one player remains.",
+		"fr": "<strong>Castagne :</strong> Une expérience à quatre joueurs où chaque joueur est éliminé lorsqu'il perd toutes ses vies. Le jeu continue jusqu'à ce qu'il ne reste plus qu'un seul joueur.",
+		"es": "<strong>Reyarta :</strong> Una experiencia para cuatro jugadores en la que cada jugador es eliminado cuando pierde todas sus vidas. El juego continúa hasta que solo queda un jugador.",
 	},
 
 	"rules.tournamentsDescription1": {
-		"en": "<strong>Tournaments: </strong> A four-player experience where each player is eliminated when they lose all their lives. The game continues until only one player remains.",
-		"fr": "<strong>Tournois :</strong> Une expérience à quatre joueurs où chaque joueur est éliminé lorsqu'il perd toutes ses vies. Le jeu continue jusqu'à ce qu'il ne reste plus qu'un seul joueur.",
-		"es": "<strong>Torneos :</strong> Una experiencia para cuatro jugadores en la que cada jugador es eliminado cuando pierde todas sus vidas. El juego continúa hasta que solo queda un jugador.",
+		"en": "<strong>Tournaments: </strong> The Rumble mode is played with a defined number of games. Players earn points after each game.",
+		"fr": "<strong>Tournois :</strong> Le mode Castagne se joue avec un nombre défini de parties. Les joueurs gagnent des points après chaque partie.",
+		"es": "<strong>Torneos :</strong> El modo Reyarta se juega con un número definido de partidas. Los jugadores ganan puntos después de cada partida.",
 	},
 
 	"rules.tournamentsDescription2": {
