@@ -1,4 +1,4 @@
-import { playDemo } from "./pong/pong.js";
+import { gameInfo, playDemo } from "./pong/pong.js";
 import { translatePage, translatePlaceholder } from "./translation/translate.js";
 
 // function to load the appropriate content on the base page
@@ -8,26 +8,29 @@ function loadContent(path) {
   };
 
   fetch("/" + path, { headers, credentials: "include" })
-    .then((response) => {
-      if (!response.ok && response.status === 401) {
-        redirectToLogin();
-        alert("Your session has expired. Please log in again.");
-      }
-      return response.text();
-    })
-    .then((html) => {
-      document.querySelector(".main").innerHTML = html;
-      translatePage();
-      translatePlaceholder();
-      if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
-        playDemo();
-      if (window.location.pathname !== "/" + path) {
-        history.pushState({ path: path }, "", "/" + path);
-      }
-    })
+  .then((response) => {
+    if (!response.ok && response.status === 401) {
+      redirectToLogin();
+      alert("Your session has expired. Please log in again.");
+    }
+    return response.text();
+  })
+  .then((html) => {
+    document.querySelector(".main").innerHTML = html;
+    translatePage();
+    translatePlaceholder();
+    if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
+      playDemo();
+    else
+      if(gameInfo.gameIsSet == false)
+            loadContent("auth/login/")
+    if (window.location.pathname !== "/" + path) {
+      history.pushState({ path: path }, "", "/" + path);
+    }
+  })
     .catch((error) => {
       redirectToLogin();
-    });
+  });
 }
 // Function to handle redirection to the login page
 export function redirectToLogin() {

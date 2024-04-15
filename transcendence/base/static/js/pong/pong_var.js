@@ -26,7 +26,8 @@ export function initGameInfo(){
 		max_level: 6,
 		level_inc: 0.5,
 		colors: ["", "", "", ""],
-		nicks: ["", "", "", ""]
+		nicks: ["", "", "", ""],
+		gameIsSet: false,
 	}
 	return gameInfo
 }
