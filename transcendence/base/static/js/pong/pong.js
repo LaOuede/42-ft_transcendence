@@ -624,7 +624,7 @@ function animate() {
 	// console.log("running")
 }
 
-function playGame(startLives){	
+function playGame(startLives){
 	gameInfo.controls.enabled = true
 	gameInfo.player_lives = startLives
 	gameInfo.countDownDone = false
@@ -678,6 +678,7 @@ function getUserParam(){
 		gameInfo.nicks[2] = document.querySelector('#player3nick').value;
 		gameInfo.nicks[3] = document.querySelector('#player4nick').value;
 	}
+	gameInfo.gameIsSet = true
 }
 
 function getGameParam(){
