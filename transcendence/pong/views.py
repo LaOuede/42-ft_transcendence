@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, authentication_classes
+from custom_auth.views import get_user_from_token
+from user.serializers import UserSerializer
 
 
 # Create your views here.
@@ -46,7 +48,16 @@ def rumble(request):
 def playonevsone(request):
 	# Serve play content for AJAX, full SPA for direct access
 	if is_ajax(request):
-		return render(request, "playonevsone.html")
+
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		activity_display = user.get_activity_display()
+		language_display = user.get_language_display()
+		serializer = UserSerializer(user)
+		user_data = serializer.data
+
+		return render(request, "playonevsone.html", {'user_data': user_data})
 	return render(request, "base.html", {"content": "playonevsone.html"})
 
 @api_view(["GET"])
