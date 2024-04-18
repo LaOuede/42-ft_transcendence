@@ -21,7 +21,6 @@ class WSConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_add)(
             self.user_activity_group, self.channel_name
         )
-
         self.accept()
 
     def disconnect(self, code):
@@ -33,7 +32,7 @@ class WSConsumer(WebsocketConsumer):
     def receive(self, text_data=None, bytes_data=None):
         print(GREEN + "WS Recieved : ", text_data, RESET)
         text_data_json = json.loads(text_data)
-        message = text_data_json["message"]
+        message = text_data_json.get("message")
 
         print(GREEN, "Received text_data: ", text_data, RESET)
 
@@ -42,8 +41,7 @@ class WSConsumer(WebsocketConsumer):
         )
 
     def change_status(self, event):
-        message = event["message"]
-
+        message = event.get("message")
         print(GREEN, "Received Group chat message: ", message, RESET)
         # Send message to WebSocket
         self.send(text_data=json.dumps({"message": message}))

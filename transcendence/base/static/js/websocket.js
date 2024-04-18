@@ -1,3 +1,4 @@
+import { loadFriends } from "./friends.js";
 
 export function test(){
     console.log("Websocket Test import")
@@ -20,44 +21,28 @@ export class userStatusWebSocket {
     }
 
     onmessage(e) {
-        console.log("Get message " + e.data + " from websocket")
+        console.log("[WebSocket] Got message: " + e.data);
+        loadFriends();
+    }
 
-        let data = JSON.parse(e.data);
-        let username = data.message.username;
-        let userStatusEntries = document.querySelectorAll(".user-status-entry");
-        let target_entry = Array.from(userStatusEntries).find(e => {
-            return e.querySelector(".username").textContent.includes(username);
-        });
+    send(obj){
+        this.websocket.send(
+            JSON.stringify(obj)
+        )
+    }
 
-        console.log("target_entry: ", target_entry);
-        let target_span = target_entry.querySelector(".user-status-circle")
-
-        switch(data.message.status) {
-            case "ON":
-                target_span.style.backgroundColor = 'green';
-              break;
-            case "OF":
-                target_span.style.backgroundColor = 'red';
-              break;
-            case "UN":
-                target_span.style.backgroundColor = 'yellow';
-              break;
-            case "IG":
-                target_span.style.backgroundColor = 'purple';
-              break;
-          } 
+    ping(){
+        this.send({"message": "ping"})
     }
 
     change_user_status(username, status) {
-        this.websocket.send(
-            JSON.stringify({
-                "message": {
-                    "username": username,
-                    "status": status
-                }
-            })
-        )
+        this.send({
+            "message": {
+                "username": username,
+                "status": status
+            }
+        })
     }
 }
 
-let socket = new userStatusWebSocket()
+window.webSocket = new userStatusWebSocket()

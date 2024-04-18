@@ -1,48 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+{% if friends_list %}
+<ul style="width: 100px">
+	{% for friend in friends_list %}
+	<li class="friend">
+		<span class="username">{{friend.username}}</span>
+		<span class="user-status-circle"
+			style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
+	</li>
+	{% endfor %}
+</ul>
+{% else %}
+<p>No Friends are available</p>
+{% endif %}
+{% for user in  invites_in %}
+	<form class="invite">
+		<span class="username">{{friend.username}}</span>
+		<span>
+			<input type="submit" class="accept" value="Y">
+			<input type="submit" class="decline" value="N">
+		</span>
+	<form>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-
-<style>
-	body{
-		background: rgb(64,0,96);
-background: linear-gradient(90deg, rgba(64,0,96,1) 0%, rgba(9,89,121,1) 100%);
-
-		color:white;
-	}
-</style>
-
-{% load static %}
-<link rel="stylesheet" href="{% static 'styles/index.css' %}">
-
-<body style="background-color: darkgray;">
-	<h1>Friend List</h1>
-	<div class="input-group embeded-intput-btn">
-		<input type="text" name="add-friend-intput" id="add-friend-input"
-			placeholder="Add friend ...">
-		<button id="add-friend-btn">+</button>
-	</div>
-	{% if friends_list %}
-	<ul style="width: 100px">
-		{% for friend in friends_list %}
-		<li class="user-status-entry">
-			<span class="username">{{friend.username}}</span>
-			<span class="user-status-circle"
-				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
-		</li>
-		{% endfor %}
-	</ul>
-	{% else %}
-	<p>No Friends are available</p>
-	{% endif %}
-	{% load static %}
-	<script src="{% static 'js/websocket.js' %}" type="module" defer></script>
-	<script src="{% static 'js/friends.js' %}" type="module" defer></script>
-
-</body>
-
-</html>
+{% endfor %}

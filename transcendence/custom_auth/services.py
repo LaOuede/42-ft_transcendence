@@ -10,9 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from user.models import User
 from .models import OTPSession
 
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
-from friends.consumers import WSConsumer
+from friends.utils import broadcast_status_update
 
 def verify_otp_service(session_token, otp):
     otp_session = OTPSession.objects.filter(session_token=session_token).first()
@@ -187,16 +185,3 @@ def handle_user_oauth(user_data):
     change_user_status(user, "ON")
     tokens = get_tokens_for_user(user)
     return user, tokens
-
-def broadcast_status_update(user, status):
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        WSConsumer.user_activity_group,
-        {
-            "type": "change.status",
-            "message": {
-                "username": user.username,
-                "status": status
-            }
-        }
-    )
