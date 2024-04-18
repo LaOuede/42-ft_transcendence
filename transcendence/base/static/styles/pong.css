@@ -29,8 +29,7 @@
 	display: none;
 	bottom: 3%;
 	left: 2%;
-	background-image: url(../../../media/avatars/Corbeau.jpg);
-	background-size: contain; /* Assure que l'image entière est visible, peut laisser un espace vide */
+	background-size: cover; /* Assure que l'image entière est visible, peut laisser un espace vide */
     background-position: center; /* Centre l'image dans le conteneur */
     background-repeat: no-repeat; 
 	color: #249DC6;
