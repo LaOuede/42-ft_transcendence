@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 
 from user.models import User
+import json
 
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,19 +13,26 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import FriendRequest
+from friends.utils import get_friends_of
+from custom_auth.views import get_user_from_token
 
+def index(request):
+    return render(request, "friends/index.html",)
 
 # Create your views here.
+@authentication_classes([JWTAuthentication])
 def FriendsListView(request):
 
-    allUsers = User.objects.filter(is_staff=False)
-
-    activity_enum = {e[0]: e[1] for e in User.activity_enum}
+    # friends = User.objects.filter(is_staff=False) # All users
+    user = get_user_from_token(request)
+    friends = get_friends_of(user) if user else None
+    # invites_out = FriendRequest
+    # invites_in = FriendRequest
 
     return render(
         request,
         "friends/list.html",
-        {"friends_list": allUsers, "activity_enum": activity_enum},)
+        {"friends_list": friends, "sent_requests": None},)
 
 class FriendRequestView(APIView):
     @authentication_classes([JWTAuthentication])
@@ -32,6 +41,8 @@ class FriendRequestView(APIView):
         return Response({"user": sender.username}, status=200)
 
     def post(self, request, *args, **kwargs):
+        data = json.loads(request.body) 
+        return Response({"data": data.receiver})
         sender = request.user
         receiver = get_object_or_404(
             User, username=request.data.get("friend_username", None)

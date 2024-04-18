@@ -1,0 +1,89 @@
+
+.embeded-intput-btn {
+	position: relative;
+	height: 2rem;
+}
+
+.embeded-intput-btn button {
+	position: absolute;
+	right: 0px;
+	height: 1.8rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+
+	margin: 0px 5px;
+	transition: .3s;
+}
+
+.embeded-intput-btn button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.status-dot {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	background-color: gray;
+	display: inline-block;
+}
+
+.friend>span {
+	margin: 3px;
+}
+
+.friend, .invite{
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	margin: 6px 0px;
+	padding: 7px;
+	transition: .3s;
+}
+
+.friend:hover {
+
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.invite>span>input {
+	border-radius: 50%;
+	aspect-ratio: 1;
+	width: 1.5rem;
+	border: none;
+}
+
+input.accept{
+	background-color: green;
+}
+
+input.decline{
+	background-color: red;
+}
+
+.embeded-intput-btn {
+	width: 200px;
+	position: relative;
+	height: 2rem;
+}
+
+.embeded-intput-btn button {
+	position: absolute;
+	right: 0px;
+	height: 1.8rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+
+	margin: 0px 5px;
+	transition: .3s;
+}
+
+.embeded-intput-btn button:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}

@@ -3,7 +3,7 @@
 	{% for friend in friends_list %}
 	<li class="friend">
 		<span class="username">{{friend.username}}</span>
-		<span class="user-status-circle"
+		<span class="status-dot"
 			style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
 	</li>
 	{% endfor %}
