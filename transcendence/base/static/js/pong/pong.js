@@ -73,9 +73,11 @@ function resetUI(i){
 		tags.cards[i].style.border = gameInfo.colors[i] + " solid 5px"
 		tags.cards[i].style.color = gameInfo.colors[i]
 		tags.cards[i].style.boxShadow = gameInfo.colors[i] + " 0px 0px 20px"
-		if(gameInfo.nicks[i] == "")
-			gameInfo.nicks[i] = "Player " + (i + 1)
-		tags.names[i].textContent = gameInfo.nicks[i]
+		if(gameInfo.nicks[i] == "" )
+			if(i > 0)
+				gameInfo.nicks[i] = "Player " + (i + 1)
+		if(gameInfo.nicks[i] != "")
+				tags.names[i].textContent = gameInfo.nicks[i]
 		tags.scores[i].textContent = gameInfo.player_lives[i]
 	}
 }
