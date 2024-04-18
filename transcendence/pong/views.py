@@ -65,7 +65,14 @@ def playonevsone(request):
 def playrumble(request):
 	# Serve play content for AJAX, full SPA for direct access
 	if is_ajax(request):
-		return render(request, "playrumble.html")
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		activity_display = user.get_activity_display()
+		language_display = user.get_language_display()
+		serializer = UserSerializer(user)
+		user_data = serializer.data
+		return render(request, "playrumble.html", {'user_data': user_data})
 	return render(request, "base.html", {"content": "playrumble.html"})
 
 @api_view(["GET"])
@@ -81,7 +88,14 @@ def tournaments(request):
 def playtournaments(request):
 	# Serve tournaments content for AJAX, full SPA for direct access
 	if is_ajax(request):
-		return render(request, "playtournaments.html")
+		user = get_user_from_token(request)
+		if user is None:
+			return JsonResponse({"error": "Invalid token"}, status=401)
+		activity_display = user.get_activity_display()
+		language_display = user.get_language_display()
+		serializer = UserSerializer(user)
+		user_data = serializer.data
+		return render(request, "playtournaments.html", {'user_data': user_data})
 	return render(request, "base.html", {"content": "playtournaments.html"})
 
 @api_view(["GET"])
