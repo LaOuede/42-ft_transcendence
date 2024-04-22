@@ -37,12 +37,7 @@
 					<div class="friends-grid-item">
 						<h3 class="title-profile-item" data-translate="profile.friends"></h3>
 						<div class="profile-informations">
-							<div class="input-group embeded-intput-btn">
-								<input type="text" name="add-friend-intput" id="add-friend-input"
-									placeholder="Add friend ...">
-								<button id="add-friend-btn">+</button>
-							</div>
-							<div id="friends-div"></div>
+							{% include 'friends/index.html' %}
 						</div>
 					</div>
 

@@ -7,34 +7,37 @@
 	<title>Document</title>
 	{% load static %}
 
-    <script src="{% static 'js/api.js' %}" type="module" defer></script>
+	<script src="{% static 'js/api.js' %}" type="module" defer></script>
 	<script src="{% static 'js/websocket.js' %}" type="module" defer></script>
+
+
+	<link rel="stylesheet" href="{% static 'styles/index.css' %}">
+	<link rel="stylesheet" href="{% static 'styles/friends.css' %}">
+
 	<script src="{% static 'js/friends.js' %}" type="module" defer></script>
-
-    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
-
+	<script type="module">
+		import { loadFriends } from "{% static 'js/friends.js'%}"
+		window.onload = function () {
+			loadFriends();
+			console.lof("WASIÏÏ¨")
+		}
+	</script>
 
 </head>
 
 <style>
-	body{
-		background: rgb(64,0,96);
-background: linear-gradient(90deg, rgba(64,0,96,1) 0%, rgba(9,89,121,1) 100%);
-
-		color:white;
+	body {
+		background: linear-gradient(90deg, rgba(64, 0, 96, 1) 0%, rgba(9, 89, 121, 1) 100%);
+		color: white;
 	}
 </style>
 
-<body style="background-color: darkgray;">
-	<h1>Friend List</h1>
-	<form id="add-friends-form" class="input-group embeded-intput-btn">
-		<input type="text" name="receiver" id="add-friend-input"
-			placeholder="Add friend ...">
-		<button id="add-friend-btn">+</button>
+<body>
+	<form id="add-friends-form" class="input-group embeded-intput-btn" method="POST">
+		<input type="text" name="receiver" id="add-friend-input" placeholder="Add friend ...">
+		<button type="submit" id="add-friend-btn">+</button>
 	</form>
-
-    <button id="get-friends-btn">Get Friends</button>
-    <div id="friends-div"></div>
+	<div id="friends-div"></div>
 </body>
 
 </html>

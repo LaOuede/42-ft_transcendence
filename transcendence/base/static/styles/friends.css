@@ -1,23 +1,31 @@
 
-.embeded-intput-btn {
+#add-friends-form {
 	position: relative;
 	height: 2rem;
+	width: 200px;
 }
 
-.embeded-intput-btn button {
+#add-friend-input {
+	width: 100%;
+	padding: 0px 0px 0px 10px;
+}
+
+#add-friend-btn{
 	position: absolute;
-	right: 0px;
+	right: -5px;
 	height: 1.8rem;
 	aspect-ratio: 1;
 	border-radius: 50%;
 	border: none;
 	background-color: grey;
 
-	margin: 0px 5px;
+	/* margin: 0px 5px; */
+
+
 	transition: .3s;
 }
 
-.embeded-intput-btn button:hover {
+#add-friend-btn:hover {
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -64,26 +72,9 @@ input.accept{
 input.decline{
 	background-color: red;
 }
-
+/*
 .embeded-intput-btn {
 	width: 200px;
 	position: relative;
 	height: 2rem;
-}
-
-.embeded-intput-btn button {
-	position: absolute;
-	right: 0px;
-	height: 1.8rem;
-	aspect-ratio: 1;
-	border-radius: 50%;
-	border: none;
-	background-color: grey;
-
-	margin: 0px 5px;
-	transition: .3s;
-}
-
-.embeded-intput-btn button:hover {
-	background-color: rgba(255, 255, 255, 0.3);
-}
+} */

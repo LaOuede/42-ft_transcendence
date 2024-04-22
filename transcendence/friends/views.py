@@ -41,16 +41,21 @@ class FriendRequestView(APIView):
         return Response({"user": sender.username}, status=200)
 
     def post(self, request, *args, **kwargs):
-        data = json.loads(request.body) 
-        return Response({"data": data.receiver})
         sender = request.user
         receiver = get_object_or_404(
             User, username=request.data.get("friend_username", None)
         )
+        data ={"sender": sender.username, "receiver": receiver.username}
+        print("\033[31m", "[DEBUG] data: ", data, "\033[00m")
 
-        if sender == receiver:
+        if self._is_same_user(sender, receiver):
             return Response(
-                {"message": "can't add yourself", "status": "403"}, status=status.HTTP_403_FORBIDDEN
+                {"message": "Can't add yourself"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if self._request_already_exists(sender, receiver):
+            return Response(
+                {"message": "Request already sent"}, status=status.HTTP_400_BAD_REQUEST
             )
 
         friend_request = FriendRequest(from_user=sender, to_user=receiver)
@@ -67,3 +72,9 @@ class FriendRequestView(APIView):
         """
         friend_request.accept()
         friend_request.save()
+
+    def _is_same_user(self, sender, receiver):
+        return sender == receiver
+
+    def _request_already_exists(self, sender, receiver):
+        return FriendRequest.objects.filter(from_user=sender, to_user=receiver).exists()
