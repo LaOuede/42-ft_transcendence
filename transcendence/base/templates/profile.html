@@ -1,11 +1,12 @@
 {% load static %}
+
 <div class="profile-container">
 	<div class="profile-container-black">
 		<div class="profile-container-login">
 			<div class="signup-header">
 				<h2 class="profile-title" data-translate="profile.title"></h2>
 				{% if user_data %}
-				
+
 				<div class="profile-grid-container">
 					<!-- Grid item 1: Personnal informations -->
 					<div class="perso-grid-item">
@@ -36,9 +37,7 @@
 					<div class="friends-grid-item">
 						<h3 class="title-profile-item" data-translate="profile.friends"></h3>
 						<div class="profile-informations">
-							<p>Bill [Online 🟢]</p>
-							<p>Pol [Offline 🔴]</p>
-							<p>John [Unavailable 🟡]</p>
+							{% include 'friends/index.html' %}
 						</div>
 					</div>
 
@@ -46,14 +45,14 @@
 					<div class="historic-grid-item">
 						<h3 class="title-profile-item" data-translate="profile.history"></h3>
 						<div class="profile-informations">
-							<p><strong>Victory</strong> vs. Bill  [2024-03-12]</p>
-							<p><strong>Victory</strong> vs. John  [2024-03-11]</p>
-							<p><i>Defeat</i> vs. John  [2024-03-11]</p>
-							<p><i>Defeat</i> vs. Pol  [2024-03-11]</p>
-							<p><strong>Victory</strong> vs. Pol	[2024-03-11]</p>
+							<p><strong>Victory</strong> vs. Bill [2024-03-12]</p>
+							<p><strong>Victory</strong> vs. John [2024-03-11]</p>
+							<p><i>Defeat</i> vs. John [2024-03-11]</p>
+							<p><i>Defeat</i> vs. Pol [2024-03-11]</p>
+							<p><strong>Victory</strong> vs. Pol [2024-03-11]</p>
 						</div>
 					</div>
-					
+
 
 				</div>
 			</div>
@@ -61,10 +60,10 @@
 				<button class="button3" id="view-settings-button" type="button" data-translate="profile.settings"></button>
 			</div>
 
-				{% else %}
-				<p>No user data available.</p>
-				{% endif %}
-			</div>
+			{% else %}
+			<p>No user data available.</p>
+			{% endif %}
 		</div>
 	</div>
+</div>
 </div>

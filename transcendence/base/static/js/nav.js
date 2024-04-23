@@ -19,6 +19,8 @@ function loadContent(path) {
     document.querySelector(".main").innerHTML = html;
     translatePage();
     translatePlaceholder();
+    if (path === "user/profile/")
+      window.webSocket.ping()
     if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
       playDemo();
     else

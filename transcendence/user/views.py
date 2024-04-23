@@ -9,6 +9,9 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from custom_auth.views import get_user_from_token
 
+from friends.models import FriendList
+from friends.utils import get_friends_of
+
 def is_ajax(request):
 	return request.headers.get("X-Requested-With") == "XMLHttpRequest"
 
@@ -44,6 +47,7 @@ def UserProfile(request):
 		user_data = serializer.data
 		user_data['activity'] = activity_display
 		user_data['language'] = language_display
+		user_data['friends'] = get_friends_of(user)
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
@@ -93,3 +97,4 @@ def UserToggle2FA(request):
 		user.save()
 		return JsonResponse({"success": "2FA enabled", "twoFA": user.twoFA}, status=200)
 	return JsonResponse({"error": "Invalid request"}, status=400)
+

@@ -25,11 +25,14 @@ from .services import (
 
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
 
+
+
+# Create your views here.
 
 def is_ajax(request):
     return request.headers.get("X-Requested-With") == "XMLHttpRequest"
-
 
 @api_view(["GET"])
 def check_session(request):

@@ -26,13 +26,15 @@ SECRET_KEY = "django-insecure-g-py#%-k^n4gu!t!ifjry&zkcdyb0sz_9dhdton2$2f+9rfux2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
-#ALLOWED_HOSTS = ["c1r8p12.42quebec.com"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "c1r8p11.42quebec.com"]
+# ALLOWED_HOSTS += ["c1r8p11.42quebec.com"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,9 +46,9 @@ INSTALLED_APPS = [
     "custom_auth",
     "games_history",
     "user",
+    "friends",
     "rest_framework",
     "rest_framework.authtoken",
-    "channels",
     "django_otp",
     "django_otp.plugins.otp_totp",
     "django_otp.plugins.otp_static",
@@ -69,7 +71,8 @@ ROOT_URLCONF = "transcendence.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "transcendence/templates"],
+        # "DIRS": [BASE_DIR / "transcendence/templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -84,6 +87,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "transcendence.wsgi.application"
 
+ASGI_APPLICATION = "transcendence.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -105,13 +117,13 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Get the EMAIL_HOST_USER from environment
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
+AUTH_USER_MODEL = "user.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",

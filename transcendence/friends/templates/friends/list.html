@@ -1,0 +1,36 @@
+{% if friends_list %}
+<ul id="friends-list">
+	<!-- <li class="friend" data-id="{{ friend.pk }}">
+		<span class="username">Super douper long name for test</span>
+		<span class="right">
+			<span class="status-dot"
+				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
+			<button class="delete-friend-btn">X</button>
+		</span>
+		</li> -->
+
+	{% for friend in friends_list %}
+	<li class="friend" data-id="{{ friend.pk }}">
+		<span class="username">{{friend.username}}</span>
+		<span class="right">
+			<span class="status-dot"
+				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
+			<button class="delete-friend-btn" data-id="{{ friend.pk }}">X</button>
+		</span>
+		</li>
+
+	{% endfor %}
+</ul>
+{% else %}
+<p>No Friends are available</p>
+{% endif %}
+{% for user in  invites_in %}
+	<form class="invite">
+		<span class="username">{{friend.username}}</span>
+		<span>
+			<input type="submit" class="accept" value="Y">
+			<input type="submit" class="decline" value="N">
+		</span>
+	<form>
+
+{% endfor %}

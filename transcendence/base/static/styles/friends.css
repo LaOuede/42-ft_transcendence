@@ -1,0 +1,128 @@
+
+#add-friends-form {
+	position: relative;
+	height: 2rem;
+	width: 200px;
+	margin: 10px 0px;
+}
+
+#add-friends-form *{
+	color: white;
+}
+
+#add-friend-input {
+	width: 100%;
+	padding: 0px 0px 0px 10px;
+}
+
+#add-friend-input, #add-friend-btn {
+	border: 2px solid var(--blue-color);
+}
+
+
+#add-friend-btn{
+	position: absolute;
+	right: -4.5px;
+	height: 1.6rem;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: none;
+	background-color: grey;
+	font-size: 1rem;
+	font-weight: bold;
+
+	font-family: sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: .3s;
+}
+
+#add-friend-btn:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.status-dot {
+	width: .6rem;
+	height: .6rem;
+	border-radius: 50%;
+	background-color: gray;
+	display: inline-block;
+	transition: 0.3s;
+}
+
+.friend>span {
+	margin-left:1rem;
+}
+
+#friends-list {
+	width: fit-content;
+	max-width: 300px;
+}
+
+
+.friend, .invite{
+	flex-direction: row;
+
+	display: flex;
+	list-style: none;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 20px;
+	margin: 6px 0px;
+	padding: 7px;
+	transition: .3s;
+}
+
+.friend .right {
+	margin-left: 2rem;
+}
+
+.friend:hover {
+
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.delete-friend-btn {
+	width: 1rem;
+	border: none;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	background-color: #eee6;
+
+	/* color: white; */
+	font-family: sans-serif;
+	font-size: .8rem;
+	font-weight: bold;
+
+	/* display: flex; */
+	/* justify-content: center; */
+	/* align-items: center; */
+}
+
+.friend:hover .delete-friend-btn {
+	display: inline;
+}
+
+.invite>span>input {
+	border-radius: 50%;
+	aspect-ratio: 1;
+	width: 1.5rem;
+	border: none;
+}
+
+input.accept{
+	background-color: green;
+}
+
+input.decline{
+	background-color: red;
+}
+/*
+.embeded-intput-btn {
+	width: 200px;
+	position: relative;
+	height: 2rem;
+} */
