@@ -169,6 +169,10 @@
 	transition: background-color 0.2s;
 }
 
+#btNextRound {
+	width: 50%;
+}
+
 .button5:hover, .button6:hover {
 	background-color: #5B5B5B;
 }

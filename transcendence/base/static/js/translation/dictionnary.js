@@ -121,7 +121,7 @@ export const translations = {
 	"1vs1.next": {
 		"en": "NEXT",
 		"fr": "SUIVANT",
-		"es": "JUGADOR 2"
+		"es": "SIGUIENTE"
 	},
 
 	// Placeholder
