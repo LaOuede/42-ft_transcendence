@@ -1,8 +1,7 @@
 // logout function
 
 export function loadFriends() {
-
-    console.log("[DEBUG] Getting Friends");
+    console.log("[DEBUG] loading Friends");
     fetch(window.location.origin + "/friends/list/")
     .then(res => res.text())
     .then(data => {
@@ -52,10 +51,12 @@ document.addEventListener("click", function(event) {
     if (event.target.id === "add-friend-btn")
     {
         event.preventDefault();
-        let user_name = document.getElementById("add-friend-input").value;
+        let input = document.getElementById("add-friend-input");
+        let user_name = input.value;
         if (add_friend(user_name) === false)
             alert(`User: ${user_name} not found!`);
         window.webSocket.ping();
+        input.value = "";
     }
 
     // Delete friend
