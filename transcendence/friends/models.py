@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 class FriendList(models.Model):
-    user    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
+    user    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friends_list")
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends")
 
     def __str__(self):
@@ -22,8 +22,8 @@ class FriendList(models.Model):
         Remove a friend
         """
         print(f"\033[33m[ DEBUG ] {self.user.username} Removed {account.username} from his friend!\033[00m")
-        if account in self.friend.all():
-            self.friend.remove(account)
+        if account in self.friends.all():
+            self.friends.remove(account)
 
     def unfriend(self, other):
         """

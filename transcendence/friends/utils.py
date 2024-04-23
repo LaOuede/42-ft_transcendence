@@ -24,3 +24,14 @@ def broadcast_status_update(user, status):
             "message": {"username": user.username, "status": status},
         },
     )
+
+
+def ping_websocket():
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        WSConsumer.user_activity_group,
+        {
+            "type": "change.status",
+            "message": "None",
+        },
+    )

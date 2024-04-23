@@ -16,6 +16,8 @@ from .models import FriendRequest
 from friends.utils import get_friends_of
 from custom_auth.views import get_user_from_token
 
+from friends.utils import ping_websocket
+
 def index(request):
     return render(request, "friends/index.html",)
 
@@ -41,22 +43,32 @@ class FriendRequestView(APIView):
         return Response({"user": sender.username}, status=200)
 
     def post(self, request, *args, **kwargs):
+        print("\033[31m", "[DEBUG] request.data: ", request.data)
+        if (request.data.get("action", None) == "add"):
+            print("\033[m31", "[DEBUG] Adding user", request.user)
+            return self.add_friend(request)
+
+        if (request.data.get("action", None) == "delete"):
+            return self.delete_friend(request)
+
+        return Response({"Message": "Action no set properly"}, status=404)
+
+    def add_friend(self, request):
         sender = request.user
         receiver = get_object_or_404(
             User, username=request.data.get("friend_username", None)
         )
-        data ={"sender": sender.username, "receiver": receiver.username}
-        print("\033[31m", "[DEBUG] data: ", data, "\033[00m")
 
+        print("\033[31m", "[DEBUG] Adding user", sender.username, receiver.username)
         if self._is_same_user(sender, receiver):
             return Response(
                 {"message": "Can't add yourself"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        if self._request_already_exists(sender, receiver):
-            return Response(
-                {"message": "Request already sent"}, status=status.HTTP_400_BAD_REQUEST
-            )
+        # if self._request_already_exists(sender, receiver):
+        #     return Response(
+        #         {"message": "Request already sent"}, status=status.HTTP_400_BAD_REQUEST
+        #     )
 
         friend_request = FriendRequest(from_user=sender, to_user=receiver)
         self.auto_accept_invite(friend_request)
@@ -64,6 +76,20 @@ class FriendRequestView(APIView):
             {"message": "success", "status": "201"},
             status=status.HTTP_201_CREATED
         )
+
+    def delete_friend(self, request):
+        sender = request.user
+        other = get_object_or_404(User, pk=request.data.get("friend_id", None))
+        print("\033[31m", "[DEBUG] Deleting friend", sender.username, other.username)
+        # Errors
+            # If other does not exist
+            # If other is not a friend
+
+        # delete friendship
+        sender.friends_list.unfriend(other)
+
+        ping_websocket()
+        return Response({"message": "friend deleted"}, status=status.HTTP_200_OK)
 
     def auto_accept_invite(self, friend_request):
         """

@@ -16,6 +16,7 @@ function add_friend(user_name)
 {
     return window.apiHandler
         .post("friends/add/", {
+            action: "add",
             "friend_username": user_name
         })
         .then((response) => {
@@ -26,16 +27,44 @@ function add_friend(user_name)
         })
 }
 
+function delete_friend(friend_id)
+{
+    return  window.apiHandler
+        .post("friends/delete/", {
+            action: "delete",
+            friend_id,
+        })
+        .then((response) => {
+        })
+        .catch((error) => {
+            alert("Cant Delete user")
+            return false
+        })
+}
+
+// Click event listeners
 document.addEventListener("click", function(event) {
 
+    if (!event.target)
+        return false
+
     // Add friend request
-    if (event.target && event.target.id === "add-friend-btn")
+    if (event.target.id === "add-friend-btn")
     {
         event.preventDefault();
         let user_name = document.getElementById("add-friend-input").value;
         if (add_friend(user_name) === false)
             alert(`User: ${user_name} not found!`);
         window.webSocket.ping();
+    }
+
+    // Delete friend
+    if (event.target.classList.contains("delete-friend-btn"))
+    {
+        let friend_id = event.target.dataset.id;
+        if (!(friend_id && delete_friend(friend_id)))
+            alert("Cant delete Friend")
+
     }
     return false;
 })

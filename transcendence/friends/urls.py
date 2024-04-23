@@ -6,4 +6,5 @@ urlpatterns = [
     path("", index),
 	path("list/", FriendsListView, name="friends-list"),
     path("add/", FriendRequestView.as_view(), name="add-friend-request"),
+    path("delete/", FriendRequestView.as_view(), name="add-friend-request"),
 ]
