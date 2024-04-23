@@ -73,8 +73,11 @@ function resetUI(i){
 		tags.cards[i].style.border = gameInfo.colors[i] + " solid 5px"
 		tags.cards[i].style.color = gameInfo.colors[i]
 		tags.cards[i].style.boxShadow = gameInfo.colors[i] + " 0px 0px 20px"
-		if(gameInfo.nicks[i] == "")
-			gameInfo.nicks[i] = "Player " + (i + 1)
+		if(gameInfo.nicks[i] == "" )
+			if(i > 0)
+				gameInfo.nicks[i] = "Player " + (i + 1)
+			else
+				gameInfo.nicks[i] = tags.names[i].textContent
 		tags.names[i].textContent = gameInfo.nicks[i]
 		tags.scores[i].textContent = gameInfo.player_lives[i]
 	}
@@ -541,15 +544,15 @@ function teleportFollowPaddles(){
 
 document.addEventListener("keydown", (event) => {
 	if(gameInfo.controls.enabled){
-		if (event.key === "w") gameInfo.controls.paddle1key[0] = true;
-		if (event.key === "s") gameInfo.controls.paddle1key[1] = true;
-		if (event.key === "q") if(gameInfo.player_power[0] > 0)  gameInfo.controls.paddle1key[2] = true;
+		if (event.key === "w" || event.key === "W") gameInfo.controls.paddle1key[0] = true;
+		if (event.key === "s" || event.key === "S") gameInfo.controls.paddle1key[1] = true;
+		if (event.key === "q" || event.key === "Q") if(gameInfo.player_power[0] > 0)  gameInfo.controls.paddle1key[2] = true;
 		if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = true;
 		if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = true;
 		if (event.key === "ArrowRight")  if(gameInfo.player_power[1] > 0) gameInfo.controls.paddle2key[2] = true;
-		if (event.key === "h") gameInfo.controls.paddle3key[0] = true;
-		if (event.key === "j") gameInfo.controls.paddle3key[1] = true;
-		if (event.key === "g") if(gameInfo.player_power[2] > 0)  gameInfo.controls.paddle3key[2] = true;
+		if (event.key === "h" || event.key === "H") gameInfo.controls.paddle3key[0] = true;
+		if (event.key === "j" || event.key === "J") gameInfo.controls.paddle3key[1] = true;
+		if (event.key === "g" || event.key === "G") if(gameInfo.player_power[2] > 0)  gameInfo.controls.paddle3key[2] = true;
 		if (event.key === "7") gameInfo.controls.paddle4key[0] = true;
 		if (event.key === "8") gameInfo.controls.paddle4key[1] = true;
 		if (event.key === "9") if(gameInfo.player_power[3] > 0) gameInfo.controls.paddle4key[2] = true;
@@ -557,12 +560,12 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keyup", (event) => {
-	if (event.key === "w") gameInfo.controls.paddle1key[0] = false;
-	if (event.key === "s") gameInfo.controls.paddle1key[1] = false;
+	if (event.key === "w" || event.key === "W") gameInfo.controls.paddle1key[0] = false;
+	if (event.key === "s" || event.key === "S") gameInfo.controls.paddle1key[1] = false;
 	if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = false;
 	if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = false;
-	if (event.key === "h") gameInfo.controls.paddle3key[0] = false;
-	if (event.key === "j") gameInfo.controls.paddle3key[1] = false;
+	if (event.key === "h" || event.key === "H") gameInfo.controls.paddle3key[0] = false;
+	if (event.key === "j"|| event.key === "J") gameInfo.controls.paddle3key[1] = false;
 	if (event.key === "7") gameInfo.controls.paddle4key[0] = false;
 	if (event.key === "8") gameInfo.controls.paddle4key[1] = false;
 });
@@ -624,7 +627,7 @@ function animate() {
 	// console.log("running")
 }
 
-function playGame(startLives){	
+function playGame(startLives){
 	gameInfo.controls.enabled = true
 	gameInfo.player_lives = startLives
 	gameInfo.countDownDone = false
@@ -678,6 +681,7 @@ function getUserParam(){
 		gameInfo.nicks[2] = document.querySelector('#player3nick').value;
 		gameInfo.nicks[3] = document.querySelector('#player4nick').value;
 	}
+	gameInfo.gameIsSet = true
 }
 
 function getGameParam(){

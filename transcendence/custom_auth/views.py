@@ -36,10 +36,10 @@ def is_ajax(request):
 
 @api_view(["GET"])
 def check_session(request):
-    if request.user.is_authenticated:
+    if request.user and request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": True})
     else:
-        return JsonResponse({"isAuthenticated": False}, status=401)
+        return JsonResponse({"isAuthenticated": False})
 
 
 @api_view(["GET", "POST"])

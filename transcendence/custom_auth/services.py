@@ -118,11 +118,11 @@ def get_user_from_token(request):
             return user
     return None
 
-
 def change_user_status(user, status):
     if user is not None and user.activity != status:
-        user.activity = status  # Corrected this line
+        user.activity = status
         user.save()
+        print("User activity: " + user.activity)
         broadcast_status_update(user, status)
         return True
     else:

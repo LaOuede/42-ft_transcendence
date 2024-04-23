@@ -88,7 +88,8 @@ async function handleUpdateProfile() {
     await window.apiHandler.post("user/update/", formData);
     document.getElementById("profile-update-alert").style.display = "block";
     setTimeout(() => {
-      document.getElementById("profile-update-alert").style.display = "none";
+      if(document.getElementById("profile-update-alert"))
+        document.getElementById("profile-update-alert").style.display = "none";
     }, 7000);
   } catch (error) {
     console.log("ERROR UPDATING PROFILE");

@@ -116,8 +116,12 @@ function showScores(){
 
 function setTournName(){
 	for(let i = 0; i < 4; i++){
-		if(gameInfo.nicks[i] == "")
-			tournName[i].textContent = "Player " + (i + 1)
+		if(gameInfo.nicks[i] == ""){
+			if(i > 0)
+				tournName[i].textContent = "Player " + (i + 1)
+			else
+				tournName[i].textContent = document.getElementById("player1name").textContent
+		}
 		else
 			tournName[i].textContent = gameInfo.nicks[i]
 	}
