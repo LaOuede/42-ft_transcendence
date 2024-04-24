@@ -15,22 +15,39 @@
 		<span class="right">
 			<span class="status-dot"
 				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
-			<button class="delete-friend-btn" data-id="{{ friend.pk }}">X</button>
+			<button class="friend-btn delete-friend-btn">X</button>
 		</span>
-		</li>
+	</li>
 
 	{% endfor %}
 </ul>
 {% else %}
 <p>No Friends are available</p>
 {% endif %}
-{% for user in  invites_in %}
-	<form class="invite">
-		<span class="username">{{friend.username}}</span>
-		<span>
-			<input type="submit" class="accept" value="Y">
-			<input type="submit" class="decline" value="N">
-		</span>
-	<form>
 
-{% endfor %}
+{% if invites_in %}
+	<h1>In: </h1>
+	{% for user in  invites_in %}
+	<li class="invite invite_in" data-id="{{ user.pk }}">
+		<span class="username">From: {{user.username}}</span>
+		<span class="right">
+			<button class="friend-btn accept-invite">Y</button>
+			<button class="friend-btn decline-invite">N</button>
+		</span>
+	</li>
+	{% endfor %}
+{% endif%}
+
+
+
+{% if invites_out %}
+	<h1>Sent: </h1>
+	{% for user in invites_out %}
+	<li class="invite invite_in" data-id="{{ user.pk }}">
+		<span class="username">To: {{user.username}}</span>
+		<span class="right">
+			<button class="friend-btn cancel-invite">X</button>
+		</span>
+	</li>
+	{% endfor %}
+{% endif%}

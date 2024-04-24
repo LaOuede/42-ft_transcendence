@@ -62,7 +62,7 @@
 }
 
 
-.friend, .invite{
+.friend, .invite_in, .invite_out{
 	flex-direction: row;
 
 	display: flex;
@@ -106,7 +106,7 @@
 	display: inline;
 }
 
-.invite>span>input {
+.invite button {
 	border-radius: 50%;
 	aspect-ratio: 1;
 	width: 1.5rem;

@@ -6,6 +6,8 @@ from friends.consumers import WSConsumer
 
 
 def get_friends_of(user):
+    if not user:
+        return None
     try:
         friends = FriendList.objects.get(user=user).friends.all()
         print(f"{user.username}: {friends}")

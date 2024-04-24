@@ -5,6 +5,5 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path("", index),
 	path("list/", FriendsListView, name="friends-list"),
-    path("add/", FriendRequestView.as_view(), name="add-friend-request"),
-    path("delete/", FriendRequestView.as_view(), name="add-friend-request"),
+    path("request/", FriendRequestView.as_view(), name="add-friend-request"),
 ]

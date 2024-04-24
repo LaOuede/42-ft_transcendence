@@ -38,20 +38,21 @@ class FriendList(models.Model):
 
         print(f"\033[33m[ DEBUG ] {self.user.username} And {other.username} Are no longer friends\033[00m")
 
-    def is_mutual_friend(self, friend):
-        return friend in self.friends.all()
+    def is_friends_with(self, friend):
+        # if not self.
+        return (friend in self.friends.all()
+                and self in friend.friends.all())
 
 
 
 class FriendRequest(models.Model):
-    from_user   = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="from_user")
-    to_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="to_user")
+    from_user   = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="invites_out")
+    to_user     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="invites_in")
     is_active   = models.BooleanField(blank=True, null=False, default=True)
     created_at  = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # unique_together = ('from_user', 'to_user')
-        pass
+        unique_together = ('from_user', 'to_user',)
 
     def __str__(self):
         return f"from:{self.from_user} to:{self.to_user}"
@@ -86,5 +87,9 @@ class FriendRequest(models.Model):
         print(f"\033[33m[ DEBUG ] {self.from_user.username} canceled their request to {self.to_user.username}\033[00m")
 
         self.is_active = False
-        self.save()
+        self.delete()
 
+    def _active_mirror(self):
+        return FriendRequest.objects.filter(
+            to_user=self.from_user, from_user=self.to_user, is_active=True
+        ).first()
