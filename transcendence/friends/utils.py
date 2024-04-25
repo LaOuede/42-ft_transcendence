@@ -17,13 +17,14 @@ def get_friends_of(user):
         return None
 
 
-def broadcast_status_update(user, status):
+def broadcast_status_update(user, status, message="None"):
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         WSConsumer.user_activity_group,
         {
             "type": "change.status",
-            "message": {"username": user.username, "status": status},
+            "data": {"username": user.username, "status": status},
+            "message": message,
         },
     )
 
@@ -34,6 +35,6 @@ def ping_websocket():
         WSConsumer.user_activity_group,
         {
             "type": "change.status",
-            "message": "None",
+            "message": "WebSocket Pinged",
         },
     )

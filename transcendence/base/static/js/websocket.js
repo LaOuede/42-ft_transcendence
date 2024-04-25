@@ -1,4 +1,5 @@
 import { loadFriends } from "./friends.js";
+import { showNotification } from "./notifications.js";
 
 export function test(){
     console.log("Websocket Test import")
@@ -22,6 +23,7 @@ export class userStatusWebSocket {
 
     onmessage(e) {
         console.log("[WebSocket] Got message: " + e.data);
+        showNotification("WebSocket Ping");
         loadFriends();
     }
 

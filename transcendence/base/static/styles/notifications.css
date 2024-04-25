@@ -1,0 +1,72 @@
+#notificationBox{
+    position: absolute;
+    
+    box-sizing: border-box;
+    bottom: 0;
+    right: 0;
+        
+    bottom: 30px;
+    right: 30px;
+
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    overflow: hidden;
+
+
+    margin: 2rem;
+    padding: 2rem;
+
+    z-index: 99;
+    /* outline: 5px solid gold; */
+
+}
+
+.notification {
+    padding: 10px;
+    margin: 15px;
+    width: 200px;
+    height: 2rem;
+    /* font-weight: 500; */
+    /* background: #aaaa; */
+    
+    position: relative;
+    transform: translateX(100%);
+    color: var(--soft-blue-color);
+    animation: moveleft 0.5s linear forwards, progress 3s linear forwards; 
+
+  }
+
+@keyframes moveleft {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+/* .notification::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background: gold;
+    animation: progress 5s linear forwards;
+  } */
+  
+  @keyframes progress {
+    0% {
+      border-color: var(--blue-color);
+      background: var(#fff);
+      /* background: var(--blue-color); */
+
+    }
+    100% {
+      border-color: var(--purple-color);
+      /* background: var(--purple-color); */
+
+    }
+  }
