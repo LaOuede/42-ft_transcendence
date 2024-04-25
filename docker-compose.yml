@@ -5,7 +5,7 @@ services:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
+    expose:
       - "5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -19,8 +19,8 @@ services:
       - .:/backend
       - static_volume:/backend/base/static
       - static_volume:/backend/base/media
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - postgres
       - redis

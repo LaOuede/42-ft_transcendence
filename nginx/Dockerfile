@@ -6,8 +6,8 @@ ADD conf/default.conf /etc/nginx/http.d/default.conf
 ADD conf/ssl.conf /etc/nginx/ssl/ssl.conf
 
  RUN openssl req -x509 -nodes -days 365 \
- 	-subj "/C=CA/ST=QC/O=42Quebec/CN=acouture.42.fr" \
- 	-addext "subjectAltName=DNS:acouture.42.fr" \
+ 	-subj "/C=CA/ST=QC/O=42Quebec/CN=transcendence" \
+ 	-addext "subjectAltName=DNS:transcendence" \
  	-newkey rsa:2048 \
  	-keyout /etc/ssl/private/nginx-selfsigned.key \
  	-out /etc/ssl/certs/nginx-selfsigned.crt;
