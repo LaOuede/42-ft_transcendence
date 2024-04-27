@@ -49,6 +49,9 @@ services:
       - ./nginx/certs:/etc/nginx/certs
       - ./nginx/conf.d:/etc/nginx/conf.d
       - static_volume:/backend/base/static
+      - ./nginx/conf/default.conf:/etc/nginx/http.d/default.conf
+      - ./nginx/logs:/var/log/nginx
+
 
   redis:
     image: redis:7
