@@ -19,7 +19,6 @@ class WSConsumer(WebsocketConsumer):
     def connect(self):
         print(GREEN + "[DEBUG] Connection to WebSocket" + RESET)
 
-        print(RED, f"{self.scope=}\n\n\n{self.scope['user'].username=}")
         # Join group
         async_to_sync(self.channel_layer.group_add)(
             self.user_activity_group, self.channel_name

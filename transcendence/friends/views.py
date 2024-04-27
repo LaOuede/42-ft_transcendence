@@ -29,11 +29,11 @@ def FriendsListView(request):
     user = get_user_from_token(request)
     friends = get_friends_of(user)
     invites_in = [
-        req.from_user 
+        req.from_user
         for req in user.invites_in.filter(is_active=True)
     ]
     invites_out = [
-        req.to_user 
+        req.to_user
         for req in user.invites_out.filter(is_active=True)
     ]
 
@@ -154,7 +154,7 @@ class FriendRequestView(APIView):
             return get_object_or_404(
                 User, pk=request.data.get("friend_id"), is_staff=False,
             )
-        
+
         if (request.data.get("friend_username")):
             return get_object_or_404(
                 User, username=request.data.get("friend_username"), is_staff=False,
