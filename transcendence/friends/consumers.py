@@ -7,7 +7,9 @@ from asgiref.sync import async_to_sync
 
 GREEN = "\033[33m"
 RESET = "\033[00m"
-RED = "\031[31m"
+RED = "\033[31m"
+BLUE = "\033[36m"
+
 
 
 class WSConsumer(WebsocketConsumer):
@@ -15,8 +17,9 @@ class WSConsumer(WebsocketConsumer):
     user_activity_group = "user_activity"
 
     def connect(self):
-        print(GREEN + "Connection to WebSocket" + RESET)
+        print(GREEN + "[DEBUG] Connection to WebSocket" + RESET)
 
+        print(RED, f"{self.scope=}\n\n\n{self.scope['user'].username=}")
         # Join group
         async_to_sync(self.channel_layer.group_add)(
             self.user_activity_group, self.channel_name
