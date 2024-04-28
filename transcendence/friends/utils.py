@@ -2,7 +2,7 @@ from .models import FriendList
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from friends.consumers import WSConsumer
+from friends.consumers import WSConsumer, get_user_private_group
 
 
 def get_friends_of(user):
@@ -23,6 +23,14 @@ def broadcast_status_update(user, status):
             "type": "change.status",
             "message": {"username": user.username, "status": status},
         },
+    )
+
+
+def ws_send_private_message(user, data):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        get_user_private_group(user),
+        data
     )
 
 

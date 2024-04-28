@@ -11,22 +11,32 @@ RED = "\033[31m"
 BLUE = "\033[36m"
 
 
+def get_user_private_group(user):
+    return f"private_group_{user.pk}"
 
 class WSConsumer(WebsocketConsumer):
 
     user_activity_group = "user_activity"
 
     def connect(self):
-        print(GREEN + "[DEBUG] Connection to WebSocket" + RESET)
+        user = self.scope.get("user")
+
+        print(GREEN + f"[DEBUG] Connection to WebSocket from {user}" + RESET)
 
         # Join group
         async_to_sync(self.channel_layer.group_add)(
             self.user_activity_group, self.channel_name
         )
+
+        private_group = get_user_private_group(user)
+        async_to_sync(self.channel_layer.group_add)(
+            private_group, self.channel_name
+        )
+        print(f"[DEBUG] {user.username} added to {private_group}")
         self.accept()
 
     def disconnect(self, code):
-        print(RED + "[33mConnection to WebSocket" + RESET)
+        print(RED + "Connection to WebSocket" + RESET)
         async_to_sync(self.channel_layer.group_discard)(
             self.user_activity_group, self.channel_name
         )

@@ -49,14 +49,13 @@ class TokenAuthMiddleware:
     async def get_user_from_scope(self, scope):
 
         cookies = await self.get_cookies_from_scope(scope)
-        
+
         access_token = cookies.get("access_token")
         decoded_payload = await sync_to_async(decode_jwt)(access_token)
         if decoded_payload is not None:
             user = await get_user(decoded_payload.get("user_id"))
-
             if user:
                 return user
-        return None
+        return AnonymousUser()
 
 TokenAuthMiddlewareStack = lambda inner: TokenAuthMiddleware(AuthMiddlewareStack(inner))
