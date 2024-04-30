@@ -36,9 +36,14 @@ class WSConsumer(WebsocketConsumer):
         print(RED + f"[WebSocker] Disconnect User:{user.username} - code:{code}" + RESET)
         self.leave_all_groups()
 
+
+
     def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
         print(GREEN + "[WebSocket] Recieved : ", data, RESET)
+
+        if data.get("type") == "ping":
+            print(f"[WebSocket] PING from {self.scope.get('user')}" )
 
     def notification(self, event):
         self.send(
@@ -49,6 +54,8 @@ class WSConsumer(WebsocketConsumer):
         self.send(
             json.dumps(event)
         )
+
+
 
     def add_to_group(self, group_name):
         

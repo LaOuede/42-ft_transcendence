@@ -78,6 +78,7 @@ function handleLogin(e) {
       /* console.error("Error:", error); */
     })
     .finally(() => {
+      window.ws.reconnect();
       loginButton.disabled = false;
       loader.style.display = "none";
     });
