@@ -8,7 +8,7 @@ export function test(){
 export class userStatusWebSocket {
     constructor()
     {
-        const wsProtocol = window.location.protocol === "https:" ? "ws" : "ws";
+        const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
         this.websocket = new WebSocket(
             wsProtocol + "://"
             + window.location.host
