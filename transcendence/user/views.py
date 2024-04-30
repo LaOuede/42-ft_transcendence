@@ -31,7 +31,6 @@ def update_user_status_after_game(user, status):
 	if user.activity == 'IG':
 		user.activity = status
 		user.save()
-	print("User activity: " + user.activity)
 
 @api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
@@ -73,7 +72,6 @@ def UserUpdate(request):
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserDelete(request):
-	print("request: ", request.method)
 	if request.method == "POST":
 		user = get_user_from_token(request)
 		if user is None:

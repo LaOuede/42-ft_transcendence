@@ -29,11 +29,11 @@ def FriendsListView(request):
     user = get_user_from_token(request)
     friends = get_friends_of(user)
     invites_in = [
-        req.from_user 
+        req.from_user
         for req in user.invites_in.filter(is_active=True)
     ]
     invites_out = [
-        req.to_user 
+        req.to_user
         for req in user.invites_out.filter(is_active=True)
     ]
 
@@ -44,7 +44,7 @@ def FriendsListView(request):
         {"friends_list": friends, "invites_in": invites_in, "invites_out": invites_out})
 
 class FriendRequestView(APIView):
-    
+
     """
     Handels get request. Created for testing, can be deleted
     """
@@ -60,7 +60,6 @@ class FriendRequestView(APIView):
     """
     def post(self, request, *args, **kwargs):
 
-        print("\033[31m", "[DEBUG] request.data: ", request.data)
         action = request.data.get("action")
         sender = request.user
         other = self._get_other_user(request, action)
@@ -73,15 +72,13 @@ class FriendRequestView(APIView):
 
         if (action == "cancel"):
             return self.cancel_invite(sender, other)
-        
+
         if (action == "decline"):
             return self.decline_invite(sender, other)
 
         return Response({"Message": "Action no set properly"}, status=404)
 
     def add_friend(self, sender, receiver):
-
-        print("\033[31m", "[DEBUG] Adding user", sender.username, receiver.username)
 
         if self._is_same_user(sender, receiver):
             return Response(
@@ -92,7 +89,7 @@ class FriendRequestView(APIView):
             return Response(
                 {"message": "Request already sent"}, status=status.HTTP_200_OK
             )
-        
+
         if self._already_friends(sender, receiver):
             return Response(
                 {"message": "Already friends"}, status=status.HTTP_200_OK
@@ -100,7 +97,7 @@ class FriendRequestView(APIView):
 
         friend_request = FriendRequest(from_user=sender, to_user=receiver)
         friend_request.save()
-       
+
         # self.auto_accept_invite(friend_request)
         if friend_request._active_mirror():
             friend_request.accept()
@@ -113,7 +110,6 @@ class FriendRequestView(APIView):
         )
 
     def delete_friend(self, sender, other):
-        print("\033[31m", "[DEBUG] Deleting friend", sender.username, other.username)
         # Errors
             # If other does not exist
             # If other is not a friend
@@ -126,8 +122,6 @@ class FriendRequestView(APIView):
 
     def decline_invite(self, sender, other):
 
-        print("\033[31m", "[DEBUG] Declining invitation", sender.username, other.username)
-
         friend_request = FriendRequest.objects.filter(from_user=other, to_user=sender, is_active=True).first()
         if friend_request:
             friend_request.decline()
@@ -136,8 +130,6 @@ class FriendRequestView(APIView):
         return Response({"message": "Friend Request Canceled"}, status=status.HTTP_200_OK)
 
     def cancel_invite(self, sender, other):
-        print("\033[31m", "[DEBUG] Canceling invitation", sender.username, other.username)
-
         friend_request = FriendRequest.objects.filter(from_user=sender, to_user=other, is_active=True).first()
         if friend_request:
             friend_request.cancel()
@@ -150,7 +142,7 @@ class FriendRequestView(APIView):
 
     def _request_already_exists(self, sender, receiver):
         return FriendRequest.objects.filter(from_user=sender, to_user=receiver, is_active=True).exists()
-    
+
     def _already_friends(self, sender, receiver):
         try:
             return sender.friends_list.is_friends_with(receiver)
@@ -162,7 +154,7 @@ class FriendRequestView(APIView):
             return get_object_or_404(
                 User, pk=request.data.get("friend_id"), is_staff=False,
             )
-        
+
         if (request.data.get("friend_username")):
             return get_object_or_404(
                 User, username=request.data.get("friend_username"), is_staff=False,
