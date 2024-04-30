@@ -79,7 +79,6 @@ document.addEventListener("click", function(event) {
         let user_name = input.value;
         if (add_friend(user_name) === false)
             alert(`User: ${user_name} not found!`);
-        window.webSocket.ping();
         input.value = "";
     }
 
@@ -115,7 +114,6 @@ document.addEventListener("click", function(event) {
             if (!(friend_id && delete_friend(friend_id)))
                 alert("Cant delete Friend")
         }
-
     }
     return false;
 })

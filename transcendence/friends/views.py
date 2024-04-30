@@ -16,7 +16,7 @@ from .models import FriendRequest
 from friends.utils import get_friends_of
 from custom_auth.views import get_user_from_token
 
-from friends.utils import ping_websocket
+from friends.utils import broadcast_refresh, notify_users
 
 def index(request):
     return render(request, "friends/index.html",)
@@ -64,6 +64,8 @@ class FriendRequestView(APIView):
         sender = request.user
         other = self._get_other_user(request, action)
 
+        broadcast_refresh()
+
         if (action == "add" or action == "accept"):
             return self.add_friend(sender, other)
 
@@ -75,6 +77,7 @@ class FriendRequestView(APIView):
 
         if (action == "decline"):
             return self.decline_invite(sender, other)
+        
 
         return Response({"Message": "Action no set properly"}, status=404)
 
@@ -102,8 +105,10 @@ class FriendRequestView(APIView):
         if friend_request._active_mirror():
             friend_request.accept()
             friend_request._active_mirror().accept()
+        
+        notify_users([receiver], f"New Freind request from: {sender.username}")
+        notify_users([sender], f"Friend request sent to: {receiver.username}")
 
-        ping_websocket()
         return Response(
             {"message": "success", "status": "201"},
             status=status.HTTP_201_CREATED
@@ -117,7 +122,6 @@ class FriendRequestView(APIView):
         # delete friendship
         sender.friends_list.unfriend(other)
 
-        ping_websocket()
         return Response({"message": "friend deleted"}, status=status.HTTP_400_BAD_REQUEST)
 
     def decline_invite(self, sender, other):
@@ -126,7 +130,6 @@ class FriendRequestView(APIView):
         if friend_request:
             friend_request.decline()
 
-        ping_websocket()
         return Response({"message": "Friend Request Canceled"}, status=status.HTTP_200_OK)
 
     def cancel_invite(self, sender, other):
@@ -134,7 +137,6 @@ class FriendRequestView(APIView):
         if friend_request:
             friend_request.cancel()
 
-        ping_websocket()
         return Response({"message": "Friend Request Canceled"}, status=status.HTTP_200_OK)
 
     def _is_same_user(self, sender, receiver):
@@ -159,3 +161,10 @@ class FriendRequestView(APIView):
             return get_object_or_404(
                 User, username=request.data.get("friend_username"), is_staff=False,
             )
+        
+
+from django.http import HttpResponse
+def info(request):
+    print("\033[31m[",request.user, "\033[00m]")
+    print("\033[31m[",dir(request), "\033[00m]")
+    return HttpResponse(request)

@@ -16,6 +16,7 @@ export class userStatusWebSocket {
         );
         this.websocket.onopen = e => {console.log("[ JS ] WebSocket connection successful!")}
         this.websocket.onmessage = this.onmessage;
+        this.websocket.onclose = this.ondisconnect;
     }
 
     get socket(){
@@ -24,8 +25,7 @@ export class userStatusWebSocket {
 
     onmessage(e) {
         console.log("[WebSocket] Got message: " + e.data);
-        showNotification("WebSocket Ping");
-        loadFriends();
+        refreshUI(JSON.parse(e.data));
     }
 
     send(obj){
@@ -46,6 +46,27 @@ export class userStatusWebSocket {
             }
         })
     }
+
+    ondisconnect(e) {
+        console.error("[WebSocket] unexpected disconnect")
+    }
+}
+
+function refreshUI(data)
+{
+    console.log( data);
+    if (data.type === "notification")
+    {
+        showNotification(data.message)
+    }
+    else if (data.type === "refresh")
+    {
+        console.log("[WEBSOCKET] Got a refresh Message")
+        loadFriends()
+    }
+    else
+        console.log("NO IDEA")
+    
 }
 
 window.webSocket = new userStatusWebSocket()

@@ -1,3 +1,4 @@
+import { loadFriends } from "./friends.js";
 import { gameInfo, playDemo } from "./pong/pong.js";
 import { translatePage, translatePlaceholder } from "./translation/translate.js";
 
@@ -20,7 +21,7 @@ function loadContent(path) {
     translatePage();
     translatePlaceholder();
     if (path === "user/profile/")
-      window.webSocket.ping()
+      loadFriends()
     if (path != "pong/playonevsone/" && path != "pong/playrumble/" && path != "pong/playtournaments/")
       playDemo();
     else

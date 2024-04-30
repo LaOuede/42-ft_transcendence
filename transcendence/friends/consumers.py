@@ -5,7 +5,8 @@ from time import sleep
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
-GREEN = "\033[33m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
 RESET = "\033[00m"
 RED = "\033[31m"
 BLUE = "\033[36m"
@@ -16,7 +17,7 @@ def get_user_private_group(user):
 
 class WSConsumer(WebsocketConsumer):
 
-    broadcast_group = "ser_activity"
+    broadcast_group = "broadcast_group"
     joined_groups = []
 
     def connect(self):
@@ -32,40 +33,34 @@ class WSConsumer(WebsocketConsumer):
 
     def disconnect(self, code):
         user = self.scope["user"]
-        print(RED + f"[WebSocker] Disconnect {user.username} - {code}" + RESET)
+        print(RED + f"[WebSocker] Disconnect User:{user.username} - code:{code}" + RESET)
         self.leave_all_groups()
 
     def receive(self, text_data=None, bytes_data=None):
-        print(GREEN + "WS Recieved : ", text_data, RESET)
-        text_data_json = json.loads(text_data)
-        message = text_data_json.get("message")
-
-        print(GREEN, "Received text_data: ", text_data, RESET)
-        print(GREEN, "message: ", message, RESET)
-
-
-        if message == "notify":
-            async_to_sync(self.channel_layer.group_send)(
-                self.broadcast_group, {"type": "notification", "message": message}
-            )
+        data = json.loads(text_data)
+        print(GREEN + "[WebSocket] Recieved : ", data, RESET)
 
     def notification(self, event):
-        data = json.dumps({"message": "This is a notification message"})
-        print(GREEN, f"{event=}", RESET)
-        self.send(data)
+        self.send(
+            json.dumps(event)
+        )
 
     def refresh(self, event):
-        data = json.dumps({"message": "This is a refresh message"})
-        self.send(data)
+        self.send(
+            json.dumps(event)
+        )
 
     def add_to_group(self, group_name):
+        
         self.joined_groups.append(group_name)
+        print(GREEN + f"[WebSocket] {self.scope['user'].username} added to group {group_name}" + RESET)
         async_to_sync(self.channel_layer.group_add)(
             group_name, self.channel_name
         )
 
     def leave_all_groups(self):
         for group in self.joined_groups:
+            print(YELLOW + f"[WebSocket] {self.scope['user'].username} removed from group {group}" + RESET)
             async_to_sync(self.channel_layer.group_discard)(
                 group, self.channel_name
             )

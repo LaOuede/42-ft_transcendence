@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from user.models import User
 from .models import OTPSession
 
-from friends.utils import broadcast_status_update
+from friends.utils import broadcast_refresh
 
 def verify_otp_service(session_token, otp):
     otp_session = OTPSession.objects.filter(session_token=session_token).first()
@@ -122,7 +122,7 @@ def change_user_status(user, status):
     if user is not None and user.activity != status:
         user.activity = status
         user.save()
-        broadcast_status_update(user, status)
+        broadcast_refresh()
         return True
     else:
         return False

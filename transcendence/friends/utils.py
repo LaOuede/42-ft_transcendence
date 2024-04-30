@@ -15,14 +15,13 @@ def get_friends_of(user):
         return None
 
 
-def broadcast_status_update(user, status, message="None"):
+def broadcast_refresh():
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         WSConsumer.broadcast_group,
         {
-            "type": "change.status",
-            "data": {"username": user.username, "status": status},
-            "message": message,
+            "type": "refresh",
+            "message": "",
         },
     )
 
@@ -34,13 +33,17 @@ def ws_send_private_message(user, data):
         data
     )
 
+def notify_users(users, message):
+    for user in users:
+        ws_send_private_message(user, {
+            'type': 'notification',
+            'message': message
+})
 
-def ping_websocket():
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        WSConsumer.broadcast_group,
-        {
-            "type": "change.status",
-            "message": "WebSocket Pinged",
-        },
-    )
+
+def broadcast_message(message):
+    message = {
+        'type': 'broadcast',
+        'message': message
+    }
+    async_to_sync(get_channel_layer().group_send)(WSConsumer.broadcast_group, message)
