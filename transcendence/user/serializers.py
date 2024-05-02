@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator, EmailValidator
 from django.core.files.storage import default_storage
 from .models import User, VALID_AVATARS
 
-from friends.utils import broadcast_status_update
+from friends.utils import broadcast_refresh
 
 
 
@@ -46,7 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
 		instance.email = validated_data.get('email', instance.email)
 		instance.activity = validated_data.get('activity', instance.activity)
 		instance.language = validated_data.get('language', instance.language)
-		broadcast_status_update(instance, instance.activity)
+		broadcast_refresh()
 
 		instance.save()
 		return instance

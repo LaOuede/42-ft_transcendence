@@ -55,7 +55,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'middleware.jwt_authentication_middleware.JWTAuthenticationMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -64,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_otp.middleware.OTPMiddleware",
+    'middleware.jwt_authentication_middleware.JWTAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = "transcendence.urls"

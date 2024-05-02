@@ -10,7 +10,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from custom_auth.views import get_user_from_token
 
 from friends.models import FriendList
-from friends.utils import get_friends_of
+from friends.utils import get_friends_of, broadcast_refresh
+
 
 def is_ajax(request):
 	return request.headers.get("X-Requested-With") == "XMLHttpRequest"
@@ -31,7 +32,7 @@ def update_user_status_after_game(user, status):
 	if user.activity == 'IG':
 		user.activity = status
 		user.save()
-	print("User activity: " + user.activity)
+		broadcast_refresh()
 
 @api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
@@ -73,7 +74,6 @@ def UserUpdate(request):
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserDelete(request):
-	print("request: ", request.method)
 	if request.method == "POST":
 		user = get_user_from_token(request)
 		if user is None:

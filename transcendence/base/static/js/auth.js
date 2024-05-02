@@ -78,6 +78,7 @@ function handleLogin(e) {
       /* console.error("Error:", error); */
     })
     .finally(() => {
+      window.ws.reconnect();
       loginButton.disabled = false;
       loader.style.display = "none";
     });
@@ -207,7 +208,8 @@ logoutButton.addEventListener("click", function (e) {
     .then(async (data) => {
       await logout(data);
     })
-    .catch((error) => console.log("ERROR LOGOUT"));
+    .catch((error) => console.log("ERROR LOGOUT"))
+    .finally(() => window.ws.reconnect());
 });
 
 async function logout(data) {

@@ -2,36 +2,48 @@ from .models import FriendList
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from friends.consumers import WSConsumer
+from friends.consumers import WSConsumer, get_user_private_group
 
 
 def get_friends_of(user):
+    if not user:
+        return None
     try:
         friends = FriendList.objects.get(user=user).friends.all()
-        print(f"{user.username}: {friends}")
         return friends
     except:
-        print(f"{user.username}: NO FRIENDS")
         return None
 
 
-def broadcast_status_update(user, status):
+def broadcast_refresh():
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
-        WSConsumer.user_activity_group,
+        WSConsumer.broadcast_group,
         {
-            "type": "change.status",
-            "message": {"username": user.username, "status": status},
+            "type": "refresh",
+            "message": "",
         },
     )
 
 
-def ping_websocket():
+def ws_send_private_message(user, data):
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
-        WSConsumer.user_activity_group,
-        {
-            "type": "change.status",
-            "message": "None",
-        },
+        get_user_private_group(user),
+        data
     )
+
+def notify_users(users, message):
+    for user in users:
+        ws_send_private_message(user, {
+            'type': 'notification',
+            'message': message
+})
+
+
+def broadcast_message(message):
+    message = {
+        'type': 'broadcast',
+        'message': message
+    }
+    async_to_sync(get_channel_layer().group_send)(WSConsumer.broadcast_group, message)
