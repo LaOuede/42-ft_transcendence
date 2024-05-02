@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 {% if friends_list %}
 <ul id="friends-list">
 	<!-- <li class="friend" data-id="{{ friend.pk }}">
@@ -14,7 +16,7 @@
 		<span class="username">{{friend.username}}</span>
 		<span class="right">
 			<span class="status-dot"
-				style="background-color: {% if friend.activity == 'ON' %}green{% elif friend.activity == 'OF' %}red{% else %}yellow{% endif %}"></span>
+				style="background-color: {{ friend.activity|get_status_color }}"></span>
 			<button class="friend-btn delete-friend-btn">X</button>
 		</span>
 	</li>

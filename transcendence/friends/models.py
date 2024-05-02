@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class FriendList(models.Model):
     user    = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friends_list")
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="friends")

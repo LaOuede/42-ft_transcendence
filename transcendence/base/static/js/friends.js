@@ -1,4 +1,5 @@
 // logout function
+import { showNotification } from "./notifications.js";
 
 export function loadFriends() {
     console.log("[DEBUG] loading Friends");
@@ -18,9 +19,13 @@ function make_friend_request(context)
         "friends/request/",
         context
     )
-    .catch((error) => {
-        // alert("Cant add user")
-        console.log("Cant add user");
+    .then((response) =>{
+        console.log(response)
+        if (response.error)
+            showNotification("Error: " + response.error)
+    })
+    .catch((error) => {        
+        showNotification("Can't add this user")
         return false;
     })
 }

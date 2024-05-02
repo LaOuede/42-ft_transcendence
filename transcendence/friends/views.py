@@ -21,6 +21,8 @@ from friends.utils import broadcast_refresh, notify_users
 def index(request):
     return render(request, "friends/index.html",)
 
+
+
 # Create your views here.
 @authentication_classes([JWTAuthentication])
 def FriendsListView(request):
@@ -37,11 +39,15 @@ def FriendsListView(request):
         for req in user.invites_out.filter(is_active=True)
     ]
 
-
     return render(
         request,
         "friends/list.html",
-        {"friends_list": friends, "invites_in": invites_in, "invites_out": invites_out})
+        {
+            "friends_list": friends,
+            "invites_in": invites_in,
+            "invites_out": invites_out,
+        }
+    )
 
 class FriendRequestView(APIView):
 
@@ -70,6 +76,8 @@ class FriendRequestView(APIView):
             return self.add_friend(sender, other)
 
         if (action == "delete"):
+            notify_users([sender], f"You and {other.username} are no longer friends")
+            notify_users([other], f"You and {sender.username} are no longer friends")
             return self.delete_friend(sender, other)
 
         if (action == "cancel"):
@@ -85,17 +93,17 @@ class FriendRequestView(APIView):
 
         if self._is_same_user(sender, receiver):
             return Response(
-                {"message": "Can't add yourself"}, status=status.HTTP_400_BAD_REQUEST
+                {"error": "Can't add yourself"}, status=status.HTTP_200_OK
             )
 
         if self._request_already_exists(sender, receiver):
             return Response(
-                {"message": "Request already sent"}, status=status.HTTP_200_OK
+                {"error": "Request already sent"}, status=status.HTTP_200_OK
             )
 
         if self._already_friends(sender, receiver):
             return Response(
-                {"message": "Already friends"}, status=status.HTTP_200_OK
+                {"error": "Already friends"}, status=status.HTTP_200_OK
             )
 
         friend_request = FriendRequest(from_user=sender, to_user=receiver)
@@ -124,7 +132,7 @@ class FriendRequestView(APIView):
         # delete friendship
         sender.friends_list.unfriend(other)
 
-        return Response({"message": "friend deleted"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "friend deleted"}, status=status.HTTP_200_OK)
 
     def decline_invite(self, sender, other):
 
