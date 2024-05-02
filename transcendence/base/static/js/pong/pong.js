@@ -267,11 +267,19 @@ function endOfRound(){
 				gameInfo.winner = gameInfo.nicks[i]
 				document.getElementById("scoreBoard").style.display = "block"
 				document.getElementById("winner").textContent = gameInfo.nicks[i]
+				postWinner()
 			}
 		}
 	}
 	if(gameInfo.tournaments.enabled)
 		showScores()
+}
+
+ export function postWinner(){
+	if(gameInfo.winner == gameInfo.nicks[0])
+		console.log("player 1 win")
+	else
+		console.log("player 1 lose")
 }
 
 function goalDetection() {
