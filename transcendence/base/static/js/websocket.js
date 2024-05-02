@@ -19,7 +19,6 @@ export class userStatusWebSocket {
     
     connect() {
         try {
-            console.log("Attempting connexion to ", this.url)
             this.websocket = new WebSocket(this.url);
 
             this.websocket.onmessage = this.onmessage.bind(this);
@@ -37,7 +36,7 @@ export class userStatusWebSocket {
     }
     
     onopen(e) {
-        console.log("[ JS ] WebSocket connection successful!");
+        console.log("[WebSocket] Connection successful!");
         this.reconnection_attempts = 0;
     }
 
@@ -63,6 +62,7 @@ export class userStatusWebSocket {
     }
 
     reconnect() {
+        console.log("[WebSocket] Reconnecting WebSocket")
         if (this.ongoingConnection()) {
             this.websocket.close();
         }
@@ -84,14 +84,21 @@ export class userStatusWebSocket {
         }
     }
 
-    onerror(err) {
+    onerror(event) {
         console.error("[WebSocket] Error: ", err.message);
         // this.attemptReconnection();
 
     }
 
-    onclose(e) {
-        console.log("[WebSocket] Connexion closed")
+    onclose(event) {
+        if (event.wasClean) {
+            console.log(`[WebSocket] Connection closed gracefully.`);
+          } else {
+            // e.g. server process killed or network down
+            // event.code is usually 1006 in this case
+            console.log('[WebSocket] Connection died [code=${event.code}; reason=${event.reason}]');
+            this.attemptReconnection();
+          }
         // this.attemptReconnection();
     }
 }

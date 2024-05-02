@@ -208,7 +208,8 @@ logoutButton.addEventListener("click", function (e) {
     .then(async (data) => {
       await logout(data);
     })
-    .catch((error) => console.log("ERROR LOGOUT"));
+    .catch((error) => console.log("ERROR LOGOUT"))
+    .finally(() => window.ws.reconnect());
 });
 
 async function logout(data) {
