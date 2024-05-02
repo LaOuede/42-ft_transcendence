@@ -105,9 +105,11 @@ class FriendRequestView(APIView):
         if friend_request._active_mirror():
             friend_request.accept()
             friend_request._active_mirror().accept()
-        
-        notify_users([receiver], f"New Freind request from: {sender.username}")
-        notify_users([sender], f"Friend request sent to: {receiver.username}")
+            notify_users([receiver], f"You are now friends with: {sender.username}!")
+            notify_users([sender], f"You are now friends with: {receiver.username}!")
+        else:
+            notify_users([receiver], f"New Freind request from: {sender.username}")
+            notify_users([sender], f"Friend request sent to: {receiver.username}")
 
         return Response(
             {"message": "success", "status": "201"},
