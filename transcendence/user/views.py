@@ -79,7 +79,10 @@ def UserDelete(request):
 		if user is None:
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		user.delete()
-		return JsonResponse({"success": "Account suppressed successfully"}, status=200)
+		response = JsonResponse({"success": "Account suppressed successfully"}, status=200)
+		response.delete_cookie("access_token")
+		response.delete_cookie("refresh_token")
+		return response
 	else:
 		return JsonResponse({"error": "Invalid request"}, status=400)
 
