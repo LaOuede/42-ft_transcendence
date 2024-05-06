@@ -47,7 +47,7 @@ def get_user_stats(user):
 		"playedgames": games.count(),
 		"wongames": wins,
 		"lostgames": losses,
-		"winrate": winrate,
+		"winrate": f"{winrate:.2}%",
 	}
 
 @api_view(['GET', 'POST'])
