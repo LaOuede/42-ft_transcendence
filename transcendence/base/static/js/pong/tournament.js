@@ -1,4 +1,4 @@
-import { gameInfo, playGame, postWinner } from "../pong/pong.js"
+import { gameInfo, playGame, postWinner, truncateString } from "../pong/pong.js"
 import { translate } from "../translation/translate.js";
 
 const playersScores = [0, 0, 0, 0]
@@ -121,7 +121,7 @@ function setTournName(){
 			if(i > 0)
 				tournName[i].textContent = "Player " + (i + 1)
 			else
-				tournName[i].textContent = document.getElementById("player1name").textContent
+				tournName[i].textContent = truncateString(document.getElementById("player1name").textContent)
 		}
 		else
 			tournName[i].textContent = gameInfo.nicks[i]

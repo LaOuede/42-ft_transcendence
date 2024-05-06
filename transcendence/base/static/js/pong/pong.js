@@ -77,7 +77,7 @@ function resetUI(i){
 			if(i > 0)
 				gameInfo.nicks[i] = "Player " + (i + 1)
 			else
-				gameInfo.nicks[i] = tags.names[i].textContent
+				gameInfo.nicks[i] = truncateString(tags.names[i].textContent)
 		tags.names[i].textContent = gameInfo.nicks[i]
 		tags.scores[i].textContent = gameInfo.player_lives[i]
 	}
@@ -276,10 +276,17 @@ function endOfRound(){
 }
 
  export function postWinner(){
-	if(gameInfo.winner == gameInfo.nicks[0])
+	
+	// window.apiHandler.post("game/create/").then(response => console.log(response))
+	if(gameInfo.winner == gameInfo.nicks[0]){
 		console.log("player 1 win")
-	else
+		window.apiHandler.post("game/create/")
+		console.log(gameInfo.gamemode)
+	} else {
+		window.apiHandler.post()
 		console.log("player 1 lose")
+		console.log(gameInfo.gamemode)
+	}
 }
 
 function goalDetection() {
@@ -648,6 +655,7 @@ function playGame(startLives){
 
 function playDemo(){
 	if(gameInfo.demoCam.enabled === false){
+		gameInfo.countDownDone =  false
 		gameInfo.controls.enabled = false
 		gameInfo.demoCam.enabled = true
 		gameInfo.player_lives = [0, 0, 0, 0]
@@ -683,13 +691,17 @@ function getUserParam(){
 		gameInfo.colors[2] = selectColor(document.querySelector('#p3colorSelect option:checked').value)
 		gameInfo.colors[3] = selectColor(document.querySelector('#p4colorSelect option:checked').value)
 	}
-	gameInfo.nicks[0] = document.querySelector('#player1nick').value;
-	gameInfo.nicks[1] = document.querySelector('#player2nick').value;
+	gameInfo.nicks[0] = truncateString(document.querySelector('#player1nick').value)
+	gameInfo.nicks[1] = truncateString(document.querySelector('#player2nick').value)
 	if(document.querySelector('#player3nick')){
-		gameInfo.nicks[2] = document.querySelector('#player3nick').value;
-		gameInfo.nicks[3] = document.querySelector('#player4nick').value;
+		gameInfo.nicks[2] = truncateString(document.querySelector('#player3nick').value)
+		gameInfo.nicks[3] = truncateString(document.querySelector('#player4nick').value)
 	}
 	gameInfo.gameIsSet = true
+}
+
+function truncateString(nickname){
+	return nickname.length > 12 ? nickname.substring(0, 12) : nickname;
 }
 
 function getGameParam(){
@@ -722,6 +734,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayVs2") {
 			e.preventDefault();
+			gameInfo.gamemode = 0
 			getGameParam()
 			resetLives(2)
 			gameInfo.tournaments.enabled = false
@@ -734,6 +747,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayRumble") {
 			e.preventDefault();
+			gameInfo.gamemode = 1
 			getGameParam()
 			resetLives(4)
 			gameInfo.tournaments.enabled = false
@@ -746,6 +760,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayTourn") {
 			e.preventDefault();
+			gameInfo.gamemode = 2
 			getGameParam()
 			tournament()
 		}
@@ -789,4 +804,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	})
 })
 
-export { gameInfo, playDemo, playGame }
+export { gameInfo, playDemo, playGame, truncateString }
