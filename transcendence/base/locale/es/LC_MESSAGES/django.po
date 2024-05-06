@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: transcendence/user/models.py:27
 msgid "The Email field must be set"
-msgstr ""
+msgstr "El campo Email debe estar configurado"
 
 #: transcendence/user/serializers.py:20
 msgid "Username must contain only letters, numbers, and underscores"
