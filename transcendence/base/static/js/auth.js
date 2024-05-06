@@ -343,6 +343,7 @@ function handleOAuthLogin(e) {
       console.log("ERROR OAUTH LOGIN!");
     })
     .finally(() => {
-      oauthButton.disabled = false;
+      if (oauthButton !== null)
+        oauthButton.disabled = false;
     });
 }
