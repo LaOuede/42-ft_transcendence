@@ -8,9 +8,9 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, authentication_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from custom_auth.views import get_user_from_token
-
 from friends.models import FriendList
 from friends.utils import get_friends_of, broadcast_refresh
+from django.utils import translation
 
 
 def is_ajax(request):
@@ -81,14 +81,20 @@ def UserSettings(request):
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserUpdate(request):
-	user = get_user_from_token(request)
-	if user is None:
-		return Response({"error": "Invalid token"}, status=status.HTTP_401_UNAUTHORIZED)
-	serializer = UserSerializer(user, data=request.data, partial=True)
-	if serializer.is_valid():
-		serializer.save()
-		return Response({"user": serializer.data}, status=status.HTTP_200_OK)
-	return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    language_code = request.headers.get('Accept-Language', 'en')
+    translation.activate(language_code)
+
+    user = get_user_from_token(request)
+    if user is None:
+        return Response({"error": translation.gettext("Invalid token")}, status=status.HTTP_401_UNAUTHORIZED)
+
+    serializer = UserSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+    return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+translation.deactivate()
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])

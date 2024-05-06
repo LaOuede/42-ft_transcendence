@@ -1,3 +1,6 @@
+import { showNotification } from "./notifications.js";
+import { translate } from "./translation/translate.js";
+
 document.addEventListener("DOMContentLoaded", function (e) {
   document.addEventListener("click", function (e) {
     if (e.target && e.target.id === "view-settings-button") {
@@ -54,6 +57,8 @@ async function handleUpdateProfile() {
 
   if (!avatarFile && !username && !email && !activity && !language) {
     console.log("No changes detected. No update needed.");
+    let translatedMessage = translate("no_changes")
+    showNotification(translatedMessage);
     return;
   }
   const formData = new FormData();
@@ -62,7 +67,8 @@ async function handleUpdateProfile() {
   if (avatarFile) {
     const avatarFileType = avatarFile.type;
     if (!avatarFileType.startsWith("image")) {
-      handleUpdateProfileErrors("Invalid file type. Please upload an image.");
+      let translatedMessage = translate("invalid_avatar")
+      showNotification(translatedMessage);
       return;
     }
     formData.append("avatar", avatarFile);
@@ -92,21 +98,23 @@ async function handleUpdateProfile() {
         document.getElementById("profile-update-alert").style.display = "none";
     }, 7000);
   } catch (error) {
-    console.log("ERROR UPDATING PROFILE");
-    handleUpdateProfileErrors(error);
+    let errorMessage = "Error updating profile.";
+
+    if (error && error.data && error.data.errors) {
+      const errors = error.data.errors;
+
+      if (errors.username && errors.username.length > 0) {
+        errorMessage = `Username Error: ${errors.username.join(", ")}`;
+      } else if (errors.email && errors.email.length > 0) {
+        errorMessage = `Email Error: ${errors.email.join(", ")}`;
+      } else {
+        errorMessage = `Update Error: ${JSON.stringify(errors)}`;
+      }
+    }
+
+    showNotification(errorMessage);
   } finally {
     updateFormButton.disabled = false;
     document.getElementById("profile-update-form").reset();
   }
-}
-
-function handleUpdateProfileErrors(error) {
-  const errorMessage = document.querySelector(
-    ".settings-container #profile-update-errors"
-  );
-  errorMessage.innerHTML = error;
-  errorMessage.style.display = "block";
-  setTimeout(() => {
-    errorMessage.style.display = "none";
-  }, 3000);
 }
