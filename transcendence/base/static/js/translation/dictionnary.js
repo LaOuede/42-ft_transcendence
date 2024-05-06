@@ -655,4 +655,16 @@ export const translations = {
 		"es": "VOLVER AL PERFIL",
 	},
 
+	// Popup error message
+	"invalid_avatar": {
+		"en": "Invalid file type. Please upload an image.",
+		"fr": "Type de fichier non valide. Veuillez télécharger une image.",
+		"es": "Tipo de archivo no válido. Por favor, cargue una imagen.",
+	},
+
+	"no_changes": {
+		"en": "No changes detected. No update needed.",
+		"fr": "Aucun changement n'a été détecté. Aucune mise à jour n'est nécessaire.",
+		"es": "No se han detectado cambios. No es necesario actualizar.",
+	},
 };

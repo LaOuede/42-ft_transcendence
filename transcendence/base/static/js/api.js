@@ -4,7 +4,10 @@ const apiHandler = {
   async fetchWithAuth(url, options = {}) {
     const isFormData = options.body instanceof FormData;
 
+    const languageCode = localStorage.getItem('currentLanguage') || 'en';
+
     const headers = {
+      'Accept-Language': languageCode,
       // Set 'Content-Type' to 'application/json' only if the body is not FormData
       ...(!isFormData && { "Content-Type": "application/json" }),
       "X-CSRFToken": getCookie("csrftoken"),
@@ -20,17 +23,17 @@ const apiHandler = {
         credentials: "include",
         body: isFormData ? options.body : JSON.stringify(options.body),
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok || response.status === 401) {
-        /* localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        redirectToLogin(); */
-        throw new Error(data.detail || "Something went wrong");
+        const message = data.detail || data.message || JSON.stringify(data) || "An unknown error occurred";
+        throw {
+          status: response.status,
+          message: `Error ${response.status} on ${fullUrl}: ${message}`,
+          data: data,
+        };
       }
-
-      return data;
+    return data;
     } catch (error) {
-      /* console.error("ERROR UPDATING PROFILE", error); */
       throw error;
     }
   },

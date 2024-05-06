@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.core.validators import RegexValidator, EmailValidator
 from django.core.files.storage import default_storage
 from .models import User, VALID_AVATARS
-
+from django.utils.translation import gettext_lazy as _
 from friends.utils import broadcast_refresh
 
 
@@ -14,23 +14,25 @@ class UserSerializer(serializers.ModelSerializer):
 		extra_kwargs = {
 			'username': {
 				'required': True,
-				'validators': [RegexValidator(regex='^[a-zA-Z0-9_]+$', message='Username must contain only letters, numbers, and underscores')],
+				'validators': [
+					RegexValidator(
+						regex='^[a-zA-Z0-9_]+$',
+						message=_('Username must contain only letters, numbers, and underscores')
+					)
+				],
 			},
-			'email': {
-				'required': True,
-				'validators': [EmailValidator(message='Enter a valid email address')],
-			},
+			'email': {'required': True,},
 			'password': {'required': True},
 		}
 
 	def validate_username(self, value):
 		if User.objects.filter(username=value).exists():
-			raise serializers.ValidationError("Username already exists.")
+			raise serializers.ValidationError(_("Username already exists."))
 		return value
 
 	def validate_email(self, value):
 		if User.objects.filter(email=value).exists():
-			raise serializers.ValidationError("Email already exists.")
+			raise serializers.ValidationError(_("Email already exists."))
 		return value
 
 	def update(self, instance, validated_data):
