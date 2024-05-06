@@ -1,3 +1,4 @@
+
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -8,25 +9,35 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, authentication_classes
 from .models import Game
 from user.models import User
-from .serializers import GameSerializer, UserSerializer
+from .serializers import GameSerializer, UserSerializer, GamePlayerSerializer
 
 class CreateGame(APIView):
-    @authentication_classes([JWTAuthentication])
+    
+    def get(self, request):
+        return Response({"user": request.user.username,})
+    
     def post(self, request):
-        player1_id = request.data.get('player1_id')
-        player2_id = request.data.get('player2_id')
+
+        if not request.user.is_authenticated:
+            return Response("You are note authentified  ")
+
+        data = request.data
+        game_serializer = GameSerializer(data=data)
         
-        if not player1_id or not player2_id:
-            return Response({"error": "Both player1_id and player2_id are required"}, status=status.HTTP_400_BAD_REQUEST)
+        if not game_serializer.is_valid():
+            return Response(game_serializer.errors)
 
-        try:
-            player1 = User.objects.get(pk=player1_id)
-            player2 = User.objects.get(pk=player2_id)
-        except User.DoesNotExist:
-            return Response({"error": "One or both players not found"}, status=status.HTTP_404_NOT_FOUND)
+        game = game_serializer.save()
 
-        game = Game.objects.create(player1=player1, player2=player2)
-        game.save()
+        player_serializer = GamePlayerSerializer(data=data)
+        player_serializer.initial_data["player"] = request.user.pk
+        player_serializer.initial_data["game"] = game.pk
+
+        if not player_serializer.is_valid():
+            game.delete()
+            return Response(player_serializer.errors)
+
+        player_serializer.save(game=game)
         serializer = GameSerializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
