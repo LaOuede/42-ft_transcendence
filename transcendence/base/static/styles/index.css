@@ -370,6 +370,21 @@ h5 {
 	color: #fff;
 }
 
+.stats > li, .history > li{
+	/* outline: 3px solid gold; */
+	display: flex;
+	justify-content: flex-start;
+	gap: .5rem;
+}
+
+.history {
+	max-height: 5rem;
+	overflow: scroll;
+	overflow-y: scroll; /* Hide vertical scrollbar */
+	overflow-x: hidden; /* Hide horizontal scrollbar */
+	scrollbar-color: var(--blue-color) transparent;
+}
+
 .onevsone-container {
 	display: flex;
 	flex-direction: column;

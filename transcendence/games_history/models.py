@@ -15,6 +15,20 @@ class Game(models.Model):
 
     def __str__(self):
         return f"Type: {self.game_type} Players: ..."
+
+    @property
+    def fmt(self):
+        return self.created_at.strftime("%Y-%m-%d")
+
+    @property
+    def type(self):
+        GAME_TYPES = {
+            "NORM": "Normal",
+            "RMBL": "Rumble",
+            "TOUR": "Tournois",
+        }
+        return GAME_TYPES[self.game_type]
+
     
 class GamePlayer(models.Model):
 
@@ -24,3 +38,7 @@ class GamePlayer(models.Model):
     is_winner = models.BooleanField(null=False, blank=False)
     score = models.IntegerField(null=True, blank=True)
     rank = models.IntegerField(null=True, blank=True)
+
+    @property
+    def color(self):
+        return "#88AD40" if self.is_winner else "#9D2406"

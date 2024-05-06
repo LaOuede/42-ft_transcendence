@@ -312,27 +312,27 @@ export const translations = {
 	},
 
 	"profile.playedgames": {
-		"en": "Played games:  {tba}",
-		"fr": "Parties jouées:    {tba}",
-		"es": "Partidos jugados:    {tba}"
+		"en": "Played games:",
+		"fr": "Parties jouées:",
+		"es": "Partidos jugados:"
 	},
 
 	"profile.wongames": {
-		"en": "Wins:  {tba}",
-		"fr": "Victoires:    {tba}",
-		"es": "Victorias:    {tba}"
+		"en": "Wins:",
+		"fr": "Victoires:",
+		"es": "Victorias:"
 	},
 
 	"profile.lostgames": {
-		"en": "Defeats:  {tba}",
-		"fr": "Défaites:    {tba}",
-		"es": "Derrotas:    {tba}"
+		"en": "Defeats:",
+		"fr": "Défaites:",
+		"es": "Derrotas:"
 	},
 
 	"profile.winsrate": {
-		"en": "Win rate:  {tba}",
-		"fr": "% victoires:    {tba}",
-		"es": "% victorias:    {tba}"
+		"en": "Win rate:",
+		"fr": "% victoires:",
+		"es": "% victorias:"
 	},
 
 	"profile.friends": {

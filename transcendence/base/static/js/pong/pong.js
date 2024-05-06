@@ -7,6 +7,12 @@ let gameInfo = initGameInfo()
 let tags = initElements(gameInfo)
 const pongObjs = initPongObjs(gameInfo, tags)
 
+const game_type = {
+	normal: "NORM",
+	rumble: "RMBL",
+	tournois: "TOUR",
+}
+
 function initElements(gameInfo) {
 	const tags = {
 		canvas: undefined,
@@ -276,17 +282,15 @@ function endOfRound(){
 }
 
  export function postWinner(){
-	
+
+	let is_winner = (gameInfo.winner == gameInfo.nicks[0]);
 	// window.apiHandler.post("game/create/").then(response => console.log(response))
-	if(gameInfo.winner == gameInfo.nicks[0]){
 		console.log("player 1 win")
-		window.apiHandler.post("game/create/")
-		console.log(gameInfo.gamemode)
-	} else {
-		window.apiHandler.post()
-		console.log("player 1 lose")
-		console.log(gameInfo.gamemode)
-	}
+		window.apiHandler.post("game/create/", {
+			game_type:gameInfo.gamemode,
+			is_winner,
+		})
+
 }
 
 function goalDetection() {
@@ -724,6 +728,8 @@ function resetLives(nb){
 		gameInfo.player_lives[i] = gameInfo.default_lives
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btFight") {
@@ -734,7 +740,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayVs2") {
 			e.preventDefault();
-			gameInfo.gamemode = 0
+			gameInfo.gamemode = game_type.normal
 			getGameParam()
 			resetLives(2)
 			gameInfo.tournaments.enabled = false
@@ -747,7 +753,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayRumble") {
 			e.preventDefault();
-			gameInfo.gamemode = 1
+			gameInfo.gamemode = game_type.rumble
 			getGameParam()
 			resetLives(4)
 			gameInfo.tournaments.enabled = false
@@ -760,7 +766,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	document.addEventListener("click", function (e) {
 		if (e.target && e.target.id === "btPlayTourn") {
 			e.preventDefault();
-			gameInfo.gamemode = 2
+			gameInfo.gamemode = game_type.tournois
 			getGameParam()
 			tournament()
 		}

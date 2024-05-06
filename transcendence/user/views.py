@@ -34,6 +34,22 @@ def update_user_status_after_game(user, status):
 		user.save()
 		broadcast_refresh()
 
+def get_user_stats(user):
+	games = user.gameplayer_set
+	print(f"\033[31m{games=}")
+	count = games.count()
+	wins = games.filter(is_winner=True).count()
+	losses = count - wins
+
+	winrate = (wins / count) if count else 1
+
+	return {
+		"playedgames": games.count(),
+		"wongames": wins,
+		"lostgames": losses,
+		"winrate": winrate,
+	}
+
 @api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 def UserProfile(request):
@@ -49,6 +65,9 @@ def UserProfile(request):
 		user_data['activity'] = activity_display
 		user_data['language'] = language_display
 		user_data['friends'] = get_friends_of(user)
+		user_data['stats'] = get_user_stats(user)
+		user_data['history'] = user.gameplayer_set.order_by("-game__created_at")
+		
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
