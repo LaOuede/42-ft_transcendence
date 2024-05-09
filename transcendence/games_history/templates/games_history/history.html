@@ -1,6 +1,6 @@
 {% for game in user_data.history%}
 <div class="history" style="border-color: {{game.color}}">
-	<li>[{{game.game.fmt}}] <strong data-translate="profil.{{game.game.type}}"></strong></li>
+	<li>{{game.game.fmt}} :<strong data-translate="profil.{{game.game.type}}"></strong></li>
 </div>
 {% empty %}
 <p data-translate="settings.no_history"></p>
