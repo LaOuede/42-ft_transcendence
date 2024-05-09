@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
+from django.http import Http404
 
 from user.models import User
 import json
@@ -70,11 +71,15 @@ class FriendRequestView(APIView):
     """
 
     def post(self, request, *args, **kwargs):
+        
         activateLanguage(request)
 
         action = request.data.get("action")
         sender = request.user
         other = self._get_other_user(request, action)
+
+        if not (other and other.username):
+            return Response({"error": "User not found"}, status=404)
 
         broadcast_refresh()
 
@@ -193,16 +198,20 @@ class FriendRequestView(APIView):
             return False
 
     def _get_other_user(self, request, action):
-        if request.data.get("friend_id"):
+
+        if "friend_id" in request.data.keys():
             return get_object_or_404(
                 User,
                 pk=request.data.get("friend_id"),
                 is_staff=False,
             )
 
-        if request.data.get("friend_username"):
-            return get_object_or_404(
+        if "friend_username" in request.data.keys():
+            user =  get_object_or_404(
                 User,
                 username=request.data.get("friend_username"),
                 is_staff=False,
             )
+            return user
+        
+        raise Http404

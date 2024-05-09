@@ -81,7 +81,7 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         let input = document.getElementById("add-friend-input");
         let user_name = input.value;
-        if (add_friend(user_name) === false)
+        if (user_name && add_friend(user_name) === false)
             alert(`User: ${user_name} not found!`);
         input.value = "";
     }
