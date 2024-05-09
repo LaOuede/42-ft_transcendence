@@ -6,6 +6,20 @@ import {tournament, giveTournPoints, updateScores, showScores } from "./tourname
 let gameInfo = initGameInfo()
 let tags = initElements(gameInfo)
 const pongObjs = initPongObjs(gameInfo, tags)
+let controls = {
+	p1up: "w",
+	p1down: "s",
+	p1pw: "q",
+	p2up: "ArrowUp",
+	p2down: "ArrowDown",
+	p2pw: "ArrowRight",
+	p3left: "h",
+	p3right: "j",
+	p3pw: "g",
+	p4left: "7",
+	p4right: "8",
+	p4pw: "9",
+}
 
 function initElements(gameInfo) {
 	const tags = {
@@ -544,30 +558,30 @@ function teleportFollowPaddles(){
 
 document.addEventListener("keydown", (event) => {
 	if(gameInfo.controls.enabled){
-		if (event.key === "w" || event.key === "W") gameInfo.controls.paddle1key[0] = true;
-		if (event.key === "s" || event.key === "S") gameInfo.controls.paddle1key[1] = true;
-		if (event.key === "q" || event.key === "Q") if(gameInfo.player_power[0] > 0)  gameInfo.controls.paddle1key[2] = true;
-		if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = true;
-		if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = true;
-		if (event.key === "ArrowRight")  if(gameInfo.player_power[1] > 0) gameInfo.controls.paddle2key[2] = true;
-		if (event.key === "h" || event.key === "H") gameInfo.controls.paddle3key[0] = true;
-		if (event.key === "j" || event.key === "J") gameInfo.controls.paddle3key[1] = true;
-		if (event.key === "g" || event.key === "G") if(gameInfo.player_power[2] > 0)  gameInfo.controls.paddle3key[2] = true;
-		if (event.key === "7") gameInfo.controls.paddle4key[0] = true;
-		if (event.key === "8") gameInfo.controls.paddle4key[1] = true;
-		if (event.key === "9") if(gameInfo.player_power[3] > 0) gameInfo.controls.paddle4key[2] = true;
+		if (event.key === controls.p1up || event.key === controls.p1up.toUpperCase()) gameInfo.controls.paddle1key[0] = true;
+		if (event.key === controls.p1down || event.key === controls.p1down.toUpperCase()) gameInfo.controls.paddle1key[1] = true;
+		if (event.key === controls.p1pw || event.key === controls.p1pw.toUpperCase()) if(gameInfo.player_power[0] > 0)  gameInfo.controls.paddle1key[2] = true;
+		if (event.key === controls.p2up || event.key === controls.p2up.toUpperCase()) gameInfo.controls.paddle2key[0] = true;
+		if (event.key === controls.p2down || event.key === controls.p2down.toUpperCase()) gameInfo.controls.paddle2key[1] = true;
+		if (event.key === controls.p2pw || event.key === controls.p2pw.toUpperCase())  if(gameInfo.player_power[1] > 0) gameInfo.controls.paddle2key[2] = true;
+		if (event.key === controls.p3left || event.key === controls.p3left.toUpperCase()) gameInfo.controls.paddle3key[0] = true;
+		if (event.key === controls.p3right || event.key === controls.p3right.toUpperCase()) gameInfo.controls.paddle3key[1] = true;
+		if (event.key === controls.p3pw || event.key === controls.p3pw.toUpperCase()) if(gameInfo.player_power[2] > 0)  gameInfo.controls.paddle3key[2] = true;
+		if (event.key === controls.p4left || event.key === controls.p4left.toUpperCase()) gameInfo.controls.paddle4key[0] = true;
+		if (event.key === controls.p4right || event.key === controls.p4right.toUpperCase()) gameInfo.controls.paddle4key[1] = true;
+		if (event.key === controls.p4pw || event.key === controls.p4pw.toUpperCase()) if(gameInfo.player_power[3] > 0) gameInfo.controls.paddle4key[2] = true;
 	}
 });
 
 document.addEventListener("keyup", (event) => {
-	if (event.key === "w" || event.key === "W") gameInfo.controls.paddle1key[0] = false;
-	if (event.key === "s" || event.key === "S") gameInfo.controls.paddle1key[1] = false;
-	if (event.key === "ArrowUp") gameInfo.controls.paddle2key[0] = false;
-	if (event.key === "ArrowDown") gameInfo.controls.paddle2key[1] = false;
-	if (event.key === "h" || event.key === "H") gameInfo.controls.paddle3key[0] = false;
-	if (event.key === "j"|| event.key === "J") gameInfo.controls.paddle3key[1] = false;
-	if (event.key === "7") gameInfo.controls.paddle4key[0] = false;
-	if (event.key === "8") gameInfo.controls.paddle4key[1] = false;
+	if (event.key === controls.p1up || event.key === controls.p1up.toUpperCase()) gameInfo.controls.paddle1key[0] = false;
+	if (event.key === controls.p1down || event.key === controls.p1down.toUpperCase()) gameInfo.controls.paddle1key[1] = false;
+	if (event.key === controls.p2up || event.key === controls.p2up.toUpperCase()) gameInfo.controls.paddle2key[0] = false;
+	if (event.key === controls.p2down || event.key === controls.p2down.toUpperCase()) gameInfo.controls.paddle2key[1] = false;
+	if (event.key === controls.p3left || event.key === controls.p3left.toUpperCase()) gameInfo.controls.paddle3key[0] = false;
+	if (event.key === controls.p3right || event.key === controls.p3right.toUpperCase()) gameInfo.controls.paddle3key[1] = false;
+	if (event.key === controls.p4left || event.key === controls.p4left.toUpperCase()) gameInfo.controls.paddle4key[0] = false;
+	if (event.key === controls.p4right || event.key === controls.p4right.toUpperCase()) gameInfo.controls.paddle4key[1] = false;
 });
 
 window.addEventListener("resize", () => {
