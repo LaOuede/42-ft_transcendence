@@ -29,6 +29,8 @@ def FriendsListView(request):
 
     # friends = User.objects.filter(is_staff=False) # All users
     user = get_user_from_token(request)
+    if not (user and user.is_authenticated):
+        return HttpResponse("User note authenticated")
     friends = get_friends_of(user)
     invites_in = [
         req.from_user
@@ -85,7 +87,7 @@ class FriendRequestView(APIView):
 
         if (action == "decline"):
             return self.decline_invite(sender, other)
-        
+
 
         return Response({"Message": "Action no set properly"}, status=404)
 
@@ -171,7 +173,7 @@ class FriendRequestView(APIView):
             return get_object_or_404(
                 User, username=request.data.get("friend_username"), is_staff=False,
             )
-        
+
 
 from django.http import HttpResponse
 def info(request):
