@@ -26,10 +26,7 @@
 					<div class="stats-grid-item">
 						<h3 class="title-profile-item">STATS:</h3>
 						<div class="profile-informations stats">
-							<li><span data-translate="profile.playedgames"></span><span>{{user_data.stats.playedgames}}</span><br></li>
-							<li><span data-translate="profile.wongames"></span><span>{{user_data.stats.wongames}}</span><br></li>
-							<li><span data-translate="profile.lostgames"></span><span>{{user_data.stats.lostgames}}</span><br></li>
-							<li><span data-translate="profile.winsrate"></span><span>{{user_data.stats.winrate}}</span><br></li>
+							{% include 'games_history/stats.html' %}
 						</div>
 					</div>
 
@@ -44,10 +41,8 @@
 					<!-- Grid item 4: Game history -->
 					<div class="historic-grid-item">
 						<h3 class="title-profile-item" data-translate="profile.history"></h3>
-						<div class="profile-informations history">
-							{% for game in user_data.history%}
-							<li style="color: {{game.color}}">[{{game.game.fmt}}] {{game.game.type}}</li>
-							{% endfor %}
+						<div class="profile-informations history-list">
+							{% include 'games_history/history.html' %}
 						</div>
 					</div>
 

@@ -1,0 +1,27 @@
+{% for game in user_data.history%}
+<div class="history" style="background-color: {{game.color}}77">
+	<li>[{{game.game.fmt}}] <strong>{{game.game.type}}</strong></li>
+</div>
+{% empty %}
+<p>No games played yet ...</p>
+{% endfor %}
+
+
+<style>
+	.history {
+		padding: 10px 20px;
+		font-family: sans-serif;
+		color: white;
+		border-radius: 8px;
+
+		border: 1px solid #ddd3
+	}
+
+
+	.history-list {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+
+	}
+</style>
