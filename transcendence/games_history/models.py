@@ -23,7 +23,7 @@ class Game(models.Model):
     @property
     def type(self):
         GAME_TYPES = {
-            "NORM": "Normal",
+            "NORM": "1 Vs. 1",
             "RMBL": "Rumble",
             "TOUR": "Tournois",
         }

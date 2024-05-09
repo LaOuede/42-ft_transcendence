@@ -377,8 +377,8 @@ h5 {
 	gap: .5rem;
 }
 
-.history {
-	max-height: 5rem;
+.history-list {
+	max-height: 12rem;
 	overflow: scroll;
 	overflow-y: scroll; /* Hide vertical scrollbar */
 	overflow-x: hidden; /* Hide horizontal scrollbar */

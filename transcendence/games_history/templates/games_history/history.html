@@ -1,5 +1,5 @@
 {% for game in user_data.history%}
-<div class="history" style="background-color: {{game.color}}77">
+<div class="history" style="border-color: {{game.color}}">
 	<li>[{{game.game.fmt}}] <strong>{{game.game.type}}</strong></li>
 </div>
 {% empty %}
@@ -9,12 +9,12 @@
 
 <style>
 	.history {
-		padding: 10px 20px;
+		padding: 10px 10px;
 		font-family: sans-serif;
-		color: white;
-		border-radius: 8px;
+		border-radius: 20px;
 
-		border: 1px solid #ddd3
+		/* border: 1px solid #ddd3 */
+		border: 3px solid gold;
 	}
 
 

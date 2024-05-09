@@ -269,7 +269,7 @@ export const translations = {
 
 	"playtournaments.scoreboard": {
 		"en": "SCORE BOARD",
-		"fr": "TABLEAU DES SCORES",
+		"fr": "TABLEAU DES POINTS",
 		"es": "TABLA DE PUNTUACIÓN"
 	},
 
