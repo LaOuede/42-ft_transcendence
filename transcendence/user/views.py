@@ -34,6 +34,22 @@ def update_user_status_after_game(user, status):
 		user.save()
 		broadcast_refresh()
 
+def get_user_stats(user):
+	games = user.gameplayer_set
+	print(f"\033[31m{games=}")
+	count = games.count()
+	wins = games.filter(is_winner=True).count()
+	losses = count - wins
+
+	winrate = round(wins / count, 2) if count else "N/A"
+
+	return {
+		"playedgames": games.count(),
+		"wongames": wins,
+		"lostgames": losses,
+		"winrate": winrate,
+	}
+
 @api_view(['GET', 'POST'])
 @authentication_classes([JWTAuthentication])
 def UserProfile(request):
@@ -49,6 +65,9 @@ def UserProfile(request):
 		user_data['activity'] = activity_display
 		user_data['language'] = language_display
 		user_data['friends'] = get_friends_of(user)
+		user_data['stats'] = get_user_stats(user)
+		user_data['history'] = user.gameplayer_set.order_by("-game__created_at")
+
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
@@ -59,23 +78,28 @@ def UserSettings(request):
 		return render(request, 'settings.html', {"content": "settings.html"})
 	return render(request, "base.html", {"content": "login.html"})
 
+def activateLanguage(request):
+	language_code = request.headers.get('Accept-Language', 'en')
+	translation.activate(language_code)
+	print(f"\033[31m[DEBUG] {language_code}")
+translation.deactivate()
+
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserUpdate(request):
-    language_code = request.headers.get('Accept-Language', 'en')
-    translation.activate(language_code)
 
-    user = get_user_from_token(request)
-    if user is None:
-        return Response({"error": translation.gettext("Invalid token")}, status=status.HTTP_401_UNAUTHORIZED)
+	activateLanguage(request)
 
-    serializer = UserSerializer(user, data=request.data, partial=True)
+	user = get_user_from_token(request)
+	if user is None:
+		return Response({"error": translation.gettext("Invalid token")}, status=status.HTTP_401_UNAUTHORIZED)
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
-    return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-translation.deactivate()
+	serializer = UserSerializer(user, data=request.data, partial=True)
+
+	if serializer.is_valid():
+		serializer.save()
+		return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+	return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
@@ -86,6 +110,7 @@ def UserDelete(request):
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		user.delete()
 		response = JsonResponse({"success": "Account suppressed successfully"}, status=200)
+		broadcast_refresh()
 		response.delete_cookie("access_token")
 		response.delete_cookie("refresh_token")
 		return response

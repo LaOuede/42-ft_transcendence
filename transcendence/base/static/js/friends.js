@@ -1,14 +1,14 @@
-// logout function
+import { translatePage } from "./translation/translate.js";
 import { showNotification } from "./notifications.js";
 
 export function loadFriends() {
-    console.log("[DEBUG] loading Friends");
     fetch(window.location.origin + "/friends/list/")
     .then(res => res.text())
     .then(data => {
         let friendsDiv = document.querySelector("#friends-div")
         if (friendsDiv)
             friendsDiv.innerHTML = data;
+        translatePage();
     })
 }
 
@@ -20,12 +20,11 @@ function make_friend_request(context)
         context
     )
     .then((response) =>{
-        console.log(response)
         if (response.error)
             showNotification("Error: " + response.error)
     })
     .catch((error) => {        
-        showNotification("Can't add this user")
+        showNotification("TR_NO_ADD")
         return false;
     })
 }
@@ -82,7 +81,7 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         let input = document.getElementById("add-friend-input");
         let user_name = input.value;
-        if (add_friend(user_name) === false)
+        if (user_name && add_friend(user_name) === false)
             alert(`User: ${user_name} not found!`);
         input.value = "";
     }
@@ -115,7 +114,6 @@ document.addEventListener("click", function(event) {
 
         if (event.target.classList.contains("delete-friend-btn"))
         {
-            console.log(friend_id)
             if (!(friend_id && delete_friend(friend_id)))
                 alert("Cant delete Friend")
         }

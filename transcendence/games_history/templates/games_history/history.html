@@ -1,0 +1,26 @@
+{% for game in user_data.history%}
+<div class="history" style="border-color: {{game.color}}">
+	<li>{{game.game.fmt}} :<strong data-translate="profil.{{game.game.type}}"></strong></li>
+</div>
+{% empty %}
+<p data-translate="settings.no_history"></p>
+{% endfor %}
+
+
+<style>
+	.history {
+		padding: 10px 10px;
+		font-family: sans-serif;
+		border-radius: 20px;
+
+		/* border: 1px solid #ddd3 */
+		border: 3px solid gold;
+	}
+
+
+	.history-list {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+</style>
