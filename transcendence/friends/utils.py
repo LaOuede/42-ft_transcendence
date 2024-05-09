@@ -28,7 +28,7 @@ def broadcast_refresh():
 
 def ws_send_private_message(user, data):
     channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
+    return async_to_sync(channel_layer.group_send)(
         get_user_private_group(user),
         data
     )
@@ -48,3 +48,16 @@ def broadcast_message(message):
         'message': message
     }
     async_to_sync(get_channel_layer().group_send)(WSConsumer.broadcast_group, message)
+
+
+def getlang(user):
+
+    language_code = ws_send_private_message(
+        user, 
+        {
+            'type': 'lang',
+            'message': 'Test'
+        })
+
+    # translation.activate(language_code)
+    print(f"\033[31m[DEBUG] {language_code}")

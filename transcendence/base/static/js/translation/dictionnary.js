@@ -716,5 +716,7 @@ export const translations = {
 		"fr": "Impossible d'ajouter cet utilisateur.",
 		"es": "No se puede añadir a este usuario.",
 	},
+	
+	
 
 };

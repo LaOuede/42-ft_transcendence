@@ -42,10 +42,19 @@ export class userStatusWebSocket {
 
     onmessage(e) {
         console.log("[WebSocket] Got message: " + e.data);
-        refreshUI(JSON.parse(e.data));
+        if (e.data.type === "lang")
+        {
+            console.log("[WEBSOCKET] Got a LANG")
+            const languageCode = localStorage.getItem('currentLanguage') || 'en';
+            this.send({"type": 'lang', "code": languageCode})
+        }
+        else
+            refreshUI(JSON.parse(e.data));
     }
 
     send(obj){
+        console.log("[WEBSOCKET]SENDING", obj)
+
         if (this.ongoingConnection()){
             this.websocket.send(
                 JSON.stringify(obj)
@@ -114,6 +123,7 @@ function refreshUI(data)
         console.log("[WEBSOCKET] Got a refresh Message")
         loadFriends()
     }
+    
     else
         console.log("NO IDEA")
 }

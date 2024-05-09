@@ -129,21 +129,21 @@ class FriendRequestView(APIView):
             friend_request._active_mirror().accept()
             notify_users(
                 [receiver],
-                _("You are now friends with: %(sender)s!") % {"sender": sender.username},
+                _("You are now friends with: %(user)s!") % {"user": sender.username},
             )
             notify_users(
                 [sender],
-                _("You are now friends with: %(receiver)s!") % {"receiver": receiver.username},
+                _("You are now friends with: %(user)s!") % {"user": receiver.username},
             )
         else:
             pass
             notify_users(
                 [receiver],
-                _("New friend request from: %(sender)s") % {"sender": sender.username},
+                _("New friend request from: %(user)s") % {"user": sender.username},
             )
             notify_users(
                 [sender],
-                _("Friend request sent to: %(other)s" % {"other": receiver.username}) ,
+                _("Friend request sent to: %(user)s" % {"user": receiver.username}) ,
             )
 
         return Response(

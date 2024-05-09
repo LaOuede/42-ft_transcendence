@@ -156,7 +156,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'locale',
+    BASE_DIR / 'base' / 'locale',
 ]
 
 TIME_ZONE = "UTC"

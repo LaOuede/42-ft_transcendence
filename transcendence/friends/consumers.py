@@ -45,6 +45,9 @@ class WSConsumer(WebsocketConsumer):
         if data.get("type") == "ping":
             print(f"[WebSocket] PING from {self.scope.get('user')}" )
 
+        if data.get("type") == "lang":
+            print(f"[WebSocket] LANG from {self.scope.get('user')}: {data.get('code')=}" )
+
     def notification(self, event):
         self.send(
             json.dumps(event)
@@ -55,6 +58,10 @@ class WSConsumer(WebsocketConsumer):
             json.dumps(event)
         )
 
+    def lang(self, event):
+        self.send(
+            json.dumps(event)
+        )
 
 
     def add_to_group(self, group_name):
