@@ -1,4 +1,4 @@
-// logout function
+import { translatePage } from "./translation/translate.js";
 import { showNotification } from "./notifications.js";
 
 export function loadFriends() {
@@ -8,6 +8,7 @@ export function loadFriends() {
         let friendsDiv = document.querySelector("#friends-div")
         if (friendsDiv)
             friendsDiv.innerHTML = data;
+        translatePage();
     })
 }
 

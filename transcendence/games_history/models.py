@@ -1,12 +1,14 @@
 from django.db import models
 from user.models import User
+from django.utils.translation import gettext_lazy as _
+from user.views import activateLanguage
 
 class Game(models.Model):
 
     GAME_TYPES = [
         ("NORM", "Normal"),
-        ("RMBL", "Rumble"),
-        ("TOUR", "Tournois"),
+        ("RMBL", _("Rumble")),
+        ("TOUR", _("Tournament")),
     ]
 
     players = models.ManyToManyField(User, through='GamePlayer', related_name="played_games")
@@ -23,9 +25,9 @@ class Game(models.Model):
     @property
     def type(self):
         GAME_TYPES = {
-            "NORM": "1 Vs. 1",
+            "NORM": "1vs1",
             "RMBL": "Rumble",
-            "TOUR": "Tournois",
+            "TOUR": "Tournament",
         }
         return GAME_TYPES[self.game_type]
 

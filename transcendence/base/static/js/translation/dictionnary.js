@@ -655,6 +655,49 @@ export const translations = {
 		"es": "VOLVER AL PERFIL",
 	},
 
+	"settings.no_history": {
+		"en": "No games played yet ...",
+		"fr": "Aucune partie jouée...",
+		"es": "No hay partidos jugados...",
+	},
+
+	"profil.Tournament": {
+		"en": "Tournament",
+		"fr": "Tournoi",
+		"es": "Torneo",
+	},
+
+	"profil.Rumble": {
+		"en": "Rumble",
+		"fr": "Castagne",
+		"es": "Reyarta",
+	},
+
+	"profil.1vs1": {
+		"en": "1 vs 1",
+		"fr": "1 vs 1",
+		"es": "1 vs 1",
+	},
+
+	// FRIENDS
+	"friends.no_friends": {
+		"en": "No friends are available...",
+		"fr": "Aucun ami disponible...",
+		"es": "No hay amigos en casa...",
+	},
+
+	"friends.sent": {
+		"en": "Sent:",
+		"fr": "Envoyé:",
+		"es": "Enviada:",
+	},
+
+	"friends.received": {
+		"en": "Received:",
+		"fr": "Reçue(s):",
+		"es": "Recibida:",
+	},
+
 	// Popup error message
 	"invalid_avatar": {
 		"en": "Invalid file type. Please upload an image.",
