@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from datetime import timedelta
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -166,6 +169,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+STATIC_ROOT = BASE_DIR.parent / 'base' / 'static'
 STATIC_URL = "base/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "base/static",
