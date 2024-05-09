@@ -105,6 +105,7 @@ def UserDelete(request):
 			return JsonResponse({"error": "Invalid token"}, status=401)
 		user.delete()
 		response = JsonResponse({"success": "Account suppressed successfully"}, status=200)
+		broadcast_refresh()
 		response.delete_cookie("access_token")
 		response.delete_cookie("refresh_token")
 		return response
