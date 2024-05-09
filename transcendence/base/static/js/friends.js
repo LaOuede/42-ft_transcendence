@@ -2,7 +2,6 @@
 import { showNotification } from "./notifications.js";
 
 export function loadFriends() {
-    console.log("[DEBUG] loading Friends");
     fetch(window.location.origin + "/friends/list/")
     .then(res => res.text())
     .then(data => {
@@ -20,7 +19,6 @@ function make_friend_request(context)
         context
     )
     .then((response) =>{
-        console.log(response)
         if (response.error)
             showNotification("Error: " + response.error)
     })
@@ -115,7 +113,6 @@ document.addEventListener("click", function(event) {
 
         if (event.target.classList.contains("delete-friend-btn"))
         {
-            console.log(friend_id)
             if (!(friend_id && delete_friend(friend_id)))
                 alert("Cant delete Friend")
         }

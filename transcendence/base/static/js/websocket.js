@@ -105,7 +105,6 @@ export class userStatusWebSocket {
 
 function refreshUI(data)
 {
-    console.log( data);
     if (data.type === "notification")
     {
         showNotification(data.message)
