@@ -1,0 +1,55 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-08 23:02-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: views.py:84
+#, fuzzy, python-format
+#| msgid "You and %(sender) are no longer friends"
+msgid "You and %(other)s are no longer friends"
+msgstr "Ya no eres amigo(a) de %(sender)"
+
+#: views.py:89
+#, fuzzy, python-format
+#| msgid "You and %(sender) are no longer friends"
+msgid "You and %(sender)s are no longer friends"
+msgstr "Ya no eres amigo(a) de %(sender)"
+
+#: views.py:124
+#, fuzzy, python-format
+#| msgid "You are now friends with: %(sender)!"
+msgid "You are now friends with: %(sender)s!"
+msgstr "¡Ahora eres amigo(a) de: %(sender)!"
+
+#: views.py:128
+#, fuzzy, python-format
+#| msgid "You are now friends with: %(receiver)!"
+msgid "You are now friends with: %(receiver)s!"
+msgstr "¡Ahora eres amigo(a) de: %(receiver)!"
+
+#: views.py:134
+#, fuzzy, python-format
+#| msgid "New Freind request from: %(sender)"
+msgid "New Freind request from: %(sender)s"
+msgstr "Nueva solicitud de amistad de: %(sender)"
+
+#: views.py:138
+#, fuzzy, python-format
+#| msgid "Friend request sent to: %(receiver)"
+msgid "Friend request sent to: %(other)s"
+msgstr "Solicitud de amistad enviada a: %(receiver)"

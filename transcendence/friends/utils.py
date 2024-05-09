@@ -34,10 +34,11 @@ def ws_send_private_message(user, data):
     )
 
 def notify_users(users, message):
+    translated_message = message
     for user in users:
         ws_send_private_message(user, {
             'type': 'notification',
-            'message': message
+            'message': translated_message
 })
 
 

@@ -67,7 +67,7 @@ def UserProfile(request):
 		user_data['friends'] = get_friends_of(user)
 		user_data['stats'] = get_user_stats(user)
 		user_data['history'] = user.gameplayer_set.order_by("-game__created_at")
-		
+
 		return render(request, 'profile.html', {'user_data': user_data})
 	return render(request, "base.html", {"content": "login.html"})
 
