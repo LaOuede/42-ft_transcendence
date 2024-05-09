@@ -40,7 +40,6 @@ python transcendence/manage.py shell -c "from django.contrib.auth import get_use
 echo "Superuser created with username: $SUPERUSER_USERNAME, email: $SUPERUSER_EMAIL"
 
 echo "Starting Django server..."
-# python transcendence/manage.py runserver 0.0.0.0:8000
-# sleep infinity
 cd transcendence
+echo yes | python3 manage.py collectstatic 
 daphne -b 0.0.0.0 -p 8000 transcendence.asgi:application 
