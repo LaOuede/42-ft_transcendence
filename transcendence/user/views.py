@@ -41,13 +41,13 @@ def get_user_stats(user):
 	wins = games.filter(is_winner=True).count()
 	losses = count - wins
 
-	winrate = (wins / count) if count else 1
+	winrate = round(wins / count, 2) if count else "N/A"
 
 	return {
 		"playedgames": games.count(),
 		"wongames": wins,
 		"lostgames": losses,
-		"winrate": f"{winrate:.2}%",
+		"winrate": winrate,
 	}
 
 @api_view(['GET', 'POST'])
