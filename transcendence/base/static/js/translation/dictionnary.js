@@ -667,4 +667,11 @@ export const translations = {
 		"fr": "Aucun changement n'a été détecté. Aucune mise à jour n'est nécessaire.",
 		"es": "No se han detectado cambios. No es necesario actualizar.",
 	},
+
+	"TR_NO_ADD": {
+		"en": "Can't add this user.",
+		"fr": "Impossible d'ajouter cet utilisateur.",
+		"es": "No se puede añadir a este usuario.",
+	},
+
 };

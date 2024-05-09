@@ -64,7 +64,7 @@ class FriendRequest(models.Model):
         Accept a friend request
         """
 
-        print(f"\033[33m[ DEBUG ] {self.to_user.username} accepted {self.from_user.username}'s freind request\033[00m")
+        print(f"\033[33m[ DEBUG ] {self.to_user.username} accepted {self.from_user.username}'s friend request\033[00m")
 
         receiver_friend_list = FriendList.objects.get_or_create(user=self.to_user)[0]
         sender_friend_list = FriendList.objects.get_or_create(user=self.from_user)[0]
@@ -77,7 +77,7 @@ class FriendRequest(models.Model):
         """
         Decline a friend request
         """
-        print(f"\033[33m[ DEBUG ] {self.to_user.username} declined {self.from_user.username}'s freind request\033[00m")
+        print(f"\033[33m[ DEBUG ] {self.to_user.username} declined {self.from_user.username}'s friend request\033[00m")
 
         self.is_active = False
         self.save()

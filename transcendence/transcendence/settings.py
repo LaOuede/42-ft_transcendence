@@ -153,7 +153,6 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'base',
     BASE_DIR / 'locale',
 ]
 

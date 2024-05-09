@@ -23,7 +23,7 @@ function make_friend_request(context)
             showNotification("Error: " + response.error)
     })
     .catch((error) => {        
-        showNotification("Can't add this user")
+        showNotification("TR_NO_ADD")
         return false;
     })
 }

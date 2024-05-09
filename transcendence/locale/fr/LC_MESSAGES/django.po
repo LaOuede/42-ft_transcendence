@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-09 16:34+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: friends/views.py:87
+#, python-format
+msgid "You and %(other)s are no longer friends"
+msgstr "Vous et %(other)s n'êtes maintenant plus amis!"
+
+#: friends/views.py:92
+#, python-format
+msgid "You and %(sender)s are no longer friends"
+msgstr "Vous et %(sender)s n'êtes maintenant plus amis!"
+
+#: friends/views.py:108
+msgid "Can't add yourself"
+msgstr "Impossible de vous ajouter vous-même."
+
+#: friends/views.py:112
+msgid "Request already sent"
+msgstr "La demande a déjà été envoyée."
+
+#: friends/views.py:116
+msgid "Already friends"
+msgstr "Déjà amis."
+
+#: friends/views.py:127
+#, python-format
+msgid "You are now friends with: %(sender)s!"
+msgstr "Vous êtes maintenant ami(e)s avec : %(sender)s!"
+
+#: friends/views.py:131
+#, python-format
+msgid "You are now friends with: %(receiver)s!"
+msgstr "Vous êtes maintenant ami(e)s avec : %(receiver)s!"
+
+#: friends/views.py:137
+#, python-format
+msgid "New friend request from: %(sender)s"
+msgstr "Nouvelle demande d'amitié de : %(sender)s"
+
+#: friends/views.py:141
+#, python-format
+msgid "Friend request sent to: %(other)s"
+msgstr "Demande d'amitié envoyée à : %(receiver)s"
+
+#: user/models.py:27
+msgid "The Email field must be set"
+msgstr "Le champ Email doit être défini"
+
+#: user/serializers.py:20
+msgid "Username must contain only letters, numbers, and underscores"
+msgstr ""
+"Le nom d'utilisateur ne doit contenir que des lettres, des chiffres et des "
+"underscores"
+
+#: user/serializers.py:30
+msgid "Username already exists."
+msgstr "Nom d'utilisateur déjà pris."
+
+#: user/serializers.py:35
+msgid "Email already exists."
+msgstr "Adresse courriel déjà prise."
+
+#: user/views.py:95
+msgid "Invalid token"
+msgstr "Token invalide"
+
+#~ msgid "The test"
+#~ msgstr "Sans format"
+
+#, python-format
+#~ msgid "Test %(this)s"
+#~ msgstr "FR: %(this)s"
+
+#~ msgid "Enter a valid email address"
+#~ msgstr "Entrez une adresse courriel valide"

@@ -78,23 +78,28 @@ def UserSettings(request):
 		return render(request, 'settings.html', {"content": "settings.html"})
 	return render(request, "base.html", {"content": "login.html"})
 
+def activateLanguage(request):
+	language_code = request.headers.get('Accept-Language', 'en')
+	translation.activate(language_code)
+	print(f"\033[31m[DEBUG] {language_code}")
+translation.deactivate()
+
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 def UserUpdate(request):
-    language_code = request.headers.get('Accept-Language', 'en')
-    translation.activate(language_code)
 
-    user = get_user_from_token(request)
-    if user is None:
-        return Response({"error": translation.gettext("Invalid token")}, status=status.HTTP_401_UNAUTHORIZED)
+	activateLanguage(request)
 
-    serializer = UserSerializer(user, data=request.data, partial=True)
+	user = get_user_from_token(request)
+	if user is None:
+		return Response({"error": translation.gettext("Invalid token")}, status=status.HTTP_401_UNAUTHORIZED)
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"user": serializer.data}, status=status.HTTP_200_OK)
-    return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-translation.deactivate()
+	serializer = UserSerializer(user, data=request.data, partial=True)
+
+	if serializer.is_valid():
+		serializer.save()
+		return Response({"user": serializer.data}, status=status.HTTP_200_OK)
+	return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])

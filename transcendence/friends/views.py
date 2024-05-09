@@ -20,6 +20,8 @@ from friends.utils import broadcast_refresh, notify_users
 
 from django.utils.translation import gettext as _
 
+from user.views import activateLanguage
+
 
 def index(request):
     return render(
@@ -68,6 +70,7 @@ class FriendRequestView(APIView):
     """
 
     def post(self, request, *args, **kwargs):
+        activateLanguage(request)
 
         action = request.data.get("action")
         sender = request.user
@@ -102,15 +105,15 @@ class FriendRequestView(APIView):
     def add_friend(self, sender, receiver):
 
         if self._is_same_user(sender, receiver):
-            return Response({"error": "Can't add yourself"}, status=status.HTTP_200_OK)
+            return Response({"error": _("Can't add yourself")}, status=status.HTTP_200_OK)
 
         if self._request_already_exists(sender, receiver):
             return Response(
-                {"error": "Request already sent"}, status=status.HTTP_200_OK
+                {"error": _("Request already sent")}, status=status.HTTP_200_OK
             )
 
         if self._already_friends(sender, receiver):
-            return Response({"error": "Already friends"}, status=status.HTTP_200_OK)
+            return Response({"error": _("Already friends")}, status=status.HTTP_200_OK)
 
         friend_request = FriendRequest(from_user=sender, to_user=receiver)
         friend_request.save()
@@ -131,7 +134,7 @@ class FriendRequestView(APIView):
             pass
             notify_users(
                 [receiver],
-                _("New Freind request from: %(sender)s") % {"sender": sender.username},
+                _("New friend request from: %(sender)s") % {"sender": sender.username},
             )
             notify_users(
                 [sender],
