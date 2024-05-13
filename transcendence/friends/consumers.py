@@ -19,14 +19,11 @@ def get_user_private_group(user):
 
 class WSConsumer(WebsocketConsumer):
 
-    langCode = 'en'
     broadcast_group = "broadcast_group"
     joined_groups = []
 
     def connect(self):
         user = self.scope.get("user")
-
-        print(GREEN + f"[DEBUG] Connection to WebSocket from {user}" + RESET)
 
         private_group = get_user_private_group(user)
         self.add_to_group(private_group)
@@ -59,8 +56,6 @@ class WSConsumer(WebsocketConsumer):
         self.send(
             json.dumps(event)
         )
-
-
 
     def add_to_group(self, group_name):
         

@@ -5,7 +5,6 @@ from asgiref.sync import async_to_sync
 from friends.consumers import WSConsumer, get_user_private_group
 
 from django.utils import translation
-from time import sleep
 
 def get_friends_of(user):
     if not user:
@@ -39,7 +38,6 @@ def notify_users(users, message, **kwargs):
     for user in users:
         translation.activate(user.language)
         translated = str(message % kwargs)
-        print(f"\033[31m[DEBUG] Sending to {user.username} {user.language=}\n{message=}\n{translated=}")
         ws_send_private_message(user, {
             'type': 'notification',
             'message': translated

@@ -96,19 +96,16 @@ document.addEventListener("click", function(event) {
 
         if(event.target.classList.contains("accept-invite"))
         {
-            console.log("Accept Invite ... ", friend_id)
             accept_invite(friend_id);
         }
 
         if(event.target.classList.contains("decline-invite"))
         {
-            console.log("Decline Invite ...", friend_id)
             decline_invite(friend_id);
         }
 
         if(event.target.classList.contains("cancel-invite"))
         {
-            console.log("Cancel Invite ...", friend_id)
             cancel_invite(friend_id);
         }
 

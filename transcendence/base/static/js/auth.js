@@ -68,14 +68,11 @@ function handleLogin(e) {
         window.loadContent("auth/otp/");
         return;
       } else {
-        console.log(data);
         handleWrongCredentials("Invalid username or password.");
-        /* console.log("FAILED TO READ DATA", data); */
         return;
       }
     })
     .catch((error) => {
-      /* console.error("Error:", error); */
     })
     .finally(() => {
       window.ws.reconnect();
@@ -149,7 +146,6 @@ function handleWrongOtp(data) {
 }
 
 function handleWrongCredentials(error) {
-  /* console.log("Error:", error); */
 
   let formInputs = document.querySelectorAll(".signup-form .input-group input");
   let loginErrorMessage = document.querySelector(
