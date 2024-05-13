@@ -91,12 +91,12 @@ class FriendRequestView(APIView):
             notify_users(
                 [sender],
                 _("You and %(other)s are no longer friends"),
-                {"other": other.username},
+                other=other.username,
             )
             notify_users(
                 [other],
-                _("You and %(sender)s are no longer friends")
-                , {"sender": sender.username},
+                _("You and %(sender)s are no longer friends"),
+                sender=sender.username,
             )
             return self.delete_friend(sender, other)
 
@@ -131,13 +131,13 @@ class FriendRequestView(APIView):
             notify_users(
                 [receiver],
                 _("You are now friends with: %(user)s!"),
-                {"user": sender.username},
+                user=sender.username,
 
             )
             notify_users(
                 [sender],
                 _("You are now friends with: %(user)s!"),
-                {"user": receiver.username},
+                user=receiver.username,
             )
         else:
             pass

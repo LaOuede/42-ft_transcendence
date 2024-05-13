@@ -717,6 +717,10 @@ export const translations = {
 		"es": "No se puede añadir a este usuario.",
 	},
 	
-	
+	"friend-place-holder":{
+		"en": "Add friend...",
+		"fr": "Ajoutez un ami",
+		"es": "Agregar un amigo",
+	}
 
 };
