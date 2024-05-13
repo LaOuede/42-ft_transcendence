@@ -41,15 +41,7 @@ export class userStatusWebSocket {
     }
 
     onmessage(e) {
-        console.log("[WebSocket] Got message: " + e.data);
-        if (e.data.type === "lang")
-        {
-            console.log("[WEBSOCKET] Got a LANG")
-            const languageCode = localStorage.getItem('currentLanguage') || 'en';
-            this.send({"type": 'lang', "code": languageCode})
-        }
-        else
-            refreshUI(JSON.parse(e.data));
+        refreshUI(JSON.parse(e.data));
     }
 
     send(obj){

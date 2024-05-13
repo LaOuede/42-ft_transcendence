@@ -42,4 +42,5 @@ echo "Superuser created with username: $SUPERUSER_USERNAME, email: $SUPERUSER_EM
 echo "Starting Django server..."
 cd transcendence
 echo yes | python3 manage.py collectstatic 
-daphne -b 0.0.0.0 -p 8000 transcendence.asgi:application 
+# daphne -b 0.0.0.0 -p 8000 transcendence.asgi:application 
+python manage.py runserver 0.0.0.0:8000

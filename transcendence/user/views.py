@@ -79,9 +79,9 @@ def UserSettings(request):
 	return render(request, "base.html", {"content": "login.html"})
 
 def activateLanguage(request):
-	language_code = request.headers.get('Accept-Language', 'en')
+	language_code = request.headers.get('Accept-Language', 'es')
 	translation.activate(language_code)
-	print(f"\033[31m[DEBUG] {language_code}")
+	print(f"\033[31m[DEBUG] Activated{language_code}")
 translation.deactivate()
 
 @api_view(['POST'])

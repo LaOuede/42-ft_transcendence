@@ -19,9 +19,10 @@ from custom_auth.views import get_user_from_token
 
 from friends.utils import broadcast_refresh, notify_users
 
-from django.utils.translation import gettext as _
+from django.utils.translation import activate, gettext_lazy as _
 
 from user.views import activateLanguage
+
 
 
 def index(request):
@@ -70,10 +71,10 @@ class FriendRequestView(APIView):
     function.
     """
 
+    
     def post(self, request, *args, **kwargs):
         
         activateLanguage(request)
-
         action = request.data.get("action")
         sender = request.user
         other = self._get_other_user(request, action)
@@ -89,13 +90,13 @@ class FriendRequestView(APIView):
         if action == "delete":
             notify_users(
                 [sender],
-                _("You and %(other)s are no longer friends")
-                % {"other": other.username},
+                _("You and %(other)s are no longer friends"),
+                {"other": other.username},
             )
             notify_users(
                 [other],
                 _("You and %(sender)s are no longer friends")
-                % {"sender": sender.username},
+                , {"sender": sender.username},
             )
             return self.delete_friend(sender, other)
 
@@ -129,21 +130,24 @@ class FriendRequestView(APIView):
             friend_request._active_mirror().accept()
             notify_users(
                 [receiver],
-                _("You are now friends with: %(user)s!") % {"user": sender.username},
+                _("You are now friends with: %(user)s!"),
+                {"user": sender.username},
+
             )
             notify_users(
                 [sender],
-                _("You are now friends with: %(user)s!") % {"user": receiver.username},
+                _("You are now friends with: %(user)s!"),
+                {"user": receiver.username},
             )
         else:
             pass
             notify_users(
                 [receiver],
-                _("New friend request from: %(user)s") % {"user": sender.username},
+                _("New friend request from: %(user)s!"), user=receiver.username
             )
             notify_users(
                 [sender],
-                _("Friend request sent to: %(user)s" % {"user": receiver.username}) ,
+                _("Friend request sent to: %(user)s!"), user=receiver.username
             )
 
         return Response(

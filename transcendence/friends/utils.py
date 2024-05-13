@@ -4,6 +4,8 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from friends.consumers import WSConsumer, get_user_private_group
 
+from django.utils import translation
+from time import sleep
 
 def get_friends_of(user):
     if not user:
@@ -33,13 +35,16 @@ def ws_send_private_message(user, data):
         data
     )
 
-def notify_users(users, message):
-    translated_message = message
+def notify_users(users, message, **kwargs):
     for user in users:
+        translation.activate(user.language)
+        translated = str(message % kwargs)
+        print(f"\033[31m[DEBUG] Sending to {user.username} {user.language=}\n{message=}\n{translated=}")
         ws_send_private_message(user, {
             'type': 'notification',
-            'message': translated_message
-})
+            'message': translated
+        })
+        translation.deactivate()
 
 
 def broadcast_message(message):
@@ -52,12 +57,8 @@ def broadcast_message(message):
 
 def getlang(user):
 
-    language_code = ws_send_private_message(
+    ws_send_private_message(
         user, 
         {
             'type': 'lang',
-            'message': 'Test'
-        })
-
-    # translation.activate(language_code)
-    print(f"\033[31m[DEBUG] {language_code}")
+    })

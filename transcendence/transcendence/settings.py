@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'django.middleware.locale.LocaleMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -67,7 +68,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_otp.middleware.OTPMiddleware",
     'middleware.jwt_authentication_middleware.JWTAuthenticationMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = "transcendence.urls"
@@ -156,7 +156,7 @@ LANGUAGES = [
 ]
 
 LOCALE_PATHS = [
-    BASE_DIR / 'base' / 'locale',
+    BASE_DIR / 'locale',
 ]
 
 TIME_ZONE = "UTC"

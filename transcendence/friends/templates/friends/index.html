@@ -9,18 +9,16 @@
 
 	<script src="{% static 'js/api.js' %}" type="module" defer></script>
 	<script src="{% static 'js/websocket.js' %}" type="module" defer></script>
+	<script src="{% static 'js/notifications.js' %}" type="module" defer></script>
 
 
 	<link rel="stylesheet" href="{% static 'styles/index.css' %}">
 	<link rel="stylesheet" href="{% static 'styles/friends.css' %}">
 
 	<script src="{% static 'js/friends.js' %}" type="module" defer></script>
-	<script type="module">
-		import { loadFriends } from "{% static 'js/friends.js'%}"
-		window.onload = function () {
-			loadFriends();
-			console.lof("WASIÏÏ¨")
-		}
+	<script>
+
+
 	</script>
 
 </head>
