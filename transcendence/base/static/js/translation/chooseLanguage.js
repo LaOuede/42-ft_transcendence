@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	languageList.querySelectorAll('li').forEach(function(item) {
 		item.addEventListener('click', function() {
 			const selectedLanguage = this.getAttribute('data-lang');
-			console.log('Selected language:', selectedLanguage);
 			setCurrentLanguage(selectedLanguage);
 			updateLanguage();
 			languageList.style.display = 'none';

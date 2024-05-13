@@ -14,7 +14,6 @@ class FriendList(models.Model):
         Add a new friend
         """
         if not account in self.friends.all():
-            print(f"\033[33m[ DEBUG ] {self.user.username} Added {account.username} as a friend!\033[00m")
             self.friends.add(account)
             self.save()
 
@@ -22,7 +21,6 @@ class FriendList(models.Model):
         """
         Remove a friend
         """
-        print(f"\033[33m[ DEBUG ] {self.user.username} Removed {account.username} from his friend!\033[00m")
         if account in self.friends.all():
             self.friends.remove(account)
 
@@ -36,8 +34,6 @@ class FriendList(models.Model):
 
         others_friend_list = FriendList.objects.get(user=other)
         others_friend_list.remove_friend(self.user)
-
-        print(f"\033[33m[ DEBUG ] {self.user.username} And {other.username} Are no longer friends\033[00m")
 
     def is_friends_with(self, friend):
         # if not self.
@@ -64,8 +60,6 @@ class FriendRequest(models.Model):
         Accept a friend request
         """
 
-        print(f"\033[33m[ DEBUG ] {self.to_user.username} accepted {self.from_user.username}'s friend request\033[00m")
-
         receiver_friend_list = FriendList.objects.get_or_create(user=self.to_user)[0]
         sender_friend_list = FriendList.objects.get_or_create(user=self.from_user)[0]
         receiver_friend_list.add_friend(self.from_user)
@@ -77,8 +71,6 @@ class FriendRequest(models.Model):
         """
         Decline a friend request
         """
-        print(f"\033[33m[ DEBUG ] {self.to_user.username} declined {self.from_user.username}'s friend request\033[00m")
-
         self.is_active = False
         self.save()
 
@@ -86,8 +78,6 @@ class FriendRequest(models.Model):
         """
         Cancle a friend request
         """
-        print(f"\033[33m[ DEBUG ] {self.from_user.username} canceled their request to {self.to_user.username}\033[00m")
-
         self.is_active = False
         self.delete()
 

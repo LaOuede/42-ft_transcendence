@@ -26,7 +26,6 @@ class TokenAuthMiddleware:
     async def __call__(self, scope, receive, send):
 
         user = await self.get_user_from_scope(scope)
-        print("\033[36m", "[DEBUG] Executing custom channel middleware, User: ", user)
         scope["user"] = user
         return await self.app(scope, receive, send)
 

@@ -81,7 +81,6 @@ def UserSettings(request):
 def activateLanguage(request):
 	language_code = request.headers.get('Accept-Language', 'en')
 	translation.activate(language_code)
-	print(f"\033[31m[DEBUG] {language_code}")
 translation.deactivate()
 
 @api_view(['POST'])

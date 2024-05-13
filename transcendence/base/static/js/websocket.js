@@ -1,10 +1,6 @@
 import { loadFriends } from "./friends.js";
 import { showNotification } from "./notifications.js";
 
-export function test(){
-    console.log("Websocket Test import")
-}
-
 export class userStatusWebSocket {
     constructor(url)
     {
@@ -27,7 +23,6 @@ export class userStatusWebSocket {
             this.websocket.onopen = this.onopen.bind(this);
         }
         catch(e) {
-            console.error(`[WebSocket] Error ${e.message}`);
         }
     }
 
@@ -36,12 +31,10 @@ export class userStatusWebSocket {
     }
     
     onopen(e) {
-        console.log("[WebSocket] Connection successful!");
         this.reconnection_attempts = 0;
     }
 
     onmessage(e) {
-        console.log("[WebSocket] Got message: " + e.data);
         refreshUI(JSON.parse(e.data));
     }
 
@@ -62,7 +55,6 @@ export class userStatusWebSocket {
     }
 
     reconnect() {
-        console.log("[WebSocket] Reconnecting WebSocket")
         if (this.ongoingConnection()) {
             this.websocket.close();
         }
@@ -75,28 +67,23 @@ export class userStatusWebSocket {
 
         if (this.reconnection_attempts < 5)
         {
-            console.log(`[WebSocket] Retrying to connect in ${delay} ms`);
             setTimeout(this.connect.bind(this), delay);
             return
         }
         else {
-            console.error("[WebSocket] Connection Failed")
         }
     }
 
     onerror(event) {
-        console.error("[WebSocket] Error: ", err.message);
         // this.attemptReconnection();
 
     }
 
     onclose(event) {
         if (event.wasClean) {
-            console.log(`[WebSocket] Connection closed gracefully.`);
           } else {
             // e.g. server process killed or network down
             // event.code is usually 1006 in this case
-            console.log('[WebSocket] Connection died [code=${event.code}; reason=${event.reason}]');
             this.attemptReconnection();
           }
         // this.attemptReconnection();
@@ -111,11 +98,8 @@ function refreshUI(data)
     }
     else if (data.type === "refresh")
     {
-        console.log("[WEBSOCKET] Got a refresh Message")
         loadFriends()
     }
-    else
-        console.log("NO IDEA")
 }
 
 let instance = new userStatusWebSocket()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-09 17:41+0000\n"
+"POT-Creation-Date: 2024-05-13 19:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: transcendence/friends/views.py:87
+#: friends/views.py:93
 #, python-format
 msgid "You and %(other)s are no longer friends"
-msgstr "Vous et %(other)s n'êtes maintenant plus amis!"
+msgstr "Vous et %(other)s n'êtes plus amis"
 
-#: transcendence/friends/views.py:92
+#: friends/views.py:98
 #, python-format
 msgid "You and %(sender)s are no longer friends"
-msgstr "Vous et %(sender)s n'êtes maintenant plus amis!"
+msgstr "Vous et %(sender)s n'êtes plus amis"
 
-#: transcendence/friends/views.py:108
+#: friends/views.py:114
 msgid "Can't add yourself"
-msgstr "Impossible de vous ajouter vous-même."
+msgstr "Vous et %(sender)s n'êtes plus amis"
 
-#: transcendence/friends/views.py:112
+#: friends/views.py:118
 msgid "Request already sent"
-msgstr "La demande a déjà été envoyée."
+msgstr "Demande déjà envoyée"
 
-#: transcendence/friends/views.py:116
+#: friends/views.py:122
 msgid "Already friends"
-msgstr "Déjà amis."
+msgstr "Déjà amis"
 
-#: transcendence/friends/views.py:127
+#: friends/views.py:133 friends/views.py:139
 #, python-format
-msgid "You are now friends with: %(sender)s!"
-msgstr "Vous êtes maintenant ami(e)s avec : %(sender)s!"
+msgid "You are now friends with: %(user)s!"
+msgstr "Vous êtes maintenant ami avec : %(user)s !"
 
-#: transcendence/friends/views.py:131
+#: friends/views.py:146
 #, python-format
-msgid "You are now friends with: %(receiver)s!"
-msgstr "Vous êtes maintenant ami(e)s avec : %(receiver)s!"
+msgid "New friend request from: %(user)s!"
+msgstr "Nouvelle demande d'ami de : %(user)s !"
 
-#: transcendence/friends/views.py:137
+#: friends/views.py:150
 #, python-format
-msgid "New friend request from: %(sender)s"
-msgstr "Nouvelle demande d'amitié de : %(sender)s"
+msgid "Friend request sent to: %(user)s!"
+msgstr "Demande d'ami envoyée à : %(user)s !"
 
-#: transcendence/friends/views.py:141
-#, python-format
-msgid "Friend request sent to: %(other)s"
-msgstr "Demande d'amitié envoyée à : %(other)s"
-
-#: transcendence/games_history/models.py:28
+#: games_history/models.py:10
 msgid "Rumble"
-msgstr "Castagne"
+msgstr "Rumble"  # Aucune traduction fournie
 
-#: transcendence/games_history/models.py:29
+#: games_history/models.py:11
 msgid "Tournament"
-msgstr "Toi"
+msgstr "Tournoi"  # Traduction fournie
 
-#: transcendence/user/models.py:27
+#: user/models.py:27
 msgid "The Email field must be set"
-msgstr "Le champ Email doit être défini"
+msgstr "Le champ Email doit être renseigné"
 
-#: transcendence/user/serializers.py:20
+#: user/serializers.py:20
 msgid "Username must contain only letters, numbers, and underscores"
-msgstr "Le nom d'utilisateur ne doit contenir que des lettres, des chiffres et des underscores"
+msgstr "Le nom d'utilisateur doit contenir uniquement des lettres, des chiffres et des underscores"
 
-#: transcendence/user/serializers.py:30
+#: user/serializers.py:30
 msgid "Username already exists."
-msgstr "Nom d'utilisateur déjà pris."
+msgstr "Le nom d'utilisateur existe déjà."
 
-#: transcendence/user/serializers.py:35
+#: user/serializers.py:35
 msgid "Email already exists."
-msgstr "Adresse courriel déjà prise."
+msgstr "L'adresse e-mail existe déjà."
 
-#: transcendence/user/views.py:95
+#: user/views.py:95
 msgid "Invalid token"
-msgstr "Token invalide"
-
-#~ msgid "Tournois"
-#~ msgstr "Tournoi"
-
-#~ msgid "The test"
-#~ msgstr "Sans format"
-
-#, python-format
-#~ msgid "Test %(this)s"
-#~ msgstr "FR: %(this)s"
-
-#~ msgid "Enter a valid email address"
-#~ msgstr "Entrez une adresse courriel valide"
+msgstr "Jeton invalide"

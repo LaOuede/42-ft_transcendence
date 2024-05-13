@@ -5,6 +5,8 @@ from time import sleep
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
+from django.utils.translation import activate, gettext as _
+
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
 RESET = "\033[00m"
@@ -22,8 +24,6 @@ class WSConsumer(WebsocketConsumer):
 
     def connect(self):
         user = self.scope.get("user")
-
-        print(GREEN + f"[DEBUG] Connection to WebSocket from {user}" + RESET)
 
         private_group = get_user_private_group(user)
         self.add_to_group(private_group)
@@ -45,7 +45,9 @@ class WSConsumer(WebsocketConsumer):
         if data.get("type") == "ping":
             print(f"[WebSocket] PING from {self.scope.get('user')}" )
 
+
     def notification(self, event):
+        # Get receipient language
         self.send(
             json.dumps(event)
         )
@@ -54,8 +56,6 @@ class WSConsumer(WebsocketConsumer):
         self.send(
             json.dumps(event)
         )
-
-
 
     def add_to_group(self, group_name):
         
