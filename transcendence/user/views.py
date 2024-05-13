@@ -79,7 +79,7 @@ def UserSettings(request):
 	return render(request, "base.html", {"content": "login.html"})
 
 def activateLanguage(request):
-	language_code = request.headers.get('Accept-Language', 'es')
+	language_code = request.headers.get('Accept-Language', 'en')
 	translation.activate(language_code)
 translation.deactivate()
 
