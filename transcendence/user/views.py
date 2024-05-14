@@ -36,7 +36,6 @@ def update_user_status_after_game(user, status):
 
 def get_user_stats(user):
 	games = user.gameplayer_set
-	print(f"\033[31m{games=}")
 	count = games.count()
 	wins = games.filter(is_winner=True).count()
 	losses = count - wins
