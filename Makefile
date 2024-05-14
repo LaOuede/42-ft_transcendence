@@ -1,89 +1,88 @@
-.DEFAULT_GOAL := help
-DOCKER_RUNNING := $(shell docker info > /dev/null 2>&1 && echo true || echo false)
+#------------------------------------------------------------------------------#
+#                          BANNER & COLOR SETTINGS                             #
+#------------------------------------------------------------------------------#
 
-# ---------------------------------------------------------------------------- #
-# Check if docker is running (utility function)
-check_docker_status:
-	@if [ "$(DOCKER_RUNNING)" != "true" ]; then exit 1; fi
+#Banner
+define BANNER
+                   
+$W   _____                                      _                     
+$W  |_   _|                                    | |                    
+$W    | |_ __ __ _ _ __  ___  ___ ___ _ __   __| | ___ _ __   ___ ___ 
+$W    | | '__/ _` | '_ \/ __|/ __/ _ \ '_ \ / _` |/ _ \ '_ \ / __/ _ \ 
+$W    | | | | (_| | | | \__ \ (_|  __/ | | | (_| |  __/ | | | (_|  __/ 
+$W    \_/_|  \__,_|_| |_|___/\___\___|_| |_|\__,_|\___|_| |_|\___\___| 
 
-check_env:
-	@if [ ! -f .env ]; then \
-		echo ".env file is missing."; \
-		exit 1; \
-	fi
-	@bash ./utils/check_env.sh
+$W             Welcome to ft_transcendence - A journey to the stars!
+endef
+export BANNER
 
-help: check_docker_status
-	@if [ "$(CHECK_ENV)" ]; then exit 1; fi
+# Colors settings
+Y = $(shell tput -Txterm setaf 3)
+C = $(shell tput -Txterm setaf 6)
+W = $(shell tput -Txterm setaf 7)
+
+#------------------------------------------------------------------------------#
+#                                  RULES                                       #
+#------------------------------------------------------------------------------#
+
+all: up
+	@echo $Y"$$BANNER"$W
+	@echo "         $W...made by $Cacouture$W, $Cemlamoth$W, $Cfbouchar$W, $Cgle-roux$W" and $Ckmehour$Z
+	@echo "             $W...evaluated by $Y$(USER)\n\n$W"
+
+help:
 	@echo "Usage: make [target]"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-#up: dev # Start the containers in development mode
+# Start the containers
 up:
 	docker compose up -d
 	@echo "--> If you want to populate the database type 'make pop' 🌱."
 
-dev: check_docker_status ## Start the containers in development mode
-	docker compose -f docker compose.yml -f docker compose.dev.yml up -d
-	@read -p "Do you want to seed the database? (y/n) " answer; \
-	if [ "$$answer" = "y" ]; then \
-		$(MAKE) seed; \
-	else \
-		echo "Skipping seed."; \
-	fi
-
-
-#prod: check_docker_status ## Start the containers in production mode
-#	docker compose up -d --build --remove-orphans --force-recreate
-
-down: check_docker_status ## Stop the containers
+down:
 	docker compose down
 
-reup: down up ## Restart the containers
+reup: down up
 
-status: check_docker_status ## Check the status of the containers
+# Check the status of the containers
+status:
 	@docker compose ps
 
 # ---------------------------------------------------------------------------- #
-db: check_docker_status ## Open database shell
-	docker compose -f docker compose.yml up -d postgres
-
-psql: check_docker_status ## Open postgresql shell
-	docker compose exec postgres psql -U postgres -d postgres
-
-# ---------------------------------------------------------------------------- #
-shell-%: check_docker_status ## Open a bash shell in the container
+# Open a bash shell in the container
+shell-%:
 	@docker compose exec $* sh
 
-# ---------------------------------------------------------------------------- #
-# make django commands
 # ---------------------------------------------------------------------------- #
 django:
 	@docker compose exec django python manage.py $*
 
 # ----------------------------------------------------------------------------
-logs: ## Shows logs lively in the container
+# Shows logs lively in the container
+logs:
 	@docker compose logs --follow --tail 100
 
-logs-%: check_docker_status ## Shows logs lively in the selected container
+# Shows logs lively in the selected container
+logs-%:
 	@while true; do docker compose logs --tail 100 --follow $*; sleep 1; done
 
 # ---------------------------------------------------------------------------- #
-rm_images: check_docker_status ## Remove all images
-	@docker compose down --rmi local
-	@echo "All images removed."
-
-clean: check_docker_status ## Stop the containers and remove the volumes
+# Stop the containers and remove the volumes
+clean:
 	-@docker compose rm -svf
 
-fclean: check_docker_status clean	## Stop the containers and remove the volumes and images
+# Stop the containers and remove the volumes and images
+fclean: clean
 	-@docker compose down --rmi local -v
-#-@docker rmi -f $$(docker compose images -q)
+	-@docker volume prune -f 2> /dev/null
 	-@docker rmi -f postgres:13  > /dev/null
+	-@docker rmi -f redis:7  > /dev/null
 
+# Delete all migrations
 delete_migrations:
 	-@find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 
+# Populate database
 pop:
 	@docker compose exec backend python3 transcendence/manage.py populate_db
 
@@ -91,4 +90,4 @@ pop:
 depop:
 	@docker compose exec backend python3 transcendence/manage.py clear_users
 
-.PHONY: up down reup rm_images pop psql prisma seed shell-% logs logs-% check_docker_status check_env help clean fclean
+.PHONY: all up down reup pop shell-% logs logs-% help clean fclean delete_migrations django status
