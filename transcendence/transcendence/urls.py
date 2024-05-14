@@ -16,5 +16,4 @@ urlpatterns = [
 	path("game/", include("games_history.urls")),
 	path("auth/", include("custom_auth.urls")),
 	path("friends/", include("friends.urls")),
-	path("admin/", admin.site.urls, name="admin"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
