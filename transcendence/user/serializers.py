@@ -10,7 +10,7 @@ from friends.utils import broadcast_refresh
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ['id', 'username', 'email', 'activity', 'language', 'avatar', 'twoFA', 'is_active']
+		fields = ['id', 'username', 'email', 'activity', 'language', 'current_language','avatar', 'twoFA', 'is_active']
 		extra_kwargs = {
 			'username': {
 				'required': True,
@@ -48,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
 		instance.email = validated_data.get('email', instance.email)
 		instance.activity = validated_data.get('activity', instance.activity)
 		instance.language = validated_data.get('language', instance.language)
+		instance.current_language = validated_data.get('current_language', instance.current_language)
 		broadcast_refresh()
 
 		instance.save()

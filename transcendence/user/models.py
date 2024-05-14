@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	def natural_key(self):
 		return (self.username,)
-	
+
 	activity_enum = [
 		('ON', 'Online 🟢'),
 		('IG', 'In game 🟣'),
@@ -75,6 +75,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	is_oauth = models.BooleanField(default=False)
 	twoFA = models.BooleanField(default=False)
 	language = models.CharField(max_length=2, choices=language_enum, default='en')
+	current_language = models.CharField(max_length=2, choices=language_enum, default='en')
 
 	# en ce moment les users ont tous les accès. à revoir - Relier à PermissionsMixin
 	groups = models.ManyToManyField(

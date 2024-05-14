@@ -36,7 +36,7 @@ def ws_send_private_message(user, data):
 
 def notify_users(users, message, **kwargs):
     for user in users:
-        translation.activate(user.language)
+        translation.activate(user.current_language)
         translated = str(message % kwargs)
         ws_send_private_message(user, {
             'type': 'notification',
@@ -56,7 +56,7 @@ def broadcast_message(message):
 def getlang(user):
 
     ws_send_private_message(
-        user, 
+        user,
         {
             'type': 'lang',
     })
