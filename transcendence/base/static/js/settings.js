@@ -57,8 +57,7 @@ async function handleUpdateProfile() {
 
   if (!avatarFile && !username && !email && !activity && !language) {
     console.log("No changes detected. No update needed.");
-    let translatedMessage = translate("no_changes")
-    showNotification(translatedMessage);
+    showNotification("no_changes");
     return;
   }
   const formData = new FormData();
@@ -67,8 +66,7 @@ async function handleUpdateProfile() {
   if (avatarFile) {
     const avatarFileType = avatarFile.type;
     if (!avatarFileType.startsWith("image")) {
-      let translatedMessage = translate("invalid_avatar")
-      showNotification(translatedMessage);
+      showNotification("invalid_avatar");
       return;
     }
     formData.append("avatar", avatarFile);
