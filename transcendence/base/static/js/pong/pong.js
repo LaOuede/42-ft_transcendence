@@ -299,7 +299,6 @@ function endOfRound(){
 
 	let is_winner = (gameInfo.winner == gameInfo.nicks[0]);
 	// window.apiHandler.post("game/create/").then(response => console.log(response))
-		console.log("player 1 win")
 		window.apiHandler.post("game/create/", {
 			game_type:gameInfo.gamemode,
 			is_winner,

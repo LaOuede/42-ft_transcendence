@@ -7,13 +7,6 @@ from asgiref.sync import async_to_sync
 
 from django.utils.translation import activate, gettext as _
 
-GREEN = "\033[32m"
-YELLOW = "\033[33m"
-RESET = "\033[00m"
-RED = "\033[31m"
-BLUE = "\033[36m"
-
-
 def get_user_private_group(user):
     return f"private_group_{user.pk}"
 
@@ -33,18 +26,10 @@ class WSConsumer(WebsocketConsumer):
 
     def disconnect(self, code):
         user = self.scope["user"]
-        print(RED + f"[WebSocker] Disconnect User:{user.username} - code:{code}" + RESET)
         self.leave_all_groups()
-
-
 
     def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
-        print(GREEN + "[WebSocket] Recieved : ", data, RESET)
-
-        if data.get("type") == "ping":
-            print(f"[WebSocket] PING from {self.scope.get('user')}" )
-
 
     def notification(self, event):
         # Get receipient language
@@ -58,16 +43,14 @@ class WSConsumer(WebsocketConsumer):
         )
 
     def add_to_group(self, group_name):
-        
+
         self.joined_groups.append(group_name)
-        print(GREEN + f"[WebSocket] {self.scope['user'].username} added to group {group_name}" + RESET)
         async_to_sync(self.channel_layer.group_add)(
             group_name, self.channel_name
         )
 
     def leave_all_groups(self):
         for group in self.joined_groups:
-            print(YELLOW + f"[WebSocket] {self.scope['user'].username} removed from group {group}" + RESET)
             async_to_sync(self.channel_layer.group_discard)(
                 group, self.channel_name
             )

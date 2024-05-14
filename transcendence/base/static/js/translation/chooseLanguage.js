@@ -32,6 +32,7 @@ function setCurrentLanguage(langCode) {
 	} else {
 		localStorage.setItem('currentLanguage', 'en');
 	}
+	window.apiHandler.post('user/update/', {'current_language': langCode || 'en'})
 }
 
 export function getCurrentLanguage() {

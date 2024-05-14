@@ -30,7 +30,7 @@ msgstr "Vous et %(sender)s n'êtes plus amis"
 
 #: friends/views.py:114
 msgid "Can't add yourself"
-msgstr "Vous et %(sender)s n'êtes plus amis"
+msgstr "Vous ne pouvez pas vous ajouter vous-même"
 
 #: friends/views.py:118
 msgid "Request already sent"
