@@ -110,8 +110,8 @@ Through this project, I've gained proficiency in:
 <img width="1506" alt="Screen Shot 2024-05-16 at 9 18 41 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/cea23a00-471e-4cbe-84a6-7d400bf76e70">
 <img width="1502" alt="Screen Shot 2024-05-16 at 9 19 04 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/5e80f8c1-7b99-41b3-b4c9-183d132a5c93">
 <img width="1509" alt="Screen Shot 2024-05-16 at 9 19 27 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/d7e38c39-92ff-41eb-bef8-9723a68b18dc">
-<img width="2560" alt="Screen Shot 2024-05-16 at 9 21 23 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/430094cc-3d01-4c6b-a047-cb7a069a0515">
-<img width="2560" alt="Screen Shot 2024-05-16 at 9 21 34 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/69120b8c-8273-4b0c-9416-e7cb9e2386b1">
+<img width="2276" alt="Screen Shot 2024-05-16 at 9 30 23 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/5b799fe4-d752-4606-89af-56a00f4605e3">
+<img width="2273" alt="Screen Shot 2024-05-16 at 9 29 46 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/483ac6af-8478-4190-8a0a-38c3b986f74c">
 
 ---
 
