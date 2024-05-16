@@ -99,9 +99,23 @@ Through this project, I've gained proficiency in:
   - Employing agile development practices.
   - Managing project tasks and timelines using Git Project.
 
-<div align="center">
+---
+
+<h3 align="left">Overview 🚀</h3>
+
+<img width="1506" alt="Screen Shot 2024-05-16 at 9 15 28 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/82ddcb66-53cc-41a5-afe1-13f8641bbdd5">
+<img width="1503" alt="Screen Shot 2024-05-16 at 9 16 24 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/612014b8-9b42-4a09-aac7-123beff21e0d">
+<img width="1504" alt="Screen Shot 2024-05-16 at 9 17 25 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/b883f5e6-b2f4-46c4-99f3-3ead8c252666">
+<img width="1508" alt="Screen Shot 2024-05-16 at 9 17 54 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/d9cd6a18-0e59-4664-a467-f0930198bd46">
+<img width="1506" alt="Screen Shot 2024-05-16 at 9 18 41 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/cea23a00-471e-4cbe-84a6-7d400bf76e70">
+<img width="1502" alt="Screen Shot 2024-05-16 at 9 19 04 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/5e80f8c1-7b99-41b3-b4c9-183d132a5c93">
+<img width="1509" alt="Screen Shot 2024-05-16 at 9 19 27 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/d7e38c39-92ff-41eb-bef8-9723a68b18dc">
+<img width="2560" alt="Screen Shot 2024-05-16 at 9 21 23 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/430094cc-3d01-4c6b-a047-cb7a069a0515">
+<img width="2560" alt="Screen Shot 2024-05-16 at 9 21 34 AM" src="https://github.com/LaOuede/42-ft_transcendence/assets/114024436/69120b8c-8273-4b0c-9416-e7cb9e2386b1">
 
 ---
+
+<div align="center">
 
 Go to [42 Québec](https://42quebec.com/) to discover the course ! 👈
 </div>
