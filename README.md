@@ -5,8 +5,6 @@
 <h1 align=center>ft_transcendence</h1>
 
 <h3 align=center>
-  
-  _Work in progress..._
 
 </h3>
 
@@ -27,19 +25,19 @@ Go to [42 Québec](https://42quebec.com/) to discover the course ! 👈
 
 <div align="center">
 
-This project is realized as a team effort with [demenciel](https://github.com/demenciel), [TwindZ](https://github.com/TwindZ) and [Prezcoder](https://github.com/Prezcoder) 🚀
+This project has been realized as a team effort with [acouture](https://github.com/demenciel), [emlamoth](https://github.com/TwindZ), [fbouchar](https://github.com/Prezcoder) and [kmehour](https://github.com/Mehourka) 🚀
 
 </div>
 
 ---
 
-<h2 align="left">Setup 🛠️</h2>
+<h3 align="left">Setup 🛠️</h3>
 
 <div align="left">
 
-To launch the project, simply run the `make up` command at the root of the project.
-
-Access Django at: http://localhost:8000/
+To launch the project, simply :
+  - Use the command `make` which is configured in the `Makefile` to start the Docker containers.
+  - Access the Django application at `http://localhost`.
 
 ## Project Structure 📂
 
@@ -65,30 +63,53 @@ The project is structured as follows:
 
 ---
 
-<h2 align="left">Basic Operations 📝</h2>
+<h3 align="left">Implemented Modules 📝</h3>
 
-Here's a brief on the basic operations you can perform:
+- Use a backend framework (Django)
+- Use a database in the backend (PostgreSQL)
+- Standard user management, authentication, users in tournaments
+- Implement remote authentication
+- Multiple players
+- Game customization options
+- Implement two-factor authentication (2FA) and JWT (JSON Web Tokens)
+- Use of advanced 3D techniques (Three.js)
+- Support for multiple languages (en, fr, es)
 
-- **Starting the Project**:
-  - Use the command `make up` which is configured in the `Makefile` to start the Docker containers.
-  - Access the Django application at `http://localhost:8000`.
+---
 
-- **Interacting with the Database**:
-  - The project uses PostgreSQL, and Django is configured for database interaction.
-  - You can access admin page at `http://localhost:8000/admin` and log in using the credentials provided in the `.env` file.
+<h3 align="left">What we've learned 📚</h3>
 
-- **Working with Static Files**:
-  - Place all your CSS, JavaScript, and image assets in the `static/` directory.
-  - Use Django's `{% static '' %}` template tag to include them in your HTML files.
+Through this project, I've gained proficiency in:
+- <b>Full Stack Web Development</b>:
+  - Developing frontend using JavaScript, HTML and CSS and the backend using Django.
+- <b>Real-time Communication</b>:
+  - Implementing websockets for real-time data exchange and live interactions between clients.
+- <b>User Authentication and Security</b>:
+  - Integrating user authentication systems.
+  - Implementing two-factor authentication (2FA).
+  - Secure handling of JSON Web Tokens (JWT) for maintaining user sessions.
+- <b>Database Management</b>:
+  - Designing and managing databases using PostgreSQL.
+  - Ensuring data integrity and security.
+- <b>3D Graphics and Animation</b>:
+  - Using Three.js for rendering 3D graphics in the browser.
+  - Understanding basic principles of 3D modeling and animation.
+- <b>Project Management and Collaboration</b>:
+  - Utilizing version control systems like Git effectively in a team environment.
+  - Employing agile development practices.
+  - Managing project tasks and timelines using Git Project.
 
-- **Rendering Templates**:
-  - Store your HTML templates in the `templates/` directory.
-  - Use Django's `render` function in `views.py` to display these templates in the browser.
+<div align="center">
 
-- **Making Changes**:
-  - After updating the Docker configuration or the `Dockerfile`, rebuild the containers with `make build`.
-  - Use `git` for version control. Commit changes with descriptive messages and push to the repository for collaboration.
+---
 
-Remember to keep your `.env` file secure and do not commit it to the version control system. It contains sensitive data that should not be shared publicly.
+Go to [42 Québec](https://42quebec.com/) to discover the course ! 👈
+</div>
 
-Feel free to update and expand this README as the project evolves.
+---
+
+<div align="center">
+
+This was the last project of the 42 common core!
+</div>
+
