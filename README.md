@@ -32,27 +32,21 @@ To launch the project, simply :
   - Use the command `make` which is configured in the `Makefile` to start the Docker containers.
   - Access the Django application at `http://localhost`.
 
-<h3 align="left">Project Structure 📂</h3>
+---
 
-The project is structured as follows:
+<h3 align="left">Stack 🧰</h3>
 
-- `nginx/`: Contains the configuration files for the Nginx server which acts as a reverse proxy to our Django application.
-- `transcendance/`: The main Django project directory.
-  - `static/`: This directory holds all the static files for the project like CSS, JavaScript, and image files.
-  - `templates/`: Contains the HTML template files. These are the front-end files that will be rendered and sent to the client's browser.
-  - `tools/`: Includes various utility scripts and tools for the project.
-  - `__init__.py`: An empty file that tells Python that this directory should be considered a Python package.
-  - `asgi.py`: Entry-point for ASGI-compatible web servers to serve your project.
-  - `settings.py`: Contains all the configuration for your Django project.
-  - `urls.py`: The URL declarations for this Django project; a “table of contents” of your Django-powered site.
-  - `views.py`: Contains the functions and classes that handle what data is displayed in each HTML template.
-  - `wsgi.py`: An entry-point for WSGI-compatible web servers to serve your project.
-- `.env`: A file to keep all environment variables for the project. This includes secret keys and database configuration.
-- `docker-compose.yml`: A YAML file defining services, networks, and volumes for a Docker application.
-- `Dockerfile`: A text document that contains all the commands a user could call on the command line to assemble an image for Docker.
-- `Makefile`: A simple way to manage the build process, in our case, a collection of shortcuts to manage Docker containers.
-- `manage.py`: A command-line utility that lets you interact with this Django project in various ways.
-- `README.md`: A markdown file containing information about the project setup, usage, and contribution guidelines.
+<div align="left">
+Frontend :
+
+  - JavaScript, HTML, CSS: For creating and styling the user interface.
+  - Three.js: For rendering 3D graphics in the browser.
+
+Backend :
+  - Django: Framework for building robust and scalable server-side applications.
+  - PostgreSQL: Database for managing and storing application data.
+
+</div>
 
 ---
 
